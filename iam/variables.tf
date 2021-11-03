@@ -22,6 +22,14 @@ variable "application_compartment_id" {
   type = string
 }
 
+variable "commoninfra_compartment_name" {
+  type = string
+}
+
+variable "commoninfra_compartment_id" {
+  type = string
+}
+
 variable "network_compartment_name" {
   type        = string
   description = "The name for the Network Compartment"

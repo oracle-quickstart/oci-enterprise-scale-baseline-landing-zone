@@ -27,6 +27,8 @@ module "iam" {
   unique_prefix                = var.unique_prefix
   root_compartment_name        = module.compartment.root_compartment_name
   root_compartment_id          = module.compartment.root_compartment_id
+  commoninfra_compartment_name = module.compartment.commoninfra_compartment_name
+  commoninfra_compartment_id   = module.compartment.commoninfra_compartment_id
   network_compartment_name     = module.compartment.network_compartment_name
   network_compartment_id       = module.compartment.network_compartment_id
   application_compartment_name = module.compartment.application_compartment_name

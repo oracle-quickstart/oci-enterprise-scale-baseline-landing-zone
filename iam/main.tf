@@ -36,6 +36,6 @@ resource "oci_identity_policy" "network_admin_policies" {
     "Description" = "Policy for access to all network resources in Network Compartment"
   }
   statements = [
-    "Allow group ${var.network_admin_group_name} to manage virtual-network-family in compartment ${var.network_compartment_name}"
+    "Allow group ${oci_identity_group.network_admin_group.name} to manage virtual-network-family in compartment ${var.commoninfra_compartment_name}:${var.network_compartment_name}"
   ]
 }
