@@ -33,7 +33,7 @@ module "iam" {
   network_compartment_id       = module.compartment.network_compartment_id
   application_compartment_name = module.compartment.application_compartment_name
   application_compartment_id   = module.compartment.application_compartment_id
-  workload_compartment_name    = module.compartment.workload_compartment_name
+  workload_compartment_name_list = var.workload_compartment_name_list
   depends_on = [
     module.compartment
   ]
