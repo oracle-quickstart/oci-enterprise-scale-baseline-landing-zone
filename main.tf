@@ -13,7 +13,10 @@ provider "oci" {
 # Create IAM resources (policies, groups)
 # ---------------------------------------------------------------------------------------------------------------------
 module "iam" {
-  source           = "./iam"
-  tenancy_ocid     = var.tenancy_ocid
-  unique_prefix    = var.unique_prefix
+  source                   = "./iam"
+  tenancy_ocid             = var.tenancy_ocid
+  unique_prefix            = var.unique_prefix
+  network_compartment_name = var.network_compartment_name
+
+
 }
