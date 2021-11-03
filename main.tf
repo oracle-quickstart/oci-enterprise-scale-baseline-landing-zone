@@ -13,19 +13,25 @@ provider "oci" {
 # Create Compartment resources
 # ---------------------------------------------------------------------------------------------------------------------
 module "compartment" {
-  source                   = "./compartment"
-  tenancy_ocid             = var.tenancy_ocid
-  unique_prefix            = var.unique_prefix
+  source        = "./compartment"
+  tenancy_ocid  = var.tenancy_ocid
+  unique_prefix = var.unique_prefix
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Create IAM resources (policies, groups)
 # ---------------------------------------------------------------------------------------------------------------------
 module "iam" {
-  source                   = "./iam"
-  tenancy_ocid             = var.tenancy_ocid
-  unique_prefix            = var.unique_prefix
-  root_compartment_name    = module.compartment.root_compartment_name
-  network_compartment_name = module.compartment.common_infra_compartment_name
+  source                       = "./iam"
+  tenancy_ocid                 = var.tenancy_ocid
+  unique_prefix                = var.unique_prefix
+  root_compartment_name        = module.compartment.root_compartment_name
+  root_compartment_id          = module.compartment.root_compartment_id
+  network_compartment_name     = module.compartment.network_compartment_name
+  network_compartment_id       = module.compartment.network_compartment_id
   application_compartment_name = module.compartment.application_compartment_name
+  application_compartment_id   = module.compartment.application_compartment_id
+  depends_on = [
+    module.compartment
+  ]
 }

@@ -33,8 +33,3 @@ variable "unique_prefix" {
   type        = string
   description = "Unique prefix with four characters"
 }
-
-variable "network_compartment_name" {
-  type        = string
-  description = "The name for the Network Compartment"
-}

@@ -10,7 +10,15 @@ variable "root_compartment_name" {
   type = string
 }
 
+variable "root_compartment_id" {
+  type = string
+}
+
 variable "application_compartment_name" {
+  type = string
+}
+
+variable "application_compartment_id" {
   type = string
 }
 
@@ -19,7 +27,7 @@ variable "network_compartment_name" {
   description = "The name for the Network Compartment"
 }
 
-variable "network_compartment_ocid"{
+variable "network_compartment_id"{
   type        = string
   description = "The OCID for the Network Compartment"
 }
