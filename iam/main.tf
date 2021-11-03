@@ -20,7 +20,7 @@ resource "oci_identity_group" "administrator_group" {
 }
 
 resource "oci_identity_policy" "administrator_policies" {
-  compartment_id  = oci_identity_compartment.test_compartment.id
+  compartment_id  = var.tenancy_ocid
   description     = "OCI Landing Zone Administrator Tenancy Policy"
   name            = var.administrator_policy_name
   freeform_tags   = {
@@ -42,7 +42,7 @@ resource "oci_identity_group" "network_admin_group" {
 }
 
 resource "oci_identity_policy" "network_admin_policies" {
-  compartment_id  = oci_identity_compartment.test_compartment.id
+  compartment_id  = var.network_compartment_ocid
   description     = "OCI Landing Zone VCN Administrator Policy"
   name            = var.network_admin_policy_name
   freeform_tags   = {
