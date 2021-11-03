@@ -27,7 +27,7 @@ resource "oci_identity_policy" "administrator_policies" {
     "Description" = "Policy for access to all resources in tenancy"
   }
   statements = [
-    "Allow group ${var.administrator_group_name} to manage all-resources in compartment ${var.unique_prefix}_test"
+    "Allow group ${var.administrator_group_name} to manage all-resources in tenancy"
   ]
 }
 
