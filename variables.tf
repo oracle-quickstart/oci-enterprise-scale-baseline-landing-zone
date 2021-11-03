@@ -35,6 +35,7 @@ variable "unique_prefix" {
 }
 
 variable "workload_compartment_name_list" {
-   type       = list(string)
+  type        = list(string)
   description = "Names of the Workload Compartments"
+  default     = ["Workload-A", "Workload-B"]
 }

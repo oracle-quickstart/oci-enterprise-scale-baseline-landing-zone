@@ -31,7 +31,7 @@ variable "application_compartment_name" {
 }
 
 variable "workload_compartment_name_list" {
-  type    = string
+  type = list(string)
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -57,7 +57,7 @@ output "root_compartment_name" {
 resource "oci_identity_compartment" "commoninfra_compartment" {
   compartment_id = oci_identity_compartment.root_compartment.id
   description    = var.commoninfra_compartment_name
-  name           = "${var.commoninfra_compartment_name}"
+  name           = var.commoninfra_compartment_name
 }
 
 output "commoninfra_compartment_name" {
@@ -71,7 +71,7 @@ output "commoninfra_compartment_id" {
 resource "oci_identity_compartment" "network_compartment" {
   compartment_id = oci_identity_compartment.commoninfra_compartment.id
   description    = var.network_compartment_name
-  name           = "${var.network_compartment_name}"
+  name           = var.network_compartment_name
 }
 
 output "network_compartment_name" {
@@ -102,7 +102,7 @@ output "network_compartment_id" {
 resource "oci_identity_compartment" "application_compartment" {
   compartment_id = oci_identity_compartment.root_compartment.id
   description    = var.application_compartment_name
-  name           = "${var.application_compartment_name}"
+  name           = var.application_compartment_name
 }
 
 output "application_compartment_name" {
@@ -114,10 +114,10 @@ output "application_compartment_id" {
 }
 
 resource "oci_identity_compartment" "workload_compartment" {
-  count = length(var.workload_compartment_name_list)
+  count          = length(var.workload_compartment_name_list)
   compartment_id = oci_identity_compartment.application_compartment.id
   description    = var.workload_compartment_name_list[count.index]
-  name           = "${var.workload_compartment_name[count.index]}"
+  name           = var.workload_compartment_name_list[count.index]
 }
 
 output "workload_compartment_name" {
