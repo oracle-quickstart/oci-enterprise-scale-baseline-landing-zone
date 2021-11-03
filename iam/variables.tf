@@ -35,38 +35,41 @@ variable "network_compartment_name" {
   description = "The name for the Network Compartment"
 }
 
-variable "network_compartment_id"{
+variable "network_compartment_id" {
   type        = string
   description = "The OCID for the Network Compartment"
 }
 
 variable "administrator_group_name" {
-  type  = string
+  type    = string
   default = "Administrators"
 }
 
 variable "administrator_policy_name" {
-  type  = string
-  default  = "OCI-LZ-Admin-TenantAdminPolicy"
+  type    = string
+  default = "OCI-LZ-Admin-TenantAdminPolicy"
 }
 
 variable "network_admin_group_name" {
-  type  = string
+  type    = string
   default = "Virtual-Network-Admins"
 }
 
 variable "network_admin_policy_name" {
-  type  = string
-  default  = "OCI-LZ-VCNAdminPolicy"
+  type    = string
+  default = "OCI-LZ-VCNAdminPolicy"
 }
 
 variable "lb_users_group_name" {
-  type  = string
+  type    = string
   default = "LBUsers"
 }
 
 variable "workload_compartment_name_list" {
-   type       = list(string)
+  type        = list(string)
   description = "Names of the Workload Compartments"
 }
 
+variable "break_glass_username_list" {
+  type = list(string)
+}

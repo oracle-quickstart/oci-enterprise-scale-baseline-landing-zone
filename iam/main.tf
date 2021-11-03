@@ -50,7 +50,7 @@ resource "oci_identity_group" "lb_users_group" {
 }
 
 resource "oci_identity_policy" "lb_users_policies" {
-  count = length(var.workload_compartment_name_list)
+  count          = length(var.workload_compartment_name_list)
   compartment_id = var.root_compartment_id
   description    = "OCI Landing Zone Load Balancer User Policy"
   name           = "OCI-LZ-${var.workload_compartment_name_list[count.index]}-LBUserPolicy"
@@ -62,4 +62,13 @@ resource "oci_identity_policy" "lb_users_policies" {
     "Allow group ${oci_identity_group.lb_users_group.name} to manage load-balancers in compartment ${var.commoninfra_compartment_name}:${var.network_compartment_name}"
 
   ]
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# users
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_identity_user_group_membership" "administrator_group_membership" {
+  count    = length(data.oci_identity_users.break_glass_users)
+  group_id = oci_identity_group.administrator_group.id
+  user_id  = data.oci_identity_users.break_glass_users[count.index].users[0].id
 }

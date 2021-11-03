@@ -39,3 +39,8 @@ variable "workload_compartment_name_list" {
   description = "Names of the Workload Compartments"
   default     = ["Workload-A", "Workload-B"]
 }
+
+variable "break_glass_username_list" {
+  type        = list(string)
+  default     = ["test_user_1", "test_user_2"]
+}

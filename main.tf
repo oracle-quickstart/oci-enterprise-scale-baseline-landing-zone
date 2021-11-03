@@ -10,7 +10,15 @@ provider "oci" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# Create Compartment resources
+# Create users
+# ---------------------------------------------------------------------------------------------------------------------
+module "users" {
+  source                         = "./users"
+  tenancy_ocid                   = var.tenancy_ocid
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Create Compartment 
 # ---------------------------------------------------------------------------------------------------------------------
 module "compartment" {
   source                         = "./compartment"
@@ -35,6 +43,7 @@ module "iam" {
   application_compartment_name   = module.compartment.application_compartment_name
   application_compartment_id     = module.compartment.application_compartment_id
   workload_compartment_name_list = var.workload_compartment_name_list
+  break_glass_username_list      = var.break_glass_username_list
   depends_on = [
     module.compartment
   ]
