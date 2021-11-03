@@ -6,9 +6,9 @@ terraform {
   }
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Create application compartment under parent compartment
-# ---------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 resource "oci_identity_compartment" "applications_compartment" {
   compartment_id  = var.parent_compartment_ocid
   description     = "Applications Compartment"
@@ -21,6 +21,6 @@ resource "oci_identity_compartment" "applications_compartment" {
 }
 
 resource "time_sleep" "wait_90_seconds" {
-  depends_on = [oci_identity_compartment.applications_compartment]
+  depends_on      = [oci_identity_compartment.applications_compartment]
   create_duration = "90s"
 }

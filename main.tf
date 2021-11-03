@@ -1,35 +1,6 @@
-data "oci_identity_region_subscriptions" "regions" {
-    tenancy_id = var.tenancy_ocid
-}
-
-locals {
-  region_subscriptions = data.oci_identity_region_subscriptions.regions.region_subscriptions
-  home_region = [for region in local.region_subscriptions : region.region_name if region.is_home_region == true]
-}
-
-# ---------------------------------------------------------------------------------------------------------------------
-# Provider blocks for home region and alternate region(s)
-# ---------------------------------------------------------------------------------------------------------------------
-provider "oci" {
-  tenancy_ocid     = var.tenancy_ocid
-  user_ocid        = var.current_user_ocid
-  fingerprint      = var.api_fingerprint
-  private_key_path = var.api_private_key_path
-  region           = var.region
-}
-
-provider "oci" {
-  alias            = "home_region"
-  tenancy_ocid     = var.tenancy_ocid
-  user_ocid        = var.current_user_ocid
-  fingerprint      = var.api_fingerprint
-  private_key_path = var.api_private_key_path
-  region           = local.home_region[0]
-}
-
-# ---------------------------------------------------------------------------------------------------------------------
-# Create Compartment Resources
-# ---------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# Create Parent compartment, for top level organization
+# -----------------------------------------------------------------------------
 module "parent-compartment" {
   source           = "./identity-compartments/parent-compartment"
   tenancy_ocid     = var.tenancy_ocid
@@ -41,6 +12,9 @@ module "parent-compartment" {
   }
 }
 
+# -----------------------------------------------------------------------------
+# Create compartment for common infrastructure compartments
+# -----------------------------------------------------------------------------
 module "common-infra-compartment" {
   source                  = "./identity-compartments/common-infra-compartment"
   parent_compartment_ocid = module.parent-compartment.parent_compartment_id
@@ -53,6 +27,9 @@ module "common-infra-compartment" {
   depends_on = [ module.parent-compartment ]
 }
 
+# -----------------------------------------------------------------------------
+# Create compartment for application compartments
+# -----------------------------------------------------------------------------
 module "applications-compartment" {
   source                  = "./identity-compartments/applications-compartment"
   parent_compartment_ocid = module.parent-compartment.parent_compartment_id
@@ -65,6 +42,9 @@ module "applications-compartment" {
   depends_on = [ module.parent-compartment ]
 }
 
+# -----------------------------------------------------------------------------
+# Create compartment for network components
+# -----------------------------------------------------------------------------
 module "network-compartment" {
   source                        = "./identity-compartments/network-compartment"
   common_infra_compartment_ocid = module.common-infra-compartment.common_infra_compartment_id
@@ -77,6 +57,9 @@ module "network-compartment" {
   depends_on = [ module.common-infra-compartment ]
 }
 
+# -----------------------------------------------------------------------------
+# Create compartment for security components
+# -----------------------------------------------------------------------------
 module "security-compartment" {
   source                        = "./identity-compartments/security-compartment"
   common_infra_compartment_ocid = module.common-infra-compartment.common_infra_compartment_id
@@ -89,6 +72,9 @@ module "security-compartment" {
   depends_on = [ module.common-infra-compartment ]
 }
 
+# -----------------------------------------------------------------------------
+# Create compartment(s) for application specific workloads
+# -----------------------------------------------------------------------------
 module "workload-compartment" {
   for_each                      = toset(var.workload_compartment_names)
   compartment_name              = each.value
@@ -99,5 +85,5 @@ module "workload-compartment" {
   providers                     = {
     oci = oci.home_region
   }
-  depends_on = [ module.common-infra-compartment ]
+  depends_on = [ module.applications-compartment ]
 }

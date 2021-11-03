@@ -1,6 +1,6 @@
-# ---------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Required inputs
-# ---------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 variable "parent_compartment_ocid" {
   type        = string
   description = "The OCID of the parent compartment"
@@ -12,7 +12,7 @@ variable "compartment_name" {
 }
 
 variable "tag_cost_center" {
-  type       = string
+  type        = string
   description = "Cost center to charge for OCI resources"
 }
 

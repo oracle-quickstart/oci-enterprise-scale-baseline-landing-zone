@@ -6,9 +6,9 @@ terraform {
   }
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Create common infra compartment under parent compartment
-# ---------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 resource "oci_identity_compartment" "common_infra_compartment" {
   compartment_id  = var.parent_compartment_ocid
   description     = "Common Infra Compartment"
@@ -21,6 +21,6 @@ resource "oci_identity_compartment" "common_infra_compartment" {
 }
 
 resource "time_sleep" "wait_90_seconds" {
-  depends_on = [oci_identity_compartment.common_infra_compartment]
+  depends_on      = [oci_identity_compartment.common_infra_compartment]
   create_duration = "90s"
 }

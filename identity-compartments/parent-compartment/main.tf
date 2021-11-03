@@ -6,13 +6,14 @@ terraform {
   }
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Create parent compartment under root compartment
-# ---------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 resource "oci_identity_compartment" "parent_compartment" {
   compartment_id  = var.tenancy_ocid
   description     = "Parent Compartment"
   name            = var.compartment_name
+
   freeform_tags = {
     "Description" = "Parent Compartment",
     "CostCenter"  = var.tag_cost_center,
@@ -20,8 +21,7 @@ resource "oci_identity_compartment" "parent_compartment" {
   }
 }
 
-
 resource "time_sleep" "wait_90_seconds" {
-  depends_on = [oci_identity_compartment.parent_compartment]
+  depends_on      = [oci_identity_compartment.parent_compartment]
   create_duration = "90s"
 }

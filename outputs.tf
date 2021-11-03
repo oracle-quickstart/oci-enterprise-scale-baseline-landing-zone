@@ -1,3 +1,7 @@
+# -----------------------------------------------------------------------------
+# Output workload compartment OCIDs
+# -----------------------------------------------------------------------------
 output "workload_compartment_ocids" {
-  value = [ for workload in module.workload-compartment : workload.workload_compartment_id]
+  description = "Workload compartments to deploy applications to"
+  value       = module.workload-compartment[*]
 }
