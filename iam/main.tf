@@ -10,7 +10,7 @@ resource "oci_identity_group" "administrator_group" {
 resource "oci_identity_policy" "administrator_policies" {
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Administrator Tenancy Policy"
-  name           = var.administrator_policy_name
+  name           = "${var.unique_prefix}_${var.administrator_policy_name}"
   freeform_tags = {
     "Description" = "Policy for access to all resources in tenancy"
   }
@@ -57,8 +57,8 @@ resource "oci_identity_policy" "lb_users_policies" {
     "Description" = "Policy for access to all components in Load-balancing and use network family in Network compartment"
   }
   statements = [
-    "Allow group ${var.network_admin_group_name} to use virtual-network-family in compartment ${var.network_compartment_name}",
-    "Allow group ${var.network_admin_group_name} to manage load-balancers in compartment ${var.network_compartment_name}"
+    "Allow group ${oci_identity_group.lb_users_group.name} to use virtual-network-family in compartment ${var.commoninfra_compartment_name}:${var.network_compartment_name}",
+    "Allow group ${oci_identity_group.lb_users_group.name} to manage load-balancers in compartment ${var.commoninfra_compartment_name}:${var.network_compartment_name}"
 
   ]
 }
