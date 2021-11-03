@@ -41,7 +41,7 @@ resource "oci_identity_group" "network_admin_group" {
     name = var.network_admin_group_name
 }
 
-resource "oci_identity_policy" "administrator_policies" {
+resource "oci_identity_policy" "network_admin_policies" {
   compartment_id  = oci_identity_compartment.test_compartment.id
   description     = "OCI Landing Zone VCN Administrator Policy"
   name            = var.network_admin_policy_name
