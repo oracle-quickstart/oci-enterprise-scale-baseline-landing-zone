@@ -23,13 +23,13 @@ resource "oci_identity_group" "administrator_group" {
 }
 
 resource "oci_identity_policy" "administrator_policies" {
-  compartment_id  = var.tenancy_ocid
+  compartment_id  = oci_identity_compartment.test_compartment.id
   description     = "Administrator group policies"
   name            = var.administrator_policies_name
   freeform_tags   = {
     "Description" = "Policy for access to all resources in tenancy"
   }
   statements = [
-    "Allow group ${var.administrator_group_name} to manage all-resources in tenancy"
+    "Allow group ${var.administrator_group_name} to manage all-resources in compartment ${var.unique_prefix}_test"
   ]
 }
