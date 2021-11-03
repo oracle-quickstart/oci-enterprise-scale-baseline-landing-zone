@@ -50,9 +50,10 @@ resource "oci_identity_group" "lb_users_group" {
 }
 
 resource "oci_identity_policy" "lb_users_policies" {
+  count = length(var.workload_compartment_name_list)
   compartment_id = var.root_compartment_id
   description    = "OCI Landing Zone Load Balancer User Policy"
-  name           = "OCI-LZ-${var.workload_compartment_name}-LBUserPolicy"
+  name           = "OCI-LZ-${var.workload_compartment_name_list[count.index]}-LBUserPolicy"
   freeform_tags = {
     "Description" = "Policy for access to all components in Load-balancing and use network family in Network compartment"
   }

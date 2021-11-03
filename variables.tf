@@ -33,3 +33,8 @@ variable "unique_prefix" {
   type        = string
   description = "Unique prefix with four characters"
 }
+
+variable "workload_compartment_name_list" {
+   type       = list(string)
+  description = "Names of the Workload Compartments"
+}

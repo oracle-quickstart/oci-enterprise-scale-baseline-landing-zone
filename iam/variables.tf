@@ -65,8 +65,8 @@ variable "lb_users_group_name" {
   default = "LBUsers"
 }
 
-variable "workload_compartment_name" {
-   type       = string
-  description = "Name of the Workload Compartment"
+variable "workload_compartment_name_list" {
+   type       = list(string)
+  description = "Names of the Workload Compartments"
 }
 
