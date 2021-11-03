@@ -1,5 +1,18 @@
-variable "unique_prefix" {}
-variable "tenancy_ocid" {}
+variable "unique_prefix" {
+
+}
+
+variable "tenancy_ocid" {
+
+}
+
+variable "root_compartment_name" {
+  type = string
+}
+
+variable "application_compartment_name" {
+  type = string
+}
 
 variable "network_compartment_name" {
   type        = string
