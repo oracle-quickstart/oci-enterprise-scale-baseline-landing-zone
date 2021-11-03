@@ -1,9 +1,9 @@
 # -----------------------------------------------------------------------------
 # Required inputs
 # -----------------------------------------------------------------------------
-variable "common_infra_compartment_ocid" {
+variable "applications_compartment_ocid" {
   type        = string
-  description = "The OCID of the common infra compartment"
+  description = "The OCID of the applications compartment"
 }
 
 variable "compartment_name" {

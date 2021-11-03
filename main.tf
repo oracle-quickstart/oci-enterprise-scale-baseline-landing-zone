@@ -79,7 +79,7 @@ module "workload-compartment" {
   for_each                      = toset(var.workload_compartment_names)
   compartment_name              = each.value
   source                        = "./identity-compartments/workload-compartment"
-  common_infra_compartment_ocid = module.applications-compartment.applications_compartment_id
+  applications_compartment_ocid = module.applications-compartment.applications_compartment_id
   tag_geo_location              = var.tag_geo_location
   tag_cost_center               = var.tag_cost_center
   providers                     = {

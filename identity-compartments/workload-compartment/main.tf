@@ -10,7 +10,7 @@ terraform {
 # Create workload compartment under parent compartment
 # -----------------------------------------------------------------------------
 resource "oci_identity_compartment" "workload_compartment" {
-  compartment_id  = var.common_infra_compartment_ocid
+  compartment_id  = var.applications_compartment_ocid
   description     = "Compartment for ${var.compartment_name} workload"
   name            = var.compartment_name
 
