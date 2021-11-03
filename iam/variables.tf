@@ -19,6 +19,11 @@ variable "network_compartment_name" {
   description = "The name for the Network Compartment"
 }
 
+variable "network_compartment_ocid"{
+  type        = string
+  description = "The OCID for the Network Compartment"
+}
+
 variable "administrator_group_name" {
   type  = string
   default = "Administrators"
