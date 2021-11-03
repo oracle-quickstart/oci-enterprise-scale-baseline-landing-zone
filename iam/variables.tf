@@ -59,3 +59,14 @@ variable "network_admin_policy_name" {
   type  = string
   default  = "OCI-LZ-VCNAdminPolicy"
 }
+
+variable "lb_users_group_name" {
+  type  = string
+  default = "LBUsers"
+}
+
+variable "workload_compartment_name" {
+   type       = string
+  description = "Name of the Workload Compartment"
+}
+

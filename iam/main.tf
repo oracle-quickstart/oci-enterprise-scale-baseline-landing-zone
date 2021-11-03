@@ -39,3 +39,26 @@ resource "oci_identity_policy" "network_admin_policies" {
     "Allow group ${oci_identity_group.network_admin_group.name} to manage virtual-network-family in compartment ${var.commoninfra_compartment_name}:${var.network_compartment_name}"
   ]
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# IAM Group and Policies LB Users
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_identity_group" "lb_users_group" {
+  compartment_id = var.tenancy_ocid
+  description    = "OCI Landing Zone Load Balancer Users - manage all components in Load-balancing"
+  name           = "${var.unique_prefix}_${var.lb_users_group_name}"
+}
+
+resource "oci_identity_policy" "lb_users_policies" {
+  compartment_id = var.root_compartment_id
+  description    = "OCI Landing Zone Load Balancer User Policy"
+  name           = "OCI-LZ-${var.workload_compartment_name}-LBUserPolicy"
+  freeform_tags = {
+    "Description" = "Policy for access to all components in Load-balancing and use network family in Network compartment"
+  }
+  statements = [
+    "Allow group ${var.network_admin_group_name} to use virtual-network-family in compartment ${var.network_compartment_name}",
+    "Allow group ${var.network_admin_group_name} to manage load-balancers in compartment ${var.network_compartment_name}"
+
+  ]
+}
