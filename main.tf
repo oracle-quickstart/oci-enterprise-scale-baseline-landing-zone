@@ -106,9 +106,5 @@ module "vcn" {
   database_subnet_cidr_block       = var.database_subnet_cidr_block
   shared_service_subnet_cidr_block = var.shared_service_subnet_cidr_block
   shared_service_subnet_dns_label  = var.shared_service_subnet_dns_label
-
-  providers                        = {
-    oci = oci.home_region
-  }
   depends_on = [ module.network-compartment ]
 }

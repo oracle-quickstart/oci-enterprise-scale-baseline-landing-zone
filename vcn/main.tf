@@ -1,8 +1,8 @@
 locals {
   workload-list = flatten([
-    for name in var.workload_compartment_names: [
+    for name in var.workload_compartment_names: {
       name = name
-    ]
+    }
   ])
 }
 

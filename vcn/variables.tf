@@ -3,6 +3,16 @@ variable "compartment_ocid" {
   description = "Network compartment ocid"
 }
 
+variable "region_key" {
+  type        = string
+  description = "Region Key"
+}
+
+variable "workload_compartment_names" {
+  type        = list(string)
+  description = "List of application workload compartment names"
+}
+
 variable "vcn_cidr_block" {
   type        = string
   description = "Primary VCN CIDR Block"
