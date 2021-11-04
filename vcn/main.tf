@@ -53,7 +53,7 @@ resource "oci_core_subnet" "database_subnet" {
 
 resource "oci_core_subnet" "fss_subnet" {
   cidr_block                 = var.shared_service_subnet_cidr_block
-  display_name               = "OCI-LZ-private-${local.workload-list[count.index].name}-${var.region_key}-subnet"
+  display_name               = "OCI-LZ-private-fss-subnet"
   dns_label                  = var.shared_service_subnet_dns_label
   compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_vcn.primary_vcn.id
