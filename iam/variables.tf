@@ -1,24 +1,11 @@
 variable "unique_prefix" {
 
 }
-
 variable "tenancy_ocid" {
 
 }
 
-variable "root_compartment_name" {
-  type = string
-}
-
 variable "root_compartment_id" {
-  type = string
-}
-
-variable "application_compartment_name" {
-  type = string
-}
-
-variable "application_compartment_id" {
   type = string
 }
 
@@ -26,18 +13,9 @@ variable "commoninfra_compartment_name" {
   type = string
 }
 
-variable "commoninfra_compartment_id" {
-  type = string
-}
-
 variable "network_compartment_name" {
   type        = string
   description = "The name for the Network Compartment"
-}
-
-variable "network_compartment_id" {
-  type        = string
-  description = "The OCID for the Network Compartment"
 }
 
 variable "administrator_group_name" {

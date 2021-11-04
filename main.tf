@@ -95,18 +95,16 @@ module "iam" {
   source                         = "./iam"
   tenancy_ocid                   = var.tenancy_ocid
   unique_prefix                  = var.unique_prefix
-  root_compartment_name          = keys(module.parent-compartment.parent_compartment_id)[0]
   root_compartment_id            = module.parent-compartment.parent_compartment_id
-  commoninfra_compartment_name   = keys(module.common-infra-compartment.common_infra_compartment_id)[0]
-  commoninfra_compartment_id     = module.common-infra-compartment.common_infra_compartment_id
-  network_compartment_name       = keys(module.network-compartment.network_compartment_id)[0]
-  network_compartment_id         = module.network-compartment.network_compartment_id
-  application_compartment_name   = keys(module.applications-compartment.applications_compartment_id)[0]
-  application_compartment_id     = module.applications-compartment.applications_compartment_id
- #workload_compartment_name_list = var.workload_compartment_name_list
-  workload_compartment_name_list = keys(module.workload-compartment.workload_compartment_ocids)
+  commoninfra_compartment_name   = var.common_infra_compartment_name
+  network_compartment_name       = var.network_compartment_name
+  workload_compartment_name_list = var.workload_compartment_names
   break_glass_username_list      = var.break_glass_username_list
   depends_on = [
     module.workload-compartment
   ]
+}
+
+output "hi" {
+  value = module.iam.hi
 }
