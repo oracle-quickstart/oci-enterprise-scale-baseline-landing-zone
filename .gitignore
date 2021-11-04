@@ -1,2 +1,24 @@
+*.exe
+.DS_Store
 
-*.tfstate*
+*.log
+*.bak
+*.backup
+*~
+.*.swp
+
+bin/
+modules-dev/
+pkg/
+vendor/
+
+.idea
+.vscode
+
+.env
+./*.tfstate
+.terraform
+.terraform.lock.hcl
+terraform.tfplan
+terraform.tfstate
+terraform.tfvars
