@@ -1,5 +1,5 @@
 data "oci_identity_users" "break_glass_users" {
-  count          = length(var.break_glass_username_list)
+  for_each       = toset(var.break_glass_username_list)
   compartment_id = var.tenancy_ocid
-  name           = var.break_glass_username_list[count.index]
+  name           = each.value
 }
