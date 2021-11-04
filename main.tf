@@ -89,14 +89,14 @@ module "workload-compartment" {
 }
 
 # -----------------------------------------------------------------------------
-# Create VCN
+# Create VCN and subnets
 # -----------------------------------------------------------------------------
 module "vcn" {
   source                           = "./vcn"
   compartment_ocid                 = module.network-compartment.network_compartment_id
   vcn_cidr_block                   = var.vcn_cidr_block
   vcn_dns_label                    = var.vcn_dns_label
-  region_key                       = data.oci_identity_region_subscriptions.region.region_key
+  region_key                       = local.region_key[0]
   workload_compartment_names       = var.workload_compartment_names
   public_subnet_cidr_block         = var.public_subnet_cidr_block
   public_subnet_dns_label          = var.public_subnet_dns_label

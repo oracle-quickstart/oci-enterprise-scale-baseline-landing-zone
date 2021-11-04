@@ -1,7 +1,6 @@
 variable "vcn_cidr_block" {
   type        = string
   description = "Primary VCN CIDR Block"
-  default     = "10.0.0.0/16"
 }
 
 variable "vcn_dns_label" {
@@ -12,7 +11,6 @@ variable "vcn_dns_label" {
 variable "public_subnet_cidr_block" {
   type        = string
   description = "Public Subnet CIDR Block"
-  default     = "10.0.1.0/24"
 }
 
 variable "public_subnet_dns_label" {
@@ -21,31 +19,28 @@ variable "public_subnet_dns_label" {
 }
 
 variable "private_subnet_cidr_block" {
-  type        = string
-  description = "Private Subnet CIDR Block"
-  default     = "10.0.2.0/24"
+  type        = list(string)
+  description = "List of Private Subnet CIDR Block"
 }
 
 variable "private_subnet_dns_label" {
-  type        = string
-  description = "Private Subnet DNS Label"
+  type        = list(string)
+  description = "List of Private Subnet DNS Label"
 }
 
 variable "database_subnet_cidr_block" {
-  type        = string
-  description = "Database Subnet CIDR Block"
-  default     = "10.0.3.0/24"
+  type        = list(string)
+  description = "List of Database Subnet CIDR Block"
 }
 
 variable "database_subnet_dns_label" {
-  type        = string
-  description = "Database Subnet DNS Label"
+  type        = list(string)
+  description = "List of Database Subnet DNS Label"
 }
 
 variable "shared_service_subnet_cidr_block" {
   type        = string
   description = "Shared Service Subnet CIDR Block"
-  default     = "10.0.4.0/24"
 }
 
 variable "shared_service_subnet_dns_label" {
