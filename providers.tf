@@ -2,7 +2,7 @@
 # Support for multi-region deployments
 # -----------------------------------------------------------------------------
 data "oci_identity_region_subscriptions" "regions" {
-    tenancy_id = var.tenancy_ocid
+  tenancy_id = var.tenancy_ocid
 }
 
 locals {

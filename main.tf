@@ -87,3 +87,28 @@ module "workload-compartment" {
   }
   depends_on = [ module.applications-compartment ]
 }
+
+# -----------------------------------------------------------------------------
+# Create VCN
+# -----------------------------------------------------------------------------
+module "vcn" {
+  source                           = "./vcn"
+  compartment_ocid                 = module.network-compartment.network_compartment_id
+  vcn_cidr_block                   = var.vcn_cidr_block
+  vcn_dns_label                    = var.vcn_dns_label
+  region_key                       = data.oci_identity_region_subscriptions.region.region_key
+  workload_compartment_names       = var.workload_compartment_names
+  public_subnet_cidr_block         = var.public_subnet_cidr_block
+  public_subnet_dns_label          = var.public_subnet_dns_label
+  private_subnet_cidr_block        = var.private_subnet_cidr_block
+  private_subnet_dns_label         = var.private_subnet_dns_label
+  database_subnet_dns_label        = var.database_subnet_dns_label
+  database_subnet_cidr_block       = var.database_subnet_cidr_block
+  shared_service_subnet_cidr_block = var.shared_service_subnet_cidr_block
+  shared_service_subnet_dns_label  = var.shared_service_subnet_dns_label
+
+  providers                        = {
+    oci = oci.home_region
+  }
+  depends_on = [ module.network-compartment ]
+}
