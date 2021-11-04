@@ -50,10 +50,10 @@ resource "oci_identity_group" "lb_users_group" {
 }
 
 resource "oci_identity_policy" "lb_users_policies" {
-  count          = length(var.workload_compartment_name_list)
+  for_each       = toset(var.workload_compartment_name_list)
   compartment_id = var.root_compartment_id
   description    = "OCI Landing Zone Load Balancer User Policy"
-  name           = "OCI-LZ-${var.workload_compartment_name_list[count.index]}-LBUserPolicy"
+  name           = "OCI-LZ-${each.value}-LBUserPolicy"
   freeform_tags = {
     "Description" = "Policy for access to all components in Load-balancing and use network family in Network compartment"
   }
@@ -68,7 +68,7 @@ resource "oci_identity_policy" "lb_users_policies" {
 # users
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_user_group_membership" "administrator_group_membership" {
-  count    = length(data.oci_identity_users.break_glass_users)
+  for_each = toset(data.oci_identity_users.break_glass_users)
   group_id = oci_identity_group.administrator_group.id
-  user_id  = data.oci_identity_users.break_glass_users[count.index].users[0].id
+  user_id  = each.value.users[0].id
 }
