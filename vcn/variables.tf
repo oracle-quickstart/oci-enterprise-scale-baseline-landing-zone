@@ -1,3 +1,6 @@
+# -----------------------------------------------------------------------------
+# Required inputs
+# -----------------------------------------------------------------------------
 variable "compartment_ocid" {
   type        = string
   description = "Network compartment ocid"
