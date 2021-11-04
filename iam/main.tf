@@ -29,14 +29,14 @@ resource "oci_identity_group" "network_admin_group" {
 }
 
 resource "oci_identity_policy" "network_admin_policies" {
-  compartment_id = var.root_compartment_id
+  compartment_id = var.parent_compartment_id
   description    = "OCI Landing Zone VCN Administrator Policy"
   name           = var.network_admin_policy_name
   freeform_tags = {
     "Description" = "Policy for access to all network resources in Network Compartment"
   }
   statements = [
-    "Allow group ${oci_identity_group.network_admin_group.name} to manage virtual-network-family in compartment ${var.commoninfra_compartment_name}:${var.network_compartment_name}"
+    "Allow group ${oci_identity_group.network_admin_group.name} to manage virtual-network-family in compartment ${var.common_infra_compartment_name}:${var.network_compartment_name}"
   ]
 }
 
@@ -51,24 +51,15 @@ resource "oci_identity_group" "lb_users_group" {
 
 resource "oci_identity_policy" "lb_users_policies" {
   for_each       = toset(var.workload_compartment_name_list)
-  compartment_id = var.root_compartment_id
+  compartment_id = var.parent_compartment_id
   description    = "OCI Landing Zone Load Balancer User Policy"
   name           = "OCI-LZ-${each.value}-LBUserPolicy"
   freeform_tags = {
     "Description" = "Policy for access to all components in Load-balancing and use network family in Network compartment"
   }
   statements = [
-    "Allow group ${oci_identity_group.lb_users_group.name} to use virtual-network-family in compartment ${var.commoninfra_compartment_name}:${var.network_compartment_name}",
-    "Allow group ${oci_identity_group.lb_users_group.name} to manage load-balancers in compartment ${var.commoninfra_compartment_name}:${var.network_compartment_name}"
+    "Allow group ${oci_identity_group.lb_users_group.name} to use virtual-network-family in compartment ${var.common_infra_compartment_name}:${var.network_compartment_name}",
+    "Allow group ${oci_identity_group.lb_users_group.name} to manage load-balancers in compartment ${var.common_infra_compartment_name}:${var.network_compartment_name}"
 
   ]
-}
- 
-# ---------------------------------------------------------------------------------------------------------------------
-# Breakglass user group membership
-# ---------------------------------------------------------------------------------------------------------------------
-resource "oci_identity_user_group_membership" "administrator_group_membership" {
-  for_each = data.oci_identity_users.break_glass_users
-  group_id = oci_identity_group.administrator_group.id
-  user_id  = each.value.users[0].id
 }

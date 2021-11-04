@@ -95,12 +95,11 @@ module "iam" {
   source                         = "./iam"
   tenancy_ocid                   = var.tenancy_ocid
   unique_prefix                  = var.unique_prefix
-  root_compartment_id            = module.parent-compartment.parent_compartment_id
-  commoninfra_compartment_name   = var.common_infra_compartment_name
+  parent_compartment_id            = module.parent-compartment.parent_compartment_id
+  common_infra_compartment_name  = var.common_infra_compartment_name
   network_compartment_name       = var.network_compartment_name
   workload_compartment_name_list = var.workload_compartment_names
-  break_glass_username_list      = var.break_glass_username_list
   depends_on = [
-    module.workload-compartment
+    module.parent-compartment, module.common-infra-compartment, module.network-compartment, module.workload-compartment
   ]
 }
