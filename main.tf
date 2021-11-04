@@ -104,7 +104,3 @@ module "iam" {
     module.workload-compartment
   ]
 }
-
-output "hi" {
-  value = module.iam.hi
-}
