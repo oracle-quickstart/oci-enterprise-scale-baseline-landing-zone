@@ -1,3 +1,12 @@
+
+locals {
+  users = flatten([
+    for users_key, users in data.oci_identity_users.break_glass_users: [
+      users.users[0].id # for user in users.users:[user.id]
+    ]
+  ])
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # IAM Group and Policies for Administrators
 # ---------------------------------------------------------------------------------------------------------------------
@@ -68,7 +77,7 @@ resource "oci_identity_policy" "lb_users_policies" {
 # users
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_user_group_membership" "administrator_group_membership" {
-  for_each = toset(data.oci_identity_users.break_glass_users)
+  for_each = toset(local.users)
   group_id = oci_identity_group.administrator_group.id
-  user_id  = each.value.users[0].id
+  user_id  = each.value
 }
