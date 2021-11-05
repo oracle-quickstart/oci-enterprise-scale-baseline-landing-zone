@@ -24,22 +24,22 @@ variable "public_subnet_dns_label" {
 
 variable "private_subnet_cidr_blocks" {
   type        = list(string)
-  description = "List of Private Subnet CIDR Block"
+  description = "List of Private Subnet CIDR Block (one per workload)"
 }
 
 variable "private_subnet_dns_labels" {
   type        = list(string)
-  description = "List of Private Subnet DNS Label"
+  description = "List of Private Subnet DNS Label (one per workload)"
 }
 
 variable "database_subnet_cidr_blocks" {
   type        = list(string)
-  description = "List of Database Subnet CIDR Block"
+  description = "List of Database Subnet CIDR Block (one per workload)"
 }
 
 variable "database_subnet_dns_labels" {
   type        = list(string)
-  description = "List of Database Subnet DNS Label"
+  description = "List of Database Subnet DNS Label (one per workload)"
 }
 
 variable "shared_service_subnet_cidr_block" {
