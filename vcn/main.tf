@@ -7,33 +7,25 @@ locals {
       name = name
     }
   ])
-}
 
-locals {
   private-cidr-block-list = flatten([
     for cidr_block in var.private_subnet_cidr_blocks: {
       cidr_block = cidr_block
     }
   ])
-}
 
-locals {
   private-dns-label-list = flatten([
     for dns_label in var.private_subnet_dns_labels: {
       dns_label = dns_label
     }
   ])
-}
 
-locals {
   database-dns-label-list = flatten([
     for dns_label in var.database_subnet_dns_labels: {
       dns_label = dns_label
     }
   ])
-}
 
-locals {
   database-cidr-block-list = flatten([
     for cidr_block in var.database_subnet_cidr_blocks: {
       cidr_block = cidr_block
