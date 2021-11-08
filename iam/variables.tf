@@ -4,7 +4,6 @@ variable "tenancy_ocid" {
 }
 
 variable "workload_compartment_ocids" {
-  type = list(string)
   description = "The list of workload compartments"
 }
 
@@ -56,6 +55,7 @@ variable "workload_storage_admins_group_name" {
   type        = string
   description = "The name for the workload_storage_admins_group_name"
   default     = "Workload-Storage-Admins"
+}
 
 # -----------------------------------------------------------------------------
 # IAM Policy Variables

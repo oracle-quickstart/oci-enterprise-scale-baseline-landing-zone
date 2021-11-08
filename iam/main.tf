@@ -87,25 +87,23 @@ resource "oci_identity_group" "workload_storage_admins_group" {
 
 resource "oci_identity_policy" "workload_storage_admins_policies" {
   for_each       = toset(var.workload_compartment_name_list)
-  compartment_id = var.workload_compartment_ocids[each.value]
+  compartment_id = var.workload_compartment_ocids[0][each.value].workload_compartment_id
   description    = "OCI Landing Zone Workload Specific Storage Administrator Policies"
   name           = "OCI-LZ-${each.value}-StorageAdminPolicy"
   freeform_tags = {
     "Description" = "Policy for Workload Specific Storage Administrator"
   }
   statements = [
-    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volumes in
-    compartment ${each.value}",
-    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volume-backups
-    in compartment ${each.value}",
-    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volume-groups
-    in compartment ${each.value}",
-    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volume-groups
-    in compartment ${each.value}",
-    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage boot-volume-backups
-    in compartment ${each.value}",
-    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to use volume-group-backups
-    in compartment ${each.value}"
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volumes in compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volume-backups in compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volume-groups in compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volume-groups in compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage boot-volume-backups in compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to use volume-group-backups in compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage file-systems in compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage buckets in compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage objects in compartment ${each.value}"
+
   ]
 }
 
