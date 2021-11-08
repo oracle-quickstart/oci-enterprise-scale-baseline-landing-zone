@@ -110,6 +110,53 @@ resource "oci_identity_policy" "workload_storage_admins_policies" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
+# IAM Group and Policies Workload Admins
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_identity_group" "workload_admins_group" {
+  for_each       = toset(var.workload_compartment_name_list)
+  compartment_id = var.tenancy_ocid
+  description    = "OCI Landing Zone Workload User Group" 
+  name           = "${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id}"
+}
+
+resource "oci_identity_policy" "workload_admins_policies" {
+  for_each       = toset(var.workload_compartment_name_list)
+  compartment_id = var.workload_compartment_ocids[each.value]
+  description    = "OCI Landing Zone Workload User Policy"
+  name           = "OCI-LZ-${each.value}-WorkloadAdminPolicy"
+  statements = [
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instance-images in compartment ${each.value}",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instance in compartment ${each.value}",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instance-console-connection in compartment ${each.value}",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage app-catalog-listing in compartment ${each.value}",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage dedicated-vm-hosts in compartment ${each.value}",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage compute-management-family in compartment ${each.value}",
+  ]
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# IAM Group and Policies Workload Admins
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_identity_group" "workload_users_group" {
+  compartment_id = var.tenancy_ocid
+  description    = "OCI Landing Zone Workload User"
+  name           = "${var.workload_user_group_name}-${random_id.group_name.id}"
+}
+
+resource "oci_identity_policy" "workload_users_policies" {
+  for_each       = toset(var.workload_compartment_name_list)
+  compartment_id = var.workload_compartment_ocids[each.value]
+  description    = "OCI Landing Zone Workload User Policy"
+  name           = "OCI-LZ-${each.value}-WorkloadUserPolicy"
+  freeform_tags = {
+    "Description" = "Policy for access to all components in Load-balancing and use network family in Network compartment"
+  }
+  statements = [
+    "Allow group ${oci_identity_group.lb_users_group.name} to use virtual-network-family in compartment ${each.value}",
+  ]
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
 # Break Glass User Group Membership
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_user_group_membership" "administrator_group_membership" {

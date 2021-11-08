@@ -56,6 +56,7 @@ variable "workload_storage_admins_group_name" {
   type        = string
   description = "The name for the workload_storage_admins_group_name"
   default     = "Workload-Storage-Admins"
+}
 
 # -----------------------------------------------------------------------------
 # IAM Policy Variables
@@ -77,4 +78,3 @@ variable "break_glass_username_list" {
   type = list(string)
   description = "The list break glass admin users"
 }
-
