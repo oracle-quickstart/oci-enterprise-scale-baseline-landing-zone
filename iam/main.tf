@@ -26,7 +26,7 @@ resource "oci_identity_policy" "administrator_policies" {
     "Description" = "Policy for access to all resources in tenancy"
   }
   statements = [
-    "Allow group ${var.administrator_group_name} to manage all-resources in tenancy where request.user.mfaTotpVerified='true'"
+    "Allow group ${oci_identity_group.administrator_group.name} to manage all-resources in tenancy where request.user.mfaTotpVerified='true'"
   ]
 }
 
