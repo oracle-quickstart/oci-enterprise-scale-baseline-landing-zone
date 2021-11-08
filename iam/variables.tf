@@ -3,6 +3,11 @@ variable "tenancy_ocid" {
   description = "The OCID of tenancy"
 }
 
+variable "workload_compartment_ocids" {
+  type = list(string)
+  description = "The list of workload compartments"
+}
+
 # -----------------------------------------------------------------------------
 # Identity Compartment Variables
 # -----------------------------------------------------------------------------
@@ -30,19 +35,27 @@ variable "workload_compartment_name_list" {
 # IAM Group Variables
 # -----------------------------------------------------------------------------
 variable "administrator_group_name" {
-  type    = string
-  default = "Administrators"
+  type        = string
+  description = "The name for the administrator group"
+  default     = "Administrators"
 }
 
 variable "network_admin_group_name" {
-  type    = string
-  default = "Virtual-Network-Admins"
+  type        = string
+  description = "The name for the network administrator group name"
+  default     = "Virtual-Network-Admins"
 }
 
 variable "lb_users_group_name" {
-  type    = string
-  default = "LBUsers"
+  type        = string
+  description = "The name for the load balancer users group name"
+  default     = "LBUsers"
 }
+
+variable "workload_storage_admins_group_name" {
+  type        = string
+  description = "The name for the workload_storage_admins_group_name"
+  default     = "Workload-Storage-Admins"
 
 # -----------------------------------------------------------------------------
 # IAM Policy Variables

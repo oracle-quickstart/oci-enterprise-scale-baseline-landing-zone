@@ -76,6 +76,40 @@ resource "oci_identity_policy" "lb_users_policies" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
+# IAM Group and Policies Workload-Storage-Admins
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_identity_group" "workload_storage_admins_group" {
+  for_each       = toset(var.workload_compartment_name_list)
+  compartment_id = var.tenancy_ocid
+  description    = "OCI Landing Zone Workload Specific Storage Administrators"
+  name           = "${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id}"
+}
+
+resource "oci_identity_policy" "workload_storage_admins_policies" {
+  for_each       = toset(var.workload_compartment_name_list)
+  compartment_id = var.workload_compartment_ocids[each.value]
+  description    = "OCI Landing Zone Workload Specific Storage Administrator Policies"
+  name           = "OCI-LZ-${each.value}-StorageAdminPolicy"
+  freeform_tags = {
+    "Description" = "Policy for Workload Specific Storage Administrator"
+  }
+  statements = [
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volumes in
+    compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volume-backups
+    in compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volume-groups
+    in compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volume-groups
+    in compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage boot-volume-backups
+    in compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to use volume-group-backups
+    in compartment ${each.value}"
+  ]
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
 # Break Glass User Group Membership
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_user_group_membership" "administrator_group_membership" {
