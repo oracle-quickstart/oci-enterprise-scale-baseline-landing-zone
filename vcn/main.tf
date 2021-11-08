@@ -59,7 +59,6 @@ resource "oci_core_internet_gateway" "primary_internet_gateway" {
   }
 }
 
-#TODO: Look into custom display names for route rules
 # -----------------------------------------------------------------------------
 # Create default route table for public subnet
 # -----------------------------------------------------------------------------
@@ -139,7 +138,6 @@ resource "oci_core_subnet" "public_subnet" {
     "Description" = "Public Subnet"
   }
 }
-
 
 # -----------------------------------------------------------------------------
 # Create private subnet for each workloads
