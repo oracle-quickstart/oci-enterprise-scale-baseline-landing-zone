@@ -1,8 +1,3 @@
-variable "unique_prefix" {
-  type        = string
-  description = "The unique identifier"
-}
-
 variable "tenancy_ocid" {
   type        = string
   description = "The OCID of tenancy"
@@ -16,9 +11,9 @@ variable "parent_compartment_id" {
   description = "The OCID of the top level / parent compartment"
 }
 
-variable "common_infra_compartment_name" {
+variable "network_compartment_id" {
   type        = string
-  description = "The name of the common infrastructure compartment"
+  description = "The OCID of the network compartment"
 }
 
 variable "network_compartment_name" {
@@ -62,4 +57,11 @@ variable "network_admin_policy_name" {
   default = "OCI-LZ-VCNAdminPolicy"
 }
 
+# -----------------------------------------------------------------------------
+# Break Glass User Variable
+# -----------------------------------------------------------------------------
+variable "break_glass_username_list" {
+  type = list(string)
+  description = "The list break glass admin users"
+}
 
