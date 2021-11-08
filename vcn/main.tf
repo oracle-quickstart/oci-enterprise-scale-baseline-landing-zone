@@ -83,7 +83,7 @@ resource "oci_core_route_table" "public_subnet_route_table" {
 }
 
 # -----------------------------------------------------------------------------
-# Create security lists for workloads
+# Create security list for each workloads
 # -----------------------------------------------------------------------------
 resource "oci_core_security_list" "workload_security_list" {
   count          = length(local.workload-list)
@@ -145,7 +145,7 @@ resource "oci_core_subnet" "public_subnet" {
 }
 
 # -----------------------------------------------------------------------------
-# Create private subnet for each workloads
+# Create private subnet for each workload
 # -----------------------------------------------------------------------------
 resource "oci_core_subnet" "private_subnet" {
   count                      = length(local.workload-list)
@@ -177,7 +177,7 @@ resource "oci_core_nat_gateway" "nat_gateway" {
 }
 
 # -----------------------------------------------------------------------------
-# Create route table for connecting private workload subnets to NAT Gateway
+# Create route table for routing private workload subnets to NAT Gateway
 # -----------------------------------------------------------------------------
 resource "oci_core_route_table" "workload_nat_route_table" {
   count          = length(local.workload-list)
@@ -197,7 +197,7 @@ resource "oci_core_route_table" "workload_nat_route_table" {
 }
 
 # -----------------------------------------------------------------------------
-# Create database subnet for each workloads
+# Create private database subnet for each workload
 # -----------------------------------------------------------------------------
 resource "oci_core_subnet" "database_subnet" {
   count                      = length(local.workload-list)
@@ -215,7 +215,7 @@ resource "oci_core_subnet" "database_subnet" {
 }
 
 # -----------------------------------------------------------------------------
-# Create route table for connecting private database subnets to NAT Gateway
+# Create route table for routing private database subnets to NAT Gateway
 # -----------------------------------------------------------------------------
 resource "oci_core_route_table" "database_nat_route_table" {
   count          = length(local.workload-list)
@@ -235,7 +235,7 @@ resource "oci_core_route_table" "database_nat_route_table" {
 }
 
 # -----------------------------------------------------------------------------
-# Create shared service subnet
+# Create shared services private subnet
 # -----------------------------------------------------------------------------
 resource "oci_core_subnet" "fss_subnet" {
   cidr_block                 = var.shared_service_subnet_cidr_block
