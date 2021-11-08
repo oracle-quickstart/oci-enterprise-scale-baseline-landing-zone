@@ -4,7 +4,6 @@ variable "tenancy_ocid" {
 }
 
 variable "workload_compartment_ocids" {
-  type = list(string)
   description = "The list of workload compartments"
 }
 
