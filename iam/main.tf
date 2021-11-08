@@ -5,7 +5,7 @@ resource "random_id" "policy_name" {
   byte_length = 8
 }
 
-resource "random_id" "dg_name" {
+resource "random_id" "group_name" {
   byte_length = 8
 }
 
@@ -15,7 +15,7 @@ resource "random_id" "dg_name" {
 resource "oci_identity_group" "administrator_group" {
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Administrators group - manages all resources"
-  name           = "${var.administrator_group_name}-${random_id.dg_name.id}"
+  name           = "${var.administrator_group_name}-${random_id.group_name.id}"
 }
 
 resource "oci_identity_policy" "administrator_policies" {
@@ -36,7 +36,7 @@ resource "oci_identity_policy" "administrator_policies" {
 resource "oci_identity_group" "network_admin_group" {
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Network Administrators Group - manages all network resources"
-  name           = "${var.network_admin_group_name}-${random_id.dg_name.id}"
+  name           = "${var.network_admin_group_name}-${random_id.group_name.id}"
 }
 
 resource "oci_identity_policy" "network_admin_policies" {
@@ -57,7 +57,7 @@ resource "oci_identity_policy" "network_admin_policies" {
 resource "oci_identity_group" "lb_users_group" {
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Load Balancer Users - manage all components in Load-balancing"
-  name           = "${var.lb_users_group_name}-${random_id.dg_name.id}"
+  name           = "${var.lb_users_group_name}-${random_id.group_name.id}"
 }
 
 resource "oci_identity_policy" "lb_users_policies" {
