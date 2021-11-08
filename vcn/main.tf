@@ -134,7 +134,7 @@ resource "oci_core_subnet" "public_subnet" {
   compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_vcn.primary_vcn.id
   route_table_id             = oci_core_route_table.public_subnet_route_table.id  
-  security_security_list_ids = [oci_core_security_list.workload_security_list.id] 
+  security_list_ids          = oci_core_security_list.workload_security_list.*.id 
   freeform_tags = {
     "Description" = "Public Subnet"
   }
@@ -151,7 +151,7 @@ resource "oci_core_subnet" "private_subnet" {
   dns_label                  = local.private-dns-label-list[count.index].dns_label
   compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_vcn.primary_vcn.id
-  route_table_id             = oci_core_route_table.workload_nat_route_table.id  
+  route_table_id             = oci_core_route_table.workload_nat_route_table.*.id[count.index]  
   freeform_tags = {
     "Description" = "Private Subnet"
   }
@@ -171,7 +171,7 @@ resource "oci_core_nat_gateway" "nat_gateway" {
 }
 
 # -----------------------------------------------------------------------------
-# Create route table for connecting private worklaod subnets to NAT Gateway
+# Create route table for connecting private workload subnets to NAT Gateway
 # -----------------------------------------------------------------------------
 resource "oci_core_route_table" "workload_nat_route_table" {
   count          = length(local.workload-list)
@@ -199,6 +199,7 @@ resource "oci_core_subnet" "database_subnet" {
   dns_label                  = local.database-dns-label-list[count.index].dns_label
   compartment_id             = var.compartment_ocid
   vcn_id                     = oci_core_vcn.primary_vcn.id
+  route_table_id             = oci_core_route_table.database_nat_route_table.*.id[count.index]  
   freeform_tags = {
     "Description" = "Database Subnet"
   }
@@ -207,13 +208,13 @@ resource "oci_core_subnet" "database_subnet" {
 # -----------------------------------------------------------------------------
 # Create route table for connecting private database subnets to NAT Gateway
 # -----------------------------------------------------------------------------
-resource "oci_core_route_table" "workload_nat_route_table" {
+resource "oci_core_route_table" "database_nat_route_table" {
   count          = length(local.workload-list)
   compartment_id = var.compartment_ocid
   display_name   = "OCI-LZ-VCN-${local.workload-list[count.index].name}-${var.region_key}-RouteTable"
   vcn_id         = oci_core_vcn.primary_vcn.id
   freeform_tags = {
-    "Description" = "Primary VCN - NAT route table for ${local.workload-list[count.index].name}"
+    "Description" = "Primary VCN - Database NAT route table for ${local.workload-list[count.index].name}"
     "Function"    = "Routing table using the NAT as a default gateway"
   }
 
