@@ -211,7 +211,7 @@ resource "oci_core_subnet" "database_subnet" {
 resource "oci_core_route_table" "database_nat_route_table" {
   count          = length(local.workload-list)
   compartment_id = var.compartment_ocid
-  display_name   = "OCI-LZ-VCN-${local.workload-list[count.index].name}-${var.region_key}-RouteTable"
+  display_name   = "OCI-LZ-VCN-${local.workload-list[count.index].name}-database-${var.region_key}-RouteTable"
   vcn_id         = oci_core_vcn.primary_vcn.id
   freeform_tags = {
     "Description" = "Primary VCN - Database NAT route table for ${local.workload-list[count.index].name}"
