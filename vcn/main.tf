@@ -43,6 +43,8 @@ resource "oci_core_vcn" "primary_vcn" {
   dns_label      = var.vcn_dns_label
   freeform_tags = {
     "Description" = "Primary VCN"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 }
 
@@ -55,7 +57,8 @@ resource "oci_core_internet_gateway" "primary_internet_gateway" {
   vcn_id         = oci_core_vcn.primary_vcn.id
   freeform_tags = {
     "Description" = "Primary VCN - Internet Gateway"
-    "Function"    = "Internet access into the services"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 }
 
@@ -68,7 +71,8 @@ resource "oci_core_route_table" "public_subnet_route_table" {
   vcn_id         = oci_core_vcn.primary_vcn.id
   freeform_tags = {
     "Description" = "Primary VCN - Public Subnet route table"
-    "Function"    = "Routing table for public subnet using Internet Gateway"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 
   route_rules {
@@ -88,7 +92,6 @@ resource "oci_core_security_list" "workload_security_list" {
   display_name   = "OCI-LZ-VCN-${var.region_key}-${local.workload-list[count.index].name}-SecurityList"
   freeform_tags = {
     "Description" = "Security list for ${local.workload-list[count.index].name}"
-    "Function"    = "Ingress and egress rules for ${local.workload-list[count.index].name}"
     "CostCenter"  = var.tag_cost_center,
     "GeoLocation" = var.tag_geo_location
   }
@@ -136,6 +139,8 @@ resource "oci_core_subnet" "public_subnet" {
   security_list_ids          = oci_core_security_list.workload_security_list.*.id 
   freeform_tags = {
     "Description" = "Public Subnet"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 }
 
@@ -152,6 +157,8 @@ resource "oci_core_subnet" "private_subnet" {
   route_table_id             = oci_core_route_table.workload_nat_route_table.*.id[count.index]  
   freeform_tags = {
     "Description" = "Private Subnet"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 }
 
@@ -164,7 +171,8 @@ resource "oci_core_nat_gateway" "nat_gateway" {
   vcn_id         = oci_core_vcn.primary_vcn.id
   freeform_tags = {
     "Description" = "Primary VCN - NAT Gateway"
-    "Function"    = "NAT gateway used for private subnets"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 }
 
@@ -178,7 +186,8 @@ resource "oci_core_route_table" "workload_nat_route_table" {
   vcn_id         = oci_core_vcn.primary_vcn.id
   freeform_tags = {
     "Description" = "Primary VCN - NAT route table for ${local.workload-list[count.index].name}"
-    "Function"    = "Routing table using the NAT as a default gateway"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 
   route_rules {
@@ -200,6 +209,8 @@ resource "oci_core_subnet" "database_subnet" {
   route_table_id             = oci_core_route_table.database_nat_route_table.*.id[count.index]  
   freeform_tags = {
     "Description" = "Database Subnet"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 }
 
@@ -213,7 +224,8 @@ resource "oci_core_route_table" "database_nat_route_table" {
   vcn_id         = oci_core_vcn.primary_vcn.id
   freeform_tags = {
     "Description" = "Primary VCN - Database NAT route table for ${local.workload-list[count.index].name}"
-    "Function"    = "Routing table using the NAT as a default gateway"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 
   route_rules {
@@ -233,6 +245,8 @@ resource "oci_core_subnet" "fss_subnet" {
   vcn_id                     = oci_core_vcn.primary_vcn.id
   freeform_tags = {
     "Description" = "Shared Service Subnet"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 }
 
@@ -248,7 +262,8 @@ resource "oci_core_service_gateway" "service_gateway" {
   }
   freeform_tags = {
     "Description" = "Primary VCN - Service gateway"
-    "Function"    = "Service gateway access - for OCI services"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 }
 
@@ -261,7 +276,8 @@ resource "oci_core_route_table" "service_gateway_route_table" {
   vcn_id         = oci_core_vcn.primary_vcn.id
   freeform_tags = {
     "Description" = "Primary VCN - Service gateway route table"
-    "Function"    = "Service gateway routing - for OCI services"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 
   route_rules {
