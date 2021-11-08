@@ -65,3 +65,121 @@ variable "shared_service_subnet_dns_label" {
   type        = string
   description = "Shared Service Subnet DNS Label"
 }
+
+variable "tag_cost_center" {
+  type        = string
+  description = "Cost center to charge for OCI resources"
+}
+
+variable "tag_geo_location" {
+  type        = string
+  description = "Geo location for OCI resources"
+}
+
+variable "egress_security_rules_protocol" {
+  description = "[Database Security List] Egress Protocol"
+  type        = string
+}
+
+variable "egress_security_rules_stateless" {
+  description = "[Database Security List] Egress Stateless"
+  type        = bool
+  default     = false
+}
+
+variable "egress_security_rules_tcp_options_destination_port_range_max" {
+  description = "[Database Security List] Egress TCP Destination Port Range Max"
+  type        = number
+}
+
+variable "egress_security_rules_tcp_options_destination_port_range_min" {
+  description = "[Database Security List] Egress TCP Destination Port Range Min"
+  type        = number
+}
+
+variable "egress_security_rules_tcp_options_source_port_range_max" {
+  description = "[Database Security List] Egress TCP Source Port Range Max"
+  type        = number
+}
+
+variable "egress_security_rules_tcp_options_source_port_range_min" {
+  description = "[Database Security List] Egress TCP Source Port Range Min"
+  type        = number
+}
+
+variable "egress_security_rules_udp_options_destination_port_range_max" {
+  description = "[Database Security List] Egress UDP Destination Port Range Max"
+  type        = number
+}
+
+variable "egress_security_rules_udp_options_destination_port_range_min" {
+  description = "[Database Security List] Egress UDP Destination Port Range Min"
+  type        = number
+}
+
+variable "egress_security_rules_udp_options_source_port_range_max" {
+  description = "[Database Security List] Egress UDP Source Port Range Max"
+  type        = number
+}
+
+variable "egress_security_rules_udp_options_source_port_range_min" {
+  description = "[Database Security List] Egress UDP Source Port Range Min"
+  type        = number
+}
+
+variable "ingress_security_rules_protocol" {
+  description = "[Database Security List] Ingress Protocol"
+  type        = string
+}
+
+variable "ingress_security_rules_stateless" {
+  description = "[Database Security List]"
+  type        = bool
+  default     = false
+}
+
+variable "ingress_security_rules_tcp_options_destination_port_range_max" {
+  description = "[Database Security List] Ingress TCP Destination Port Range Max"
+  type        = number
+}
+
+variable "ingress_security_rules_tcp_options_destination_port_range_min" {
+  description = "[Database Security List] Ingress TCP Destination Port Range Min"
+  type        = number
+}
+
+variable "ingress_security_rules_tcp_options_source_port_range_max" {
+  description = "[Database Security List] Ingress TCP Source Port Range Max"
+  type        = number
+}
+
+variable "ingress_security_rules_tcp_options_source_port_range_min" {
+  description = "[Database Security List] Ingress TCP Source Port Range Min"
+  type        = number
+}
+
+variable "ingress_security_rules_udp_options_destination_port_range_max" {
+  description = "[Database Security List] Ingress UDP Destination Port Range Max"
+  type        = number
+}
+
+variable "ingress_security_rules_udp_options_destination_port_range_min" {
+  description = "[Database Security List] Ingress UDP Destination Port Range Min"
+  type        = number
+}
+
+variable "ingress_security_rules_udp_options_source_port_range_max" {
+  description = "[Database Security List] Ingress UDP Source Port Range Max"
+  type        = number
+}
+
+variable "ingress_security_rules_udp_options_source_port_range_min" {
+  description = "[Database Security List] Ingress UDP Source Port Range Min"
+  type        = number
+}
+
+variable "ingress_security_rules_description" {
+  description = "[Database Security List] Description"
+  type        = string
+  default     = "Database Security List - Ingress"
+}
