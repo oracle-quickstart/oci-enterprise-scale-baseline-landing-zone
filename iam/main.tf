@@ -99,7 +99,7 @@ resource "oci_identity_policy" "workload_storage_admins_policies" {
     "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-groups in compartment ${each.value}",
     "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage boot-volume-backups in compartment ${each.value}",
     "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-group-backups in compartment ${each.value} where request.permission='VOLUME_GROUP_BACKUP_CREATE'",
-    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage file-systems in compartment ${each.value}",
+    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage file-family in compartment ${each.value}",
     "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage buckets in compartment ${each.value}",
     "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage objects in compartment ${each.value}"
   ]
