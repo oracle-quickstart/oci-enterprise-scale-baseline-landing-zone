@@ -112,6 +112,7 @@ resource "oci_identity_policy" "workload_storage_admins_policies" {
 # IAM Group and Policies Workload Storage Users
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_group" "workload_storage_users_group" {
+  for_each       = toset(var.workload_compartment_name_list)
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Workload Storage User"
   name           = "${var.workload_storage_users_group_name}-${random_id.group_name.id}"
@@ -160,8 +161,8 @@ resource "oci_identity_policy" "workload_admins_policies" {
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage compute-management-family in compartment ${each.value}",
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to read instance-family in compartment ${each.value}",
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to inspect volumes in compartment ${each.value}",
-    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to to use tag-namespaces in tenancy where target.tag-namespace.name = 'oracle-tags'",
-    "Allow service compute_management to use compute-capacity-reservations in tenancy",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to use tag-namespaces in compartment ${each.value} where target.tag-namespace.name = 'oracle-tags'",
+    "Allow service compute_management to use compute-capacity-reservations in compartment ${each.value}",
     # Ability to create, update, and delete autoscaling configurations (manage instance-pools excluded)
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage auto-scaling-configuration in compartment ${each.value}",
 
@@ -169,7 +170,7 @@ resource "oci_identity_policy" "workload_admins_policies" {
 
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage app-catalog-listing in compartment ${each.value}",
 
-    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage dedicated-vm-hosts in compartment ${each.value}",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage dedicated-vm-hosts in compartment ${each.value}"
   ]
 
   depends_on = [
