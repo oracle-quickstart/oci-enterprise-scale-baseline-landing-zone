@@ -25,6 +25,7 @@ resource "oci_identity_policy" "administrator_policies" {
   freeform_tags = {
     "Description" = "Policy for access to all resources in tenancy"
   }
+
   statements = [
     "Allow group ${oci_identity_group.administrator_group.name} to manage all-resources in tenancy where request.user.mfaTotpVerified='true'"
   ]
@@ -46,6 +47,7 @@ resource "oci_identity_policy" "network_admin_policies" {
   freeform_tags = {
     "Description" = "Policy for access to all network resources in Network Compartment"
   }
+
   statements = [
     "Allow group ${oci_identity_group.network_admin_group.name} to manage virtual-network-family in compartment ${var.network_compartment_name}"
   ]
@@ -68,6 +70,7 @@ resource "oci_identity_policy" "lb_users_policies" {
   freeform_tags = {
     "Description" = "Policy for access to all components in Load-balancing and use network family in Network compartment"
   }
+
   statements = [
     # @FIXME THIS DOESNT MAKE SENSE: ONE GROUP BUT MULTIPLE POLICIES FOR EACH WORKLOAD?
     "Allow group ${oci_identity_group.lb_users_group.name} to use virtual-network-family in compartment ${var.network_compartment_name}",
@@ -119,13 +122,14 @@ resource "oci_identity_policy" "workload_storage_users_policies" {
   compartment_id = var.workload_compartment_ocids[0][each.value].workload_compartment_id
   description    = "OCI Landing Zone Storage Workload User Policy"
   name           = "OCI-LZ-${each.value}-WorkloadUserPolicy"
- statements = [
+  statements = [
     "Allow group ${var.workload_storage_users_group_name}-${each.value}-${random_id.group_name.id} to read buckets in compartment ${each.value}",
     "Allow group ${var.workload_storage_users_group_name}-${each.value}-${random_id.group_name.id} to manage objects in compartment ${each.value} where any {request.permission='OBJECT_CREATE', request.permission='OBJECT_INSPECT', request.permission='OBJECT_READ'}"
- ]
- depends_on = [
-   oci_identity_group.workload_storage_users_group
- ]
+  ]
+
+  depends_on = [
+    oci_identity_group.workload_storage_users_group
+  ]
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -140,21 +144,31 @@ resource "oci_identity_group" "workload_admins_group" {
 
 resource "oci_identity_policy" "workload_admins_policies" {
   for_each       = toset(var.workload_compartment_name_list)
-  compartment_id = var.workload_compartment_ocids[0][each.value].workload_compartment_id # @FIXME WHY IS THE OUTPUT AN ARRAY OF OBJECTS?
+  compartment_id = var.workload_compartment_ocids[0][each.value].workload_compartment_id
   description    = "OCI Landing Zone Workload User Policy"
   name           = "OCI-LZ-${each.value}-WorkloadAdminPolicy"
   statements = [
+    # Ability to do everything with custom images and compute instances
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instance-images in compartment ${each.value}",
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instances in compartment ${each.value}",
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage object-family in compartment ${each.value}",
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to use virtual-network-family in compartment ${each.value}",
+    # Ability to do all things with instance configurations, instance pools, and cluster networks
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage compute-management-family in compartment ${each.value}",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to read instance-family in compartment ${each.value}",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to inspect volumes in compartment ${each.value}",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to to use tag-namespaces in tenancy where target.tag-namespace.name = 'oracle-tags'",
+    "Allow service compute_management to use compute-capacity-reservations in tenancy",
+    # Ability to create, update, and delete autoscaling configurations (manage instance-pools excluded)
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage auto-scaling-configuration in compartment ${each.value}",
+
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instance-console-connection in compartment ${each.value}",
+
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage app-catalog-listing in compartment ${each.value}",
+
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage dedicated-vm-hosts in compartment ${each.value}",
   ]
-  # @NOTE THERE IS NO DIRECT DEPENDENCY BETWEEN GROUP AND POLICY; LOCALS IS NOT CLEAN EITHER
+
   depends_on = [
     oci_identity_group.workload_admins_group
   ]
@@ -182,6 +196,7 @@ resource "oci_identity_policy" "workload_users_policies" {
     # All also need create instance in the compartment to launch the instance in and dedicated vm host launch instance in the comparment for the dedicated virtual machine host.
     "Allow group ${var.workload_user_group_name}-${each.value}-${random_id.group_name.id} to use dedicated-vm-hosts in compartment ${each.value}",
   ]
+
   depends_on = [
     oci_identity_group.workload_users_group
   ]
