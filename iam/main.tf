@@ -72,7 +72,6 @@ resource "oci_identity_policy" "lb_users_policies" {
   }
 
   statements = [
-    # @FIXME THIS DOESNT MAKE SENSE: ONE GROUP BUT MULTIPLE POLICIES FOR EACH WORKLOAD?
     "Allow group ${oci_identity_group.lb_users_group.name} to use virtual-network-family in compartment ${var.network_compartment_name}",
     "Allow group ${oci_identity_group.lb_users_group.name} to manage load-balancers in compartment ${var.network_compartment_name}"
   ]
@@ -96,15 +95,14 @@ resource "oci_identity_policy" "workload_storage_admins_policies" {
   freeform_tags = {
     "Description" = "Policy for Workload Specific Storage Administrator"
   }
-  statements = [ # @TODO: TEST IF THIS WORKS?
-    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-family in compartment ${each.value}", # @TODO: check if all compartments is a typo
-    # "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-backups in compartment ${each.value}",
-    # "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-groups in compartment ${each.value}",
-    # "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage boot-volume-backups in compartment ${each.value}",
-    # "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-group-backups in compartment ${each.value}",
-    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage file-family in compartment ${each.value}",
-    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage buckets in compartment ${each.value}",
-    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage objects in compartment ${each.value}"
+  statements = [
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volume-family in compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage file-family in compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage buckets in compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage objects in compartment ${each.value}"
+  ]
+  depends_on = [
+    oci_identity_group.workload_storage_admins_group
   ]
 }
 
@@ -116,9 +114,6 @@ resource "oci_identity_group" "workload_storage_users_group" {
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Workload Storage User"
   name           = "${var.workload_storage_users_group_name}-${random_id.group_name.id}"
-  freeform_tags = {
-    "Description" = "Policy for Workload Specific Storage Users"
-  }
 }
 
 resource "oci_identity_policy" "workload_storage_users_policies" {
@@ -126,6 +121,9 @@ resource "oci_identity_policy" "workload_storage_users_policies" {
   compartment_id = var.workload_compartment_ocids[0][each.value].workload_compartment_id
   description    = "OCI Landing Zone Storage Workload User Policy"
   name           = "OCI-LZ-${each.value}-WorkloadUserPolicy"
+  freeform_tags = {
+    "Description" = "Policy for Workload Specific Storage Users"
+  }
   statements = [
     "Allow group ${var.workload_storage_users_group_name}-${each.value}-${random_id.group_name.id} to read buckets in compartment ${each.value}",
     "Allow group ${var.workload_storage_users_group_name}-${each.value}-${random_id.group_name.id} to manage objects in compartment ${each.value} where any {request.permission='OBJECT_CREATE', request.permission='OBJECT_INSPECT', request.permission='OBJECT_READ'}"
@@ -151,6 +149,9 @@ resource "oci_identity_policy" "workload_admins_policies" {
   compartment_id = var.workload_compartment_ocids[0][each.value].workload_compartment_id
   description    = "OCI Landing Zone Workload User Policy"
   name           = "OCI-LZ-${each.value}-WorkloadAdminPolicy"
+  freeform_tags = {
+    "Description" = "Policy for Workload Specific Administrators"
+  }
   statements = [
     # Ability to do everything with custom images and compute instances
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instance-images in compartment ${each.value}",
@@ -193,6 +194,9 @@ resource "oci_identity_policy" "workload_users_policies" {
   compartment_id = var.workload_compartment_ocids[0][each.value].workload_compartment_id
   description    = "OCI Landing Zone Workload User Policy"
   name           = "OCI-LZ-${each.value}-WorkloadUserPolicy"
+  freeform_tags = {
+    "Description" = "Policy for Workload Specific Users"
+  }
   statements = [
     "Allow group ${var.workload_user_group_name}-${each.value}-${random_id.group_name.id} to manage instance in compartment ${each.value}",
     "Allow group ${var.workload_user_group_name}-${each.value}-${random_id.group_name.id} to manage instance-console-connection in compartment ${each.value}",
