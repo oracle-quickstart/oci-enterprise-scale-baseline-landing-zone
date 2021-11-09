@@ -127,8 +127,8 @@ resource "oci_identity_policy" "workload_storage_users_policies" {
   description    = "OCI Landing Zone Storage Workload User Policy"
   name           = "OCI-LZ-${each.value}-WorkloadUserPolicy"
  statements = [
-    "Allow group ${var.workload_storage_user_group_name}-${each.value}-${random_id.group_name.id} to use buckets in compartment ${each.value}",
-    "Allow group ${var.workload_storage_user_group_name}-${each.value}-${random_id.group_name.id} to manage objects in compartment ${each.value}",
+    "Allow group ${var.workload_storage_users_group_name}-${each.value}-${random_id.group_name.id} to use buckets in compartment ${each.value}",
+    "Allow group ${var.workload_storage_users_group_name}-${each.value}-${random_id.group_name.id} to manage objects in compartment ${each.value}",
   ]
 }
 
