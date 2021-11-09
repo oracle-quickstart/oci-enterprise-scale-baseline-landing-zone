@@ -20,3 +20,15 @@ output "database_subnet_id" {
 output "fss_subnet_id" {
   value = oci_core_subnet.fss_subnet.id
 }
+
+output "workload_nat_route_table_id" {
+  value = oci_core_route_table.workload_nat_route_table.*.id
+}
+
+output "database_nat_route_table_id" {
+  value = oci_core_route_table.database_nat_route_table.*.id
+}
+
+output "service_gateway_route_table" {
+  value = oci_core_route_table.service_gateway_route_table.id
+}
