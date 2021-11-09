@@ -96,16 +96,13 @@ resource "oci_identity_policy" "workload_storage_admins_policies" {
     "Description" = "Policy for Workload Specific Storage Administrator"
   }
   statements = [
-    # Gives the workload_storage_admins_group ability to do all things with block storage volumes, volume backups, and volume groups
+    # Ability to do all things with block storage volumes, volume backups, and volume groups
     "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volume-family in compartment ${each.value}",
-
-    # Gives the workload_storage_admins_group ability to create, manage, or delete a file system or file system clone
+    # Ability to create, manage, or delete a file system or file system clone
     "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage file-family in compartment ${each.value}",
-
-    # Gives the workload_storage_admins_group ability to do all things with object storage buckets
+    # Ability to do all things with object storage buckets
     "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage buckets in compartment ${each.value}",
-
-    # Gives the workload_storage_admins_group ability to do all things with object storage objects
+    # Ability to do all things with object storage objects
     "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage objects in compartment ${each.value}"
   ]
   depends_on = [
@@ -132,7 +129,9 @@ resource "oci_identity_policy" "workload_storage_users_policies" {
     "Description" = "Policy for Workload Specific Storage Users"
   }
   statements = [
+    # Ability to get all buckets in the compartment
     "Allow group ${var.workload_storage_users_group_name}-${each.value}-${random_id.group_name.id} to read buckets in compartment ${each.value}",
+    # Ability to create, inspect and download objects in the compartment
     "Allow group ${var.workload_storage_users_group_name}-${each.value}-${random_id.group_name.id} to manage objects in compartment ${each.value} where any {request.permission='OBJECT_CREATE', request.permission='OBJECT_INSPECT', request.permission='OBJECT_READ'}"
   ]
 
