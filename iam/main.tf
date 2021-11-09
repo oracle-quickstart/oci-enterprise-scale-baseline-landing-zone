@@ -157,6 +157,7 @@ resource "oci_identity_policy" "workload_admins_policies" {
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instance-images in compartment ${each.value}",
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instances in compartment ${each.value}",
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage object-family in compartment ${each.value}",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to use volume-family in compartment ${each.value}",
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to use virtual-network-family in compartment ${each.value}",
     # Ability to do all things with instance configurations, instance pools, and cluster networks
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage compute-management-family in compartment ${each.value}",
@@ -198,10 +199,14 @@ resource "oci_identity_policy" "workload_users_policies" {
     "Description" = "Policy for Workload Specific Users"
   }
   statements = [
+    # Ability to do everything with instances launched into the cloud network and subnets 
     "Allow group ${var.workload_user_group_name}-${each.value}-${random_id.group_name.id} to manage instance in compartment ${each.value}",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to use virtual-network-family in compartment ${each.value}",
+    # Ability to create instance console creation
     "Allow group ${var.workload_user_group_name}-${each.value}-${random_id.group_name.id} to manage instance-console-connection in compartment ${each.value}",
+    # Ability to list and create subscriptions to images in partner image catalog.
     "Allow group ${var.workload_user_group_name}-${each.value}-${random_id.group_name.id} to manage app-catalog-listing in compartment ${each.value}",
-    # All also need create instance in the compartment to launch the instance in and dedicated vm host launch instance in the comparment for the dedicated virtual machine host.
+    # Ability to launch instances on dedicated virtual machine hosts
     "Allow group ${var.workload_user_group_name}-${each.value}-${random_id.group_name.id} to use dedicated-vm-hosts in compartment ${each.value}",
   ]
 
