@@ -27,3 +27,13 @@ variable "activity_detector_recipe_display_name" {
   type = string
   description = "display name for activity detector recipe"
 }
+
+variable "tag_cost_center" {
+  type        = string
+  description = "Cost center to charge for OCI resources"
+}
+
+variable "tag_geo_location" {
+  type        = string
+  description = "Geo location for OCI resources"
+}
