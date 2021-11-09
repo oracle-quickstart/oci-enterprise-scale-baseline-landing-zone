@@ -164,13 +164,13 @@ resource "oci_identity_policy" "workload_admins_policies" {
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to inspect volumes in compartment ${each.value}",
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to use tag-namespaces in compartment ${each.value} where target.tag-namespace.name = 'oracle-tags'",
     "Allow service compute_management to use compute-capacity-reservations in compartment ${each.value}",
-    # Ability to create, update, and delete autoscaling configurations (manage instance-pools excluded)
+    # Ability to create, update, and delete autoscaling configurations
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage auto-scaling-configuration in compartment ${each.value}",
-
+    # Ability to manage Instance Console Creation
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instance-console-connection in compartment ${each.value}",
-
+    # Ability to create and list subscriptions to images in the partner Image catalog.
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage app-catalog-listing in compartment ${each.value}",
-
+    # Ability to create, update and delete dedicated Virtual Machine Hosts
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage dedicated-vm-hosts in compartment ${each.value}"
   ]
 
