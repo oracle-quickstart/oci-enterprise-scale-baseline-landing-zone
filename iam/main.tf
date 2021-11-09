@@ -97,11 +97,11 @@ resource "oci_identity_policy" "workload_storage_admins_policies" {
     "Description" = "Policy for Workload Specific Storage Administrator"
   }
   statements = [ # @TODO: TEST IF THIS WORKS?
-    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volumes in compartment ${each.value}", # @TODO: check if all compartments is a typo
-    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-backups in compartment ${each.value}",
-    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-groups in compartment ${each.value}",
-    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage boot-volume-backups in compartment ${each.value}",
-    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-group-backups in compartment ${each.value} where request.permission='VOLUME_GROUP_BACKUP_CREATE'",
+    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-family in compartment ${each.value}", # @TODO: check if all compartments is a typo
+    # "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-backups in compartment ${each.value}",
+    # "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-groups in compartment ${each.value}",
+    # "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage boot-volume-backups in compartment ${each.value}",
+    # "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-group-backups in compartment ${each.value}",
     "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage file-family in compartment ${each.value}",
     "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage buckets in compartment ${each.value}",
     "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage objects in compartment ${each.value}"
@@ -115,6 +115,9 @@ resource "oci_identity_group" "workload_storage_users_group" {
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Workload Storage User"
   name           = "${var.workload_storage_users_group_name}-${random_id.group_name.id}"
+  freeform_tags = {
+    "Description" = "Policy for Workload Specific Storage Users"
+  }
 }
 
 resource "oci_identity_policy" "workload_storage_users_policies" {
