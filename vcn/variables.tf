@@ -77,68 +77,69 @@ variable "tag_geo_location" {
 }
 
 variable "egress_security_rules_protocol" {
-  description = "[Database Security List] Egress Protocol"
+  description = "[Workload Security List] Egress Protocol"
   type        = string
 }
 
 variable "egress_security_rules_stateless" {
-  description = "[Database Security List] Egress Stateless"
+  description = "[Workload Security List] Egress Stateless"
   type        = bool
   default     = false
 }
 
 variable "egress_security_rules_tcp_options_destination_port_range_max" {
-  description = "[Database Security List] Egress TCP Destination Port Range Max"
+  description = "[Workload Security List] Egress TCP Destination Port Range Max"
   type        = number
 }
 
 variable "egress_security_rules_tcp_options_destination_port_range_min" {
-  description = "[Database Security List] Egress TCP Destination Port Range Min"
+  description = "[Workload Security List] Egress TCP Destination Port Range Min"
   type        = number
 }
 
 variable "egress_security_rules_tcp_options_source_port_range_max" {
-  description = "[Database Security List] Egress TCP Source Port Range Max"
+  description = "[Workload Security List] Egress TCP Source Port Range Max"
   type        = number
 }
 
 variable "egress_security_rules_tcp_options_source_port_range_min" {
-  description = "[Database Security List] Egress TCP Source Port Range Min"
+  description = "[Workload Security List] Egress TCP Source Port Range Min"
   type        = number
 }
 
 variable "ingress_security_rules_protocol" {
-  description = "[Database Security List] Ingress Protocol"
+  description = "[Workload Security List] Ingress Protocol"
   type        = string
 }
 
 variable "ingress_security_rules_stateless" {
-  description = "[Database Security List]"
+  description = "[Workload Security List]"
   type        = bool
   default     = false
 }
 
 variable "ingress_security_rules_tcp_options_destination_port_range_max" {
-  description = "[Database Security List] Ingress TCP Destination Port Range Max"
+  description = "[Workload Security List] Ingress TCP Destination Port Range Max"
   type        = number
 }
 
 variable "ingress_security_rules_tcp_options_destination_port_range_min" {
-  description = "[Database Security List] Ingress TCP Destination Port Range Min"
+  description = "[Workload Security List] Ingress TCP Destination Port Range Min"
   type        = number
 }
 
 variable "ingress_security_rules_tcp_options_source_port_range_max" {
-  description = "[Database Security List] Ingress TCP Source Port Range Max"
+  description = "[Workload Security List] Ingress TCP Source Port Range Max"
   type        = number
 }
 
 variable "ingress_security_rules_tcp_options_source_port_range_min" {
-  description = "[Database Security List] Ingress TCP Source Port Range Min"
+  description = "[Workload Security List] Ingress TCP Source Port Range Min"
   type        = number
 }
+
 variable "ingress_security_rules_description" {
-  description = "[Database Security List] Description"
+  description = "[Workload Security List] Description"
   type        = string
-  default     = "Database Security List - Ingress"
+  default     = "Workload Security List - Ingress"
 }
