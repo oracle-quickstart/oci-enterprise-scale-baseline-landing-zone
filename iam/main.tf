@@ -119,7 +119,7 @@ resource "oci_identity_group" "workload_admins_group" {
 
 resource "oci_identity_policy" "workload_admins_policies" {
   for_each       = toset(var.workload_compartment_name_list)
-  compartment_id = var.workload_compartment_ocids[each.value]
+  compartment_id = var.workload_compartment_ocids[0][each.value].workload_compartment_id
   description    = "OCI Landing Zone Workload User Policy"
   name           = "OCI-LZ-${each.value}-WorkloadAdminPolicy"
   statements = [
@@ -143,7 +143,7 @@ resource "oci_identity_group" "workload_users_group" {
 
 resource "oci_identity_policy" "workload_users_policies" {
   for_each       = toset(var.workload_compartment_name_list)
-  compartment_id = var.workload_compartment_ocids[each.value]
+  compartment_id = var.workload_compartment_ocids[0][each.value].workload_compartment_id
   description    = "OCI Landing Zone Workload User Policy"
   name           = "OCI-LZ-${each.value}-WorkloadUserPolicy"
   freeform_tags = {

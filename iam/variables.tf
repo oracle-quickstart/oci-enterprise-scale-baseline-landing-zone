@@ -57,6 +57,16 @@ variable "workload_storage_admins_group_name" {
   default     = "Workload-Storage-Admins"
 }
 
+variable "workload_admin_group_name" {
+  type = string
+  default = "Workload-Admins"
+}
+
+variable "workload_user_group_name" {
+ type = string
+ default = "Workload-Users" 
+}
+
 # -----------------------------------------------------------------------------
 # IAM Policy Variables
 # -----------------------------------------------------------------------------
