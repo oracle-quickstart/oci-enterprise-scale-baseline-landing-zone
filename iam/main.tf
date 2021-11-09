@@ -125,10 +125,11 @@ resource "oci_identity_policy" "workload_admins_policies" {
   statements = [
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instance-images in compartment ${each.value}",
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instance in compartment ${each.value}",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage compute-management-family in compartment ${each.value}",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage auto-scaling-configuration in compartment ${each.value}",
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instance-console-connection in compartment ${each.value}",
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage app-catalog-listing in compartment ${each.value}",
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage dedicated-vm-hosts in compartment ${each.value}",
-    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage compute-management-family in compartment ${each.value}",
   ]
 }
 
@@ -146,11 +147,12 @@ resource "oci_identity_policy" "workload_users_policies" {
   compartment_id = var.workload_compartment_ocids[0][each.value].workload_compartment_id
   description    = "OCI Landing Zone Workload User Policy"
   name           = "OCI-LZ-${each.value}-WorkloadUserPolicy"
-  freeform_tags = {
-    "Description" = "Policy for access to all components in Load-balancing and use network family in Network compartment"
-  }
-  statements = [
-    "Allow group ${oci_identity_group.lb_users_group.name} to use virtual-network-family in compartment ${each.value}",
+ statements = [
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instance in compartment ${each.value}",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instance-console-connection in compartment ${each.value}",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage app-catalog-listing in compartment ${each.value}",
+    # All also need create instance in the compartment to launch the instance in and dedicated vm host launch instance in the comparment for the dedicated virtual machine host.
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to use dedicated-vm-hosts in compartment ${each.value}",
   ]
 }
 
