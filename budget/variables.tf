@@ -41,6 +41,7 @@ variable "tag_geo_location" {
   type        = string
   description = "Geo location for OCI resources"
 }
+
 # -----------------------------------------------------------------------------
 # Optional inputs and values to override
 # -----------------------------------------------------------------------------
