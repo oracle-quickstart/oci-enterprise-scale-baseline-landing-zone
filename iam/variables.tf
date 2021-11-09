@@ -58,13 +58,13 @@ variable "workload_storage_admins_group_name" {
 }
 
 variable "workload_admin_group_name" {
-  type = string
+  type    = string
   default = "Workload-Admins"
 }
 
 variable "workload_user_group_name" {
- type = string
- default = "Workload-Users" 
+  type    = string
+  default = "Workload-Users"
 }
 
 # -----------------------------------------------------------------------------
@@ -84,6 +84,6 @@ variable "network_admin_policy_name" {
 # Break Glass User Variable
 # -----------------------------------------------------------------------------
 variable "break_glass_username_list" {
-  type = list(string)
+  type        = list(string)
   description = "The list break glass admin users"
 }

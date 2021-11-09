@@ -1,3 +1,6 @@
+locals {
+
+}
 # ---------------------------------------------------------------------------------------------------------------------
 # Random IDs to prevent naming collision with tenancy level resources
 # ---------------------------------------------------------------------------------------------------------------------
@@ -69,9 +72,9 @@ resource "oci_identity_policy" "lb_users_policies" {
     "Description" = "Policy for access to all components in Load-balancing and use network family in Network compartment"
   }
   statements = [
+    # @FIXME THIS DOESNT MAKE SENSE: ONE GROUP BUT MULTIPLE POLICIES FOR EACH WORKLOAD?
     "Allow group ${oci_identity_group.lb_users_group.name} to use virtual-network-family in compartment ${var.network_compartment_name}",
     "Allow group ${oci_identity_group.lb_users_group.name} to manage load-balancers in compartment ${var.network_compartment_name}"
-
   ]
 }
 
@@ -103,7 +106,9 @@ resource "oci_identity_policy" "workload_storage_admins_policies" {
     "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage file-systems in compartment ${each.value}",
     "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage buckets in compartment ${each.value}",
     "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage objects in compartment ${each.value}"
-
+  ]
+  depends_on = [
+    oci_identity_group.workload_storage_admins_group
   ]
 }
 
@@ -113,13 +118,13 @@ resource "oci_identity_policy" "workload_storage_admins_policies" {
 resource "oci_identity_group" "workload_admins_group" {
   for_each       = toset(var.workload_compartment_name_list)
   compartment_id = var.tenancy_ocid
-  description    = "OCI Landing Zone Workload User Group" 
+  description    = "OCI Landing Zone Workload User Group"
   name           = "${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id}"
 }
 
 resource "oci_identity_policy" "workload_admins_policies" {
   for_each       = toset(var.workload_compartment_name_list)
-  compartment_id = var.workload_compartment_ocids[0][each.value].workload_compartment_id
+  compartment_id = var.workload_compartment_ocids[0][each.value].workload_compartment_id # @FIXME WHY IS THE OUTPUT AN ARRAY OF OBJECTS?
   description    = "OCI Landing Zone Workload User Policy"
   name           = "OCI-LZ-${each.value}-WorkloadAdminPolicy"
   statements = [
@@ -131,15 +136,20 @@ resource "oci_identity_policy" "workload_admins_policies" {
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage app-catalog-listing in compartment ${each.value}",
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage dedicated-vm-hosts in compartment ${each.value}",
   ]
+  # @NOTE THERE IS NO DIRECT DEPENDENCY BETWEEN GROUP AND POLICY; LOCALS IS NOT CLEAN EITHER
+  depends_on = [
+    oci_identity_group.workload_admins_group
+  ]
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# IAM Group and Policies Workload Admins
+# IAM Group and Policies Workload Users
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_group" "workload_users_group" {
+  for_each       = toset(var.workload_compartment_name_list)
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Workload User"
-  name           = "${var.workload_user_group_name}-${random_id.group_name.id}"
+  name           = "${var.workload_user_group_name}-${each.value}-${random_id.group_name.id}"
 }
 
 resource "oci_identity_policy" "workload_users_policies" {
@@ -147,12 +157,15 @@ resource "oci_identity_policy" "workload_users_policies" {
   compartment_id = var.workload_compartment_ocids[0][each.value].workload_compartment_id
   description    = "OCI Landing Zone Workload User Policy"
   name           = "OCI-LZ-${each.value}-WorkloadUserPolicy"
- statements = [
-    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instance in compartment ${each.value}",
-    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instance-console-connection in compartment ${each.value}",
-    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage app-catalog-listing in compartment ${each.value}",
+  statements = [
+    "Allow group ${var.workload_user_group_name}-${each.value}-${random_id.group_name.id} to manage instance in compartment ${each.value}",
+    "Allow group ${var.workload_user_group_name}-${each.value}-${random_id.group_name.id} to manage instance-console-connection in compartment ${each.value}",
+    "Allow group ${var.workload_user_group_name}-${each.value}-${random_id.group_name.id} to manage app-catalog-listing in compartment ${each.value}",
     # All also need create instance in the compartment to launch the instance in and dedicated vm host launch instance in the comparment for the dedicated virtual machine host.
-    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to use dedicated-vm-hosts in compartment ${each.value}",
+    "Allow group ${var.workload_user_group_name}-${each.value}-${random_id.group_name.id} to use dedicated-vm-hosts in compartment ${each.value}",
+  ]
+  depends_on = [
+    oci_identity_group.workload_users_group
   ]
 }
 
