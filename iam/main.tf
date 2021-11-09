@@ -97,18 +97,15 @@ resource "oci_identity_policy" "workload_storage_admins_policies" {
     "Description" = "Policy for Workload Specific Storage Administrator"
   }
   statements = [
-    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volumes in compartment ${each.value}",
-    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volume-backups in compartment ${each.value}",
-    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volume-groups in compartment ${each.value}",
-    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volume-groups in compartment ${each.value}",
-    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage boot-volume-backups in compartment ${each.value}",
-    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to use volume-group-backups in compartment ${each.value}",
-    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage file-systems in compartment ${each.value}",
-    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage buckets in compartment ${each.value}",
-    "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage objects in compartment ${each.value}"
-  ]
-  depends_on = [
-    oci_identity_group.workload_storage_admins_group
+    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volumes in compartment ${each.value}",
+    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-backups in compartment ${each.value}",
+    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-groups in compartment ${each.value}",
+    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-groups in compartment ${each.value}",
+    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage boot-volume-backups in compartment ${each.value}",
+    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to use volume-group-backups in compartment ${each.value}",
+    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage file-systems in compartment ${each.value}",
+    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage buckets in compartment ${each.value}",
+    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage objects in compartment ${each.value}"
   ]
 }
 
@@ -129,7 +126,10 @@ resource "oci_identity_policy" "workload_storage_users_policies" {
  statements = [
     "Allow group ${var.workload_storage_users_group_name}-${each.value}-${random_id.group_name.id} to use buckets in compartment ${each.value}",
     "Allow group ${var.workload_storage_users_group_name}-${each.value}-${random_id.group_name.id} to manage objects in compartment ${each.value}",
-  ]
+ ]
+ depends_on = [
+   oci_identity_group.workload_storage_users_group
+ ]
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
