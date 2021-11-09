@@ -98,7 +98,7 @@ resource "oci_identity_policy" "workload_storage_admins_policies" {
     "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-backups in compartment ${each.value}",
     "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-groups in compartment ${each.value}",
     "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage boot-volume-backups in compartment ${each.value}",
-    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-group-backups in compartment ${each.value}",
+    "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage volume-group-backups in compartment ${each.value} where request.permission='VOLUME_GROUP_BACKUP_CREATE'",
     "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage file-systems in compartment ${each.value}",
     "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage buckets in compartment ${each.value}",
     "Allow group ${oci_identity_group.workload_storage_admins_group[each.key].name} to manage objects in compartment ${each.value}"
@@ -145,7 +145,9 @@ resource "oci_identity_policy" "workload_admins_policies" {
   name           = "OCI-LZ-${each.value}-WorkloadAdminPolicy"
   statements = [
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instance-images in compartment ${each.value}",
-    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instance in compartment ${each.value}",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instances in compartment ${each.value}",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage object-family in compartment ${each.value}",
+    "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to use virtual-network-family in compartment ${each.value}",
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage compute-management-family in compartment ${each.value}",
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage auto-scaling-configuration in compartment ${each.value}",
     "Allow group ${var.workload_admin_group_name}-${each.value}-${random_id.group_name.id} to manage instance-console-connection in compartment ${each.value}",
