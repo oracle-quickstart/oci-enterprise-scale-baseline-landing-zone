@@ -53,17 +53,25 @@ variable "lb_users_group_name" {
 
 variable "workload_storage_admins_group_name" {
   type        = string
-  description = "The name for the workload_storage_admins_group_name"
+  description = "The name for the workload storage administrators group"
   default     = "Workload-Storage-Admins"
+}
+
+variable "workload_storage_users_group_name" {
+  type    = string
+  description = "The name for the workload storage users group"
+  default = "Workload-Users"
 }
 
 variable "workload_admin_group_name" {
   type    = string
+  description = "The name for the workload administrators group"
   default = "Workload-Admins"
 }
 
 variable "workload_user_group_name" {
   type    = string
+  description = "The name for the workload users group"
   default = "Workload-Users"
 }
 
