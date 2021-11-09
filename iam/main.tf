@@ -96,9 +96,16 @@ resource "oci_identity_policy" "workload_storage_admins_policies" {
     "Description" = "Policy for Workload Specific Storage Administrator"
   }
   statements = [
+    # Gives the workload_storage_admins_group ability to do all things with block storage volumes, volume backups, and volume groups
     "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage volume-family in compartment ${each.value}",
+
+    # Gives the workload_storage_admins_group ability to create, manage, or delete a file system or file system clone
     "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage file-family in compartment ${each.value}",
+
+    # Gives the workload_storage_admins_group ability to do all things with object storage buckets
     "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage buckets in compartment ${each.value}",
+
+    # Gives the workload_storage_admins_group ability to do all things with object storage objects
     "Allow group ${var.workload_storage_admins_group_name}-${each.value}-${random_id.group_name.id} to manage objects in compartment ${each.value}"
   ]
   depends_on = [
@@ -120,7 +127,7 @@ resource "oci_identity_policy" "workload_storage_users_policies" {
   for_each       = toset(var.workload_compartment_name_list)
   compartment_id = var.workload_compartment_ocids[0][each.value].workload_compartment_id
   description    = "OCI Landing Zone Storage Workload User Policy"
-  name           = "OCI-LZ-${each.value}-WorkloadUserPolicy"
+  name           = "OCI-LZ-${each.value}-WorkloadStorageUserPolicy"
   freeform_tags = {
     "Description" = "Policy for Workload Specific Storage Users"
   }
