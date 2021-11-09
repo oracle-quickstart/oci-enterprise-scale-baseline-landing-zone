@@ -112,6 +112,9 @@ resource "oci_identity_group" "workload_storage_users_group" {
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Workload Storage User"
   name           = "${var.workload_storage_users_group_name}-${random_id.group_name.id}"
+  freeform_tags = {
+    "Description" = "Policy for Workload Specific Storage Users"
+  }
 }
 
 resource "oci_identity_policy" "workload_storage_users_policies" {
