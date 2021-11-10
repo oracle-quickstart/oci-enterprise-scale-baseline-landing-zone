@@ -189,6 +189,35 @@ resource "oci_identity_policy" "security_admins_policy" {
     "Allow group ${var.security_admins_group_name} to inspect work-requests in compartment ${var.parent_compartment_name}"
   ]
 }
+# ---------------------------------------------------------------------------------------------------------------------
+# IAM Policy Cloud Guard Operator
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_identity_policy" "cloud_guard_operators_policies" {
+  compartment_id = var.parent_compartment_id
+  description    = "OCI Landing Zone Cloud Guard Operators Policy"
+  name           = var.cloud_guard_operators_policy_name
+
+  freeform_tags = {
+    "Description" = "Policy for Cloud Guard Operators"
+  }
+
+  statements = [
+    # Basic access to Cloud Guard - read announcements
+    "Allow group ${var.cloud_guard_operators_group_name} to read cloud-guard-config in compartment ${var.parent_compartment_name}",
+    "Allow group ${var.cloud_guard_operators_group_name} to read announcements in compartment ${var.parent_compartment_name}",
+    # Read access to Risk and Security Scores
+    "Allow group ${var.cloud_guard_operators_group_name} to inspect cloud-guard-risk-scores in compartment ${var.parent_compartment_name}",
+    "Allow group ${var.cloud_guard_operators_group_name} to inspect cloud-guard-security-scores in compartment ${var.parent_compartment_name}",
+    # Read-only access to Cloud Guard problems
+    "Allow group ${var.cloud_guard_operators_group_name} to read cloud-guard-family in compartment ${var.parent_compartment_name}",
+    "Allow group ${var.cloud_guard_operators_group_name} to inspect cloud-guard-detectors in compartment ${var.parent_compartment_name}",
+    "Allow group ${var.cloud_guard_operators_group_name} to inspect cloud-guard-targets in compartment ${var.parent_compartment_name}",
+    "Allow group ${var.cloud_guard_operators_group_name} to inspect cloud-guard-resource-types in compartment ${var.parent_compartment_name}",
+    # "Allow group ${var.cloud_guard_operators_group_name} to read compartments in compartment ${var.parent_compartment_name}",
+    # Read-only access to Cloud Guard detector recipes
+    "Allow group ${var.cloud_guard_operators_group_name} to read cloud-guard-detector-recipes in compartment ${var.parent_compartment_name}"
+  ]
+}
 
 # ---------------------------------------------------------------------------------------------------------------------
 # IAM Policies Cloudguard Analyst
@@ -216,5 +245,22 @@ resource "oci_identity_policy" "cloudguard_analysts_policy" {
     "allow group ${var.cloudguard_analysts_group_name} to read announcements in compartment ${var.parent_compartment_name}",
     "allow group ${var.cloudguard_analysts_group_name} to read compartments in compartment ${var.parent_compartment_name}",
     "allow group ${var.cloudguard_analysts_group_name} to read cloud-guard-config in compartment ${var.parent_compartment_name}"
+  ]
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# IAM Policy Cloud Guard Architect
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_identity_policy" "cloud_guard_architects_policies" {
+  compartment_id = var.parent_compartment_id
+  description    = "OCI Landing Zone Cloud Guard Architect Policy"
+  name           = var.cloud_guard_architects_policy_name
+
+  freeform_tags = {
+    "Description" = "Policy for Cloud Guard Architect"
+  }
+
+  statements = [
+    "Allow group ${var.cloud_guard_architects_group_name} to manage cloud-guard-family in compartment ${var.parent_compartment_name}"
   ]
 }
