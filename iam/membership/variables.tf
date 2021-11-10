@@ -1,16 +1,18 @@
+# -----------------------------------------------------------------------------
+# Required Variable
+# -----------------------------------------------------------------------------
 variable "tenancy_ocid" {
   type        = string
   description = "The OCID of tenancy"
 }
 
 # -----------------------------------------------------------------------------
-# IAM Group Variables
+# IAM Group OCID Variable
 # -----------------------------------------------------------------------------
 variable "administrator_group_id" {
   type        = string
   description = "The OCID for the administrator group"
 }
-
 
 # -----------------------------------------------------------------------------
 # Break Glass User Variable

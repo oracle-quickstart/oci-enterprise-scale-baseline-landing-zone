@@ -1,9 +1,13 @@
+# -----------------------------------------------------------------------------
+# Required Variables
+# -----------------------------------------------------------------------------
 variable "tenancy_ocid" {
   type        = string
   description = "The OCID of tenancy"
 }
 
 variable "workload_compartment_ocids" {
+  type        = map(map(string))
   description = "The list of workload compartments"
 }
 
@@ -39,13 +43,15 @@ variable "workload_compartment_name_list" {
 # IAM Policy Variables
 # -----------------------------------------------------------------------------
 variable "administrator_policy_name" {
-  type    = string
-  default = "OCI-LZ-Admin-TenantAdminPolicy"
+  type        = string
+  default     = "OCI-LZ-Admin-TenantAdminPolicy"
+  description = "Policy name for Administrators"
 }
 
 variable "network_admin_policy_name" {
-  type    = string
-  default = "OCI-LZ-VCNAdminPolicy"
+  type        = string
+  default     = "OCI-LZ-VCNAdminPolicy"
+  description = "Policy name for Network Administrators"
 }
 
 # -----------------------------------------------------------------------------
@@ -53,29 +59,36 @@ variable "network_admin_policy_name" {
 # -----------------------------------------------------------------------------
 
 variable "administrator_group_name" {
-  type = string
+  type        = string
+  description = "Group name for Administrators"
 }
 
 variable "network_admin_group_name" {
-  type = string
+  type        = string
+  description = "Group name for Network Administrators"
 }
 
 variable "lb_users_group_name" {
-  type = string
+  type        = string
+  description = "Group name for Load Balancer Users"
 }
 
 variable "workload_storage_admins_group_names" {
-  type = map(map(string))
+  type = map(any)
+  description = "Map of workload compartment names and group names for Workload Storage Administrators"
 }
 
 variable "workload_storage_users_group_names" {
-  type = map(map(string))
+  type = map(any)
+  description = "Map of workload compartment names and group names for Workload Storage Users"
 }
 
 variable "workload_admins_group_names" {
-  type = map(map(string))
+  type = map(any)
+  description = "Map of workload compartment names and group names for Workload Administrators"
 }
 
 variable "workload_users_group_names" {
-  type = map(map(string))
+  type = map(any)
+  description = "Map of workload compartment names and group names for Workload Users"
 }

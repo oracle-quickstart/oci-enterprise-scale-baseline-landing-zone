@@ -1,3 +1,6 @@
+# -----------------------------------------------------------------------------
+# Required Variables
+# -----------------------------------------------------------------------------
 variable "tenancy_ocid" {
   type        = string
   description = "The OCID of tenancy"
@@ -17,7 +20,7 @@ variable "workload_compartment_name_list" {
 }
 
 # -----------------------------------------------------------------------------
-# IAM Group Variables
+# IAM Group Name Variables
 # -----------------------------------------------------------------------------
 variable "administrator_group_name" {
   type        = string

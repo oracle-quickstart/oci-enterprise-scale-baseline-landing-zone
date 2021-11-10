@@ -8,7 +8,7 @@ resource "oci_identity_group" "administrator_group" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# IAM Group Network Administrators
+# IAM Group for Network Administrators
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_group" "network_admin_group" {
   compartment_id = var.tenancy_ocid
@@ -17,7 +17,7 @@ resource "oci_identity_group" "network_admin_group" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# IAM Group Load Balancer Users
+# IAM Group for Load Balancer Users
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_group" "lb_users_group" {
   compartment_id = var.tenancy_ocid
@@ -26,7 +26,7 @@ resource "oci_identity_group" "lb_users_group" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# IAM Group for Workload-Storage-Admins
+# IAM Group for Workload Storage Admins
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_group" "workload_storage_admins_group" {
   for_each       = toset(var.workload_compartment_name_list)

@@ -1,31 +1,33 @@
 # ---------------------------------------------------------------------------------------------------------------------
-# IAM Policies for Administrators
+# IAM Policy for Administrators
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "administrator_policies" {
-  compartment_id = var.tenancy_ocid
-  description    = "OCI Landing Zone Administrator Tenancy Policy"
-  name           = "${var.administrator_policy_name}-${var.random_policy_name_id}"
-  freeform_tags = {
+  compartment_id  = var.tenancy_ocid
+  description     = "OCI Landing Zone Administrator Tenancy Policy"
+  name            = "${var.administrator_policy_name}-${var.random_policy_name_id}"
+
+  freeform_tags   = {
     "Description" = "Policy for access to all resources in tenancy"
   }
 
-  statements = [
+  statements      = [
     "Allow group ${var.administrator_group_name} to manage all-resources in tenancy where request.user.mfaTotpVerified='true'"
   ]
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# IAM Policies Network Admins
+# IAM Policy Network Admins
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "network_admin_policies" {
-  compartment_id = var.network_compartment_id
-  description    = "OCI Landing Zone VCN Administrator Policy"
-  name           = var.network_admin_policy_name
-  freeform_tags = {
+  compartment_id  = var.network_compartment_id
+  description     = "OCI Landing Zone VCN Administrator Policy"
+  name            = var.network_admin_policy_name
+
+  freeform_tags   = {
     "Description" = "Policy for access to all network resources in Network Compartment"
   }
 
-  statements = [
+  statements      = [
     "Allow group ${var.network_admin_group_name} to manage virtual-network-family in compartment ${var.network_compartment_name}"
   ]
 }
@@ -34,15 +36,16 @@ resource "oci_identity_policy" "network_admin_policies" {
 # IAM Policies LB Users
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "lb_users_policies" {
-  for_each       = toset(var.workload_compartment_name_list)
-  compartment_id = var.network_compartment_id
-  description    = "OCI Landing Zone Load Balancer User Policy"
-  name           = "OCI-LZ-${each.value}-LBUserPolicy"
-  freeform_tags = {
+  for_each        = toset(var.workload_compartment_name_list)
+  compartment_id  = var.network_compartment_id
+  description     = "OCI Landing Zone Load Balancer User Policy"
+  name            = "OCI-LZ-${each.value}-LBUserPolicy"
+
+  freeform_tags   = {
     "Description" = "Policy for access to all components in Load-balancing and use network family in Network compartment"
   }
 
-  statements = [
+  statements      = [
     "Allow group ${var.lb_users_group_name} to use virtual-network-family in compartment ${var.network_compartment_name}",
     "Allow group ${var.lb_users_group_name} to manage load-balancers in compartment ${var.network_compartment_name}"
   ]
@@ -52,15 +55,16 @@ resource "oci_identity_policy" "lb_users_policies" {
 # IAM Policies Workload-Storage-Admins
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "workload_storage_admins_policies" {
-  for_each       = toset(var.workload_compartment_name_list)
-  compartment_id = var.workload_compartment_ocids[each.value].workload_compartment_id
-  description    = "OCI Landing Zone Workload Specific Storage Administrator Policies"
-  name           = "OCI-LZ-${each.value}-StorageAdminPolicy"
-  freeform_tags = {
+  for_each        = toset(var.workload_compartment_name_list)
+  compartment_id  = var.workload_compartment_ocids[each.value].workload_compartment_id
+  description     = "OCI Landing Zone Workload Specific Storage Administrator Policies"
+  name            = "OCI-LZ-${each.value}-StorageAdminPolicy"
+
+  freeform_tags   = {
     "Description" = "Policy for Workload Specific Storage Administrator"
   }
 
-  statements = [
+  statements      = [
     # Ability to do all things with block storage volumes, volume backups, and volume groups
     "Allow group ${var.workload_storage_admins_group_names[each.value].name} to manage volume-family in compartment ${each.value}",
     # Ability to create, manage, or delete a file system or file system clone
@@ -76,15 +80,16 @@ resource "oci_identity_policy" "workload_storage_admins_policies" {
 # IAM Policies Workload Storage Users
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "workload_storage_users_policies" {
-  for_each       = toset(var.workload_compartment_name_list)
-  compartment_id = var.workload_compartment_ocids[each.value].workload_compartment_id
-  description    = "OCI Landing Zone Storage Workload User Policy"
-  name           = "OCI-LZ-${each.value}-WorkloadStorageUserPolicy"
-  freeform_tags = {
+  for_each        = toset(var.workload_compartment_name_list)
+  compartment_id  = var.workload_compartment_ocids[each.value].workload_compartment_id
+  description     = "OCI Landing Zone Storage Workload User Policy"
+  name            = "OCI-LZ-${each.value}-WorkloadStorageUserPolicy"
+
+  freeform_tags   = {
     "Description" = "Policy for Workload Specific Storage Users"
   }
 
-  statements = [
+  statements      = [
     # Ability to get all buckets in the compartment
     "Allow group ${var.workload_storage_users_group_names[each.value].name} to read buckets in compartment ${each.value}",
     # Ability to create, inspect and download objects in the compartment
@@ -96,15 +101,16 @@ resource "oci_identity_policy" "workload_storage_users_policies" {
 # IAM Policies Workload Admins
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "workload_admins_policies" {
-  for_each       = toset(var.workload_compartment_name_list)
-  compartment_id = var.workload_compartment_ocids[each.value].workload_compartment_id
-  description    = "OCI Landing Zone Workload User Policy"
-  name           = "OCI-LZ-${each.value}-WorkloadAdminPolicy"
-  freeform_tags = {
+  for_each        = toset(var.workload_compartment_name_list)
+  compartment_id  = var.workload_compartment_ocids[each.value].workload_compartment_id
+  description     = "OCI Landing Zone Workload User Policy"
+  name            = "OCI-LZ-${each.value}-WorkloadAdminPolicy"
+
+  freeform_tags   = {
     "Description" = "Policy for Workload Specific Administrators"
   }
-  
-  statements = [
+
+  statements      = [
     # Ability to do everything with custom images and compute instances
     "Allow group ${var.workload_admins_group_names[each.value].name} to manage instance-images in compartment ${each.value}",
     "Allow group ${var.workload_admins_group_names[each.value].name} to manage instances in compartment ${each.value}",
@@ -132,15 +138,16 @@ resource "oci_identity_policy" "workload_admins_policies" {
 # IAM Policies Workload Users
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "workload_users_policies" {
-  for_each       = toset(var.workload_compartment_name_list)
-  compartment_id = var.workload_compartment_ocids[each.value].workload_compartment_id
-  description    = "OCI Landing Zone Workload User Policy"
-  name           = "OCI-LZ-${each.value}-WorkloadUserPolicy"
-  freeform_tags = {
+  for_each        = toset(var.workload_compartment_name_list)
+  compartment_id  = var.workload_compartment_ocids[each.value].workload_compartment_id
+  description     = "OCI Landing Zone Workload User Policy"
+  name            = "OCI-LZ-${each.value}-WorkloadUserPolicy"
+
+  freeform_tags   = {
     "Description" = "Policy for Workload Specific Users"
   }
-  
-  statements = [
+
+  statements      = [
     # Ability to do everything with instances launched into the cloud network and subnets 
     "Allow group ${var.workload_users_group_names[each.value].name} to manage instance in compartment ${each.value}",
     "Allow group ${var.workload_users_group_names[each.value].name} to use virtual-network-family in compartment ${each.value}",
