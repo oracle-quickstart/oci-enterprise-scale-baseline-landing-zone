@@ -142,7 +142,7 @@ module "vcn" {
 # Create Security resources
 # -----------------------------------------------------------------------------
 module "security" {
-  source                                     = "./security"
+  source                                     = "./security/cloud-guard"
   region                                     = var.region
   activity_detector_recipe_display_name      = var.activity_detector_recipe_display_name
   cloud_guard_configuration_status           = var.cloud_guard_configuration_status
