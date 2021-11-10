@@ -5,6 +5,10 @@ resource "random_id" "policy_name" {
   byte_length = 8
 }
 
+resource "random_id" "target_name" {
+  byte_length = 8
+}
+
 resource "oci_cloud_guard_cloud_guard_configuration" "tenancy_cloud_guard_configuration" {
   compartment_id   = var.tenancy_ocid
   reporting_region = var.region
@@ -47,4 +51,29 @@ resource "oci_identity_policy" "cloud_guard_policy" {
   ]
 
   depends_on = [oci_cloud_guard_cloud_guard_configuration.tenancy_cloud_guard_configuration]
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Cloud Guard target
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_cloud_guard_target" "cloud_guard_target" {
+  #Required
+  compartment_id       = var.parent_compartment_ocid
+  display_name         = "${var.cloud_guard_target_name}-${random_id.target_name.id}"
+  target_resource_id   = var.parent_compartment_ocid
+  target_resource_type = var.target_resource_type
+  description          = var.target_description
+
+  freeform_tags = {
+    "Description" = "Cloud guard target"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
+
+  target_detector_recipes {
+    detector_recipe_id = "ocid1.cloudguarddetectorrecipe.oc1.phx.amaaaaaavwya75cq5sadb7qdkzokayi5fpmoapt5mqosxhgycf2ofohlfu5a"
+  }
+  target_detector_recipes {
+    detector_recipe_id = "ocid1.cloudguarddetectorrecipe.oc1.phx.amaaaaaavwya75cqipu3p42urrlekzgoy733pszwmm4qqgwpdydwfynu7ada"
+  }
 }
