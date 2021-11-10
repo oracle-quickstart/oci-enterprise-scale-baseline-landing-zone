@@ -89,3 +89,16 @@ variable "workload_users_group_names" {
   type        = map(any)
   description = "Map of workload compartment names and group names for Workload Users"
 }
+
+# -----------------------------------------------------------------------------
+# Tag Variables
+# -----------------------------------------------------------------------------
+variable "tag_cost_center" {
+  type        = string
+  description = "Cost center to charge for OCI resources"
+}
+
+variable "tag_geo_location" {
+  type        = string
+  description = "Geo location for OCI resources"
+}
