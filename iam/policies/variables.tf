@@ -34,6 +34,7 @@ variable "workload_compartment_name_list" {
   type        = list(string)
   description = "List of application workload compartment names"
 }
+
 # -----------------------------------------------------------------------------
 # IAM Policy Variables
 # -----------------------------------------------------------------------------
@@ -52,25 +53,29 @@ variable "network_admin_policy_name" {
 # -----------------------------------------------------------------------------
 
 variable "administrator_group_name" {
-  type    = string
+  type = string
 }
 
-variable "network_admin_group_name"{
-  type    = string
+variable "network_admin_group_name" {
+  type = string
 }
 
-variable "lb_users_group_name"{
-  type    = string
+variable "lb_users_group_name" {
+  type = string
 }
 
-variable "workload_storage_admins_group_names"{
+variable "workload_storage_admins_group_names" {
+  type = map(map(string))
 }
 
-variable "workload_storage_users_group_names"{
+variable "workload_storage_users_group_names" {
+  type = map(map(string))
 }
 
-variable "workload_admins_group_names"{
+variable "workload_admins_group_names" {
+  type = map(map(string))
 }
 
-variable "workload_users_group_names"{
+variable "workload_users_group_names" {
+  type = map(map(string))
 }

@@ -53,12 +53,13 @@ resource "oci_identity_policy" "lb_users_policies" {
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "workload_storage_admins_policies" {
   for_each       = toset(var.workload_compartment_name_list)
-  compartment_id = var.workload_compartment_ocids[0][each.value].workload_compartment_id
+  compartment_id = var.workload_compartment_ocids[each.value].workload_compartment_id
   description    = "OCI Landing Zone Workload Specific Storage Administrator Policies"
   name           = "OCI-LZ-${each.value}-StorageAdminPolicy"
   freeform_tags = {
     "Description" = "Policy for Workload Specific Storage Administrator"
   }
+
   statements = [
     # Ability to do all things with block storage volumes, volume backups, and volume groups
     "Allow group ${var.workload_storage_admins_group_names[each.value].name} to manage volume-family in compartment ${each.value}",
@@ -76,13 +77,13 @@ resource "oci_identity_policy" "workload_storage_admins_policies" {
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "workload_storage_users_policies" {
   for_each       = toset(var.workload_compartment_name_list)
-  compartment_id = var.workload_compartment_ocids[0][each.value].workload_compartment_id
+  compartment_id = var.workload_compartment_ocids[each.value].workload_compartment_id
   description    = "OCI Landing Zone Storage Workload User Policy"
   name           = "OCI-LZ-${each.value}-WorkloadStorageUserPolicy"
   freeform_tags = {
     "Description" = "Policy for Workload Specific Storage Users"
   }
-  
+
   statements = [
     # Ability to get all buckets in the compartment
     "Allow group ${var.workload_storage_users_group_names[each.value].name} to read buckets in compartment ${each.value}",
@@ -96,7 +97,7 @@ resource "oci_identity_policy" "workload_storage_users_policies" {
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "workload_admins_policies" {
   for_each       = toset(var.workload_compartment_name_list)
-  compartment_id = var.workload_compartment_ocids[0][each.value].workload_compartment_id
+  compartment_id = var.workload_compartment_ocids[each.value].workload_compartment_id
   description    = "OCI Landing Zone Workload User Policy"
   name           = "OCI-LZ-${each.value}-WorkloadAdminPolicy"
   freeform_tags = {
@@ -132,7 +133,7 @@ resource "oci_identity_policy" "workload_admins_policies" {
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "workload_users_policies" {
   for_each       = toset(var.workload_compartment_name_list)
-  compartment_id = var.workload_compartment_ocids[0][each.value].workload_compartment_id
+  compartment_id = var.workload_compartment_ocids[each.value].workload_compartment_id
   description    = "OCI Landing Zone Workload User Policy"
   name           = "OCI-LZ-${each.value}-WorkloadUserPolicy"
   freeform_tags = {

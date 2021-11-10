@@ -99,7 +99,7 @@ module "iam" {
   network_compartment_name       = var.network_compartment_name
   workload_compartment_name_list = var.workload_compartment_names
   break_glass_username_list      = var.break_glass_username_list
-  workload_compartment_ocids     = module.workload-compartment[*]
+  workload_compartment_ocids     = module.workload-compartment
   depends_on = [
     module.parent-compartment, module.network-compartment, module.workload-compartment
   ]
