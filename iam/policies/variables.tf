@@ -74,21 +74,21 @@ variable "lb_users_group_name" {
 }
 
 variable "workload_storage_admins_group_names" {
-  type = map(any)
+  type        = map(any)
   description = "Map of workload compartment names and group names for Workload Storage Administrators"
 }
 
 variable "workload_storage_users_group_names" {
-  type = map(any)
+  type        = map(any)
   description = "Map of workload compartment names and group names for Workload Storage Users"
 }
 
 variable "workload_admins_group_names" {
-  type = map(any)
+  type        = map(any)
   description = "Map of workload compartment names and group names for Workload Administrators"
 }
 
 variable "workload_users_group_names" {
-  type = map(any)
+  type        = map(any)
   description = "Map of workload compartment names and group names for Workload Users"
 }

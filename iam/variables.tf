@@ -4,7 +4,7 @@ variable "tenancy_ocid" {
 }
 
 variable "workload_compartment_ocids" {
-  type = map(map(string))
+  type        = map(map(string))
   description = "The list of workload compartments"
 }
 
