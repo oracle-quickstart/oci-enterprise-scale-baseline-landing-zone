@@ -43,3 +43,21 @@ variable "cloud_guard_policy_name" {
   description = "Name of Cloud Guard Policy"
   default     = "OCI-LZ-Cloud-Guard-Policy"
 }
+
+variable "cloud_guard_target_name" {
+  type        = string
+  description = "Name of Cloud Guard Policy"
+  default     = "OCI-LZ-Cloud-Guard-Target"
+}
+
+variable "target_resource_type" {
+  type        = string
+  description = "Cloud Guard target resource type"
+  default     = "COMPARTMENT"
+}
+
+variable "target_description" {
+  type        = string
+  description = "Cloud Guard target description"
+  default     = "Landing Zones Parent compartment"
+}

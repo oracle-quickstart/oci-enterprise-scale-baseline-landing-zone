@@ -10,11 +10,11 @@ variable "cloud_guard_configuration_status" {
 variable "configuration_detector_recipe_display_name" {
   type        = string
   description = "display name for configuration detector recipe"
-  default     = "OCI Configuration Detector Recipe (Oracle Managed)"
+  default     = "OCI Configuration Detector Recipe"
 }
 
 variable "activity_detector_recipe_display_name" {
   type        = string
   description = "display name for activity detector recipe"
-  default     = "OCI Activity Detector Recipe (Oracle Managed)"
+  default     = "OCI Activity Detector Recipe"
 }
