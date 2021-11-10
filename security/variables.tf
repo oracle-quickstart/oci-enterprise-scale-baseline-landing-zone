@@ -37,3 +37,9 @@ variable "tag_geo_location" {
   type        = string
   description = "Geo location for OCI resources"
 }
+
+variable "cloud_guard_policy_name" {
+  type        = string
+  description = "Name of Cloud Guard Policy"
+  default     = "OCI-LZ-Cloud-Guard-Policy"
+}
