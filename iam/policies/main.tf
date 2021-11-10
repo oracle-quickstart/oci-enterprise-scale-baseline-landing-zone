@@ -184,7 +184,9 @@ resource "oci_identity_policy" "security_admins_policy" {
   name           = var.security_admins_policy_name
 
   freeform_tags = {
-    "Description" = "Policy for Security Admin Users"
+    "Description" = "Policy for Security Admin Users",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 
   statements = [
@@ -214,7 +216,9 @@ resource "oci_identity_policy" "cloud_guard_operators_policies" {
   name           = var.cloud_guard_operators_policy_name
 
   freeform_tags = {
-    "Description" = "Policy for Cloud Guard Operators"
+    "Description" = "Policy for Cloud Guard Operators",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 
   statements = [
@@ -244,7 +248,9 @@ resource "oci_identity_policy" "cloud_guard_analysts_policy" {
   name           = var.cloud_guard_analysts_policy_name
 
   freeform_tags = {
-    "Description" = "Policy for Cloud Guard Analyst Users"
+    "Description" = "Policy for Cloud Guard Analyst Users",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 
   statements = [
@@ -273,7 +279,9 @@ resource "oci_identity_policy" "cloud_guard_architects_policies" {
   name           = var.cloud_guard_architects_policy_name
 
   freeform_tags = {
-    "Description" = "Policy for Cloud Guard Architect"
+    "Description" = "Policy for Cloud Guard Architect",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 
   statements = [
