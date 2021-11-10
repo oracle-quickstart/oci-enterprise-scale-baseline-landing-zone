@@ -99,6 +99,9 @@ module "iam" {
   network_compartment_name       = var.network_compartment_name
   workload_compartment_name_list = var.workload_compartment_names
   break_glass_username_list      = var.break_glass_username_list
+  workload_compartment_ocids     = module.workload-compartment
+  tag_cost_center                = var.tag_cost_center
+  tag_geo_location               = var.tag_geo_location
   depends_on = [
     module.parent-compartment, module.network-compartment, module.workload-compartment
   ]
