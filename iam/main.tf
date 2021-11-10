@@ -27,6 +27,7 @@ module "policies" {
   source                              = "./policies"
   tenancy_ocid                        = var.tenancy_ocid
   parent_compartment_id               = var.parent_compartment_id
+  parent_compartment_name             = var.parent_compartment_name
   network_compartment_id              = var.network_compartment_id
   network_compartment_name            = var.network_compartment_name
   workload_compartment_name_list      = var.workload_compartment_name_list

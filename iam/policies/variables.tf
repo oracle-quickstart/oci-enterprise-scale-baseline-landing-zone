@@ -21,6 +21,11 @@ variable "parent_compartment_id" {
   description = "The OCID of the top level / parent compartment"
 }
 
+variable "parent_compartment_name" {
+  type        = string
+  description = "The name for the parent compartment"
+}
+
 variable "network_compartment_id" {
   type        = string
   description = "The OCID of the network compartment"
