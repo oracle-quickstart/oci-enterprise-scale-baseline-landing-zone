@@ -140,3 +140,18 @@ module "vcn" {
   ingress_security_rules_description                            = var.ingress_security_rules_description
   depends_on                                                    = [ module.network-compartment ]
 }
+
+# -----------------------------------------------------------------------------
+# Create Security resources
+# -----------------------------------------------------------------------------
+module "security" {
+  source                                     = "./security/cloud-guard"
+  region                                     = var.region
+  activity_detector_recipe_display_name      = var.activity_detector_recipe_display_name
+  cloud_guard_configuration_status           = var.cloud_guard_configuration_status
+  configuration_detector_recipe_display_name = var.configuration_detector_recipe_display_name
+  parent_compartment_ocid                    = module.parent-compartment.parent_compartment_id
+  tenancy_ocid                               = var.tenancy_ocid
+  tag_geo_location                           = var.tag_geo_location
+  tag_cost_center                            = var.tag_cost_center
+}
