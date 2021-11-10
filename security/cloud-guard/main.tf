@@ -24,7 +24,7 @@ resource "oci_identity_policy" "cloud_guard_policy" {
   name           = "${var.cloud_guard_policy_name}-${random_id.policy_name.id}"
 
   freeform_tags = {
-    "Description" = "Cloud guard activity detector recipe"
+    "Description" = "Cloud guard policy"
     "CostCenter"  = var.tag_cost_center,
     "GeoLocation" = var.tag_geo_location
   }
@@ -76,4 +76,26 @@ resource "oci_cloud_guard_target" "cloud_guard_target" {
   target_detector_recipes {
     detector_recipe_id = data.oci_cloud_guard_detector_recipes.activity_detector_recipe.detector_recipe_collection.0.items.0.id
   }
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Vulnerability scanning service polices for each cloud guard target
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_identity_policy" "vulnerability_scanning_service_policy" {
+  compartment_id = var.parent_compartment_ocid
+  description    = "OCI Landing Zone Scanning-service Policy"
+  name           = "${var.vulnerability_scanning_service_policy_name}-${random_id.policy_name.id}"
+
+  freeform_tags = {
+    "Description" = "Vulnerability Scanning Service Policy"
+    "CostCenter"  = var.tag_cost_center
+    "GeoLocation" = var.tag_geo_location
+  }
+
+  statements = [
+    "Allow service vulnerability-scanning-service to manage instances in compartment ${var.parent_compartment_name}",
+    "Allow service vulnerability-scanning-service to read compartments in compartment ${var.parent_compartment_name}",
+    "Allow service vulnerability-scanning-service to read vnics in compartment ${var.parent_compartment_name}",
+    "Allow service vulnerability-scanning-service to read vnic-attachments in compartment ${var.parent_compartment_name}"
+  ]
 }

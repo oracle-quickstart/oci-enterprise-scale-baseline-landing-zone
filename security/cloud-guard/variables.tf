@@ -61,3 +61,14 @@ variable "target_description" {
   description = "Cloud Guard target description"
   default     = "Landing Zones Parent compartment"
 }
+
+variable "vulnerability_scanning_service_policy_name" {
+ type        = string
+ description = "Name of Scanning Service Policy"
+ default     = "OCI-LZ-Scanning-Service-Policy"
+}
+
+variable "parent_compartment_name" {
+  type        = string
+  description = "Name of the top level / parent compartment"
+}

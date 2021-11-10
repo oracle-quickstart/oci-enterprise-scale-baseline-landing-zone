@@ -154,4 +154,8 @@ module "security" {
   tenancy_ocid                               = var.tenancy_ocid
   tag_geo_location                           = var.tag_geo_location
   tag_cost_center                            = var.tag_cost_center
+  parent_compartment_name                    = var.parent_compartment_name
+  depends_on = [
+    module.parent-compartment, module.common-infra-compartment, module.security-compartment
+  ]
 }
