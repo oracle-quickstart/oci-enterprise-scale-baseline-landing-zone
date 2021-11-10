@@ -8,6 +8,21 @@ variable "workload_compartment_ocids" {
   description = "The list of workload compartments"
 }
 
+variable "region" {
+  type        = string
+  description = "Region for use in object storage policy"
+}
+
+variable "key_id" {
+  type        = string
+  description = "Encryption key ocid for security admin policy"
+}
+
+variable "vault_id" {
+  type        = string
+  description = "Vault ocid for security admin policy"
+}
+
 # -----------------------------------------------------------------------------
 # Identity Compartment Variables
 # -----------------------------------------------------------------------------
@@ -102,17 +117,15 @@ variable "break_glass_username_list" {
   description = "The list break glass admin users"
 }
 
-variable "region" {
+# -----------------------------------------------------------------------------
+# Tag Variables
+# -----------------------------------------------------------------------------
+variable "tag_cost_center" {
   type        = string
-  description = "Region for use in object storage policy"
+  description = "Cost center to charge for OCI resources"
 }
 
-variable "key_id" {
+variable "tag_geo_location" {
   type        = string
-  description = "Encryption key ocid for security admin policy"
-}
-
-variable "vault_id" {
-  type        = string
-  description = "Vault ocid for security admin policy"
+  description = "Geo location for OCI resources"
 }

@@ -18,6 +18,8 @@ module "groups" {
 
   workload_compartment_name_list = var.workload_compartment_name_list
   random_group_name_id           = random_id.group_name.id
+  tag_cost_center                     = var.tag_cost_center
+  tag_geo_location                    = var.tag_geo_location
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -43,10 +45,12 @@ module "policies" {
   cloud_guard_operators_group_name    = module.groups.cloud_guard_operators_group_name
   cloud_guard_analysts_group_name     = module.groups.cloud_guard_analysts_group_name
   cloud_guard_architects_group_name   = module.groups.cloud_guard_architects_group_name
-  random_policy_name_id               = random_id.policy_name.id
   region                              = var.region
   key_id                              = var.key_id
   vault_id                            = var.vault_id
+  tag_cost_center                     = var.tag_cost_center
+  tag_geo_location                    = var.tag_geo_location
+  random_policy_name_id               = random_id.policy_name.id
   depends_on                          = [module.groups]
 }
 

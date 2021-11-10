@@ -7,7 +7,9 @@ resource "oci_identity_policy" "administrator_policies" {
   name           = "${var.administrator_policy_name}-${var.random_policy_name_id}"
 
   freeform_tags = {
-    "Description" = "Policy for access to all resources in tenancy"
+    "Description" = "Policy for access to all resources in tenancy",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 
   statements = [
@@ -24,7 +26,9 @@ resource "oci_identity_policy" "network_admin_policies" {
   name           = var.network_admin_policy_name
 
   freeform_tags = {
-    "Description" = "Policy for access to all network resources in Network Compartment"
+    "Description" = "Policy for access to all network resources in Network Compartment",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 
   statements = [
@@ -42,7 +46,9 @@ resource "oci_identity_policy" "lb_users_policies" {
   name           = "OCI-LZ-${each.value}-LBUserPolicy"
 
   freeform_tags = {
-    "Description" = "Policy for access to all components in Load-balancing and use network family in Network compartment"
+    "Description" = "Policy for access to all components in Load-balancing and use network family in Network compartment",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 
   statements = [
@@ -61,7 +67,9 @@ resource "oci_identity_policy" "workload_storage_admins_policies" {
   name           = "OCI-LZ-${each.value}-StorageAdminPolicy"
 
   freeform_tags = {
-    "Description" = "Policy for Workload Specific Storage Administrator"
+    "Description" = "Policy for Workload Specific Storage Administrator",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 
   statements = [
@@ -86,7 +94,9 @@ resource "oci_identity_policy" "workload_storage_users_policies" {
   name           = "OCI-LZ-${each.value}-WorkloadStorageUserPolicy"
 
   freeform_tags = {
-    "Description" = "Policy for Workload Specific Storage Users"
+    "Description" = "Policy for Workload Specific Storage Users",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 
   statements = [
@@ -107,7 +117,10 @@ resource "oci_identity_policy" "workload_admins_policies" {
   name           = "OCI-LZ-${each.value}-WorkloadAdminPolicy"
 
   freeform_tags = {
-    "Description" = "Policy for Workload Specific Administrators"
+    "Description" = "Policy for Workload Specific Administrators",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+
   }
 
   statements = [
@@ -144,7 +157,9 @@ resource "oci_identity_policy" "workload_users_policies" {
   name           = "OCI-LZ-${each.value}-WorkloadUserPolicy"
 
   freeform_tags = {
-    "Description" = "Policy for Workload Specific Users"
+    "Description" = "Policy for Workload Specific Users",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 
   statements = [

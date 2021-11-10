@@ -84,3 +84,15 @@ variable "cloud_guard_architects_group_name" {
   description = "The name for the Cloud Guard Architect group name"
   default     = "CloudGuard-Architect"
 }
+# -----------------------------------------------------------------------------
+# Tag Variables
+# -----------------------------------------------------------------------------
+variable "tag_cost_center" {
+  type        = string
+  description = "Cost center to charge for OCI resources"
+}
+
+variable "tag_geo_location" {
+  type        = string
+  description = "Geo location for OCI resources"
+}
