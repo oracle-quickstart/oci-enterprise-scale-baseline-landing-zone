@@ -159,3 +159,62 @@ resource "oci_identity_policy" "workload_users_policies" {
     "Allow group ${var.workload_users_group_names[each.value].name} to use dedicated-vm-hosts in compartment ${each.value}",
   ]
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# IAM Policies Security Admins
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_identity_policy" "security_admins_policy" {
+  compartment_id = var.parent_compartment_id
+  description    = "OCI Landing Zone Security Admin Policy"
+  name           = var.security_admins_policy_name
+
+  freeform_tags = {
+    "Description" = "Policy for Security Admin Users"
+  }
+
+  statements = [
+    # Ability to associate an Object Storage bucket, Block Volume volume, File Storage file system, Kubernetes cluster, or Streaming stream pool with a specific key
+    "Allow group ObjectWriters, VolumeWriters, FileWriters, ClusterWriters, StreamWriters to use key-delegate in compartment ABC where target.key.id = '<key_OCID>'",
+    # Ability to list, view, and perform cryptographic operations with all keys in compartment 
+    "Allow group SecurityAdmins to use keys in compartment ABC",
+    "Allow service blockstorage, objectstorage-<region_name>, FssOc1Prod, oke, streaming to use keys in compartment ABC where target.key.id = '<key_OCID>'",
+    # Ability to do all things with secrets in a specific vault in compartment ABC.
+    "Allow group SecurityAdmins to manage secret-family in compartment ABC where target.vault.id='<vault_OCID>'",
+    # Ability to manage all resources in the Bastion service in all compartments
+    "Allow group SecurityAdmins to manage bastion in tenancy",
+    "Allow group SecurityAdmins to manage bastion-session in tenancy",
+    "Allow group SecurityAdmins to manage virtual-network-family in tenancy",
+    "Allow group SecurityAdmins to read instance-family in tenancy",
+    "Allow group SecurityAdmins to read instance-agent-plugins in tenancy",
+    "Allow group SecurityAdmins to inspect work-requests in tenancy"
+  ]
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# IAM Policies Cloudguard Analyst
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_identity_policy" "cloudguard_analysts_policy" {
+  compartment_id = var.parent_compartment_id
+  description    = "OCI Landing Zone Cloud Guard Analyst Policy"
+  name           = var.cloudguard_analysts_policy_name
+
+  freeform_tags = {
+    "Description" = "Policy for Cloud Guard Analyst Users"
+  }
+
+  statements = [
+    # Read-only access to Cloud Guard problems
+    "Allow group CloudGuard_ReadOnlyProblems to read cloud-guard-family in tenancy",
+    "Allow group CloudGuard_ReadOnlyProblems to inspect cloud-guard-detectors in tenancy",
+    "Allow group CloudGuard_ReadOnlyProblems to inspect cloud-guard-targets in tenancy",
+    "Allow group CloudGuard_ReadOnlyProblems to inspect cloud-guard-resource-types in tenancy",
+    "allow group CloudGuard_ReadOnlyProblems to read announcements in tenancy",
+    "allow group CloudGuard_ReadOnlyProblems to read compartments in tenancy",
+    "allow group CloudGuard_ReadOnlyProblems to read cloud-guard-config in tenancy",
+    # Read-only access to Cloud Guard detector recipes
+    "allow group CloudGuard_ReadOnlyDetectors to read cloud-guard-detector-recipes in tenancy",
+    "allow group CloudGuard_ReadOnlyDetectors to read announcements in tenancy",
+    "allow group CloudGuard_ReadOnlyDetectors to read compartments in tenancy",
+    "allow group CloudGuard_ReadOnlyDetectors to read cloud-guard-config in tenancy"
+  ]
+}

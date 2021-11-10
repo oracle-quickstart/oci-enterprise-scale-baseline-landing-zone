@@ -50,3 +50,17 @@ output "workload_admins_group_names" {
 output "workload_users_group_names" {
   value = oci_identity_group.workload_users_group
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Output for Security Admins
+# ---------------------------------------------------------------------------------------------------------------------
+output "security_admins_group_name" {
+  value = oci_identity_group.security_admins_group.name
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Output for Cloudguard Analysts
+# ---------------------------------------------------------------------------------------------------------------------
+output "cloudguard_analysts_group_name" {
+  value = oci_identity_group.cloudguard_analysts_group.name
+}

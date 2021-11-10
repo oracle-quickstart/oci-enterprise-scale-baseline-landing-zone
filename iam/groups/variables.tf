@@ -60,3 +60,15 @@ variable "workload_users_group_name" {
   description = "The name for the workload users group"
   default     = "Workload-Users"
 }
+
+variable "security_admins_group_name" {
+  type        = string
+  description = "The name of the security admin group"
+  default     = "SecurityAdmins"
+}
+
+variable "cloudguard_analysts_group_name" {
+  type        = string
+  description = "The name of the cloudguard analyst group"
+  default     = "CloudGuard-Analyst"
+}

@@ -65,3 +65,20 @@ resource "oci_identity_group" "workload_users_group" {
   name           = "${var.workload_users_group_name}-${each.value}-${var.random_group_name_id}"
 }
 
+# ---------------------------------------------------------------------------------------------------------------------
+# IAM Group Security Admins
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_identity_group" "security_admins_group" {
+  compartment_id = var.tenancy_ocid
+  description    = "OCI Landing Zone Security Admin"
+  name           = "${var.security_admins_group_name}-${var.random_group_name_id}"
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# IAM Group Cloudguard Analyst 
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_identity_group" "cloudguard_analysts_group" {
+  compartment_id = var.tenancy_ocid
+  description    = "OCI Landing Zone Cloudguard Analyst"
+  name           = "${var.cloudguard_analysts_group_name}-${var.random_group_name_id}"
+}
