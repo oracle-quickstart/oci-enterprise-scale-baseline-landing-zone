@@ -61,13 +61,13 @@ resource "oci_identity_policy" "workload_storage_admins_policies" {
   }
   statements = [
     # Ability to do all things with block storage volumes, volume backups, and volume groups
-    "Allow group ${var.workload_storage_admins_group_names[1]} to manage volume-family in compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_names[each.value].name} to manage volume-family in compartment ${each.value}",
     # Ability to create, manage, or delete a file system or file system clone
-    "Allow group ${var.workload_storage_admins_group_names[0]} to manage file-family in compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_names[each.value].name} to manage file-family in compartment ${each.value}",
     # Ability to do all things with object storage buckets
-    "Allow group ${var.workload_storage_admins_group_names[1]} to manage buckets in compartment ${each.value}",
+    "Allow group ${var.workload_storage_admins_group_names[each.value].name} to manage buckets in compartment ${each.value}",
     # Ability to do all things with object storage objects
-    "Allow group ${var.workload_storage_admins_group_names[1]} to manage objects in compartment ${each.value}"
+    "Allow group ${var.workload_storage_admins_group_names[each.value].name} to manage objects in compartment ${each.value}"
   ]
 }
 
@@ -85,9 +85,9 @@ resource "oci_identity_policy" "workload_storage_users_policies" {
   
   statements = [
     # Ability to get all buckets in the compartment
-    "Allow group ${var.workload_storage_users_group_names[0]} to read buckets in compartment ${each.value}",
+    "Allow group ${var.workload_storage_users_group_names[each.value].name} to read buckets in compartment ${each.value}",
     # Ability to create, inspect and download objects in the compartment
-    "Allow group ${var.workload_storage_users_group_names[0]} to manage objects in compartment ${each.value} where any {request.permission='OBJECT_CREATE', request.permission='OBJECT_INSPECT', request.permission='OBJECT_READ'}"
+    "Allow group ${var.workload_storage_users_group_names[each.value].name} to manage objects in compartment ${each.value} where any {request.permission='OBJECT_CREATE', request.permission='OBJECT_INSPECT', request.permission='OBJECT_READ'}"
   ]
 }
 
@@ -105,25 +105,25 @@ resource "oci_identity_policy" "workload_admins_policies" {
   
   statements = [
     # Ability to do everything with custom images and compute instances
-    "Allow group ${var.workload_admins_group_names[0]} to manage instance-images in compartment ${each.value}",
-    "Allow group ${var.workload_admins_group_names[0]} to manage instances in compartment ${each.value}",
-    "Allow group ${var.workload_admins_group_names[0]} to manage object-family in compartment ${each.value}",
-    "Allow group ${var.workload_admins_group_names[0]} to use volume-family in compartment ${each.value}",
-    "Allow group ${var.workload_admins_group_names[0]} to use virtual-network-family in compartment ${each.value}",
+    "Allow group ${var.workload_admins_group_names[each.value].name} to manage instance-images in compartment ${each.value}",
+    "Allow group ${var.workload_admins_group_names[each.value].name} to manage instances in compartment ${each.value}",
+    "Allow group ${var.workload_admins_group_names[each.value].name} to manage object-family in compartment ${each.value}",
+    "Allow group ${var.workload_admins_group_names[each.value].name} to use volume-family in compartment ${each.value}",
+    "Allow group ${var.workload_admins_group_names[each.value].name} to use virtual-network-family in compartment ${each.value}",
     # Ability to do all things with instance configurations, instance pools, and cluster networks
-    "Allow group ${var.workload_admins_group_names[0]} to manage compute-management-family in compartment ${each.value}",
-    "Allow group ${var.workload_admins_group_names[0]} to read instance-family in compartment ${each.value}",
-    "Allow group ${var.workload_admins_group_names[0]} to inspect volumes in compartment ${each.value}",
-    "Allow group ${var.workload_admins_group_names[0]} to use tag-namespaces in compartment ${each.value} where target.tag-namespace.name = 'oracle-tags'",
+    "Allow group ${var.workload_admins_group_names[each.value].name} to manage compute-management-family in compartment ${each.value}",
+    "Allow group ${var.workload_admins_group_names[each.value].name} to read instance-family in compartment ${each.value}",
+    "Allow group ${var.workload_admins_group_names[each.value].name} to inspect volumes in compartment ${each.value}",
+    "Allow group ${var.workload_admins_group_names[each.value].name} to use tag-namespaces in compartment ${each.value} where target.tag-namespace.name = 'oracle-tags'",
     "Allow service compute_management to use compute-capacity-reservations in compartment ${each.value}",
     # Ability to create, update, and delete autoscaling configurations
-    "Allow group ${var.workload_admins_group_names[0]} to manage auto-scaling-configuration in compartment ${each.value}",
+    "Allow group ${var.workload_admins_group_names[each.value].name} to manage auto-scaling-configuration in compartment ${each.value}",
     # Ability to manage Instance Console Creation
-    "Allow group ${var.workload_admins_group_names[0]} to manage instance-console-connection in compartment ${each.value}",
+    "Allow group ${var.workload_admins_group_names[each.value].name} to manage instance-console-connection in compartment ${each.value}",
     # Ability to create and list subscriptions to images in the partner Image catalog.
-    "Allow group ${var.workload_admins_group_names[0]} to manage app-catalog-listing in compartment ${each.value}",
+    "Allow group ${var.workload_admins_group_names[each.value].name} to manage app-catalog-listing in compartment ${each.value}",
     # Ability to create, update and delete dedicated Virtual Machine Hosts
-    "Allow group ${var.workload_admins_group_names[0]} to manage dedicated-vm-hosts in compartment ${each.value}"
+    "Allow group ${var.workload_admins_group_names[each.value].name} to manage dedicated-vm-hosts in compartment ${each.value}"
   ]
 }
 
@@ -141,13 +141,13 @@ resource "oci_identity_policy" "workload_users_policies" {
   
   statements = [
     # Ability to do everything with instances launched into the cloud network and subnets 
-    "Allow group ${var.workload_users_group_names[0]} to manage instance in compartment ${each.value}",
-    "Allow group ${var.workload_users_group_names[0]} to use virtual-network-family in compartment ${each.value}",
+    "Allow group ${var.workload_users_group_names[each.value].name} to manage instance in compartment ${each.value}",
+    "Allow group ${var.workload_users_group_names[each.value].name} to use virtual-network-family in compartment ${each.value}",
     # Ability to create instance console creation
-    "Allow group ${var.workload_users_group_names[0]} to manage instance-console-connection in compartment ${each.value}",
+    "Allow group ${var.workload_users_group_names[each.value].name} to manage instance-console-connection in compartment ${each.value}",
     # Ability to list and create subscriptions to images in partner image catalog.
-    "Allow group ${var.workload_users_group_names[0]} to manage app-catalog-listing in compartment ${each.value}",
+    "Allow group ${var.workload_users_group_names[each.value].name} to manage app-catalog-listing in compartment ${each.value}",
     # Ability to launch instances on dedicated virtual machine hosts
-    "Allow group ${var.workload_users_group_names[0]} to use dedicated-vm-hosts in compartment ${each.value}",
+    "Allow group ${var.workload_users_group_names[each.value].name} to use dedicated-vm-hosts in compartment ${each.value}",
   ]
 }
