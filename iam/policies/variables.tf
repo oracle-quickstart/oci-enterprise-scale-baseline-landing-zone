@@ -13,6 +13,21 @@ variable "random_policy_name_id" {
   description = "Random unique string used in group name"
 }
 
+variable "region" {
+  type        = string
+  description = "Region for use in object storage policy"
+}
+
+variable "key_id" {
+  type        = string
+  description = "Encryption key ocid for security admin policy"
+}
+
+variable "vault_id" {
+  type        = string
+  description = "Vault ocid for security admin policy"
+}
+
 # -----------------------------------------------------------------------------
 # Identity Compartment Variables
 # -----------------------------------------------------------------------------
@@ -62,9 +77,9 @@ variable "security_admins_policy_name" {
   default     = "OCI-LZ-SecurityAdmins"
 }
 
-variable "cloudguard_analysts_policy_name" {
+variable "cloud_guard_analysts_policy_name" {
   type        = string
-  description = "The name of the cloudguard analyst group"
+  description = "The name of the Cloud Guard Analyst group"
   default     = "OCI-LZ-CGOps"
 }
 
@@ -121,8 +136,9 @@ variable "security_admins_group_name" {
   type = string
 }
 
-variable "cloudguard_analysts_group_name" {
-  type = string
+variable "cloud_guard_analysts_group_name" {
+  type        = string
+  description = "The name for the Cloud Guard Analyst group name"
 }
 variable "cloud_guard_operators_group_name" {
   type        = string
@@ -134,17 +150,4 @@ variable "cloud_guard_architects_group_name" {
   description = "The name for the Cloud Guard Architect group name"
 }
 
-variable "region" {
-  type        = string
-  description = "Region for use in object storage policy"
-}
 
-variable "key_id" {
-  type        = string
-  description = "Encryption key ocid for security admin policy"
-}
-
-variable "vault_id" {
-  type        = string
-  description = "Vault ocid for security admin policy"
-}

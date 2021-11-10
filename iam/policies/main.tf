@@ -221,12 +221,12 @@ resource "oci_identity_policy" "cloud_guard_operators_policies" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# IAM Policies Cloudguard Analyst
+# IAM Policies Cloud Guard Analyst
 # ---------------------------------------------------------------------------------------------------------------------
-resource "oci_identity_policy" "cloudguard_analysts_policy" {
+resource "oci_identity_policy" "cloud_guard_analysts_policy" {
   compartment_id = var.parent_compartment_id
   description    = "OCI Landing Zone Cloud Guard Analyst Policy"
-  name           = var.cloudguard_analysts_policy_name
+  name           = var.cloud_guard_analysts_policy_name
 
   freeform_tags = {
     "Description" = "Policy for Cloud Guard Analyst Users"
@@ -234,18 +234,18 @@ resource "oci_identity_policy" "cloudguard_analysts_policy" {
 
   statements = [
     # Read-only access to Cloud Guard problems
-    "Allow group ${var.cloudguard_analysts_group_name} to read cloud-guard-family in compartment ${var.parent_compartment_name}",
-    "Allow group ${var.cloudguard_analysts_group_name} to inspect cloud-guard-detectors in compartment ${var.parent_compartment_name}",
-    "Allow group ${var.cloudguard_analysts_group_name} to inspect cloud-guard-targets in compartment ${var.parent_compartment_name}",
-    "Allow group ${var.cloudguard_analysts_group_name} to inspect cloud-guard-resource-types in compartment ${var.parent_compartment_name}",
-    "allow group ${var.cloudguard_analysts_group_name} to read announcements in compartment ${var.parent_compartment_name}",
-    "allow group ${var.cloudguard_analysts_group_name} to read compartments in compartment ${var.parent_compartment_name}",
-    "allow group ${var.cloudguard_analysts_group_name} to read cloud-guard-config in compartment ${var.parent_compartment_name}",
+    "Allow group ${var.cloud_guard_analysts_group_name} to read cloud-guard-family in compartment ${var.parent_compartment_name}",
+    "Allow group ${var.cloud_guard_analysts_group_name} to inspect cloud-guard-detectors in compartment ${var.parent_compartment_name}",
+    "Allow group ${var.cloud_guard_analysts_group_name} to inspect cloud-guard-targets in compartment ${var.parent_compartment_name}",
+    "Allow group ${var.cloud_guard_analysts_group_name} to inspect cloud-guard-resource-types in compartment ${var.parent_compartment_name}",
+    "allow group ${var.cloud_guard_analysts_group_name} to read announcements in compartment ${var.parent_compartment_name}",
+    "allow group ${var.cloud_guard_analysts_group_name} to read compartments in compartment ${var.parent_compartment_name}",
+    "allow group ${var.cloud_guard_analysts_group_name} to read cloud-guard-config in compartment ${var.parent_compartment_name}",
     # Read-only access to Cloud Guard detector recipes
-    "allow group ${var.cloudguard_analysts_group_name} to read cloud-guard-detector-recipes in compartment ${var.parent_compartment_name}",
-    "allow group ${var.cloudguard_analysts_group_name} to read announcements in compartment ${var.parent_compartment_name}",
-    "allow group ${var.cloudguard_analysts_group_name} to read compartments in compartment ${var.parent_compartment_name}",
-    "allow group ${var.cloudguard_analysts_group_name} to read cloud-guard-config in compartment ${var.parent_compartment_name}"
+    "allow group ${var.cloud_guard_analysts_group_name} to read cloud-guard-detector-recipes in compartment ${var.parent_compartment_name}",
+    "allow group ${var.cloud_guard_analysts_group_name} to read announcements in compartment ${var.parent_compartment_name}",
+    "allow group ${var.cloud_guard_analysts_group_name} to read compartments in compartment ${var.parent_compartment_name}",
+    "allow group ${var.cloud_guard_analysts_group_name} to read cloud-guard-config in compartment ${var.parent_compartment_name}"
   ]
 }
 

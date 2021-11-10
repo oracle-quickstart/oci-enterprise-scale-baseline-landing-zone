@@ -67,16 +67,16 @@ variable "security_admins_group_name" {
   default     = "SecurityAdmins"
 }
 
-variable "cloudguard_analysts_group_name" {
-  type        = string
-  description = "The name of the cloudguard analyst group"
-  default     = "CloudGuard-Analyst"
-}
-
 variable "cloud_guard_operators_group_name" {
   type        = string
   description = "The name for the Cloud Guard Operator group name"
   default     = "CloudGuard-Operator"
+}
+
+variable "cloud_guard_analysts_group_name" {
+  type        = string
+  description = "The name of the Cloud Guard Analyst group"
+  default     = "CloudGuard-Analyst"
 }
 
 variable "cloud_guard_architects_group_name" {

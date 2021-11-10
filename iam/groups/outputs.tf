@@ -59,18 +59,19 @@ output "security_admins_group_name" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# Output for Cloudguard Analysts
-# ---------------------------------------------------------------------------------------------------------------------
-output "cloudguard_analysts_group_name" {
-  value = oci_identity_group.cloudguard_analysts_group.name
-}
-
-# ---------------------------------------------------------------------------------------------------------------------
 # Output for Cloud Guard Operator (Group Name)
 # ---------------------------------------------------------------------------------------------------------------------
 output "cloud_guard_operators_group_name" {
   value = oci_identity_group.cloud_guard_operators_group.name
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Output for Cloud Guard Analysts
+# ---------------------------------------------------------------------------------------------------------------------
+output "cloud_guard_analysts_group_name" {
+  value = oci_identity_group.cloud_guard_analysts_group.name
+}
+
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Output for Cloud Guard Architect (Group Name)
