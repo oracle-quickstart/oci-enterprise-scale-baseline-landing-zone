@@ -71,9 +71,9 @@ resource "oci_cloud_guard_target" "cloud_guard_target" {
   }
 
   target_detector_recipes {
-    detector_recipe_id = "ocid1.cloudguarddetectorrecipe.oc1.phx.amaaaaaavwya75cq5sadb7qdkzokayi5fpmoapt5mqosxhgycf2ofohlfu5a"
+    detector_recipe_id = data.oci_cloud_guard_detector_recipes.configuration_detector_recipe.detector_recipe_collection.0.items.0.id
   }
   target_detector_recipes {
-    detector_recipe_id = "ocid1.cloudguarddetectorrecipe.oc1.phx.amaaaaaavwya75cqipu3p42urrlekzgoy733pszwmm4qqgwpdydwfynu7ada"
+    detector_recipe_id = data.oci_cloud_guard_detector_recipes.activity_detector_recipe.detector_recipe_collection.0.items.0.id
   }
 }
