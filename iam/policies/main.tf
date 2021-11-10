@@ -174,12 +174,12 @@ resource "oci_identity_policy" "security_admins_policy" {
 
   statements = [
     # Ability to associate an Object Storage bucket, Block Volume volume, File Storage file system, Kubernetes cluster, or Streaming stream pool with a specific key
-    "Allow group ${var.security_admins_group_name} to use key-delegate in compartment ${var.parent_compartment_name}", #where target.key.id = '<key_OCID>'",
+    "Allow group ${var.security_admins_group_name} to use key-delegate in compartment ${var.parent_compartment_name} where target.key.id = '${var.key_id}'",
     # Ability to list, view, and perform cryptographic operations with all keys in compartment 
     "Allow group ${var.security_admins_group_name} to use keys in compartment ${var.parent_compartment_name}",
-    "Allow service blockstorage, FssOc1Prod, oke, streaming to use keys in compartment ${var.parent_compartment_name}", #objectstorage-<region-name>
+    "Allow service blockstorage, objectstorage-${var.region}, FssOc1Prod, oke, streaming to use keys in compartment ${var.parent_compartment_name}",
     # Ability to do all things with secrets in a specific vault 
-    "Allow group ${var.security_admins_group_name} to manage secret-family in compartment ${var.parent_compartment_name}", #where target.vault.id='<vault_OCID>'",
+    "Allow group ${var.security_admins_group_name} to manage secret-family in compartment ${var.parent_compartment_name} where target.vault.id='${var.vault_id}'",
     # Ability to manage all resources in the Bastion service in all compartments
     "Allow group ${var.security_admins_group_name} to manage bastion in compartment ${var.parent_compartment_name}",
     "Allow group ${var.security_admins_group_name} to manage bastion-session in compartment ${var.parent_compartment_name}",
@@ -189,6 +189,7 @@ resource "oci_identity_policy" "security_admins_policy" {
     "Allow group ${var.security_admins_group_name} to inspect work-requests in compartment ${var.parent_compartment_name}"
   ]
 }
+
 # ---------------------------------------------------------------------------------------------------------------------
 # IAM Policy Cloud Guard Operator
 # ---------------------------------------------------------------------------------------------------------------------

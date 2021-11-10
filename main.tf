@@ -101,6 +101,9 @@ module "iam" {
   workload_compartment_name_list = var.workload_compartment_names
   break_glass_username_list      = var.break_glass_username_list
   workload_compartment_ocids     = module.workload-compartment
+  region                         = var.region
+  key_id                         = var.key_id
+  vault_id                       = var.vault_id
   depends_on = [
     module.parent-compartment, module.network-compartment, module.workload-compartment
   ]

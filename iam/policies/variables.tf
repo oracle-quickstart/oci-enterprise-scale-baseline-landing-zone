@@ -133,3 +133,18 @@ variable "cloud_guard_architects_group_name" {
   type        = string
   description = "The name for the Cloud Guard Architect group name"
 }
+
+variable "region" {
+  type        = string
+  description = "Region for use in object storage policy"
+}
+
+variable "key_id" {
+  type        = string
+  description = "Encryption key ocid for security admin policy"
+}
+
+variable "vault_id" {
+  type        = string
+  description = "Vault ocid for security admin policy"
+}

@@ -44,6 +44,9 @@ module "policies" {
   cloud_guard_operators_group_name    = module.groups.cloud_guard_operators_group_name
   cloud_guard_architects_group_name   = module.groups.cloud_guard_architects_group_name
   random_policy_name_id               = random_id.policy_name.id
+  region                              = var.region
+  key_id                              = var.key_id
+  vault_id                            = var.vault_id
   depends_on                          = [module.groups]
 }
 
@@ -51,6 +54,7 @@ module "policies" {
 # Break Glass User Group Membership
 # ---------------------------------------------------------------------------------------------------------------------
 module "membership" {
+  # count                     = (length(var.break_glass_username_list)) >= 1 ? 1 : 0 #make this variable optional
   source                    = "./membership"
   tenancy_ocid              = var.tenancy_ocid
   break_glass_username_list = var.break_glass_username_list
