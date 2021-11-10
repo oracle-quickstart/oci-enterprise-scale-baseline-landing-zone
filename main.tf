@@ -109,19 +109,32 @@ module "iam" {
 # Create VCN and subnets
 # -----------------------------------------------------------------------------
 module "vcn" {
-  source                            = "./vcn"
-  compartment_ocid                  = module.network-compartment.network_compartment_id
-  vcn_cidr_block                    = var.vcn_cidr_block
-  vcn_dns_label                     = var.vcn_dns_label
-  region_key                        = local.region_key[0]
-  workload_compartment_names        = var.workload_compartment_names
-  public_subnet_cidr_block          = var.public_subnet_cidr_block
-  public_subnet_dns_label           = var.public_subnet_dns_label
-  private_subnet_cidr_blocks        = var.private_subnet_cidr_blocks
-  private_subnet_dns_labels         = var.private_subnet_dns_labels
-  database_subnet_dns_labels        = var.database_subnet_dns_labels
-  database_subnet_cidr_blocks       = var.database_subnet_cidr_blocks
-  shared_service_subnet_cidr_block  = var.shared_service_subnet_cidr_block
-  shared_service_subnet_dns_label   = var.shared_service_subnet_dns_label
-  depends_on                        = [ module.network-compartment ]
+  source                                                        = "./vcn"
+  compartment_ocid                                              = module.network-compartment.network_compartment_id
+  vcn_cidr_block                                                = var.vcn_cidr_block
+  vcn_dns_label                                                 = var.vcn_dns_label
+  region_key                                                    = local.region_key[0]
+  workload_compartment_names                                    = var.workload_compartment_names
+  public_subnet_cidr_block                                      = var.public_subnet_cidr_block
+  public_subnet_dns_label                                       = var.public_subnet_dns_label
+  private_subnet_cidr_blocks                                    = var.private_subnet_cidr_blocks
+  private_subnet_dns_labels                                     = var.private_subnet_dns_labels
+  database_subnet_dns_labels                                    = var.database_subnet_dns_labels
+  database_subnet_cidr_blocks                                   = var.database_subnet_cidr_blocks
+  shared_service_subnet_cidr_block                              = var.shared_service_subnet_cidr_block
+  shared_service_subnet_dns_label                               = var.shared_service_subnet_dns_label
+  tag_geo_location                                              = var.tag_geo_location
+  tag_cost_center                                               = var.tag_cost_center
+  egress_security_rules_protocol                                = var.egress_security_rules_protocol
+  egress_security_rules_tcp_options_destination_port_range_max  = var.egress_security_rules_tcp_options_destination_port_range_max
+  egress_security_rules_tcp_options_destination_port_range_min  = var.egress_security_rules_tcp_options_destination_port_range_min
+  egress_security_rules_tcp_options_source_port_range_max       = var.egress_security_rules_tcp_options_source_port_range_max
+  egress_security_rules_tcp_options_source_port_range_min       = var.egress_security_rules_tcp_options_source_port_range_min
+  ingress_security_rules_protocol                               = var.ingress_security_rules_protocol
+  ingress_security_rules_tcp_options_destination_port_range_max = var.ingress_security_rules_tcp_options_destination_port_range_max
+  ingress_security_rules_tcp_options_destination_port_range_min = var.ingress_security_rules_tcp_options_destination_port_range_min
+  ingress_security_rules_tcp_options_source_port_range_max      = var.ingress_security_rules_tcp_options_source_port_range_max
+  ingress_security_rules_tcp_options_source_port_range_min      = var.ingress_security_rules_tcp_options_source_port_range_min
+  ingress_security_rules_description                            = var.ingress_security_rules_description
+  depends_on                                                    = [ module.network-compartment ]
 }
