@@ -174,19 +174,19 @@ resource "oci_identity_policy" "security_admins_policy" {
 
   statements = [
     # Ability to associate an Object Storage bucket, Block Volume volume, File Storage file system, Kubernetes cluster, or Streaming stream pool with a specific key
-    "Allow group ObjectWriters, VolumeWriters, FileWriters, ClusterWriters, StreamWriters to use key-delegate in compartment ABC where target.key.id = '<key_OCID>'",
+    "Allow group ${var.security_admins_group_name} to use key-delegate in compartment ${var.parent_compartment_name}", #where target.key.id = '<key_OCID>'",
     # Ability to list, view, and perform cryptographic operations with all keys in compartment 
-    "Allow group SecurityAdmins to use keys in compartment ABC",
-    "Allow service blockstorage, objectstorage-<region_name>, FssOc1Prod, oke, streaming to use keys in compartment ABC where target.key.id = '<key_OCID>'",
-    # Ability to do all things with secrets in a specific vault in compartment ABC.
-    "Allow group SecurityAdmins to manage secret-family in compartment ABC where target.vault.id='<vault_OCID>'",
+    "Allow group ${var.security_admins_group_name} to use keys in compartment ${var.parent_compartment_name}",
+    "Allow service blockstorage, FssOc1Prod, oke, streaming to use keys in compartment ${var.parent_compartment_name}", #objectstorage-<region-name>
+    # Ability to do all things with secrets in a specific vault 
+    "Allow group ${var.security_admins_group_name} to manage secret-family in compartment ${var.parent_compartment_name}", #where target.vault.id='<vault_OCID>'",
     # Ability to manage all resources in the Bastion service in all compartments
-    "Allow group SecurityAdmins to manage bastion in tenancy",
-    "Allow group SecurityAdmins to manage bastion-session in tenancy",
-    "Allow group SecurityAdmins to manage virtual-network-family in tenancy",
-    "Allow group SecurityAdmins to read instance-family in tenancy",
-    "Allow group SecurityAdmins to read instance-agent-plugins in tenancy",
-    "Allow group SecurityAdmins to inspect work-requests in tenancy"
+    "Allow group ${var.security_admins_group_name} to manage bastion in compartment ${var.parent_compartment_name}",
+    "Allow group ${var.security_admins_group_name} to manage bastion-session in compartment ${var.parent_compartment_name}",
+    "Allow group ${var.security_admins_group_name} to manage virtual-network-family in compartment ${var.parent_compartment_name}",
+    "Allow group ${var.security_admins_group_name} to read instance-family in compartment ${var.parent_compartment_name}",
+    "Allow group ${var.security_admins_group_name} to read instance-agent-plugins in compartment ${var.parent_compartment_name}",
+    "Allow group ${var.security_admins_group_name} to inspect work-requests in compartment ${var.parent_compartment_name}"
   ]
 }
 
@@ -204,17 +204,17 @@ resource "oci_identity_policy" "cloudguard_analysts_policy" {
 
   statements = [
     # Read-only access to Cloud Guard problems
-    "Allow group CloudGuard_ReadOnlyProblems to read cloud-guard-family in tenancy",
-    "Allow group CloudGuard_ReadOnlyProblems to inspect cloud-guard-detectors in tenancy",
-    "Allow group CloudGuard_ReadOnlyProblems to inspect cloud-guard-targets in tenancy",
-    "Allow group CloudGuard_ReadOnlyProblems to inspect cloud-guard-resource-types in tenancy",
-    "allow group CloudGuard_ReadOnlyProblems to read announcements in tenancy",
-    "allow group CloudGuard_ReadOnlyProblems to read compartments in tenancy",
-    "allow group CloudGuard_ReadOnlyProblems to read cloud-guard-config in tenancy",
+    "Allow group ${var.cloudguard_analysts_group_name} to read cloud-guard-family in compartment ${var.parent_compartment_name}",
+    "Allow group ${var.cloudguard_analysts_group_name} to inspect cloud-guard-detectors in compartment ${var.parent_compartment_name}",
+    "Allow group ${var.cloudguard_analysts_group_name} to inspect cloud-guard-targets in compartment ${var.parent_compartment_name}",
+    "Allow group ${var.cloudguard_analysts_group_name} to inspect cloud-guard-resource-types in compartment ${var.parent_compartment_name}",
+    "allow group ${var.cloudguard_analysts_group_name} to read announcements in compartment ${var.parent_compartment_name}",
+    "allow group ${var.cloudguard_analysts_group_name} to read compartments in compartment ${var.parent_compartment_name}",
+    "allow group ${var.cloudguard_analysts_group_name} to read cloud-guard-config in compartment ${var.parent_compartment_name}",
     # Read-only access to Cloud Guard detector recipes
-    "allow group CloudGuard_ReadOnlyDetectors to read cloud-guard-detector-recipes in tenancy",
-    "allow group CloudGuard_ReadOnlyDetectors to read announcements in tenancy",
-    "allow group CloudGuard_ReadOnlyDetectors to read compartments in tenancy",
-    "allow group CloudGuard_ReadOnlyDetectors to read cloud-guard-config in tenancy"
+    "allow group ${var.cloudguard_analysts_group_name} to read cloud-guard-detector-recipes in compartment ${var.parent_compartment_name}",
+    "allow group ${var.cloudguard_analysts_group_name} to read announcements in compartment ${var.parent_compartment_name}",
+    "allow group ${var.cloudguard_analysts_group_name} to read compartments in compartment ${var.parent_compartment_name}",
+    "allow group ${var.cloudguard_analysts_group_name} to read cloud-guard-config in compartment ${var.parent_compartment_name}"
   ]
 }
