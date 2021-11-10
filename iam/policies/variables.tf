@@ -56,6 +56,17 @@ variable "network_admin_policy_name" {
   description = "Policy name for Network Administrators"
 }
 
+variable "cloud_guard_operators_policy_name" {
+  type        = string
+  default     = "OCI-LZ-CGUsers"
+  description = "Policy name for Cloud Guard Operator"
+}
+
+variable "cloud_guard_architects_policy_name" {
+  type        = string
+  default     = "OCI-LZ-CGAdmins"
+  description = "Policy name for Cloud Guard Operator"
+}
 # -----------------------------------------------------------------------------
 # IAM Group Variables
 # -----------------------------------------------------------------------------
@@ -93,4 +104,14 @@ variable "workload_admins_group_names" {
 variable "workload_users_group_names" {
   type        = map(any)
   description = "Map of workload compartment names and group names for Workload Users"
+}
+
+variable "cloud_guard_operators_group_name" {
+  type        = string
+  description = "The name for the Cloud Guard Operator group name"
+}
+
+variable "cloud_guard_architects_group_name" {
+  type        = string
+  description = "The name for the Cloud Guard Architect group name"
 }

@@ -39,6 +39,8 @@ module "policies" {
   workload_storage_users_group_names  = module.groups.workload_storage_users_group_names
   workload_admins_group_names         = module.groups.workload_admins_group_names
   workload_users_group_names          = module.groups.workload_users_group_names
+  cloud_guard_operators_group_name    = module.groups.cloud_guard_operators_group_name
+  cloud_guard_architects_group_name   = module.groups.cloud_guard_architects_group_name
   random_policy_name_id               = random_id.policy_name.id
   depends_on                          = [module.groups]
 }
