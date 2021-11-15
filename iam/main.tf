@@ -13,13 +13,12 @@ resource "random_id" "group_name" {
 # Create IAM groups
 # ---------------------------------------------------------------------------------------------------------------------
 module "groups" {
-  source       = "./groups"
-  tenancy_ocid = var.tenancy_ocid
-
+  source                         = "./groups"
+  tenancy_ocid                   = var.tenancy_ocid
   workload_compartment_name_list = var.workload_compartment_name_list
   random_group_name_id           = random_id.group_name.id
-  tag_cost_center                     = var.tag_cost_center
-  tag_geo_location                    = var.tag_geo_location
+  tag_cost_center                = var.tag_cost_center
+  tag_geo_location               = var.tag_geo_location
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -32,6 +31,8 @@ module "policies" {
   parent_compartment_name             = var.parent_compartment_name
   network_compartment_id              = var.network_compartment_id
   network_compartment_name            = var.network_compartment_name
+  # security_compartment_id             = var.security_compartment_id
+  # security_compartment_name           = var.security_compartment_name
   workload_compartment_name_list      = var.workload_compartment_name_list
   workload_compartment_ocids          = var.workload_compartment_ocids
   administrator_group_name            = module.groups.administrator_group_name

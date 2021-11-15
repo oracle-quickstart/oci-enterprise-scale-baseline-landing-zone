@@ -3,11 +3,6 @@ variable "tenancy_ocid" {
   description = "The OCID of tenancy"
 }
 
-variable "workload_compartment_ocids" {
-  type        = map(map(string))
-  description = "The list of workload compartments"
-}
-
 variable "random_policy_name_id" {
   type        = string
   description = "Random unique string used in group name"
@@ -49,6 +44,21 @@ variable "network_compartment_id" {
 variable "network_compartment_name" {
   type        = string
   description = "The name for the network compartment"
+}
+
+# variable "security_compartment_id" {
+#   type        = string
+#   description = "The OCID of the security compartment"
+# }
+
+# variable "security_compartment_name" {
+#   type        = string
+#   description = "The name for the security compartment"
+# }
+
+variable "workload_compartment_ocids" {
+  type        = map(map(string))
+  description = "The list of workload compartments"
 }
 
 variable "workload_compartment_name_list" {
@@ -94,6 +104,7 @@ variable "cloud_guard_architects_policy_name" {
   default     = "OCI-LZ-CGAdmins"
   description = "Policy name for Cloud Guard Operator"
 }
+
 # -----------------------------------------------------------------------------
 # IAM Group Variables
 # -----------------------------------------------------------------------------
@@ -133,7 +144,8 @@ variable "workload_users_group_names" {
 }
 
 variable "security_admins_group_name" {
-  type = string
+  type        = string
+  description = "The name for the Security Admins group name"
 }
 
 variable "cloud_guard_analysts_group_name" {
@@ -149,7 +161,6 @@ variable "cloud_guard_architects_group_name" {
   type        = string
   description = "The name for the Cloud Guard Architect group name"
 }
-
 
 # -----------------------------------------------------------------------------
 # Tag Variables
