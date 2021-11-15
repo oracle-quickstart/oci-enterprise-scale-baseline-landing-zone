@@ -31,8 +31,6 @@ module "policies" {
   parent_compartment_name             = var.parent_compartment_name
   network_compartment_id              = var.network_compartment_id
   network_compartment_name            = var.network_compartment_name
-  # security_compartment_id             = var.security_compartment_id
-  # security_compartment_name           = var.security_compartment_name
   workload_compartment_name_list      = var.workload_compartment_name_list
   workload_compartment_ocids          = var.workload_compartment_ocids
   administrator_group_name            = module.groups.administrator_group_name

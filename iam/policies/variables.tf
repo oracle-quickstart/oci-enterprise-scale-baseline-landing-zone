@@ -46,16 +46,6 @@ variable "network_compartment_name" {
   description = "The name for the network compartment"
 }
 
-# variable "security_compartment_id" {
-#   type        = string
-#   description = "The OCID of the security compartment"
-# }
-
-# variable "security_compartment_name" {
-#   type        = string
-#   description = "The name for the security compartment"
-# }
-
 variable "workload_compartment_ocids" {
   type        = map(map(string))
   description = "The list of workload compartments"
