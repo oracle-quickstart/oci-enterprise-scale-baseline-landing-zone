@@ -50,3 +50,32 @@ output "workload_admins_group_names" {
 output "workload_users_group_names" {
   value = oci_identity_group.workload_users_group
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Output for Security Admins
+# ---------------------------------------------------------------------------------------------------------------------
+output "security_admins_group_name" {
+  value = oci_identity_group.security_admins_group.name
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Output for Cloud Guard Operator (Group Name)
+# ---------------------------------------------------------------------------------------------------------------------
+output "cloud_guard_operators_group_name" {
+  value = oci_identity_group.cloud_guard_operators_group.name
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Output for Cloud Guard Analysts
+# ---------------------------------------------------------------------------------------------------------------------
+output "cloud_guard_analysts_group_name" {
+  value = oci_identity_group.cloud_guard_analysts_group.name
+}
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Output for Cloud Guard Architect (Group Name)
+# ---------------------------------------------------------------------------------------------------------------------
+output "cloud_guard_architects_group_name" {
+  value = oci_identity_group.cloud_guard_architects_group.name
+}

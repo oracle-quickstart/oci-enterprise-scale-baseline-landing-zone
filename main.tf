@@ -95,11 +95,15 @@ module "iam" {
   source                         = "./iam"
   tenancy_ocid                   = var.tenancy_ocid
   parent_compartment_id          = module.parent-compartment.parent_compartment_id
+  parent_compartment_name        = var.parent_compartment_name
   network_compartment_id         = module.network-compartment.network_compartment_id
   network_compartment_name       = var.network_compartment_name
   workload_compartment_name_list = var.workload_compartment_names
   break_glass_username_list      = var.break_glass_username_list
   workload_compartment_ocids     = module.workload-compartment
+  region                         = var.region
+  key_id                         = var.key_id
+  vault_id                       = var.vault_id
   tag_cost_center                = var.tag_cost_center
   tag_geo_location               = var.tag_geo_location
   depends_on = [

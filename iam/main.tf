@@ -13,13 +13,12 @@ resource "random_id" "group_name" {
 # Create IAM groups
 # ---------------------------------------------------------------------------------------------------------------------
 module "groups" {
-  source       = "./groups"
-  tenancy_ocid = var.tenancy_ocid
-
+  source                         = "./groups"
+  tenancy_ocid                   = var.tenancy_ocid
   workload_compartment_name_list = var.workload_compartment_name_list
   random_group_name_id           = random_id.group_name.id
-  tag_cost_center                     = var.tag_cost_center
-  tag_geo_location                    = var.tag_geo_location
+  tag_cost_center                = var.tag_cost_center
+  tag_geo_location               = var.tag_geo_location
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -29,6 +28,7 @@ module "policies" {
   source                              = "./policies"
   tenancy_ocid                        = var.tenancy_ocid
   parent_compartment_id               = var.parent_compartment_id
+  parent_compartment_name             = var.parent_compartment_name
   network_compartment_id              = var.network_compartment_id
   network_compartment_name            = var.network_compartment_name
   workload_compartment_name_list      = var.workload_compartment_name_list
@@ -40,6 +40,13 @@ module "policies" {
   workload_storage_users_group_names  = module.groups.workload_storage_users_group_names
   workload_admins_group_names         = module.groups.workload_admins_group_names
   workload_users_group_names          = module.groups.workload_users_group_names
+  security_admins_group_name          = module.groups.security_admins_group_name
+  cloud_guard_operators_group_name    = module.groups.cloud_guard_operators_group_name
+  cloud_guard_analysts_group_name     = module.groups.cloud_guard_analysts_group_name
+  cloud_guard_architects_group_name   = module.groups.cloud_guard_architects_group_name
+  region                              = var.region
+  key_id                              = var.key_id
+  vault_id                            = var.vault_id
   tag_cost_center                     = var.tag_cost_center
   tag_geo_location                    = var.tag_geo_location
   random_policy_name_id               = random_id.policy_name.id

@@ -8,12 +8,32 @@ variable "workload_compartment_ocids" {
   description = "The list of workload compartments"
 }
 
+variable "region" {
+  type        = string
+  description = "Region for use in object storage policy"
+}
+
+variable "key_id" {
+  type        = string
+  description = "Encryption key ocid for security admin policy"
+}
+
+variable "vault_id" {
+  type        = string
+  description = "Vault ocid for security admin policy"
+}
+
 # -----------------------------------------------------------------------------
 # Identity Compartment Variables
 # -----------------------------------------------------------------------------
 variable "parent_compartment_id" {
   type        = string
   description = "The OCID of the top level / parent compartment"
+}
+
+variable "parent_compartment_name" {
+  type        = string
+  description = "The name for the parent compartment"
 }
 
 variable "network_compartment_id" {
