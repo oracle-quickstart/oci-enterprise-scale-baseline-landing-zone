@@ -57,7 +57,6 @@ module "policies" {
 # Break Glass User Group Membership
 # ---------------------------------------------------------------------------------------------------------------------
 module "membership" {
-  # count                     = (length(var.break_glass_username_list)) >= 1 ? 1 : 0 #make this variable optional
   source                    = "./membership"
   tenancy_ocid              = var.tenancy_ocid
   break_glass_username_list = var.break_glass_username_list
