@@ -255,18 +255,18 @@ resource "oci_identity_policy" "cloud_guard_analysts_policy" {
 
   statements = [
     # Basic access to Cloud Guard - read announcements
-    "Allow group ${var.cloud_guard_operators_group_name} to read cloud-guard-config in tenancy",
-    "Allow group ${var.cloud_guard_operators_group_name} to read announcements in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to read cloud-guard-config in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to read announcements in tenancy",
     # Read access to Risk and Security Scores
-    "Allow group ${var.cloud_guard_operators_group_name} to inspect cloud-guard-risk-scores in tenancy",
-    "Allow group ${var.cloud_guard_operators_group_name} to inspect cloud-guard-security-scores in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to inspect cloud-guard-risk-scores in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to inspect cloud-guard-security-scores in tenancy",
     # Read-only access to Cloud Guard problems
-    "Allow group ${var.cloud_guard_operators_group_name} to read cloud-guard-family in tenancy",
-    "Allow group ${var.cloud_guard_operators_group_name} to inspect cloud-guard-detectors in tenancy",
-    "Allow group ${var.cloud_guard_operators_group_name} to inspect cloud-guard-resource-types in tenancy",
-    "Allow group ${var.cloud_guard_operators_group_name} to read compartments in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to read cloud-guard-family in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to inspect cloud-guard-detectors in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to inspect cloud-guard-resource-types in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to read compartments in tenancy",
     # Read-only access to Cloud Guard detector recipes
-    "Allow group ${var.cloud_guard_operators_group_name} to read cloud-guard-detector-recipes in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to read cloud-guard-detector-recipes in tenancy",
 
     # Read Problems and Recommendations
     "Allow group ${var.cloud_guard_analysts_group_name} to inspect cloud-guard-problems in tenancy",
@@ -275,7 +275,7 @@ resource "oci_identity_policy" "cloud_guard_analysts_policy" {
     "Allow group ${var.cloud_guard_analysts_group_name} to read cloud-guard-responder-recipes in tenancy",
     "Allow group ${var.cloud_guard_analysts_group_name} to use cloud-guard-responder-executions in tenancy",
     # Create and update cloud guard targets
-    "Allow group ${var.cloud_guard_operators_group_name} to manage cloud-guard-targets in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to manage cloud-guard-targets in tenancy",
   ]
 }
 
