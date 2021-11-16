@@ -134,7 +134,8 @@ resource "oci_identity_policy" "workload_admins_policies" {
     "Allow group ${var.workload_admins_group_names[each.value].name} to manage compute-management-family in compartment ${each.value}",
     "Allow group ${var.workload_admins_group_names[each.value].name} to read instance-family in compartment ${each.value}",
     "Allow group ${var.workload_admins_group_names[each.value].name} to inspect volumes in compartment ${each.value}",
-    "Allow group ${var.workload_admins_group_names[each.value].name} to use tag-namespaces in compartment ${each.value} where target.tag-namespace.name = 'oracle-tags'",
+    # If resources used by the instance pool contain default tags, add the following  to give the group permission to the tag namespace Oracle-Tags
+    # "Allow group ${var.workload_admins_group_names[each.value].name} to use tag-namespaces in compartment ${each.value} where target.tag-namespace.name = 'oracle-tags'",
     "Allow service compute_management to use compute-capacity-reservations in compartment ${each.value}",
     # Ability to create, update, and delete autoscaling configurations
     "Allow group ${var.workload_admins_group_names[each.value].name} to manage auto-scaling-configuration in compartment ${each.value}",
@@ -255,18 +256,18 @@ resource "oci_identity_policy" "cloud_guard_analysts_policy" {
 
   statements = [
     # Basic access to Cloud Guard - read announcements
-    "Allow group ${var.cloud_guard_operators_group_name} to read cloud-guard-config in tenancy",
-    "Allow group ${var.cloud_guard_operators_group_name} to read announcements in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to read cloud-guard-config in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to read announcements in tenancy",
     # Read access to Risk and Security Scores
-    "Allow group ${var.cloud_guard_operators_group_name} to inspect cloud-guard-risk-scores in tenancy",
-    "Allow group ${var.cloud_guard_operators_group_name} to inspect cloud-guard-security-scores in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to inspect cloud-guard-risk-scores in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to inspect cloud-guard-security-scores in tenancy",
     # Read-only access to Cloud Guard problems
-    "Allow group ${var.cloud_guard_operators_group_name} to read cloud-guard-family in tenancy",
-    "Allow group ${var.cloud_guard_operators_group_name} to inspect cloud-guard-detectors in tenancy",
-    "Allow group ${var.cloud_guard_operators_group_name} to inspect cloud-guard-resource-types in tenancy",
-    "Allow group ${var.cloud_guard_operators_group_name} to read compartments in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to read cloud-guard-family in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to inspect cloud-guard-detectors in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to inspect cloud-guard-resource-types in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to read compartments in tenancy",
     # Read-only access to Cloud Guard detector recipes
-    "Allow group ${var.cloud_guard_operators_group_name} to read cloud-guard-detector-recipes in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to read cloud-guard-detector-recipes in tenancy",
 
     # Read Problems and Recommendations
     "Allow group ${var.cloud_guard_analysts_group_name} to inspect cloud-guard-problems in tenancy",
@@ -275,7 +276,7 @@ resource "oci_identity_policy" "cloud_guard_analysts_policy" {
     "Allow group ${var.cloud_guard_analysts_group_name} to read cloud-guard-responder-recipes in tenancy",
     "Allow group ${var.cloud_guard_analysts_group_name} to use cloud-guard-responder-executions in tenancy",
     # Create and update cloud guard targets
-    "Allow group ${var.cloud_guard_operators_group_name} to manage cloud-guard-targets in tenancy",
+    "Allow group ${var.cloud_guard_analysts_group_name} to manage cloud-guard-targets in tenancy",
   ]
 }
 
