@@ -18,3 +18,9 @@ variable "activity_detector_recipe_display_name" {
   description = "display name for activity detector recipe"
   default     = "OCI Activity Detector Recipe"
 }
+
+variable "vulnerability_scanning_service_policy_name" {
+ type        = string
+ description = "Name of Scanning Service Policy"
+ default     = "OCI-LZ-Scanning-Service-Policy"
+}
