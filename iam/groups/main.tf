@@ -49,7 +49,7 @@ resource "oci_identity_group" "lb_users_group" {
 resource "oci_identity_group" "workload_storage_admins_group" {
   for_each       = toset(var.workload_compartment_name_list)
   compartment_id = var.tenancy_ocid
-  description    = "OCI Landing Zone Workload Specific Storage Administrators"
+  description    = "OCI Landing Zone Workload Specific Storage Administrators Group"
   name           = "${var.workload_storage_admins_group_name}-${each.value}-${var.random_group_name_id}"
 
   freeform_tags = {
@@ -65,7 +65,7 @@ resource "oci_identity_group" "workload_storage_admins_group" {
 resource "oci_identity_group" "workload_storage_users_group" {
   for_each       = toset(var.workload_compartment_name_list)
   compartment_id = var.tenancy_ocid
-  description    = "OCI Landing Zone Workload Storage User"
+  description    = "OCI Landing Zone Workload Storage Users Group"
   name           = "${var.workload_storage_users_group_name}-${each.value}-${var.random_group_name_id}"
 
   freeform_tags = {
@@ -81,7 +81,7 @@ resource "oci_identity_group" "workload_storage_users_group" {
 resource "oci_identity_group" "workload_admins_group" {
   for_each       = toset(var.workload_compartment_name_list)
   compartment_id = var.tenancy_ocid
-  description    = "OCI Landing Zone Workload User Group"
+  description    = "OCI Landing Zone Workload Users Group"
   name           = "${var.workload_admins_group_name}-${each.value}-${var.random_group_name_id}"
 
   freeform_tags = {
@@ -97,7 +97,7 @@ resource "oci_identity_group" "workload_admins_group" {
 resource "oci_identity_group" "workload_users_group" {
   for_each       = toset(var.workload_compartment_name_list)
   compartment_id = var.tenancy_ocid
-  description    = "OCI Landing Zone Workload User"
+  description    = "OCI Landing Zone Workload Users Group"
   name           = "${var.workload_users_group_name}-${each.value}-${var.random_group_name_id}"
 
   freeform_tags = {
@@ -112,8 +112,14 @@ resource "oci_identity_group" "workload_users_group" {
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_group" "security_admins_group" {
   compartment_id = var.tenancy_ocid
-  description    = "OCI Landing Zone Security Admin"
+  description    = "OCI Landing Zone Security Administrators Group"
   name           = "${var.security_admins_group_name}-${var.random_group_name_id}"
+
+  freeform_tags = {
+    "Description" = "Group for Security Administrators",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -121,8 +127,14 @@ resource "oci_identity_group" "security_admins_group" {
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_group" "cloud_guard_operators_group" {
   compartment_id = var.tenancy_ocid
-  description    = "OCI Landing Zone CloudGuard Operators Group"
+  description    = "OCI Landing Zone Cloud Guard Operators Group"
   name           = "${var.cloud_guard_operators_group_name}-${var.random_group_name_id}"
+
+  freeform_tags = {
+    "Description" = "Group for Cloud Guard Operators",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -130,8 +142,14 @@ resource "oci_identity_group" "cloud_guard_operators_group" {
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_group" "cloud_guard_analysts_group" {
   compartment_id = var.tenancy_ocid
-  description    = "OCI Landing Zone Cloud Guard Analyst"
+  description    = "OCI Landing Zone Cloud Guard Analysts Group"
   name           = "${var.cloud_guard_analysts_group_name}-${var.random_group_name_id}"
+
+  freeform_tags = {
+    "Description" = "Group for Cloud Guard Analysts",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -139,6 +157,12 @@ resource "oci_identity_group" "cloud_guard_analysts_group" {
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_group" "cloud_guard_architects_group" {
   compartment_id = var.tenancy_ocid
-  description    = "OCI Landing Zone CloudGuard Architects Group"
+  description    = "OCI Landing Zone Cloud Guard Architects Group"
   name           = "${var.cloud_guard_architects_group_name}-${var.random_group_name_id}"
+
+  freeform_tags = {
+    "Description" = "Group for Cloud Guard Architects",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
 }
