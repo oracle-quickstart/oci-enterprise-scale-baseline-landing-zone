@@ -1,12 +1,15 @@
 # ---------------------------------------------------------------------------------------------------------------------
 # Random IDs to prevent naming collision with tenancy level resources
 # ---------------------------------------------------------------------------------------------------------------------
-resource "random_id" "policy_name" {
-  byte_length = 8
-}
+# resource "random_id" "policy_name" {
+#   byte_length = 8
+# }
 
-resource "random_id" "group_name" {
-  byte_length = 8
+# resource "random_id" "group_name" {
+#   byte_length = 8
+# }
+variable "unique_string" {
+  default = "arjp"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -16,7 +19,7 @@ module "groups" {
   source                         = "./groups"
   tenancy_ocid                   = var.tenancy_ocid
   workload_compartment_name_list = var.workload_compartment_name_list
-  random_group_name_id           = random_id.group_name.id
+  random_group_name_id           = var.unique_string
   tag_cost_center                = var.tag_cost_center
   tag_geo_location               = var.tag_geo_location
 }
@@ -49,7 +52,7 @@ module "policies" {
   vault_id                            = var.vault_id
   tag_cost_center                     = var.tag_cost_center
   tag_geo_location                    = var.tag_geo_location
-  random_policy_name_id               = random_id.policy_name.id
+  random_policy_name_id               = var.unique_string
   depends_on                          = [module.groups]
 }
 
