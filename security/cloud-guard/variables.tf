@@ -113,3 +113,15 @@ variable "host_scan_recipe_display_name" {
   description = "Vulnerability scanning service display name"
   default     = "OCI-LZ-Scanning-Service-Recipe"
 }
+
+variable "host_scan_target_display_name" {
+  type        = string
+  description = "Vulnerability scanning service target display name"
+  default     = "OCI-LZ-Scanning-Service-Target"
+}
+
+variable "host_scan_target_description" {
+  type        = string
+  description = "Vulnerability scanning service target description"
+  default     = "Vulnerability scanning service scan target"
+}
