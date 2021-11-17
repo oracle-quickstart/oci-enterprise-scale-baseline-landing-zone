@@ -49,15 +49,13 @@ resource "oci_identity_policy" "cloud_guard_policy" {
     "Allow service cloudguard to read authentication-policies in tenancy",
     "Allow service cloudguard to read policies in tenancy"
   ]
-
-  depends_on = [oci_cloud_guard_cloud_guard_configuration.tenancy_cloud_guard_configuration]
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Cloud Guard target
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_cloud_guard_target" "cloud_guard_target" {
-  #Required
+  count                = var.cloud_guard_configuration_status == "ENABLED" ? 1 : 0
   compartment_id       = var.parent_compartment_ocid
   display_name         = "${var.cloud_guard_target_name}-${random_id.target_name.id}"
   target_resource_id   = var.parent_compartment_ocid
@@ -73,9 +71,12 @@ resource "oci_cloud_guard_target" "cloud_guard_target" {
   target_detector_recipes {
     detector_recipe_id = data.oci_cloud_guard_detector_recipes.configuration_detector_recipe.detector_recipe_collection.0.items.0.id
   }
+
   target_detector_recipes {
     detector_recipe_id = data.oci_cloud_guard_detector_recipes.activity_detector_recipe.detector_recipe_collection.0.items.0.id
   }
+
+  depends_on = [oci_cloud_guard_cloud_guard_configuration.tenancy_cloud_guard_configuration]
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
