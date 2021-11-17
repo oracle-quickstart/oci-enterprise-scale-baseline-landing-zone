@@ -4,6 +4,7 @@
 variable "break_glass_username_list" {
   type        = list(string)
   description = "Break Glass Admin users list"
+  default = []
 }
 
 variable "key_id" {
