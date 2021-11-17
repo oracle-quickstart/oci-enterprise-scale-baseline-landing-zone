@@ -163,3 +163,15 @@ module "security" {
     module.parent-compartment, module.common-infra-compartment, module.security-compartment
   ]
 }
+
+module "audit" {
+  source                                     = "./security/audit"
+  tenancy_ocid                               = var.tenancy_ocid
+  parent_compartment_ocid                    = module.parent-compartment.parent_compartment_id
+  tag_geo_location                           = var.tag_geo_location
+  tag_cost_center                            = var.tag_cost_center
+ 
+  depends_on = [
+    module.parent-compartment, module.common-infra-compartment, module.security-compartment
+  ]
+}
