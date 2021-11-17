@@ -2,9 +2,22 @@ variable "tenancy_ocid" {
 
 }
 
+variable "tag_cost_center" {
+  type        = string
+  description = "Cost center to charge for OCI resources"
+}
+
+variable "tag_geo_location" {
+  type        = string
+  description = "Geo location for OCI resources"
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Variables for Object storage Bucket and Retention Rules
+# ---------------------------------------------------------------------------------------------------------------------
 variable "audit_log_bucket_name" {
   type = string
-  default = "Audit_Log_Bucket"
+  default = "audit_log_bucket"
 }
 
 variable "audit_retention_period" {
@@ -15,24 +28,7 @@ variable "audit_retention_period" {
 
 variable "parent_compartment_ocid" {
   type        = string
-  description = "the parent compartment ocid"
-}
-
-variable "service_connector_display_name" {
-  type        = string
-  description = "Service connector display name"
-  default     = "audit_log_service_connector"
-}
-variable "service_connector_target_kind" {
-  type        = string
-  description = "Service connector target kind"
-  default     = "objectStorage"
-}
-
-variable "service_connector_source_kind" {
-  type        = string
-  description = "Service connector source kind"
-  default     = "logging"
+  description = "The parent compartment ocid"
 }
 
 variable "retention_rule_duration_time_amount" {
@@ -44,9 +40,26 @@ variable "retention_rule_duration_time_unit" {
   type    = string
   default = "DAYS"
 }
-variable "service_connector_description" {
-  type    = string
-  default = "Audit log service connector"
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Variables for Service Connector
+# ---------------------------------------------------------------------------------------------------------------------
+variable "service_connector_display_name" {
+  type        = string
+  description = "The display name of Service connector"
+  default     = "audit_log_service_connector"
+}
+
+variable "service_connector_source_kind" {
+  type        = string
+  description = "Service connector source kind"
+  default     = "logging"
+}
+
+variable "service_connector_target_kind" {
+  type        = string
+  description = "Service connector target kind"
+  default     = "objectStorage"
 }
 
 variable "service_connector_target_batch_rollover_size_in_mbs" {
@@ -61,13 +74,4 @@ variable "service_connector_target_batch_rollover_time_in_ms" {
   default     = 420000
 }
 
-variable "tag_cost_center" {
-  type        = string
-  description = "Cost center to charge for OCI resources"
-}
-
-variable "tag_geo_location" {
-  type        = string
-  description = "Geo location for OCI resources"
-}
 

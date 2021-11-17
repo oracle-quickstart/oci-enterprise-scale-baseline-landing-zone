@@ -2,6 +2,9 @@ resource "random_id" "bucket_name" {
   byte_length = 8
 }
 
+# ---------------------------------------------------------------------------------------------------------------------
+# Create Object storage Bucket for Audit Log
+# ---------------------------------------------------------------------------------------------------------------------
 resource "oci_objectstorage_bucket" "audit_log_bucket" {
   compartment_id = var.parent_compartment_ocid
   namespace      = data.oci_objectstorage_namespace.ns.namespace
@@ -31,10 +34,13 @@ resource "oci_audit_configuration" "audit_configuration" {
   retention_period_days = var.audit_retention_period
 }
 
+# ---------------------------------------------------------------------------------------------------------------------
+# Create Service Connector for Audit Logs
+# ---------------------------------------------------------------------------------------------------------------------
 resource "oci_sch_service_connector" "audit_log_service_connector" {
   compartment_id = var.parent_compartment_ocid
   display_name   = var.service_connector_display_name
-  description    = var.service_connector_description
+  description    = "Service connector to transfer audit log to object storage bucket"
 
   freeform_tags = {
     "Description" = "Service connector to transfer audit log",
