@@ -8,10 +8,10 @@ variable "break_glass_username_list" {
 
 variable "key_id" {
   type        = string
-  description = "Encryption key ocid for security admin policy"
+  description = "Encryption key OCID for security admin policy"
 }
 
 variable "vault_id" {
   type        = string
-  description = "Vault ocid for security admin policy"
+  description = "Vault OCID for security admin policy"
 }
