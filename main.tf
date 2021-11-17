@@ -155,6 +155,7 @@ module "security" {
   cloud_guard_configuration_status           = var.cloud_guard_configuration_status
   configuration_detector_recipe_display_name = var.configuration_detector_recipe_display_name
   parent_compartment_ocid                    = module.parent-compartment.parent_compartment_id
+  security_compartment_ocid                  = module.security-compartment.security_compartment_id
   tenancy_ocid                               = var.tenancy_ocid
   tag_geo_location                           = var.tag_geo_location
   tag_cost_center                            = var.tag_cost_center
