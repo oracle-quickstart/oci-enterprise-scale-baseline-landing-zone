@@ -21,7 +21,7 @@ variable "parent_compartment_ocid" {
 variable "service_connector_display_name" {
   type        = string
   description = "Service connector display name"
-  default     = "service_connector_example"
+  default     = "audit_log_service_connector"
 }
 variable "service_connector_target_kind" {
   type        = string
@@ -36,13 +36,13 @@ variable "service_connector_source_kind" {
 }
 
 variable "retention_rule_duration_time_amount" {
-  type    = string
-  default = "365"
+  type    = number
+  default = 365
 }
 
 variable "retention_rule_duration_time_unit" {
   type    = string
-  default = "Days"
+  default = "DAYS"
 }
 variable "service_connector_description" {
   type    = string
@@ -58,7 +58,7 @@ variable "service_connector_target_batch_rollover_size_in_mbs" {
 variable "service_connector_target_batch_rollover_time_in_ms" {
   type        = string
   description = "Service connector target batch rollover time in ms"
-  default     = 679000
+  default     = 420000
 }
 
 variable "tag_cost_center" {

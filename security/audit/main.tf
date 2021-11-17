@@ -16,6 +16,8 @@ resource "oci_objectstorage_bucket" "audit_log_bucket" {
       time_amount = var.retention_rule_duration_time_amount
       time_unit   = var.retention_rule_duration_time_unit
     }
+
+    # time_rule_locked = 
   }
 
   freeform_tags = {
@@ -29,7 +31,7 @@ resource "oci_audit_configuration" "audit_configuration" {
   retention_period_days = var.audit_retention_period
 }
 
-resource "oci_sch_service_connector" "test_service_connector" {
+resource "oci_sch_service_connector" "audit_log_service_connector" {
   compartment_id = var.parent_compartment_ocid
   display_name   = var.service_connector_display_name
   description    = var.service_connector_description
