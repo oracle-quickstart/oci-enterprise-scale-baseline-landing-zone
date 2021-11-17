@@ -79,9 +79,9 @@ variable "security_compartment_ocid" {
 }
 
 variable "host_scan_recipe_agent_settings_agent_configuration_vendor" {
-  type = string
+  type        = string
   description = "Vulnerability scanning service agent vendor"
-  default = "OCI"
+  default     = "OCI"
 }
 
 variable "host_scan_recipe_agent_settings_scan_level" {
