@@ -20,7 +20,7 @@ variable "parent_compartment_name" {
 variable "service_connector_policy_name" {
   type        = string
   description = "Policy Name for the service connector to access object storage bucket"
-  default     = "ConnectorPolicy_objectStorage"
+  default     = "OCI-LZ-ConnectorPolicy-objectStorage"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
