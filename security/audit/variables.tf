@@ -13,9 +13,19 @@ variable "tag_geo_location" {
   description = "Geo location for OCI resources"
 }
 
+variable "parent_compartment_ocid" {
+  type        = string
+  description = "The parent compartment OCID"
+}
+
 variable "parent_compartment_name" {
   type        = string
   description = "Name of the parent compartment"
+}
+
+variable "security_compartment_ocid" {
+  type        = string
+  description = "The security compartment OCID"
 }
 
 variable "service_connector_policy_name" {
@@ -36,11 +46,6 @@ variable "audit_retention_period" {
   type        = number
   description = "Audit Retention Period"
   default     = 365
-}
-
-variable "parent_compartment_ocid" {
-  type        = string
-  description = "The parent compartment ocid"
 }
 
 variable "retention_rule_duration_time_amount" {

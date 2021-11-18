@@ -172,6 +172,7 @@ module "audit" {
   tenancy_ocid                               = var.tenancy_ocid
   parent_compartment_ocid                    = module.parent-compartment.parent_compartment_id
   parent_compartment_name                    = var.parent_compartment_name
+  security_compartment_ocid                  = module.security-compartment.security_compartment_id
   tag_geo_location                           = var.tag_geo_location
   tag_cost_center                            = var.tag_cost_center
  
