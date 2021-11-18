@@ -28,10 +28,9 @@ variable "security_compartment_ocid" {
   description = "The security compartment OCID"
 }
 
-variable "service_connector_policy_name" {
+variable "security_compartment_name" {
   type        = string
-  description = "Policy Name for the service connector to access object storage bucket"
-  default     = "OCI-LZ-ConnectorPolicy-objectStorage"
+  description = "Name of the security compartment"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -63,6 +62,12 @@ variable "retention_rule_duration_time_unit" {
 # ---------------------------------------------------------------------------------------------------------------------
 # Variables for Service Connector
 # ---------------------------------------------------------------------------------------------------------------------
+variable "service_connector_policy_name" {
+  type        = string
+  description = "Policy Name for the service connector to access object storage bucket"
+  default     = "OCI-LZ-ConnectorPolicy-objectStorage"
+}
+
 variable "service_connector_display_name" {
   type        = string
   description = "The display name of Service connector"

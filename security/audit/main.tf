@@ -1,5 +1,3 @@
-
-
 # ---------------------------------------------------------------------------------------------------------------------
 # Random IDs to prevent naming collision with tenancy level resources
 # ---------------------------------------------------------------------------------------------------------------------
@@ -26,7 +24,7 @@ resource "oci_identity_policy" "service_connector_policy" {
   }
 
   statements = [
-    "Allow any-user to manage objects in compartment ${var.security_compartment_ocid} where all {request.principal.type='serviceconnector', target.bucket.name='${oci_objectstorage_bucket.audit_log_bucket.name}', request.principal.compartment.id='${var.security_compartment_ocid}'}"
+    "Allow any-user to manage objects in compartment ${var.security_compartment_name} where all {request.principal.type='serviceconnector', target.bucket.name='${oci_objectstorage_bucket.audit_log_bucket.name}', request.principal.compartment.id='${var.security_compartment_ocid}'}"
   ]
 }
 
