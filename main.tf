@@ -131,12 +131,10 @@ module "vcn" {
   shared_service_subnet_dns_label                               = var.shared_service_subnet_dns_label
   tag_geo_location                                              = var.tag_geo_location
   tag_cost_center                                               = var.tag_cost_center
-  egress_security_rules_protocol                                = var.egress_security_rules_protocol
   egress_security_rules_tcp_options_destination_port_range_max  = var.egress_security_rules_tcp_options_destination_port_range_max
   egress_security_rules_tcp_options_destination_port_range_min  = var.egress_security_rules_tcp_options_destination_port_range_min
   egress_security_rules_tcp_options_source_port_range_max       = var.egress_security_rules_tcp_options_source_port_range_max
   egress_security_rules_tcp_options_source_port_range_min       = var.egress_security_rules_tcp_options_source_port_range_min
-  ingress_security_rules_protocol                               = var.ingress_security_rules_protocol
   ingress_security_rules_tcp_options_destination_port_range_max = var.ingress_security_rules_tcp_options_destination_port_range_max
   ingress_security_rules_tcp_options_destination_port_range_min = var.ingress_security_rules_tcp_options_destination_port_range_min
   ingress_security_rules_tcp_options_source_port_range_max      = var.ingress_security_rules_tcp_options_source_port_range_max

@@ -79,6 +79,7 @@ variable "tag_geo_location" {
 variable "egress_security_rules_protocol" {
   description = "[Workload Security List] Egress Protocol"
   type        = string
+  default     = "6"
 }
 
 variable "egress_security_rules_stateless" {
@@ -110,6 +111,7 @@ variable "egress_security_rules_tcp_options_source_port_range_min" {
 variable "ingress_security_rules_protocol" {
   description = "[Workload Security List] Ingress Protocol"
   type        = string
+  default     = "6"
 }
 
 variable "ingress_security_rules_stateless" {
