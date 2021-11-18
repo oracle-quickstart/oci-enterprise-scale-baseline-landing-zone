@@ -52,6 +52,8 @@ resource "oci_objectstorage_bucket" "audit_log_bucket" {
   freeform_tags = {
     "Description" = "Audit Log bucket"
     "Function"    = "Object store bucket for Audit Log record"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
   }
 }
 
