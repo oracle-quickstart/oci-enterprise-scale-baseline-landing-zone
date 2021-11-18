@@ -15,7 +15,7 @@ resource "random_id" "bucket_name" {
 # Service Connector policies
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "service_connector_policy" {
-  compartment_id = var.parent_compartment_ocid
+  compartment_id = var.security_compartment_ocid
   description    = "OCI Landing Zone Service Connector Policy"
   name           = "${var.service_connector_policy_name}-${random_id.policy_name.id}"
 
@@ -26,7 +26,7 @@ resource "oci_identity_policy" "service_connector_policy" {
   }
 
   statements = [
-    "Allow any-user to manage objects in compartment ${var.parent_compartment_name} where all {request.principal.type='serviceconnector', target.bucket.name='${oci_objectstorage_bucket.audit_log_bucket.name}', request.principal.compartment.id='${var.parent_compartment_ocid}'}"
+    "Allow any-user to manage objects in compartment ${var.security_compartment_ocid} where all {request.principal.type='serviceconnector', target.bucket.name='${oci_objectstorage_bucket.audit_log_bucket.name}', request.principal.compartment.id='${var.security_compartment_ocid}'}"
   ]
 }
 
@@ -34,7 +34,7 @@ resource "oci_identity_policy" "service_connector_policy" {
 # Create Object storage Bucket for Audit Log
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_objectstorage_bucket" "audit_log_bucket" {
-  compartment_id = var.parent_compartment_ocid
+  compartment_id = var.security_compartment_ocid
   namespace      = data.oci_objectstorage_namespace.ns.namespace
   name           = "${var.audit_log_bucket_name}-${random_id.bucket_name.id}"
   access_type    = "NoPublicAccess"
@@ -58,7 +58,7 @@ resource "oci_objectstorage_bucket" "audit_log_bucket" {
 }
 
 resource "oci_audit_configuration" "audit_configuration" {
-  compartment_id        = var.tenancy_ocid
+  compartment_id        = var.parent_compartment_ocid
   retention_period_days = var.audit_retention_period
 }
 
@@ -66,7 +66,7 @@ resource "oci_audit_configuration" "audit_configuration" {
 # Create Service Connector for Audit Logs
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_sch_service_connector" "audit_log_service_connector" {
-  compartment_id = var.parent_compartment_ocid
+  compartment_id = var.security_compartment_ocid
   display_name   = var.service_connector_display_name
   description    = "Service connector to transfer audit log to object storage bucket"
 
