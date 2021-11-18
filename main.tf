@@ -146,9 +146,9 @@ module "vcn" {
 }
 
 # -----------------------------------------------------------------------------
-# Create Security resources
+# Create Cloud Guard resources
 # -----------------------------------------------------------------------------
-module "security" {
+module "cloud-guard" {
   source                                     = "./security/cloud-guard"
   region                                     = var.region
   activity_detector_recipe_display_name      = var.activity_detector_recipe_display_name
@@ -162,5 +162,24 @@ module "security" {
   parent_compartment_name                    = var.parent_compartment_name
   depends_on = [
     module.parent-compartment, module.common-infra-compartment, module.security-compartment
+  ]
+}
+
+# -----------------------------------------------------------------------------
+# Create Bastion resources
+# -----------------------------------------------------------------------------
+module "bastion" {
+  source                               = "./security/bastion"
+  vcn_id                               = module.vcn.vcn_id
+  tag_geo_location                     = var.tag_geo_location
+  tag_cost_center                      = var.tag_cost_center
+  bastion_subnet_cidr_block            = var.bastion_subnet_cidr_block
+  bastion_type                         = var.bastion_type
+  bastion_client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
+  bastion_max_session_ttl_in_seconds   = var.bastion_max_session_ttl_in_seconds
+  network_compartment_id               = module.network-compartment.network_compartment_id
+  region_key                           = local.region_key[0]
+  depends_on = [
+    module.network-compartment
   ]
 }

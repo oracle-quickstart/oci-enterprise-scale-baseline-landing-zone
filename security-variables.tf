@@ -1,3 +1,6 @@
+# -----------------------------------------------------------------------------
+# Cloud Guard Related Variables
+# -----------------------------------------------------------------------------
 variable "cloud_guard_configuration_status" {
   type        = string
   description = "the status of the Cloud Guard tenant (ENABLED or DISABLED)"
@@ -23,4 +26,29 @@ variable "vulnerability_scanning_service_policy_name" {
  type        = string
  description = "Name of Scanning Service Policy"
  default     = "OCI-LZ-Scanning-Service-Policy"
+}
+
+# -----------------------------------------------------------------------------
+# Bastion Related Variables
+# -----------------------------------------------------------------------------
+variable "bastion_subnet_cidr_block" {
+  type        = string
+  description = "CIDR Block for bastion subnet"
+}
+
+variable "bastion_type" {
+  type        = string
+  description = "the type of bastion service"
+  default     = "standard"
+}
+
+variable "bastion_client_cidr_block_allow_list" {
+  type        = list(string)
+  description = "A list of address ranges in CIDR notation that bastion is allowed to connect"
+}
+
+variable "bastion_max_session_ttl_in_seconds" {
+  type        = number
+  description = "The maximum amount of time that bastion session can remain active"
+  default     = 1800
 }
