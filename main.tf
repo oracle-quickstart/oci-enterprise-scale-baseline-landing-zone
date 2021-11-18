@@ -88,9 +88,9 @@ module "workload-compartment" {
   depends_on = [ module.applications-compartment ]
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Create IAM resources (policies, groups)
-# ---------------------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 module "iam" {
   source                         = "./iam"
   tenancy_ocid                   = var.tenancy_ocid
@@ -189,5 +189,22 @@ module "bastion" {
   region_key                           = local.region_key[0]
   depends_on = [
     module.network-compartment
+
+# -----------------------------------------------------------------------------
+# Audit Logging
+# -----------------------------------------------------------------------------
+module "audit" {
+  source                                     = "./security/audit"
+  tenancy_ocid                               = var.tenancy_ocid
+  parent_compartment_name                    = var.parent_compartment_name
+  parent_compartment_ocid                    = module.parent-compartment.parent_compartment_id
+  security_compartment_name                  = var.security_compartment_name
+  security_compartment_ocid                  = module.security-compartment.security_compartment_id
+  retention_rule_duration_time_amount        = var.retention_rule_duration_time_amount
+  tag_geo_location                           = var.tag_geo_location
+  tag_cost_center                            = var.tag_cost_center
+ 
+  depends_on = [
+    module.parent-compartment, module.security-compartment
   ]
 }
