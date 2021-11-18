@@ -1,5 +1,33 @@
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Random IDs to prevent naming collision with tenancy level resources
+# ---------------------------------------------------------------------------------------------------------------------
+resource "random_id" "policy_name" {
+  byte_length = 8
+}
+
 resource "random_id" "bucket_name" {
   byte_length = 8
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Service Connector policies
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_identity_policy" "service_connector_policy" {
+  compartment_id = var.tenancy_ocid
+  description    = "OCI Landing Zone Service Connector Policy"
+  name           = "${var.service_connector_policy_name}-${random_id.policy_name.id}"
+
+  freeform_tags = {
+    "Description" = "Service Connector policy"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
+
+  statements = [
+    "Allow any-user to manage objects in compartment ${var.parent_compartment_name} where all {request.principal.type='serviceconnector', target.bucket.name='${oci_objectstorage_bucket.audit_log_bucket.name}', request.principal.compartment.id='${var.parent_compartment_ocid}'}"
+  ]
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

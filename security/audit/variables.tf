@@ -12,6 +12,17 @@ variable "tag_geo_location" {
   description = "Geo location for OCI resources"
 }
 
+variable "parent_compartment_name" {
+  type        = string
+  description = "Name of the parent compartment"
+}
+
+variable "service_connector_policy_name" {
+  type        = string
+  description = "Policy Name for the service connector to access object storage bucket"
+  default     = "ConnectorPolicy_objectStorage"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Variables for Object storage Bucket and Retention Rules
 # ---------------------------------------------------------------------------------------------------------------------
@@ -73,5 +84,4 @@ variable "service_connector_target_batch_rollover_time_in_ms" {
   description = "Service connector target batch rollover time in ms"
   default     = 420000
 }
-
 
