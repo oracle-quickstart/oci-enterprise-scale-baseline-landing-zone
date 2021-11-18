@@ -81,47 +81,39 @@ variable "security_compartment_ocid" {
 variable "host_scan_recipe_agent_settings_agent_configuration_vendor" {
   type        = string
   description = "Vulnerability scanning service agent vendor"
-  default     = "OCI"
 }
 
 variable "host_scan_recipe_agent_settings_scan_level" {
   type        = string
   description = "Vulnerability scanning service agent scan level"
-  default     = "STANDARD"
 }
 
 variable "host_scan_recipe_port_settings_scan_level" {
   type        = string
   description = "Vulnerability scanning service port scan level"
-  default     = "STANDARD"
 }
 
 variable "agent_cis_benchmark_settings_scan_level" {
   type        = string
   description = "Agent bechamrking settings scan level"
-  default     = "STRICT"
 }
 
 variable "vss_scan_schedule" {
   type        = string
   description = "Vulnerability scanning service scan schedule"
-  default     = "DAILY"
 }
 
 variable "host_scan_recipe_display_name" {
   type        = string
   description = "Vulnerability scanning service display name"
-  default     = "OCI-LZ-Scanning-Service-Recipe"
 }
 
 variable "host_scan_target_display_name" {
   type        = string
   description = "Vulnerability scanning service target display name"
-  default     = "OCI-LZ-Scanning-Service-Target"
 }
 
 variable "host_scan_target_description" {
   type        = string
   description = "Vulnerability scanning service target description"
-  default     = "Vulnerability scanning service scan target"
 }
