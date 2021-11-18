@@ -1,4 +1,5 @@
 # -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Compartment specific variables - Required
 # -----------------------------------------------------------------------------
 variable "vcn_cidr_block" {
@@ -52,11 +53,6 @@ variable "shared_service_subnet_dns_label" {
   description = "Shared Service Subnet DNS Label"
 }
 
-variable "egress_security_rules_protocol" {
-  description = "[Workload Security List] Egress Protocol"
-  type        = string
-}
-
 variable "egress_security_rules_stateless" {
   description = "[Workload Security List] Egress Stateless"
   type        = bool
@@ -81,11 +77,6 @@ variable "egress_security_rules_tcp_options_source_port_range_max" {
 variable "egress_security_rules_tcp_options_source_port_range_min" {
   description = "[Workload Security List] Egress TCP Source Port Range Min"
   type        = number
-}
-
-variable "ingress_security_rules_protocol" {
-  description = "[Workload Security List] Ingress Protocol"
-  type        = string
 }
 
 variable "ingress_security_rules_stateless" {
