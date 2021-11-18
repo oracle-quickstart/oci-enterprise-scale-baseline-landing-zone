@@ -15,7 +15,7 @@ resource "random_id" "bucket_name" {
 # Service Connector policies
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "service_connector_policy" {
-  compartment_id = var.tenancy_ocid
+  compartment_id = var.parent_compartment_ocid
   description    = "OCI Landing Zone Service Connector Policy"
   name           = "${var.service_connector_policy_name}-${random_id.policy_name.id}"
 
