@@ -20,7 +20,7 @@ resource "oci_objectstorage_bucket" "audit_log_bucket" {
       time_unit   = var.retention_rule_duration_time_unit
     }
 
-    # time_rule_locked = 
+    time_rule_locked = timeadd(timestamp(), "337h")
   }
 
   freeform_tags = {
@@ -63,6 +63,5 @@ resource "oci_sch_service_connector" "audit_log_service_connector" {
     batch_rollover_time_in_ms  = var.service_connector_target_batch_rollover_time_in_ms
     bucket                     = oci_objectstorage_bucket.audit_log_bucket.name
     namespace                  = data.oci_objectstorage_namespace.ns.namespace
-    object_name_prefix         = "audit-"
   }
 }

@@ -1,5 +1,6 @@
 variable "tenancy_ocid" {
-
+  type        = string
+  description = ""
 }
 
 variable "tag_cost_center" {
@@ -16,7 +17,7 @@ variable "tag_geo_location" {
 # Variables for Object storage Bucket and Retention Rules
 # ---------------------------------------------------------------------------------------------------------------------
 variable "audit_log_bucket_name" {
-  type = string
+  type    = string
   default = "audit_log_bucket"
 }
 
@@ -73,5 +74,3 @@ variable "service_connector_target_batch_rollover_time_in_ms" {
   description = "Service connector target batch rollover time in ms"
   default     = 420000
 }
-
-
