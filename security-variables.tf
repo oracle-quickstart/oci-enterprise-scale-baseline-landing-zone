@@ -24,3 +24,13 @@ variable "vulnerability_scanning_service_policy_name" {
  description = "Name of Scanning Service Policy"
  default     = "OCI-LZ-Scanning-Service-Policy"
 }
+
+variable "retention_rule_duration_time_amount" {
+ type        = string
+ description = "Amount of retention rule duration time"
+
+ validation {
+    condition     = var.retention_rule_duration_time_amount > 365
+    error_message = "The amount of retention rule time duration should be greater than 365 days."
+  }
+}
