@@ -1,6 +1,5 @@
 # -----------------------------------------------------------------------------
-# -----------------------------------------------------------------------------
-# Compartment specific variables - Required
+# VCN Variables
 # -----------------------------------------------------------------------------
 variable "vcn_cidr_block" {
   type        = string
@@ -53,60 +52,62 @@ variable "shared_service_subnet_dns_label" {
   description = "Shared Service Subnet DNS Label"
 }
 
-variable "egress_security_rules_stateless" {
-  description = "[Workload Security List] Egress Stateless"
-  type        = bool
-  default     = false
+# variable "egress_security_rules_tcp_options_destination_port_range_max" {
+#   description = "[Workload Security List] Egress TCP Destination Port Range Max"
+#   type        = number
+# }
+
+# variable "egress_security_rules_tcp_options_destination_port_range_min" {
+#   description = "[Workload Security List] Egress TCP Destination Port Range Min"
+#   type        = number
+# }
+
+# variable "egress_security_rules_tcp_options_source_port_range_max" {
+#   description = "[Workload Security List] Egress TCP Source Port Range Max"
+#   type        = number
+# }
+
+# variable "egress_security_rules_tcp_options_source_port_range_min" {
+#   description = "[Workload Security List] Egress TCP Source Port Range Min"
+#   type        = number
+# }
+
+# variable "ingress_security_rules_tcp_options_destination_port_range_max" {
+#   description = "[Workload Security List] Ingress TCP Destination Port Range Max"
+#   type        = number
+# }
+
+# variable "ingress_security_rules_tcp_options_destination_port_range_min" {
+#   description = "[Workload Security List] Ingress TCP Destination Port Range Min"
+#   type        = number
+# }
+
+# variable "ingress_security_rules_tcp_options_source_port_range_max" {
+#   description = "[Workload Security List] Ingress TCP Source Port Range Max"
+#   type        = number
+# }
+
+# variable "ingress_security_rules_tcp_options_source_port_range_min" {
+#   description = "[Workload Security List] Ingress TCP Source Port Range Min"
+#   type        = number
+# }
+
+variable "egress_rules_map" {
+  type = map(object({
+    egress_security_rules_tcp_options_destination_port_range_max = number 
+    egress_security_rules_tcp_options_destination_port_range_min = number 
+    egress_security_rules_tcp_options_source_port_range_max      = number
+    egress_security_rules_tcp_options_source_port_range_min      = number
+  }))
+  default = {}
 }
 
-variable "egress_security_rules_tcp_options_destination_port_range_max" {
-  description = "[Workload Security List] Egress TCP Destination Port Range Max"
-  type        = number
-}
-
-variable "egress_security_rules_tcp_options_destination_port_range_min" {
-  description = "[Workload Security List] Egress TCP Destination Port Range Min"
-  type        = number
-}
-
-variable "egress_security_rules_tcp_options_source_port_range_max" {
-  description = "[Workload Security List] Egress TCP Source Port Range Max"
-  type        = number
-}
-
-variable "egress_security_rules_tcp_options_source_port_range_min" {
-  description = "[Workload Security List] Egress TCP Source Port Range Min"
-  type        = number
-}
-
-variable "ingress_security_rules_stateless" {
-  description = "[Workload Security List]"
-  type        = bool
-  default     = false
-}
-
-variable "ingress_security_rules_tcp_options_destination_port_range_max" {
-  description = "[Workload Security List] Ingress TCP Destination Port Range Max"
-  type        = number
-}
-
-variable "ingress_security_rules_tcp_options_destination_port_range_min" {
-  description = "[Workload Security List] Ingress TCP Destination Port Range Min"
-  type        = number
-}
-
-variable "ingress_security_rules_tcp_options_source_port_range_max" {
-  description = "[Workload Security List] Ingress TCP Source Port Range Max"
-  type        = number
-}
-
-variable "ingress_security_rules_tcp_options_source_port_range_min" {
-  description = "[Workload Security List] Ingress TCP Source Port Range Min"
-  type        = number
-}
-
-variable "ingress_security_rules_description" {
-  description = "[Workload Security List] Description"
-  type        = string
-  default     = "Workload Security List - Ingress"
+variable "ingress_rules_map" {
+  type = map(object({
+    ingress_security_rules_tcp_options_destination_port_range_max = number
+    ingress_security_rules_tcp_options_destination_port_range_min = number
+    ingress_security_rules_tcp_options_source_port_range_max      = number
+    ingress_security_rules_tcp_options_source_port_range_min      = number
+  }))
+  default = {}
 }

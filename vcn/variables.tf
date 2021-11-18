@@ -88,25 +88,25 @@ variable "egress_security_rules_stateless" {
   default     = false
 }
 
-variable "egress_security_rules_tcp_options_destination_port_range_max" {
-  description = "[Workload Security List] Egress TCP Destination Port Range Max"
-  type        = number
-}
+# variable "egress_security_rules_tcp_options_destination_port_range_max" {
+#   description = "[Workload Security List] Egress TCP Destination Port Range Max"
+#   type        = number
+# }
 
-variable "egress_security_rules_tcp_options_destination_port_range_min" {
-  description = "[Workload Security List] Egress TCP Destination Port Range Min"
-  type        = number
-}
+# variable "egress_security_rules_tcp_options_destination_port_range_min" {
+#   description = "[Workload Security List] Egress TCP Destination Port Range Min"
+#   type        = number
+# }
 
-variable "egress_security_rules_tcp_options_source_port_range_max" {
-  description = "[Workload Security List] Egress TCP Source Port Range Max"
-  type        = number
-}
+# variable "egress_security_rules_tcp_options_source_port_range_max" {
+#   description = "[Workload Security List] Egress TCP Source Port Range Max"
+#   type        = number
+# }
 
-variable "egress_security_rules_tcp_options_source_port_range_min" {
-  description = "[Workload Security List] Egress TCP Source Port Range Min"
-  type        = number
-}
+# variable "egress_security_rules_tcp_options_source_port_range_min" {
+#   description = "[Workload Security List] Egress TCP Source Port Range Min"
+#   type        = number
+# }
 
 variable "ingress_security_rules_protocol" {
   description = "[Workload Security List] Ingress Protocol"
@@ -120,28 +120,52 @@ variable "ingress_security_rules_stateless" {
   default     = false
 }
 
-variable "ingress_security_rules_tcp_options_destination_port_range_max" {
-  description = "[Workload Security List] Ingress TCP Destination Port Range Max"
-  type        = number
-}
+# variable "ingress_security_rules_tcp_options_destination_port_range_max" {
+#   description = "[Workload Security List] Ingress TCP Destination Port Range Max"
+#   type        = number
+# }
 
-variable "ingress_security_rules_tcp_options_destination_port_range_min" {
-  description = "[Workload Security List] Ingress TCP Destination Port Range Min"
-  type        = number
-}
+# variable "ingress_security_rules_tcp_options_destination_port_range_min" {
+#   description = "[Workload Security List] Ingress TCP Destination Port Range Min"
+#   type        = number
+# }
 
-variable "ingress_security_rules_tcp_options_source_port_range_max" {
-  description = "[Workload Security List] Ingress TCP Source Port Range Max"
-  type        = number
-}
+# variable "ingress_security_rules_tcp_options_source_port_range_max" {
+#   description = "[Workload Security List] Ingress TCP Source Port Range Max"
+#   type        = number
+# }
 
-variable "ingress_security_rules_tcp_options_source_port_range_min" {
-  description = "[Workload Security List] Ingress TCP Source Port Range Min"
-  type        = number
-}
+# variable "ingress_security_rules_tcp_options_source_port_range_min" {
+#   description = "[Workload Security List] Ingress TCP Source Port Range Min"
+#   type        = number
+# }
 
 variable "ingress_security_rules_description" {
   description = "[Workload Security List] Description"
   type        = string
   default     = "Workload Security List - Ingress"
+}
+
+variable "egress_security_rules_description" {
+  description = "[Workload Security List] Description"
+  type        = string
+  default     = "Workload Security List - Egress"
+}
+
+variable "egress_rules_map" {
+  # type = map(object({
+  #   egress_security_rules_tcp_options_destination_port_range_max = string
+  #   egress_security_rules_tcp_options_destination_port_range_min = string 
+  #   egress_security_rules_tcp_options_source_port_range_max      = string
+  #   egress_security_rules_tcp_options_source_port_range_min      = string
+  # }))
+}
+
+variable "ingress_rules_map" {
+  # type = map(object({
+  #   ingress_security_rules_tcp_options_destination_port_range_max = string
+  #   ingress_security_rules_tcp_options_destination_port_range_min = string
+  #   ingress_security_rules_tcp_options_source_port_range_max      = string
+  #   ingress_security_rules_tcp_options_source_port_range_min      = string
+  # }))
 }
