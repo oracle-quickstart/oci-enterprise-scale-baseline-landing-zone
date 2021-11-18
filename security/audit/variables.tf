@@ -50,7 +50,6 @@ variable "audit_retention_period" {
 variable "retention_rule_duration_time_amount" {
   type    = number
   description = "The amount of time in days to retain the audit logs in the bucket"
-  default = 365
 }
 
 variable "retention_rule_duration_time_unit" {

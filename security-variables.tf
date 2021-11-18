@@ -24,3 +24,8 @@ variable "vulnerability_scanning_service_policy_name" {
  description = "Name of Scanning Service Policy"
  default     = "OCI-LZ-Scanning-Service-Policy"
 }
+
+variable "retention_rule_duration_time_amount" {
+ type        = string
+ description = "Amount of retention rule duration time"
+}
