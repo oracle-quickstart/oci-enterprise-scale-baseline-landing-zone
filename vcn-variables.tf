@@ -12,6 +12,9 @@ variable "vcn_dns_label" {
   description = "VCN DNS Label"
 }
 
+# -----------------------------------------------------------------------------
+# Subnet Variables
+# -----------------------------------------------------------------------------
 variable "public_subnet_cidr_block" {
   type        = string
   description = "Public Subnet CIDR Block"
@@ -52,50 +55,13 @@ variable "shared_service_subnet_dns_label" {
   description = "Shared Service Subnet DNS Label"
 }
 
-# variable "egress_security_rules_tcp_options_destination_port_range_max" {
-#   description = "[Workload Security List] Egress TCP Destination Port Range Max"
-#   type        = number
-# }
-
-# variable "egress_security_rules_tcp_options_destination_port_range_min" {
-#   description = "[Workload Security List] Egress TCP Destination Port Range Min"
-#   type        = number
-# }
-
-# variable "egress_security_rules_tcp_options_source_port_range_max" {
-#   description = "[Workload Security List] Egress TCP Source Port Range Max"
-#   type        = number
-# }
-
-# variable "egress_security_rules_tcp_options_source_port_range_min" {
-#   description = "[Workload Security List] Egress TCP Source Port Range Min"
-#   type        = number
-# }
-
-# variable "ingress_security_rules_tcp_options_destination_port_range_max" {
-#   description = "[Workload Security List] Ingress TCP Destination Port Range Max"
-#   type        = number
-# }
-
-# variable "ingress_security_rules_tcp_options_destination_port_range_min" {
-#   description = "[Workload Security List] Ingress TCP Destination Port Range Min"
-#   type        = number
-# }
-
-# variable "ingress_security_rules_tcp_options_source_port_range_max" {
-#   description = "[Workload Security List] Ingress TCP Source Port Range Max"
-#   type        = number
-# }
-
-# variable "ingress_security_rules_tcp_options_source_port_range_min" {
-#   description = "[Workload Security List] Ingress TCP Source Port Range Min"
-#   type        = number
-# }
-
+# -----------------------------------------------------------------------------
+# Security List Variables
+# -----------------------------------------------------------------------------
 variable "egress_rules_map" {
   type = map(object({
-    egress_security_rules_tcp_options_destination_port_range_max = number 
-    egress_security_rules_tcp_options_destination_port_range_min = number 
+    egress_security_rules_tcp_options_destination_port_range_max = number
+    egress_security_rules_tcp_options_destination_port_range_min = number
     egress_security_rules_tcp_options_source_port_range_max      = number
     egress_security_rules_tcp_options_source_port_range_min      = number
   }))
