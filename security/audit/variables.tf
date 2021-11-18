@@ -13,6 +13,17 @@ variable "tag_geo_location" {
   description = "Geo location for OCI resources"
 }
 
+variable "parent_compartment_name" {
+  type        = string
+  description = "Name of the parent compartment"
+}
+
+variable "service_connector_policy_name" {
+  type        = string
+  description = "Policy Name for the service connector to access object storage bucket"
+  default     = "OCI-LZ-ConnectorPolicy-objectStorage"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Variables for Object storage Bucket and Retention Rules
 # ---------------------------------------------------------------------------------------------------------------------
