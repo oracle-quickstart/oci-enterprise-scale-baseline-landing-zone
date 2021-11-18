@@ -179,6 +179,6 @@ module "audit" {
   tag_cost_center                            = var.tag_cost_center
  
   depends_on = [
-    module.parent-compartment, module.common-infra-compartment, module.security-compartment
+    module.parent-compartment, module.security-compartment
   ]
 }

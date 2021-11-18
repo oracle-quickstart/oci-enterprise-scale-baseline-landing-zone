@@ -1,6 +1,6 @@
 variable "tenancy_ocid" {
   type        = string
-  description = ""
+  description = "The OCID for the tenancy"
 }
 
 variable "tag_cost_center" {
@@ -53,9 +53,9 @@ variable "retention_rule_duration_time_amount" {
 }
 
 variable "retention_rule_duration_time_unit" {
-  type    = string
+  type        = string
   description = "The unit of time to retain the objects (DAYS)"
-  default = "DAYS"
+  default     = "DAYS"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
