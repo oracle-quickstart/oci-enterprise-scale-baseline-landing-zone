@@ -113,6 +113,7 @@ variable "egress_security_rules_stateless" {
 }
 
 variable "egress_rules_map" {
+  description = "[Workload Security List] Egress Rules Map"
   type = map(object({
     egress_security_rules_tcp_options_destination_port_range_max = string
     egress_security_rules_tcp_options_destination_port_range_min = string
@@ -143,6 +144,7 @@ variable "ingress_security_rules_stateless" {
 }
 
 variable "ingress_rules_map" {
+  description = "[Workload Security List] Ingress Rules Map"
   type = map(object({
     ingress_security_rules_tcp_options_destination_port_range_max = string
     ingress_security_rules_tcp_options_destination_port_range_min = string
