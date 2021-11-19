@@ -181,6 +181,7 @@ module "bastion" {
   depends_on = [
     module.network-compartment
   ]
+}
 
 # -----------------------------------------------------------------------------
 # Audit Logging
