@@ -180,6 +180,7 @@ module "bastion" {
   region_key                           = local.region_key[0]
   depends_on = [
     module.network-compartment
+  ]
 
 # -----------------------------------------------------------------------------
 # Audit Logging
