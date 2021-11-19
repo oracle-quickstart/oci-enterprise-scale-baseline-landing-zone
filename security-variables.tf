@@ -99,6 +99,8 @@ variable "bastion_max_session_ttl_in_seconds" {
   type        = number
   description = "The maximum amount of time that bastion session can remain active"
   default     = 1800
+}
+
 variable "retention_rule_duration_time_amount" {
  type        = string
  description = "Amount of retention rule duration time"
