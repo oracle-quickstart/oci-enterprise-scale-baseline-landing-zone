@@ -87,7 +87,7 @@ variable "bastion_subnet_cidr_block" {
 variable "bastion_type" {
   type        = string
   description = "the type of bastion service"
-  default     = "standard"
+  default     = "STANDARD"
 }
 
 variable "bastion_client_cidr_block_allow_list" {
@@ -103,10 +103,10 @@ variable "bastion_max_session_ttl_in_seconds" {
 
 variable "retention_rule_duration_time_amount" {
  type        = string
- description = "Amount of retention rule duration time"
+ description = "Amount of retention rule duration time in days"
 
  validation {
-    condition     = var.retention_rule_duration_time_amount > 365
-    error_message = "The amount of retention rule time duration should be greater than 365 days."
+    condition     = var.retention_rule_duration_time_amount >= 365
+    error_message = "The amount of retention rule time duration should be 365 days or greater."
   }
 }

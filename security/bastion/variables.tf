@@ -38,7 +38,7 @@ variable "tag_geo_location" {
 variable "bastion_type" {
   type        = string
   description = "the type of bastion service"
-  default     = "standard"
+  default     = "STANDARD"
 }
 
 variable "bastion_client_cidr_block_allow_list" {
