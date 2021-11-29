@@ -9,6 +9,7 @@ module "vcn" {
   vcn_cidr_block                   = var.vcn_cidr_block
   vcn_dns_label                    = var.vcn_dns_label
   region_key                       = local.region_key[0]
+  ip_sec_connection_static_routes  = var.ip_sec_connection_static_routes
   workload_compartment_names       = var.workload_compartment_names
   public_subnet_cidr_block         = var.public_subnet_cidr_block
   public_subnet_dns_label          = var.public_subnet_dns_label

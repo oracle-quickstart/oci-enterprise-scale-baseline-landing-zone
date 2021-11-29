@@ -309,7 +309,7 @@ resource "oci_core_cpe" "ipsec_vpn_cpe" {
   compartment_id = var.compartment_ocid
   ip_address     = var.cpe_ip_address
 
-  cpe_device_shape_id = data.oci_core_cpe_device_shapes.test_cpe_device_shapes.cpe_device_shapes.0.cpe_device_shape_id
+  cpe_device_shape_id = data.oci_core_cpe_device_shapes.cpe_device_shapes.cpe_device_shapes.0.cpe_device_shape_id
   display_name        = var.cpe_display_name
   freeform_tags = {
     "Description" = "Customer Premises Equipment"
@@ -339,7 +339,7 @@ resource "oci_core_ipsec" "ip_sec_connection" {
   compartment_id = var.compartment_ocid
   cpe_id         = oci_core_cpe.ipsec_vpn_cpe.id
   drg_id         = oci_core_drg.drg.id
-  display_name   = var.ip_sec_connection_display_name
+  display_name   = "OCI-LZ-IPSEC-TUNNEL"
   static_routes  = var.ip_sec_connection_static_routes
   freeform_tags  = {
     "Description" = "IPSec tunnel connection"

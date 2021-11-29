@@ -92,3 +92,8 @@ variable "cpe_display_name" {
   type        = string
   description = "Customer Premises Equipment display name"
 }
+
+variable "ip_sec_connection_static_routes" {
+  type        = list(string)
+  description = "IPSec connection static routes"
+}
