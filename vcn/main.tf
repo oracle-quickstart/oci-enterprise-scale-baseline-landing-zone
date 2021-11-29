@@ -301,3 +301,31 @@ data "oci_core_services" "service_gateway_all_oci_services" {
     regex  = true
   }
 }
+
+# -----------------------------------------------------------------------------
+# Create Dynamic Routing Gateway
+# -----------------------------------------------------------------------------
+resource "oci_core_drg" "drg" {
+  compartment_id = var.compartment_ocid
+  display_name   = "OCI-LZ-DRG"
+
+  freeform_tags = {
+    "Description" = "Dynamic Routing Gateways"
+    "CostCenter"  = var.tag_cost_center
+    "GeoLocation" = var.tag_geo_location
+  }
+}
+
+resource "oci_core_drg_attachment" "drg_vcn_attachment" {
+  drg_id             = oci_core_drg.drg.id
+  display_name       = "OCI-LZ-DRG-ATTACHMENT"
+  freeform_tags = {
+    "Description" = "DRG VCN Attachment"
+    "CostCenter"  = var.tag_cost_center
+    "GeoLocation" = var.tag_geo_location
+  }
+  network_details {
+    id   = oci_core_vcn.primary_vcn.id
+    type = "VCN"
+  }
+}
