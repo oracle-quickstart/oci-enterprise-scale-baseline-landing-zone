@@ -353,7 +353,7 @@ resource "oci_core_ipsec" "ip_sec_connection" {
 # -----------------------------------------------------------------------------
 resource "oci_core_drg_attachment" "drg_vcn_attachment" {
   drg_id             = oci_core_drg.drg.id
-  display_name       = "OCI-LZ-DRG-ATTACHMENT"
+  display_name       = "OCI-LZ-DRG-VCN-ATTACHMENT"
   freeform_tags = {
     "Description" = "DRG VCN Attachment"
     "CostCenter"  = var.tag_cost_center
@@ -367,7 +367,7 @@ resource "oci_core_drg_attachment" "drg_vcn_attachment" {
 
 resource "oci_core_drg_attachment" "drg_ipsec_attachment" {
   drg_id             = oci_core_drg.drg.id
-  display_name       = "OCI-LZ-IPSEC-ATTACHMENT"
+  display_name       = "OCI-LZ-DRG-IPSEC-ATTACHMENT"
   freeform_tags = {
     "Description" = "DRG IPSec Attachment"
     "CostCenter"  = var.tag_cost_center
