@@ -303,6 +303,22 @@ data "oci_core_services" "service_gateway_all_oci_services" {
 }
 
 # -----------------------------------------------------------------------------
+# Create customer premises equipment
+# -----------------------------------------------------------------------------
+resource "oci_core_cpe" "ipsec_vpn_cpe" {
+  compartment_id = var.compartment_ocid
+  ip_address     = var.cpe_ip_address
+
+  cpe_device_shape_id = data.oci_core_cpe_device_shapes.test_cpe_device_shapes.cpe_device_shapes.0.cpe_device_shape_id
+  display_name        = var.cpe_display_name
+  freeform_tags = {
+    "Description" = "Customer Premises Equipment"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
+}
+
+# -----------------------------------------------------------------------------
 # Create Dynamic Routing Gateway
 # -----------------------------------------------------------------------------
 resource "oci_core_drg" "drg" {
@@ -316,6 +332,25 @@ resource "oci_core_drg" "drg" {
   }
 }
 
+# -----------------------------------------------------------------------------
+# Create IPSec tunnel connection for site-to-site VPN
+# -----------------------------------------------------------------------------
+resource "oci_core_ipsec" "ip_sec_connection" {
+  compartment_id = var.compartment_ocid
+  cpe_id         = oci_core_cpe.ipsec_vpn_cpe.id
+  drg_id         = oci_core_drg.drg.id
+  display_name   = var.ip_sec_connection_display_name
+  static_routes  = var.ip_sec_connection_static_routes
+  freeform_tags  = {
+    "Description" = "IPSec tunnel connection"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
+}
+
+# -----------------------------------------------------------------------------
+# Create Dynamic Routing Gateway attachments
+# -----------------------------------------------------------------------------
 resource "oci_core_drg_attachment" "drg_vcn_attachment" {
   drg_id             = oci_core_drg.drg.id
   display_name       = "OCI-LZ-DRG-ATTACHMENT"
@@ -327,5 +362,19 @@ resource "oci_core_drg_attachment" "drg_vcn_attachment" {
   network_details {
     id   = oci_core_vcn.primary_vcn.id
     type = "VCN"
+  }
+}
+
+resource "oci_core_drg_attachment" "drg_ipsec_attachment" {
+  drg_id             = oci_core_drg.drg.id
+  display_name       = "OCI-LZ-IPSEC-ATTACHMENT"
+  freeform_tags = {
+    "Description" = "DRG IPSec Attachment"
+    "CostCenter"  = var.tag_cost_center
+    "GeoLocation" = var.tag_geo_location
+  }
+  network_details {
+    id   = oci_core_ipsec.ip_sec_connection.id
+    type = "IPSEC_TUNNEL"
   }
 }

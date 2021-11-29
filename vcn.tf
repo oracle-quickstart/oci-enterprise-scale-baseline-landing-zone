@@ -4,6 +4,8 @@
 module "vcn" {
   source                           = "./vcn"
   compartment_ocid                 = module.network-compartment.network_compartment_id
+  cpe_display_name                 = var.cpe_display_name
+  cpe_ip_address                   = var.cpe_ip_address
   vcn_cidr_block                   = var.vcn_cidr_block
   vcn_dns_label                    = var.vcn_dns_label
   region_key                       = local.region_key[0]

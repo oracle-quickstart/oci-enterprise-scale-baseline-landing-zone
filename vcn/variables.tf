@@ -152,3 +152,16 @@ variable "ingress_rules_map" {
     ingress_security_rules_tcp_options_source_port_range_min      = string
   }))
 }
+
+# -----------------------------------------------------------------------------
+# Dynamic Resource Group Inputs
+# -----------------------------------------------------------------------------
+variable "cpe_ip_address" {
+  type        = string
+  description = "Customer Premises Equipment IP address"
+}
+
+variable "cpe_display_name" {
+  type        = string
+  description = "Customer Premises Equipment display name"
+}
