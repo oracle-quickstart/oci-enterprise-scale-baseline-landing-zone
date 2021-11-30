@@ -40,7 +40,7 @@ variable "log_log_type" {
 
 variable "log_configuration_source_category" {
   type    = string
-  default = "Flow Logs"
+  default = "all"
 }
 
 variable "log_configuration_source_resource" {
@@ -57,10 +57,9 @@ variable "log_configuration_source_source_type" {
   default = "OCISERVICE"
 }
 
-# variable "log_is_enabled" {
-#   type    = string
-#   default = ""
-# }
+variable "is_flow_log_enabled" {
+  type    = string
+}
 
 # variable "log_retention_duration" {
 #     type = string

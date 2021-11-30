@@ -110,3 +110,13 @@ variable "retention_rule_duration_time_amount" {
     error_message = "The amount of retention rule time duration should be 365 days or greater."
   }
 }
+
+
+# -----------------------------------------------------------------------------
+# VCN Flow Log Variables
+# -----------------------------------------------------------------------------
+
+variable "is_flow_log_enabled" {
+  type    = string
+  default = true
+}
