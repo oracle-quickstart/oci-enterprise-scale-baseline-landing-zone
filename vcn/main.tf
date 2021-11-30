@@ -349,26 +349,6 @@ resource "oci_core_ipsec" "ipsec_connection" {
 }
 
 # -----------------------------------------------------------------------------
-# Create FastConnect virtual circuit
-# -----------------------------------------------------------------------------
-resource "oci_core_virtual_circuit" "fastconnect_virtual_circuit" {
-  compartment_id            = var.compartment_ocid
-  gateway_id                = oci_core_drg.drg.id
-  customer_asn              = var.virtual_circuit_customer_asn
-  display_name              = "OCI-LZ-VIRTUAL-CIRCUIT"
-  provider_service_id       = data.oci_core_fast_connect_provider_services.fast_connect_provider_services.fast_connect_provider_services.0.id
-  provider_service_key_name = var.virtual_circuit_provider_service_key_name
-  region                    = var.region_key
-  routing_policy            = ["ORACLE_SERVICE_NETWORK"]
-  type                      = "PRIVATE"
-  freeform_tags             = {
-    "Description" = "FastConnect virtual circuit"
-    "CostCenter"  = var.tag_cost_center,
-    "GeoLocation" = var.tag_geo_location
-  }
-}
-
-# -----------------------------------------------------------------------------
 # Create Dynamic Routing Gateway attachments
 # -----------------------------------------------------------------------------
 resource "oci_core_drg_attachment" "drg_vcn_attachment" {
@@ -382,19 +362,5 @@ resource "oci_core_drg_attachment" "drg_vcn_attachment" {
   network_details {
     id   = oci_core_vcn.primary_vcn.id
     type = "VCN"
-  }
-}
-
-resource "oci_core_drg_attachment" "drg_virtual_circuit_attachment" {
-  drg_id             = oci_core_drg.drg.id
-  display_name       = "OCI-LZ-DRG-VIRTUAL-CIRCUIT-ATTACHMENT"
-  freeform_tags = {
-    "Description" = "DRG Virtual Circuit Attachment"
-    "CostCenter"  = var.tag_cost_center
-    "GeoLocation" = var.tag_geo_location
-  }
-  network_details {
-    id   = oci_core_virtual_circuit.fastconnect_virtual_circuit.id
-    type = "VIRTUAL_CIRCUIT"
   }
 }

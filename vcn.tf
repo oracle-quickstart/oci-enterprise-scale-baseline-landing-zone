@@ -20,8 +20,6 @@ module "vcn" {
   shared_service_subnet_dns_label           = var.shared_service_subnet_dns_label
   tag_geo_location                          = var.tag_geo_location
   tag_cost_center                           = var.tag_cost_center
-  virtual_circuit_customer_asn              = var.virtual_circuit_customer_asn
-  virtual_circuit_provider_service_key_name = var.virtual_circuit_provider_service_key_name
   ingress_rules_map                         = var.ingress_rules_map
   egress_rules_map                          = var.egress_rules_map
   depends_on                                = [module.network-compartment]
