@@ -1,6 +1,3 @@
-# ---------------------------------------------------------------------------------------------------------------------
-# 
-# ---------------------------------------------------------------------------------------------------------------------
 variable "tenancy_ocid" {
   type        = string
   description = "The OCID for the tenancy"
@@ -27,7 +24,7 @@ variable "tag_geo_location" {
 variable "log_group_display_name" {
   type        = string
   default     = "central_logging_group"
-  description = "Central Logging Group display name"
+  description = "Central Logging Group for VCN flow logs"
 }
 
 variable "log_display_name" {

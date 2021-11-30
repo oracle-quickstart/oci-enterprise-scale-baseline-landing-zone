@@ -8,7 +8,7 @@
 resource "oci_logging_log_group" "central_log_group" {
   compartment_id = var.security_compartment_ocid
   display_name   = var.log_group_display_name
-  description    = "Central Logging Group"
+  description    = "Central Logging Group for VCN Flow logs"
   freeform_tags = {
     "Description" = "Central Logging Group"
     "CostCenter"  = var.tag_cost_center,
@@ -39,25 +39,25 @@ resource "oci_logging_log" "vcn_flow_log" {
 # ---------------------------------------------------------------------------------------------------------------------
 # Create Service Connector for Audit Logs
 # ---------------------------------------------------------------------------------------------------------------------
-# resource "oci_sch_service_connector" "audit_log_service_connector" {
-#   compartment_id = var.security_compartment_ocid
-#   display_name   = var.service_connector_display_name
-#   description    = "Service connector to transfer audit log to object storage bucket"
+  resource "oci_sch_service_connector" "vcn_flow_log_service_connector" {
+    compartment_id = var.security_compartment_ocid
+    display_name   = var.service_connector_display_name
+    description    = "Service connector to transfer audit log to object storage bucket"
 
-#   freeform_tags = {
-#     "Description" = "Service connector to transfer audit log",
-#     "CostCenter"  = var.tag_cost_center,
-#     "GeoLocation" = var.tag_geo_location
-#   }
+    freeform_tags = {
+      "Description" = "Service connector to transfer VCN flow log to Log Analytics",
+      "CostCenter"  = var.tag_cost_center,
+      "GeoLocation" = var.tag_geo_location
+   }
 
-#   source {
-#     kind = var.service_connector_source_kind
+    source {
+      kind = var.service_connector_source_kind
 
-#     log_sources {
-#       compartment_id = var.parent_compartment_ocid
-#       log_group_id   = "_Audit"
-#     }
-#   }
+      log_sources {
+        compartment_id = var.parent_compartment_ocid
+        log_group_id   = "_Audit"
+      }
+    }
 
 #   target {
 #     kind                       = var.service_connector_target_kind
