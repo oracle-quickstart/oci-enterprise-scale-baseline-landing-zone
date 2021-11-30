@@ -120,3 +120,8 @@ variable "is_flow_log_enabled" {
   type    = string
   default = true
 }
+
+variable "log_configuration_source_resource" {
+  type    = string
+  default = true
+}

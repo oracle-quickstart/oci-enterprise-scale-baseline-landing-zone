@@ -71,11 +71,12 @@ module "audit" {
 module "flow-logs" {
   source                                     = "./security/flow-logs"
   tenancy_ocid                               = var.tenancy_ocid
-  parent_compartment_name                    = var.parent_compartment_name
-  parent_compartment_ocid                    = module.parent-compartment.parent_compartment_id
-  security_compartment_name                  = var.security_compartment_name
+  #parent_compartment_ocid                    = module.parent-compartment.parent_compartment_id
   security_compartment_ocid                  = module.security-compartment.security_compartment_id
   is_flow_log_enabled                        = var.is_flow_log_enabled
+  log_configuration_source_resource          = var.log_configuration_source_resource
+  tag_geo_location                           = var.tag_geo_location
+  tag_cost_center                            = var.tag_cost_center
 
   depends_on = [
     module.parent-compartment, module.security-compartment
