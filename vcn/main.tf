@@ -349,6 +349,25 @@ resource "oci_core_ipsec" "ipsec_connection" {
 }
 
 # -----------------------------------------------------------------------------
+# Create FastConnect virtual circuit
+# -----------------------------------------------------------------------------
+resource "oci_core_virtual_circuit" "fastconnect_virtual_circuit" {
+  compartment_id            = var.compartment_ocid
+  gateway_id                = oci_core_drg.drg.id
+  bandwidth_shape_name      = var.virtual_circuit_bandwidth_shape_name
+  display_name              = "OCI-LZ-VIRTUAL-CIRCUIT"
+  provider_service_id       = data.oci_core_fast_connect_provider_services.fast_connect_provider_services.fast_connect_provider_services.0.id
+  region                    = var.region_key
+  routing_policy            = ["ORACLE_SERVICE_NETWORK"]
+  type                      = "PRIVATE"
+  freeform_tags             = {
+    "Description" = "FastConnect virtual circuit"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
+}
+
+# -----------------------------------------------------------------------------
 # Create Dynamic Routing Gateway attachments
 # -----------------------------------------------------------------------------
 resource "oci_core_drg_attachment" "drg_vcn_attachment" {

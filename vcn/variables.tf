@@ -165,3 +165,8 @@ variable "ip_sec_connection_static_routes" {
   type        = list(string)
   description = "IPSec connection static routes"
 }
+
+variable "virtual_circuit_bandwidth_shape_name" {
+  type = string
+  description = "Virtual Circuit bandwidth shape name"
+}
