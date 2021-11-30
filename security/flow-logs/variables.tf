@@ -35,7 +35,7 @@ variable "log_display_name" {
 
 variable "log_log_type" {
   type    = string
-  default = "service"
+  default = "SERVICE"
 }
 
 variable "log_configuration_source_category" {
@@ -61,7 +61,7 @@ variable "is_flow_log_enabled" {
   type    = string
 }
 
-# variable "log_retention_duration" {
-#     type = string
-#     default = ""
-# }
+variable "log_retention_duration" {
+    type = number
+    default = 30
+}

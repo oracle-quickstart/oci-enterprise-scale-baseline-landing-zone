@@ -33,7 +33,12 @@ resource "oci_logging_log" "vcn_flow_log" {
   }
 
   is_enabled         = var.is_flow_log_enabled
-  # retention_duration = var.log_retention_duration
+  retention_duration = var.log_retention_duration
+  freeform_tags = {
+    "Description" = "VCN Flow Logs"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
