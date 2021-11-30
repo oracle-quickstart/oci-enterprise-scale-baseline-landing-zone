@@ -1,10 +1,6 @@
 # ---------------------------------------------------------------------------------------------------------------------
-# Random IDs to prevent naming collision with tenancy level resources
+# Central logging group for VCN Flow Logs
 # ---------------------------------------------------------------------------------------------------------------------
-# resource "random_id" "policy_name" {
-#   byte_length = 8
-# }
-
 resource "oci_logging_log_group" "central_log_group" {
   compartment_id = var.security_compartment_ocid
   display_name   = var.log_group_display_name
@@ -16,6 +12,9 @@ resource "oci_logging_log_group" "central_log_group" {
   }
 }
 
+# ---------------------------------------------------------------------------------------------------------------------
+# VCN Flow Logs for each subnet in the Primary VCN
+# ---------------------------------------------------------------------------------------------------------------------
 resource "oci_logging_log" "vcn_flow_log" {
   for_each     = {for subnet in data.oci_core_subnets.vcn_subnets.subnets: subnet.display_name => subnet.id}
   display_name = "${var.log_display_name}-${each.key}"
@@ -43,7 +42,7 @@ resource "oci_logging_log" "vcn_flow_log" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# Create Service Connector for Audit Logs
+# Create Service Connector for VCN Flow Logs
 # ---------------------------------------------------------------------------------------------------------------------
 #  resource "oci_sch_service_connector" "vcn_flow_log_service_connector" {
 #    compartment_id = var.security_compartment_ocid

@@ -1,3 +1,6 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# Required Variables
+# ---------------------------------------------------------------------------------------------------------------------
 variable "tenancy_ocid" {
   type        = string
   description = "The OCID for the tenancy"
@@ -10,6 +13,7 @@ variable "security_compartment_ocid" {
 
 variable "network_compartment_ocid" {
   type = string
+  description = "The network compartment OCID"
 }
 
 variable "tag_cost_center" {
@@ -23,7 +27,7 @@ variable "tag_geo_location" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# 
+#  Log Group Variables
 # ---------------------------------------------------------------------------------------------------------------------
 variable "log_group_display_name" {
   type        = string
@@ -31,6 +35,9 @@ variable "log_group_display_name" {
   description = "Central Logging Group for VCN flow logs"
 }
 
+# ---------------------------------------------------------------------------------------------------------------------
+#  VCN Flow Log Variables
+# ---------------------------------------------------------------------------------------------------------------------
 variable "log_display_name" {
   type        = string
   default     = "vcn_flow_logs"
@@ -38,34 +45,41 @@ variable "log_display_name" {
 }
 
 variable "log_log_type" {
-  type    = string
-  default = "SERVICE"
+  type        = string
+  description = "The type of the Log"
+  default     = "SERVICE"
 }
 
 variable "log_configuration_source_category" {
-  type    = string
-  default = "all"
+  type        = string
+  description = "The configuration source for the log"
+  default     = "all"
 }
 
 variable "vcn_id" {
-  type = string
+  type        = string
+  description = "The OCID of the primary VCN"
 }
 
 variable "log_configuration_source_service" {
-  type    = string
-  default = "flowlogs"
+  type        = string
+  description = "The configuration source service for the log"
+  default     = "flowlogs"
 }
 
 variable "log_configuration_source_source_type" {
-  type    = string
-  default = "OCISERVICE"
+  type        = string
+  description = "The configuration source type for the log"
+  default     = "OCISERVICE"
 }
 
 variable "is_flow_log_enabled" {
-  type = string
+  type        = string
+  description = "Enable flow log on the subnets"
 }
 
 variable "log_retention_duration" {
-  type    = number
-  default = 30
+  type        = number
+  description = "The duration period of the log rentention"
+  default     = 30
 }
