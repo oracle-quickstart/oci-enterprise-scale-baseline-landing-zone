@@ -8,6 +8,10 @@ variable "security_compartment_ocid" {
   description = "The security compartment OCID"
 }
 
+variable "network_compartment_ocid" {
+  type = string
+}
+
 variable "tag_cost_center" {
   type        = string
   description = "Cost center to charge for OCI resources"
@@ -43,8 +47,8 @@ variable "log_configuration_source_category" {
   default = "all"
 }
 
-variable "log_configuration_source_resource" {
-  type    = string
+variable "vcn_id" {
+  type = string
 }
 
 variable "log_configuration_source_service" {
@@ -58,10 +62,10 @@ variable "log_configuration_source_source_type" {
 }
 
 variable "is_flow_log_enabled" {
-  type    = string
+  type = string
 }
 
 variable "log_retention_duration" {
-    type = number
-    default = 30
+  type    = number
+  default = 30
 }

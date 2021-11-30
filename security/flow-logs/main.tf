@@ -17,14 +17,15 @@ resource "oci_logging_log_group" "central_log_group" {
 }
 
 resource "oci_logging_log" "vcn_flow_log" {
-  display_name = var.log_display_name
+  for_each     = {for subnet in data.oci_core_subnets.vcn_subnets.subnets: subnet.display_name => subnet.id}
+  display_name = "${var.log_display_name}-${each.key}"
   log_group_id = oci_logging_log_group.central_log_group.id
   log_type     = var.log_log_type
 
   configuration {
     source {
       category    = var.log_configuration_source_category
-      resource    = var.log_configuration_source_resource
+      resource    = each.value
       service     = var.log_configuration_source_service
       source_type = var.log_configuration_source_source_type
     }

@@ -23,9 +23,9 @@ variable "activity_detector_recipe_display_name" {
 }
 
 variable "vulnerability_scanning_service_policy_name" {
- type        = string
- description = "Name of Scanning Service Policy"
- default     = "OCI-LZ-Scanning-Service-Policy"
+  type        = string
+  description = "Name of Scanning Service Policy"
+  default     = "OCI-LZ-Scanning-Service-Policy"
 }
 
 variable "host_scan_recipe_agent_settings_agent_configuration_vendor" {
@@ -102,25 +102,19 @@ variable "bastion_max_session_ttl_in_seconds" {
 }
 
 variable "retention_rule_duration_time_amount" {
- type        = string
- description = "Amount of retention rule duration time in days"
+  type        = string
+  description = "Amount of retention rule duration time in days"
 
- validation {
+  validation {
     condition     = var.retention_rule_duration_time_amount >= 365
     error_message = "The amount of retention rule time duration should be 365 days or greater."
   }
 }
 
-
 # -----------------------------------------------------------------------------
 # VCN Flow Log Variables
 # -----------------------------------------------------------------------------
-
 variable "is_flow_log_enabled" {
   type    = string
   default = true
-}
-
-variable "log_configuration_source_resource" {
-  type    = string
 }
