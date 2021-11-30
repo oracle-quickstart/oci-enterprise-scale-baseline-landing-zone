@@ -303,7 +303,7 @@ data "oci_core_services" "service_gateway_all_oci_services" {
 }
 
 # -----------------------------------------------------------------------------
-# Create customer premises equipment
+# Create customer premises equipment object
 # -----------------------------------------------------------------------------
 resource "oci_core_cpe" "ipsec_vpn_cpe" {
   compartment_id = var.compartment_ocid
