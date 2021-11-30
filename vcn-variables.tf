@@ -81,7 +81,7 @@ variable "ingress_rules_map" {
 }
 
 # -----------------------------------------------------------------------------
-# Dynamic Resource Group Inputs
+# Dynamic Routing Gateway Inputs
 # -----------------------------------------------------------------------------
 variable "cpe_ip_address" {
   type        = string
