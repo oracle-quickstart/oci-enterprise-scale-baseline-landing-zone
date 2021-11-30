@@ -49,7 +49,7 @@ variable "log_configuration_source_resource" {
 
 variable "log_configuration_source_service" {
   type    = string
-  default = "Virtual Cloud Network"
+  default = "flowlogs"
 }
 
 variable "log_configuration_source_source_type" {
