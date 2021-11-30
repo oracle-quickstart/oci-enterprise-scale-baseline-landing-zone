@@ -42,7 +42,7 @@ resource "oci_logging_log" "vcn_flow_log" {
   resource "oci_sch_service_connector" "vcn_flow_log_service_connector" {
     compartment_id = var.security_compartment_ocid
     display_name   = var.service_connector_display_name
-    description    = "Service connector to transfer audit log to object storage bucket"
+    description    = "Service connector to transfer VCN Flow logs to Log Analytics"
 
     freeform_tags = {
       "Description" = "Service connector to transfer VCN flow log to Log Analytics",
