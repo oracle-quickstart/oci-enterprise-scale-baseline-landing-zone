@@ -26,6 +26,11 @@ variable "tag_geo_location" {
   description = "Geo location for OCI resources"
 }
 
+variable "vcn_id" {
+  type        = string
+  description = "The OCID of the primary VCN"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 #  Log Group Variables
 # ---------------------------------------------------------------------------------------------------------------------
@@ -54,11 +59,6 @@ variable "log_configuration_source_category" {
   type        = string
   description = "The configuration source for the log"
   default     = "all"
-}
-
-variable "vcn_id" {
-  type        = string
-  description = "The OCID of the primary VCN"
 }
 
 variable "log_configuration_source_service" {
