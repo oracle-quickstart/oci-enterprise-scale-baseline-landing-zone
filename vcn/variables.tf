@@ -165,3 +165,13 @@ variable "ip_sec_connection_static_routes" {
   type        = list(string)
   description = "IPSec connection static routes"
 }
+
+variable "virtual_circuit_customer_asn" {
+  type        = string
+  description = "Customer BGP ASN"
+}
+
+variable "virtual_circuit_provider_service_key_name" {
+  type        = string
+  description = "Service key name offered by the provider"
+}
