@@ -82,7 +82,3 @@ module "flow-logs" {
     module.parent-compartment, module.security-compartment
   ]
 }
-
-output "hihh" {
-  value = module.flow-logs.hii
-}

@@ -73,7 +73,11 @@ resource "oci_identity_policy" "log_analytics_policy" {
   }
 
   statements = [
-    "allow any-user to {LOG_ANALYTICS_LOG_GROUP_UPLOAD_LOGS} in compartment ${var.security_compartment_name} where all {request.principal.type='serviceconnector', target.loganalytics-log-group.id='${oci_log_analytics_log_analytics_log_group.log_analytics_log_group.id}', request.principal.compartment.id='${var.security_compartment_ocid}'}"
+    "allow any-user to {LOG_ANALYTICS_LOG_GROUP_UPLOAD_LOGS} in compartment ${var.security_compartment_name} where all {request.principal.type='serviceconnector', target.loganalytics-log-group.id='${oci_log_analytics_log_analytics_log_group.log_analytics_log_group.id}', request.principal.compartment.id='${var.security_compartment_ocid}'}",
+    "allow service loganalytics to { LOG_ANALYTICS_LIFECYCLE_INSPECT, LOG_ANALYTICS_LIFECYCLE_READ } in compartment ${var.security_compartment_name}",
+    "allow service loganalytics to MANAGE cloudevents-rules in compartment ${var.security_compartment_name}",
+    "allow service loganalytics to INSPECT compartments in compartment ${var.security_compartment_name}",
+    "allow service loganalytics to USE tag-namespaces in compartment ${var.security_compartment_name}",
   ]
 }
 
@@ -94,9 +98,13 @@ resource "oci_sch_service_connector" "vcn_flow_log_service_connector" {
   source {
     kind = var.service_connector_source_kind
 
-    log_sources {
-      compartment_id = var.security_compartment_ocid
-      log_group_id   = oci_logging_log_group.central_log_group.id
+    dynamic "log_sources" {
+      for_each = oci_logging_log.vcn_flow_log
+      content {
+        compartment_id = var.security_compartment_ocid
+        log_group_id   = oci_logging_log_group.central_log_group.id
+        log_id         = log_sources.value.id
+      }
     }
   }
 
@@ -106,7 +114,4 @@ resource "oci_sch_service_connector" "vcn_flow_log_service_connector" {
     batch_rollover_size_in_mbs = var.service_connector_target_batch_rollover_size_in_mbs
     batch_rollover_time_in_ms  = var.service_connector_target_batch_rollover_time_in_ms
   }
-}
-output "hii" {
-  value =oci_logging_log.vcn_flow_log
 }
