@@ -11,6 +11,11 @@ variable "security_compartment_ocid" {
   description = "The security compartment OCID"
 }
 
+variable "security_compartment_name" {
+  type        = string
+  description = "The security compartment name"
+}
+
 variable "network_compartment_ocid" {
   type        = string
   description = "The network compartment OCID"
@@ -27,7 +32,13 @@ variable "tag_geo_location" {
 }
 
 variable "subnet_map" {
-  type = map(string)
+  type        = map(string)
+  description = ""
+}
+
+variable "log_analytics_log_group_display_name" {
+  type        = string
+  default     = "logging_analytics_log_group"
   description = ""
 }
 
