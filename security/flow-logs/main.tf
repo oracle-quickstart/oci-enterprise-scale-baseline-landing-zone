@@ -78,6 +78,8 @@ resource "oci_identity_policy" "log_analytics_policy" {
     "allow service loganalytics to MANAGE cloudevents-rules in compartment ${var.security_compartment_name}",
     "allow service loganalytics to INSPECT compartments in compartment ${var.security_compartment_name}",
     "allow service loganalytics to USE tag-namespaces in compartment ${var.security_compartment_name}",
+    "allow service loganalytics to {VNIC_READ} in compartment ${var.security_compartment_name}",
+    "allow service loganalytics to {EVENTRULE_READ} in compartment ${var.security_compartment_name}"
   ]
 }
 
