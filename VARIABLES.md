@@ -1,36 +1,3 @@
-## Requirements
-
-No requirements.
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_oci"></a> [oci](#provider\_oci) | 4.51.0 |
-
-## Modules
-
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_applications-compartment"></a> [applications-compartment](#module\_applications-compartment) | ./compartments/applications-compartment | n/a |
-| <a name="module_audit"></a> [audit](#module\_audit) | ./security/audit | n/a |
-| <a name="module_bastion"></a> [bastion](#module\_bastion) | ./security/bastion | n/a |
-| <a name="module_budget"></a> [budget](#module\_budget) | ./budget | n/a |
-| <a name="module_cloud-guard"></a> [cloud-guard](#module\_cloud-guard) | ./security/cloud-guard | n/a |
-| <a name="module_common-infra-compartment"></a> [common-infra-compartment](#module\_common-infra-compartment) | ./compartments/common-infra-compartment | n/a |
-| <a name="module_iam"></a> [iam](#module\_iam) | ./iam | n/a |
-| <a name="module_network-compartment"></a> [network-compartment](#module\_network-compartment) | ./compartments/network-compartment | n/a |
-| <a name="module_parent-compartment"></a> [parent-compartment](#module\_parent-compartment) | ./compartments/parent-compartment | n/a |
-| <a name="module_security-compartment"></a> [security-compartment](#module\_security-compartment) | ./compartments/security-compartment | n/a |
-| <a name="module_vcn"></a> [vcn](#module\_vcn) | ./vcn | n/a |
-| <a name="module_workload-compartment"></a> [workload-compartment](#module\_workload-compartment) | ./compartments/workload-compartment | n/a |
-
-## Resources
-
-| Name | Type |
-|------|------|
-| [oci_identity_region_subscriptions.regions](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/data-sources/identity_region_subscriptions) | data source |
-
 ## Inputs
 
 | Name | Description | Type | Default | Required |

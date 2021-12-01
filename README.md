@@ -19,7 +19,7 @@ A complete listing of the Terraform variables used in this stack are referenced 
 using the [terraform-docs](https://github.com/terraform-docs/terraform-docs) with the following command:
 
 ```
-terraform-docs markdown table --sort-by required .
+terraform-docs markdown table --sort-by required --show inputs --show outputs . > VARIABLES.md
 ```
 
 ### Running Terraform
