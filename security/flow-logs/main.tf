@@ -61,7 +61,16 @@ resource "oci_identity_policy" "log_analytics_policy" {
   }
 
   statements = [
-    "allow any-user to {LOG_ANALYTICS_LOG_GROUP_UPLOAD_LOGS} in compartment ${var.security_compartment_name} where all {request.principal.type='serviceconnector', target.loganalytics-log-group.id='${oci_log_analytics_log_analytics_log_group.log_analytics_log_group}', request.principal.compartment.id='${var.security_compartment_ocid}'}"
+    "allow any-user to {LOG_ANALYTICS_LOG_GROUP_UPLOAD_LOGS} in compartment ${var.security_compartment_name} where all {request.principal.type='serviceconnector', target.loganalytics-log-group.id='${oci_log_analytics_log_analytics_log_group.log_analytics_log_group}', request.principal.compartment.id='${var.security_compartment_ocid}'}",
+    "allow service loganalytics to {EVENTRULE_READ} in tenancy",
+    "allow service loganalytics to {LOAD_BALANCER_READ} in tenancy",
+    "allow service loganalytics to {BUCKET_READ} in tenancy",
+    "allow service loganalytics to read functions-family in tenancy",
+    "allow service loganalytics to read api-gateway-family in tenancy",
+    "allow service loganalytics to {VNIC_READ} in tenancy"
+
+
+
   ]
 }
 
