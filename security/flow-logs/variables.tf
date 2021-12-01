@@ -31,6 +31,12 @@ variable "subnet_map" {
   description = ""
 }
 
+variable "log_analytics_log_group_display_name" {
+  type = string
+  default = "logging_analytics_log_group"
+  description = ""
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 #  Log Group Variables
 # ---------------------------------------------------------------------------------------------------------------------

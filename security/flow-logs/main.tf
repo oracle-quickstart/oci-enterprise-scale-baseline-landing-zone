@@ -16,6 +16,18 @@ resource "oci_logging_log_group" "central_log_group" {
   }
 }
 
+resource "oci_log_analytics_log_analytics_log_group" "log_analytics_log_group" {
+  compartment_id = var.security_compartment_ocid
+  display_name   = var.log_analytics_log_group_display_name
+  namespace      = data.oci_log_analytics_namespaces.logging_analytics_namespaces.namespace_collection[0].items[0].namespace
+
+  freeform_tags = {
+    "Description" = "Central Logging Group"
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # VCN Flow Logs for each subnet in the Primary VCN
 # ---------------------------------------------------------------------------------------------------------------------
@@ -95,7 +107,7 @@ resource "oci_sch_service_connector" "vcn_flow_log_service_connector" {
 
   target {
     kind                       = var.service_connector_target_kind
-    log_group_id               = oci_logging_log_group.central_log_group.id
+    log_group_id               = oci_log_analytics_log_analytics_log_group.log_analytics_log_group.id
     batch_rollover_size_in_mbs = var.service_connector_target_batch_rollover_size_in_mbs
     batch_rollover_time_in_ms  = var.service_connector_target_batch_rollover_time_in_ms
   }
