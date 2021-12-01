@@ -72,7 +72,7 @@ module "flow-logs" {
   tenancy_ocid              = var.tenancy_ocid
   security_compartment_ocid = module.security-compartment.security_compartment_id
   network_compartment_ocid  = module.network-compartment.network_compartment_id
-  vcn_id                    = module.vcn.vcn_id
+  subnet_map                = module.vcn.subnet_map
   is_flow_log_enabled       = var.is_flow_log_enabled
   tag_geo_location          = var.tag_geo_location
   tag_cost_center           = var.tag_cost_center

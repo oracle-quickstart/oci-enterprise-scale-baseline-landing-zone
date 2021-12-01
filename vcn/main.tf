@@ -31,6 +31,13 @@ locals {
       cidr_block = cidr_block
     }
   ])
+
+  subnet_list = concat([
+    oci_core_subnet.public_subnet,
+    oci_core_subnet.fss_subnet],
+    oci_core_subnet.database_subnet.*,
+    oci_core_subnet.private_subnet.*
+  )
 }
 
 # -----------------------------------------------------------------------------

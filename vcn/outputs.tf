@@ -32,3 +32,7 @@ output "database_nat_route_table_id" {
 output "service_gateway_route_table" {
   value = oci_core_route_table.service_gateway_route_table.id
 }
+
+output "subnet_map" {
+  value = { for subnet in local.subnet_list : subnet.display_name => subnet.id }
+}

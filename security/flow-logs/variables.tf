@@ -12,7 +12,7 @@ variable "security_compartment_ocid" {
 }
 
 variable "network_compartment_ocid" {
-  type = string
+  type        = string
   description = "The network compartment OCID"
 }
 
@@ -26,9 +26,9 @@ variable "tag_geo_location" {
   description = "Geo location for OCI resources"
 }
 
-variable "vcn_id" {
-  type        = string
-  description = "The OCID of the primary VCN"
+variable "subnet_map" {
+  type = map(string)
+  description = ""
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -82,4 +82,43 @@ variable "log_retention_duration" {
   type        = number
   description = "The duration period of the log rentention"
   default     = 30
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Variables for Service Connector
+# ---------------------------------------------------------------------------------------------------------------------
+variable "log_analytics_policy_name" {
+  type        = string
+  description = "Policy Name for the log analytics policy"
+  default     = "OCI-LZ-LogAnalyticsPolicy"
+}
+
+variable "service_connector_display_name" {
+  type        = string
+  description = "The display name of Service connector"
+  default     = "audit_log_service_connector"
+}
+
+variable "service_connector_source_kind" {
+  type        = string
+  description = "Service connector source kind"
+  default     = "logging"
+}
+
+variable "service_connector_target_kind" {
+  type        = string
+  description = "Service connector target kind"
+  default     = "loggingAnalytics"
+}
+
+variable "service_connector_target_batch_rollover_size_in_mbs" {
+  type        = string
+  description = "Service connector target batch rollover size in mbs"
+  default     = 1
+}
+
+variable "service_connector_target_batch_rollover_time_in_ms" {
+  type        = string
+  description = "Service connector target batch rollover time in ms"
+  default     = 420000
 }
