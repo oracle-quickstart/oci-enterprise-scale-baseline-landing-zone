@@ -39,7 +39,7 @@ variable "subnet_map" {
 variable "log_analytics_log_group_display_name" {
   type        = string
   default     = "logging_analytics_log_group"
-  description = ""
+  description = "The Log Analytics Log Group Display name"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ variable "is_flow_log_enabled" {
 
 variable "log_retention_duration" {
   type        = number
-  description = "The duration period of the log rentention"
+  description = "The duration period of the log retention"
   default     = 30
 }
 

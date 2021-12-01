@@ -79,6 +79,6 @@ module "flow-logs" {
   tag_cost_center           = var.tag_cost_center
 
   depends_on = [
-    module.parent-compartment, module.security-compartment
+    module.parent-compartment, module.security-compartment, module.network-compartment
   ]
 }
