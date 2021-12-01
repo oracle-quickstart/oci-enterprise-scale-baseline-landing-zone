@@ -102,7 +102,7 @@ variable "log_analytics_policy_name" {
 variable "service_connector_display_name" {
   type        = string
   description = "The display name of Service connector"
-  default     = "audit_log_service_connector"
+  default     = "vcn_flow_log_service_connector"
 }
 
 variable "service_connector_source_kind" {

@@ -73,12 +73,7 @@ resource "oci_identity_policy" "log_analytics_policy" {
   }
 
   statements = [
-    "allow service loganalytics to { LOG_ANALYTICS_LIFECYCLE_INSPECT, LOG_ANALYTICS_LIFECYCLE_READ } in tenancy",
-    "allow service loganalytics to { EVENTRULE_READ } in tenancy",
-    "allow service loganalytics to INSPECT compartments in tenancy",
-    "allow service loganalytics to USE tag-namespaces in tenancy",
-    # "allow service loganalytics to READ buckets compartment AppA",
-    # "allow service loganalytics to MANAGE cloudevents-rules in compartment AppA",
+    "allow any-user to {LOG_ANALYTICS_LOG_GROUP_UPLOAD_LOGS} in compartment ${var.security_compartment_name} where all {request.principal.type='serviceconnector', target.loganalytics-log-group.id='${oci_log_analytics_log_analytics_log_group.log_analytics_log_group}', request.principal.compartment.id='${}'}	allow any-user to {LOG_ANALYTICS_LOG_GROUP_UPLOAD_LOGS} in compartment id ocid1.compartment.oc1..aaaaaaaa3pbrbxro3iiiiza6sf73vkc7w2jltmookyber4un32bdviw5p5yq where all {request.principal.type='serviceconnector', target.loganalytics-log-group.id='${}', request.principal.compartment.id='${var.security_compartment_ocid}'}"
   ]
 }
 
