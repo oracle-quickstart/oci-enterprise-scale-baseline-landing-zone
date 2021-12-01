@@ -354,7 +354,7 @@ resource "oci_core_ipsec" "ipsec_connection" {
 resource "oci_core_virtual_circuit" "fastconnect_virtual_circuit" {
   compartment_id            = var.compartment_ocid
   gateway_id                = oci_core_drg.drg.id
-  bandwidth_shape_name      = var.virtual_circuit_bandwidth_shape_name
+  bandwidth_shape_name      = var.virtual_circuit_bandwidth_shape
   display_name              = "OCI-LZ-VIRTUAL-CIRCUIT"
   provider_service_id       = data.oci_core_fast_connect_provider_services.fast_connect_provider_services.fast_connect_provider_services.0.id
   region                    = var.region_key

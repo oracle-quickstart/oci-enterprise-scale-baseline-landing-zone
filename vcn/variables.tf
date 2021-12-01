@@ -166,7 +166,7 @@ variable "ip_sec_connection_static_routes" {
   description = "IPSec connection static routes"
 }
 
-variable "virtual_circuit_bandwidth_shape_name" {
+variable "virtual_circuit_bandwidth_shape" {
   type = string
   description = "Virtual Circuit bandwidth shape name"
 }
