@@ -62,7 +62,7 @@ resource "oci_logging_log" "vcn_flow_log" {
 # Service Connector policies
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "log_analytics_policy" {
-  compartment_id = var.tenancy_ocid
+  compartment_id = var.security_compartment_ocid
   description    = "OCI Landing Zone Log Analytics Policy"
   name           = "${var.log_analytics_policy_name}-${random_id.policy_name.id}"
 
@@ -73,7 +73,7 @@ resource "oci_identity_policy" "log_analytics_policy" {
   }
 
   statements = [
-    "allow any-user to {LOG_ANALYTICS_LOG_GROUP_UPLOAD_LOGS} in compartment ${var.security_compartment_name} where all {request.principal.type='serviceconnector', target.loganalytics-log-group.id='${oci_log_analytics_log_analytics_log_group.log_analytics_log_group}', request.principal.compartment.id='${var.security_compartment_ocid}'}"
+    "allow any-user to {LOG_ANALYTICS_LOG_GROUP_UPLOAD_LOGS} in compartment ${var.security_compartment_name} where all {request.principal.type='serviceconnector', target.loganalytics-log-group.id='${oci_log_analytics_log_analytics_log_group.log_analytics_log_group.id}', request.principal.compartment.id='${var.security_compartment_ocid}'}"
   ]
 }
 
@@ -106,4 +106,7 @@ resource "oci_sch_service_connector" "vcn_flow_log_service_connector" {
     batch_rollover_size_in_mbs = var.service_connector_target_batch_rollover_size_in_mbs
     batch_rollover_time_in_ms  = var.service_connector_target_batch_rollover_time_in_ms
   }
+}
+output "hii" {
+  value =oci_logging_log.vcn_flow_log
 }
