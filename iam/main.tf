@@ -70,7 +70,6 @@ module "users" {
 # ---------------------------------------------------------------------------------------------------------------------
 module "membership" {
   source                    = "./membership"
-  tenancy_ocid              = var.tenancy_ocid
   break_glass_user_list     = module.users.break_glass_user_list
   administrator_group_id    = module.groups.administrator_group_id
   depends_on                = [module.groups]
