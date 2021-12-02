@@ -1,8 +1,3 @@
-variable "tenancy_ocid" {
-  type        = string
-  description = "The OCID of tenancy"
-}
-
 # -----------------------------------------------------------------------------
 # IAM Group OCID Variable
 # -----------------------------------------------------------------------------
@@ -14,7 +9,7 @@ variable "administrator_group_id" {
 # -----------------------------------------------------------------------------
 # Break Glass User Variable
 # -----------------------------------------------------------------------------
-variable "break_glass_username_list" {
-  type        = list(string)
+variable "break_glass_user_list" {
+  type        = map(map(string))
   description = "The list break glass admin users"
 }

@@ -54,12 +54,24 @@ module "policies" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
+# Break Glass Users
+# ---------------------------------------------------------------------------------------------------------------------
+module "users" {
+  source                      = "./users"
+  tenancy_ocid                = var.tenancy_ocid
+  break_glass_user_email_list = var.break_glass_user_email_list
+  tag_cost_center             = var.tag_cost_center
+  tag_geo_location            = var.tag_geo_location
+  depends_on                  = [module.groups]
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
 # Break Glass User Group Membership
 # ---------------------------------------------------------------------------------------------------------------------
 module "membership" {
   source                    = "./membership"
   tenancy_ocid              = var.tenancy_ocid
-  break_glass_username_list = var.break_glass_username_list
+  break_glass_user_list     = module.users.break_glass_user_list
   administrator_group_id    = module.groups.administrator_group_id
   depends_on                = [module.groups]
 }

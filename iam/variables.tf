@@ -112,9 +112,9 @@ variable "network_admin_policy_name" {
 # -----------------------------------------------------------------------------
 # Break Glass User Variable
 # -----------------------------------------------------------------------------
-variable "break_glass_username_list" {
+variable "break_glass_user_email_list" {
   type        = list(string)
-  description = "The list break glass admin users"
+  description = "List of break glass user email addresses"
 }
 
 # -----------------------------------------------------------------------------
