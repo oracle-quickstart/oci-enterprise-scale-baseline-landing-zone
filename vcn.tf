@@ -21,6 +21,8 @@ module "vcn" {
   shared_service_subnet_dns_label           = var.shared_service_subnet_dns_label
   tag_geo_location                          = var.tag_geo_location
   tag_cost_center                           = var.tag_cost_center
+  ipsec_connectivity_option                 = var.ipsec_connectivity_option
+  fastconnect_connectivity_option           = var.fastconnect_connectivity_option
   ingress_rules_map                         = var.ingress_rules_map
   egress_rules_map                          = var.egress_rules_map
   depends_on                                = [module.network-compartment]

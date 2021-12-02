@@ -306,6 +306,7 @@ data "oci_core_services" "service_gateway_all_oci_services" {
 # Create customer premises equipment object
 # -----------------------------------------------------------------------------
 resource "oci_core_cpe" "ipsec_vpn_cpe" {
+  count          = var.ipsec_connectivity_option == "yes" ? 1 : 0
   compartment_id = var.compartment_ocid
   ip_address     = var.cpe_ip_address
 
@@ -336,8 +337,9 @@ resource "oci_core_drg" "drg" {
 # Create IPSec tunnel connection for site-to-site VPN
 # -----------------------------------------------------------------------------
 resource "oci_core_ipsec" "ipsec_connection" {
+  count          = var.ipsec_connectivity_option == "yes" ? 1 : 0
   compartment_id = var.compartment_ocid
-  cpe_id         = oci_core_cpe.ipsec_vpn_cpe.id
+  cpe_id         = oci_core_cpe.ipsec_vpn_cpe[count.index].id
   drg_id         = oci_core_drg.drg.id
   display_name   = "OCI-LZ-IPSEC-TUNNEL"
   static_routes  = var.ip_sec_connection_static_routes
@@ -349,9 +351,11 @@ resource "oci_core_ipsec" "ipsec_connection" {
 }
 
 # -----------------------------------------------------------------------------
+# FASTCONNECT AND VIRTUAL CIRCUITS ARE UNTESTED - Leo
 # Create FastConnect virtual circuit
 # -----------------------------------------------------------------------------
 resource "oci_core_virtual_circuit" "fastconnect_virtual_circuit" {
+  count                     = var.fastconnect_connectivity_option == "yes" ? 1 : 0
   compartment_id            = var.compartment_ocid
   gateway_id                = oci_core_drg.drg.id
   bandwidth_shape_name      = var.virtual_circuit_bandwidth_shape

@@ -156,6 +156,11 @@ variable "ingress_rules_map" {
 # -----------------------------------------------------------------------------
 # Dynamic Routing Gateway Inputs
 # -----------------------------------------------------------------------------
+variable "ipsec_connectivity_option" {
+  type = string
+  description = "IPSec connectivity option (yes/no)"
+}
+
 variable "cpe_ip_address" {
   type        = string
   description = "Customer Premises Equipment IP address"
@@ -166,7 +171,12 @@ variable "ip_sec_connection_static_routes" {
   description = "IPSec connection static routes"
 }
 
+variable "fastconnect_connectivity_option" {
+  type        = string
+  description = "FastConnect connectivity option (yes/no)"
+}
+
 variable "virtual_circuit_bandwidth_shape" {
-  type = string
+  type        = string
   description = "Virtual Circuit bandwidth shape name"
 }
