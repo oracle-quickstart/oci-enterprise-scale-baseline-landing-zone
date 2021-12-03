@@ -57,20 +57,27 @@ module "policies" {
 # Break Glass Users
 # ---------------------------------------------------------------------------------------------------------------------
 module "users" {
-  source                      = "./users"
-  tenancy_ocid                = var.tenancy_ocid
-  break_glass_user_email_list = var.break_glass_user_email_list
-  tag_cost_center             = var.tag_cost_center
-  tag_geo_location            = var.tag_geo_location
-  depends_on                  = [module.groups]
+  for_each                = {for index, email in var.break_glass_user_email_list: index => email}
+  source                  = "./users"
+  tenancy_ocid            = var.tenancy_ocid
+  break_glass_user_index  = each.key
+  break_glass_user_email  = each.value
+  tag_cost_center         = var.tag_cost_center
+  tag_geo_location        = var.tag_geo_location
+  depends_on              = [module.groups]
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Break Glass User Group Membership
 # ---------------------------------------------------------------------------------------------------------------------
-module "membership" {
-  source                    = "./membership"
-  break_glass_user_list     = module.users.break_glass_user_list
-  administrator_group_id    = module.groups.administrator_group_id
-  depends_on                = [module.groups]
+#module "membership" {
+#  for_each               = module.users.break_glass_user_list
+#  source                 = "./membership"
+#  user_id                = each.value.id
+#  administrator_group_id = module.groups.administrator_group_id
+#  depends_on             = [module.groups]
+#}
+
+output "hihi" {
+  value = module.users.*
 }

@@ -3,9 +3,14 @@ variable "tenancy_ocid" {
   description = "The OCID of tenancy"
 }
 
-variable "break_glass_user_email_list" {
-  type        = list(string)
-  description = "List of break glass user email addresses"
+variable "break_glass_user_index" {
+  type        = string
+  description = "the index of the break glass user"
+}
+
+variable "break_glass_user_email" {
+  type        = string
+  description = "The email address of the break glass user"
 }
 
 # -----------------------------------------------------------------------------
