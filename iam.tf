@@ -20,7 +20,3 @@ module "iam" {
     module.parent-compartment, module.network-compartment, module.workload-compartment
   ]
 }
-
-output "hihi" {
-  value = module.iam.hihi
-}
