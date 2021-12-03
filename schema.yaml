@@ -177,32 +177,32 @@ variables:
      description: the status of the Cloud Guard tenant (ENABLED or DISABLED)
      default: null
      required: true
-   common_infra_compartment_name
+   common_infra_compartment_name:
      type: string
      description: Name of the top level / parent compartment
      default: common-infra
      required: false
-   configuration_detector_recipe_display_name
+   configuration_detector_recipe_display_name:
      type: string
      description: display name for configuration detector recipe
      default: OCI Configuration Detector Recipe
      required: false
-   current_user_ocid
+   current_user_ocid:
      type: string
      description: OCID of the current user
      default: null
      required: true
-   database_subnet_cidr_blocks
+   database_subnet_cidr_blocks:
      type: list(string)
      description: List of Database Subnet CIDR Block (one per workload)
      default: null
      required: true
-   database_subnet_dns_labels
+   database_subnet_dns_labels:
      type: list(string)
      description: List of Database Subnet DNS Label (one per workload)
      default: null
      required: true
-   egress_rules_map
+   egress_rules_map:
      type: |-
        map(object({
            egress_security_rules_tcp_options_destination_port_range_max = number
@@ -213,37 +213,37 @@ variables:
      description: '[Workload Security List] Egress Rules Map'
      default: {}
      required: false
-   host_scan_recipe_agent_settings_agent_configuration_vendor
+   host_scan_recipe_agent_settings_agent_configuration_vendor:
      type: string
      description: Vulnerability scanning service agent vendor
      default: OCI
      required: false
-   host_scan_recipe_agent_settings_scan_level
+   host_scan_recipe_agent_settings_scan_level:
      type: string
      description: Vulnerability scanning service agent scan level
      default: STANDARD
      required: false
-   host_scan_recipe_display_name
+   host_scan_recipe_display_name:
      type: string
      description: Vulnerability scanning service display name
      default: OCI-LZ-Scanning-Service-Recipe
      required: false
-   host_scan_recipe_port_settings_scan_level
+   host_scan_recipe_port_settings_scan_level:
      type: string
      description: Vulnerability scanning service port scan level
      default: STANDARD
      required: false
-   host_scan_target_description
+   host_scan_target_description:
      type: string
      description: Vulnerability scanning service target description
      default: Vulnerability scanning service scan target
      required: false
-   host_scan_target_display_name
+   host_scan_target_display_name:
      type: string
      description: Vulnerability scanning service target display name
      default: OCI-LZ-Scanning-Service-Target
      required: false
-   ingress_rules_map
+   ingress_rules_map:
      type: |-
        map(object({
            ingress_security_rules_tcp_options_destination_port_range_max = number
@@ -254,52 +254,52 @@ variables:
      description: '[Workload Security List] Ingress Rules Map'
      default: {}
      required: false
-   is_flow_log_enabled
+   is_flow_log_enabled:
      type: string
      description: ''
      default: true
      required: false
-   key_id
+   key_id:
      type: string
      description: Encryption key OCID for security admin policy
      default: null
      required: true
-   network_compartment_name
+   network_compartment_name:
      type: string
      description: Name of the top level / parent compartment
      default: network
      required: false
-   parent_compartment_name
+   parent_compartment_name:
      type: string
      description: Name of the top level / parent compartment
      default: null
      required: true
-   private_subnet_cidr_blocks
+   private_subnet_cidr_blocks:
      type: list(string)
      description: List of Private Subnet CIDR Block (one per workload)
      default: null
      required: true
-   private_subnet_dns_labels
+   private_subnet_dns_labels:
      type: list(string)
      description: List of Private Subnet DNS Label (one per workload)
      default: null
      required: true
-   public_subnet_cidr_block
+   public_subnet_cidr_block:
      type: string
      description: Public Subnet CIDR Block
      default: null
      required: true
-   public_subnet_dns_label
+   public_subnet_dns_label:
      type: string
      description: Public Subnet DNS Label
      default: null
      required: true
-   region
+   region:
      type: string
      description: the OCI region
      default: null
      required: true
-   retention_rule_duration_time_amount
+   retention_rule_duration_time_amount:
      type: string
      description: Amount of retention rule duration time in days
      default: null
