@@ -73,7 +73,7 @@ variableGroups:
       - is_flow_log_enabled
 
   - title: "Security (Hidden)"
-    variables: 
+    variables:
       - configuration_detector_recipe_display_name
       - activity_detector_recipe_display_name
       - vulnerability_scanning_service_policy_name
@@ -95,9 +95,7 @@ variableGroups:
       - bastion_max_session_ttl_in_seconds
       - retention_rule_duration_time_amount
 
-
 variables:
-
   #Provider Variables
   api_fingerprint:
     type: string
@@ -105,10 +103,10 @@ variables:
     default: null
     required: true
   api_private_key_path:
-      type: string
-      description: The local path to the API private key
-      default: null
-      required: true
+    type: string
+    description: The local path to the API private key
+    default: null
+    required: true
   region:
     type: string
     description: the OCI region
@@ -235,8 +233,8 @@ variables:
           egress_security_rules_tcp_options_source_port_range_max      = number
           egress_security_rules_tcp_options_source_port_range_min      = number
         }))
-    description: '[Workload Security List] Egress Rules Map'
-    default: { }
+    description: "[Workload Security List] Egress Rules Map"
+    default: {}
     required: false
   ingress_rules_map:
     type: |-
@@ -246,8 +244,8 @@ variables:
           ingress_security_rules_tcp_options_source_port_range_max      = number
           ingress_security_rules_tcp_options_source_port_range_min      = number
         }))
-    description: '[Workload Security List] Ingress Rules Map'
-    default: { }
+    description: "[Workload Security List] Ingress Rules Map"
+    default: {}
     required: false
   shared_service_subnet_cidr_block:
     type: string
@@ -263,17 +261,17 @@ variables:
   # Budget
   budget_alert_rule_message:
     type: string
-    description: '(Optional if using budget alerts): The alert message for budget alerts.'
+    description: "(Optional if using budget alerts): The alert message for budget alerts."
     default: Default budget alert
     required: false
   budget_alert_rule_recipients:
     type: string
-    description: '(Required if using budget alerts): Target email address for budget alerts'
+    description: "(Required if using budget alerts): Target email address for budget alerts"
     default: null
     required: true
   budget_alert_rule_threshold:
     type: string
-    description: '(Required if using budget alerts): The target spending threshold for the budget'
+    description: "(Required if using budget alerts): The target spending threshold for the budget"
     default: null
     required: true
   budget_alerting:
@@ -283,7 +281,7 @@ variables:
     required: true
   budget_amount:
     type: string
-    description: '(Required if using budget alerts): The amount of the budget expressed as a number in the currency of the customer''s rate card.'
+    description: "(Required if using budget alerts): The amount of the budget expressed as a number in the currency of the customer's rate card."
     default: null
     required: true
 
@@ -295,7 +293,7 @@ variables:
     required: true
   is_flow_log_enabled:
     type: string
-    description: ''
+    description: ""
     default: true
     required: false
 
@@ -356,36 +354,29 @@ variables:
     default: OCI-LZ-Scanning-Service-Policy
     required: false
 
-   # Bastion
-   bastion_client_cidr_block_allow_list:
-     type: list(string)
-     description: A list of address ranges in CIDR notation that bastion is allowed to connect
-     default: null
-     required: true
-   bastion_max_session_ttl_in_seconds:
-     type: number
-     description: The maximum amount of time that bastion session can remain active
-     default: 1800
-     required: false
-   bastion_subnet_cidr_block:
-     type: string
-     description: CIDR Block for bastion subnet
-     default: null
-     required: true
-   bastion_type:
-     type: string
-     description: the type of bastion service
-     default: STANDARD
-     required: false
-   retention_rule_duration_time_amount:
-     type: string
-     description: Amount of retention rule duration time in days
-     default: null
-     required: true
-
-
-
-
-
-
-
+    # Bastion
+  bastion_client_cidr_block_allow_list:
+    type: list(string)
+    description: A list of address ranges in CIDR notation that bastion is allowed to connect
+    default: null
+    required: true
+  bastion_max_session_ttl_in_seconds:
+    type: number
+    description: The maximum amount of time that bastion session can remain active
+    default: 1800
+    required: false
+  bastion_subnet_cidr_block:
+    type: string
+    description: CIDR Block for bastion subnet
+    default: null
+    required: true
+  bastion_type:
+    type: string
+    description: the type of bastion service
+    default: STANDARD
+    required: false
+  retention_rule_duration_time_amount:
+    type: string
+    description: Amount of retention rule duration time in days
+    default: null
+    required: true
