@@ -70,14 +70,10 @@ module "users" {
 # ---------------------------------------------------------------------------------------------------------------------
 # Break Glass User Group Membership
 # ---------------------------------------------------------------------------------------------------------------------
-#module "membership" {
-#  for_each               = module.users.break_glass_user_list
-#  source                 = "./membership"
-#  user_id                = each.value.id
-#  administrator_group_id = module.groups.administrator_group_id
-#  depends_on             = [module.groups]
-#}
-
-output "hihi" {
-  value = module.users.*
+module "membership" {
+  for_each               = module.users
+  source                 = "./membership"
+  user_id                = each.value.break_glass_user_list.id
+  administrator_group_id = module.groups.administrator_group_id
+  depends_on             = [module.groups]
 }
