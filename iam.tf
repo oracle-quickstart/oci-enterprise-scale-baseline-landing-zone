@@ -9,8 +9,8 @@ module "iam" {
   network_compartment_id         = module.network-compartment.network_compartment_id
   network_compartment_name       = var.network_compartment_name
   workload_compartment_name_list = var.workload_compartment_names
-  break_glass_username_list      = var.break_glass_username_list
   workload_compartment_ocids     = module.workload-compartment
+  break_glass_user_email_list    = var.break_glass_user_email_list
   region                         = var.region
   key_id                         = var.key_id
   vault_id                       = var.vault_id
