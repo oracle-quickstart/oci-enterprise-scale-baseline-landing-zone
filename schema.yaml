@@ -95,271 +95,272 @@ variableGroups:
       - bastion_max_session_ttl_in_seconds
       - retention_rule_duration_time_amount
 
-# variables:
-#   - name: activity_detector_recipe_display_name
-#     type: string
-#     description: display name for activity detector recipe
-#     default: OCI Activity Detector Recipe
-#     required: false
-#   - name: agent_cis_benchmark_settings_scan_level
-#     type: string
-#     description: Agent bechamrking settings scan level
-#     default: STRICT
-#     required: false
-#   - name: api_fingerprint
-#     type: string
-#     description: The fingerprint of API
-#     default: null
-#     required: true
-#   - name: api_private_key_path
-#     type: string
-#     description: The local path to the API private key
-#     default: null
-#     required: true
-#   - name: applications_compartment_name
-#     type: string
-#     description: Name of the top level / parent compartment
-#     default: applications
-#     required: false
-#   - name: bastion_client_cidr_block_allow_list
-#     type: list(string)
-#     description: A list of address ranges in CIDR notation that bastion is allowed to connect
-#     default: null
-#     required: true
-#   - name: bastion_max_session_ttl_in_seconds
-#     type: number
-#     description: The maximum amount of time that bastion session can remain active
-#     default: 1800
-#     required: false
-#   - name: bastion_subnet_cidr_block
-#     type: string
-#     description: CIDR Block for bastion subnet
-#     default: null
-#     required: true
-#   - name: bastion_type
-#     type: string
-#     description: the type of bastion service
-#     default: STANDARD
-#     required: false
-#   - name: break_glass_user_email_list
-#     type: list(string)
-#     description: Unique list of break glass user email addresses that do not exist in the tenancy
-#     default: null
-#     required: true
-#   - name: budget_alert_rule_message
-#     type: string
-#     description: '(Optional if using budget alerts): The alert message for budget alerts.'
-#     default: Default budget alert
-#     required: false
-#   - name: budget_alert_rule_recipients
-#     type: string
-#     description: '(Required if using budget alerts): Target email address for budget alerts'
-#     default: null
-#     required: true
-#   - name: budget_alert_rule_threshold
-#     type: string
-#     description: '(Required if using budget alerts): The target spending threshold for the budget'
-#     default: null
-#     required: true
-#   - name: budget_alerting
-#     type: bool
-#     description: Set to true to enable budget alerting
-#     default: null
-#     required: true
-#   - name: budget_amount
-#     type: string
-#     description: '(Required if using budget alerts): The amount of the budget expressed as a number in the currency of the customer''s rate card.'
-#     default: null
-#     required: true
-#   - name: cloud_guard_configuration_status
-#     type: string
-#     description: the status of the Cloud Guard tenant (ENABLED or DISABLED)
-#     default: null
-#     required: true
-#   - name: common_infra_compartment_name
-#     type: string
-#     description: Name of the top level / parent compartment
-#     default: common-infra
-#     required: false
-#   - name: configuration_detector_recipe_display_name
-#     type: string
-#     description: display name for configuration detector recipe
-#     default: OCI Configuration Detector Recipe
-#     required: false
-#   - name: current_user_ocid
-#     type: string
-#     description: OCID of the current user
-#     default: null
-#     required: true
-#   - name: database_subnet_cidr_blocks
-#     type: list(string)
-#     description: List of Database Subnet CIDR Block (one per workload)
-#     default: null
-#     required: true
-#   - name: database_subnet_dns_labels
-#     type: list(string)
-#     description: List of Database Subnet DNS Label (one per workload)
-#     default: null
-#     required: true
-#   - name: egress_rules_map
-#     type: |-
-#       map(object({
-#           egress_security_rules_tcp_options_destination_port_range_max = number
-#           egress_security_rules_tcp_options_destination_port_range_min = number
-#           egress_security_rules_tcp_options_source_port_range_max      = number
-#           egress_security_rules_tcp_options_source_port_range_min      = number
-#         }))
-#     description: '[Workload Security List] Egress Rules Map'
-#     default: {}
-#     required: false
-#   - name: host_scan_recipe_agent_settings_agent_configuration_vendor
-#     type: string
-#     description: Vulnerability scanning service agent vendor
-#     default: OCI
-#     required: false
-#   - name: host_scan_recipe_agent_settings_scan_level
-#     type: string
-#     description: Vulnerability scanning service agent scan level
-#     default: STANDARD
-#     required: false
-#   - name: host_scan_recipe_display_name
-#     type: string
-#     description: Vulnerability scanning service display name
-#     default: OCI-LZ-Scanning-Service-Recipe
-#     required: false
-#   - name: host_scan_recipe_port_settings_scan_level
-#     type: string
-#     description: Vulnerability scanning service port scan level
-#     default: STANDARD
-#     required: false
-#   - name: host_scan_target_description
-#     type: string
-#     description: Vulnerability scanning service target description
-#     default: Vulnerability scanning service scan target
-#     required: false
-#   - name: host_scan_target_display_name
-#     type: string
-#     description: Vulnerability scanning service target display name
-#     default: OCI-LZ-Scanning-Service-Target
-#     required: false
-#   - name: ingress_rules_map
-#     type: |-
-#       map(object({
-#           ingress_security_rules_tcp_options_destination_port_range_max = number
-#           ingress_security_rules_tcp_options_destination_port_range_min = number
-#           ingress_security_rules_tcp_options_source_port_range_max      = number
-#           ingress_security_rules_tcp_options_source_port_range_min      = number
-#         }))
-#     description: '[Workload Security List] Ingress Rules Map'
-#     default: {}
-#     required: false
-#   - name: is_flow_log_enabled
-#     type: string
-#     description: ''
-#     default: true
-#     required: false
-#   - name: key_id
-#     type: string
-#     description: Encryption key OCID for security admin policy
-#     default: null
-#     required: true
-#   - name: network_compartment_name
-#     type: string
-#     description: Name of the top level / parent compartment
-#     default: network
-#     required: false
-#   - name: parent_compartment_name
-#     type: string
-#     description: Name of the top level / parent compartment
-#     default: null
-#     required: true
-#   - name: private_subnet_cidr_blocks
-#     type: list(string)
-#     description: List of Private Subnet CIDR Block (one per workload)
-#     default: null
-#     required: true
-#   - name: private_subnet_dns_labels
-#     type: list(string)
-#     description: List of Private Subnet DNS Label (one per workload)
-#     default: null
-#     required: true
-#   - name: public_subnet_cidr_block
-#     type: string
-#     description: Public Subnet CIDR Block
-#     default: null
-#     required: true
-#   - name: public_subnet_dns_label
-#     type: string
-#     description: Public Subnet DNS Label
-#     default: null
-#     required: true
-#   - name: region
-#     type: string
-#     description: the OCI region
-#     default: null
-#     required: true
-#   - name: retention_rule_duration_time_amount
-#     type: string
-#     description: Amount of retention rule duration time in days
-#     default: null
-#     required: true
-#   - name: security_compartment_name
-#     type: string
-#     description: Name of the top level / parent compartment
-#     default: security
-#     required: false
-#   - name: shared_service_subnet_cidr_block
-#     type: string
-#     description: Shared Service Subnet CIDR Block
-#     default: null
-#     required: true
-#   - name: shared_service_subnet_dns_label
-#     type: string
-#     description: Shared Service Subnet DNS Label
-#     default: null
-#     required: true
-#   - name: tag_cost_center
-#     type: string
-#     description: CostCenter tag value
-#     default: null
-#     required: true
-#   - name: tag_geo_location
-#     type: string
-#     description: GeoLocation tag value
-#     default: null
-#     required: true
-#   - name: tenancy_ocid
-#     type: string
-#     description: The OCID of tenancy
-#     default: null
-#     required: true
-#   - name: vault_id
-#     type: string
-#     description: Vault OCID for security admin policy
-#     default: null
-#     required: true
-#   - name: vcn_cidr_block
-#     type: string
-#     description: Primary VCN CIDR Block
-#     default: 10.0.0.0/16
-#     required: false
-#   - name: vcn_dns_label
-#     type: string
-#     description: VCN DNS Label
-#     default: null
-#     required: true
-#   - name: vss_scan_schedule
-#     type: string
-#     description: Vulnerability scanning service scan schedule
-#     default: DAILY
-#     required: false
-#   - name: vulnerability_scanning_service_policy_name
-#     type: string
-#     description: Name of Scanning Service Policy
-#     default: OCI-LZ-Scanning-Service-Policy
-#     required: false
-#   - name: workload_compartment_names
-#     type: list(string)
-#     description: List of application workload compartment names
-#     default: null
-#     required: true
+
+variables:
+   activity_detector_recipe_display_name:
+      type: string
+      description: display name for activity detector recipe
+      default: OCI Activity Detector Recipe
+      required: false
+   agent_cis_benchmark_settings_scan_level:
+     type: string
+     description: Agent bechamrking settings scan level
+     default: STRICT
+     required: false
+   api_fingerprint:
+     type: string
+     description: The fingerprint of API
+     default: null
+     required: true
+   api_private_key_path:
+     type: string
+     description: The local path to the API private key
+     default: null
+     required: true
+   applications_compartment_name:
+     type: string
+     description: Name of the top level / parent compartment
+     default: applications
+     required: false
+   bastion_client_cidr_block_allow_list:
+     type: list(string)
+     description: A list of address ranges in CIDR notation that bastion is allowed to connect
+     default: null
+     required: true
+   bastion_max_session_ttl_in_seconds:
+     type: number
+     description: The maximum amount of time that bastion session can remain active
+     default: 1800
+     required: false
+   bastion_subnet_cidr_block:
+     type: string
+     description: CIDR Block for bastion subnet
+     default: null
+     required: true
+   bastion_type:
+     type: string
+     description: the type of bastion service
+     default: STANDARD
+     required: false
+   break_glass_user_email_list:
+     type: list(string)
+     description: Unique list of break glass user email addresses that do not exist in the tenancy
+     default: null
+     required: true
+   budget_alert_rule_message:
+     type: string
+     description: '(Optional if using budget alerts): The alert message for budget alerts.'
+     default: Default budget alert
+     required: false
+   budget_alert_rule_recipients:
+     type: string
+     description: '(Required if using budget alerts): Target email address for budget alerts'
+     default: null
+     required: true
+   budget_alert_rule_threshold:
+     type: string
+     description: '(Required if using budget alerts): The target spending threshold for the budget'
+     default: null
+     required: true
+   budget_alerting:
+     type: bool
+     description: Set to true to enable budget alerting
+     default: null
+     required: true
+   budget_amount:
+     type: string
+     description: '(Required if using budget alerts): The amount of the budget expressed as a number in the currency of the customer''s rate card.'
+     default: null
+     required: true
+   cloud_guard_configuration_status:
+     type: string
+     description: the status of the Cloud Guard tenant (ENABLED or DISABLED)
+     default: null
+     required: true
+   common_infra_compartment_name
+     type: string
+     description: Name of the top level / parent compartment
+     default: common-infra
+     required: false
+   configuration_detector_recipe_display_name
+     type: string
+     description: display name for configuration detector recipe
+     default: OCI Configuration Detector Recipe
+     required: false
+   current_user_ocid
+     type: string
+     description: OCID of the current user
+     default: null
+     required: true
+   database_subnet_cidr_blocks
+     type: list(string)
+     description: List of Database Subnet CIDR Block (one per workload)
+     default: null
+     required: true
+   database_subnet_dns_labels
+     type: list(string)
+     description: List of Database Subnet DNS Label (one per workload)
+     default: null
+     required: true
+   egress_rules_map
+     type: |-
+       map(object({
+           egress_security_rules_tcp_options_destination_port_range_max = number
+           egress_security_rules_tcp_options_destination_port_range_min = number
+           egress_security_rules_tcp_options_source_port_range_max      = number
+           egress_security_rules_tcp_options_source_port_range_min      = number
+         }))
+     description: '[Workload Security List] Egress Rules Map'
+     default: {}
+     required: false
+   host_scan_recipe_agent_settings_agent_configuration_vendor
+     type: string
+     description: Vulnerability scanning service agent vendor
+     default: OCI
+     required: false
+   host_scan_recipe_agent_settings_scan_level
+     type: string
+     description: Vulnerability scanning service agent scan level
+     default: STANDARD
+     required: false
+   host_scan_recipe_display_name
+     type: string
+     description: Vulnerability scanning service display name
+     default: OCI-LZ-Scanning-Service-Recipe
+     required: false
+   host_scan_recipe_port_settings_scan_level
+     type: string
+     description: Vulnerability scanning service port scan level
+     default: STANDARD
+     required: false
+   host_scan_target_description
+     type: string
+     description: Vulnerability scanning service target description
+     default: Vulnerability scanning service scan target
+     required: false
+   host_scan_target_display_name
+     type: string
+     description: Vulnerability scanning service target display name
+     default: OCI-LZ-Scanning-Service-Target
+     required: false
+   ingress_rules_map
+     type: |-
+       map(object({
+           ingress_security_rules_tcp_options_destination_port_range_max = number
+           ingress_security_rules_tcp_options_destination_port_range_min = number
+           ingress_security_rules_tcp_options_source_port_range_max      = number
+           ingress_security_rules_tcp_options_source_port_range_min      = number
+         }))
+     description: '[Workload Security List] Ingress Rules Map'
+     default: {}
+     required: false
+   is_flow_log_enabled
+     type: string
+     description: ''
+     default: true
+     required: false
+   key_id
+     type: string
+     description: Encryption key OCID for security admin policy
+     default: null
+     required: true
+   network_compartment_name
+     type: string
+     description: Name of the top level / parent compartment
+     default: network
+     required: false
+   parent_compartment_name
+     type: string
+     description: Name of the top level / parent compartment
+     default: null
+     required: true
+   private_subnet_cidr_blocks
+     type: list(string)
+     description: List of Private Subnet CIDR Block (one per workload)
+     default: null
+     required: true
+   private_subnet_dns_labels
+     type: list(string)
+     description: List of Private Subnet DNS Label (one per workload)
+     default: null
+     required: true
+   public_subnet_cidr_block
+     type: string
+     description: Public Subnet CIDR Block
+     default: null
+     required: true
+   public_subnet_dns_label
+     type: string
+     description: Public Subnet DNS Label
+     default: null
+     required: true
+   region
+     type: string
+     description: the OCI region
+     default: null
+     required: true
+   retention_rule_duration_time_amount
+     type: string
+     description: Amount of retention rule duration time in days
+     default: null
+     required: true
+   security_compartment_name:
+     type: string
+     description: Name of the top level / parent compartment
+     default: security
+     required: false
+   shared_service_subnet_cidr_block:
+     type: string
+     description: Shared Service Subnet CIDR Block
+     default: null
+     required: true
+   shared_service_subnet_dns_label:
+     type: string
+     description: Shared Service Subnet DNS Label
+     default: null
+     required: true
+   tag_cost_center:
+     type: string
+     description: CostCenter tag value
+     default: null
+     required: true
+   tag_geo_location:
+     type: string
+     description: GeoLocation tag value
+     default: null
+     required: true
+   tenancy_ocid:
+     type: string
+     description: The OCID of tenancy
+     default: null
+     required: true
+   vault_id:
+     type: string
+     description: Vault OCID for security admin policy
+     default: null
+     required: true
+   vcn_cidr_block:
+     type: string
+     description: Primary VCN CIDR Block
+     default: 10.0.0.0/16
+     required: false
+   vcn_dns_label:
+     type: string
+     description: VCN DNS Label
+     default: null
+     required: true
+   vss_scan_schedule:
+     type: string
+     description: Vulnerability scanning service scan schedule
+     default: DAILY
+     required: false
+   vulnerability_scanning_service_policy_name:
+     type: string
+     description: Name of Scanning Service Policy
+     default: OCI-LZ-Scanning-Service-Policy
+     required: false
+   workload_compartment_names:
+     type: list(string)
+     description: List of application workload compartment names
+     default: null
+     required: true
