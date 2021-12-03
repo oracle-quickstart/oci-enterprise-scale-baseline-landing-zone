@@ -1,0 +1,71 @@
+title: "Landing Zone"
+description: "Landing Zone developed by OCI RSA"
+schemaVersion: 1.1.0
+version: "0.1"
+
+# logoUrl: "https://cloudmarketplace.oracle.com/marketplace/content?contentId=58352039"
+
+# source:
+#   type: marketplace
+#   reference: 47726045
+
+locale: "en"
+
+variableGroups:
+  - title: "Provider Variables"
+    visible: false
+    variables:
+      - api_fingerprint
+      - api_private_key_path
+      - region
+      - tenancy_ocid
+      - current_user_ocid
+
+  - title: "Tagging"
+    variables:
+      - tag_cost_center
+      - tag_geo_location
+
+  - title: "Compartment"
+    variables:
+      - parent_compartment_name
+      - workload_compartment_names
+
+  - title: "IAM"
+    variables:
+      - break_glass_user_email_list
+      - key_id
+      - vault_id
+
+  - title: "VCN"
+    variables:
+      - vcn_cidr_block
+      - vcn_dns_label
+      - public_subnet_cidr_block
+      - public_subnet_dns_label
+      - private_subnet_cidr_blocks
+      - private_subnet_dns_labels
+      - database_subnet_cidr_blocks
+      - database_subnet_dns_labels
+      - shared_service_subnet_cidr_block
+      - shared_service_subnet_dns_label
+      - ingress_rules_map
+      - egress_rules_map
+
+  - title: "Budget"
+    variables:
+      - budget_alerting
+      - budget_amount
+      - budget_alert_rule_threshold
+      - budget_alert_rule_recipients
+
+  - title: "Security"
+    variables:
+      - network_compartment_ocid
+      - network_strategy
+      - network_configuration_strategy
+
+  - title: "Bastion"
+    variables:
+      - bastion_client_cidr_block_allow_list
+      - bastion_subnet_cidr_block
