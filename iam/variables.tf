@@ -115,6 +115,7 @@ variable "network_admin_policy_name" {
 variable "break_glass_user_email_list" {
   type        = list(string)
   description = "List of break glass user email addresses"
+  default     = []
 }
 
 # -----------------------------------------------------------------------------
