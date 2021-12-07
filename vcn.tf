@@ -15,6 +15,7 @@ module "vcn" {
   public_subnet_dns_label                   = var.public_subnet_dns_label
   private_subnet_cidr_blocks                = var.private_subnet_cidr_blocks
   private_subnet_dns_labels                 = var.private_subnet_dns_labels
+  provider_service_key_name                 = var.provider_service_key_name
   database_subnet_dns_labels                = var.database_subnet_dns_labels
   database_subnet_cidr_blocks               = var.database_subnet_cidr_blocks
   shared_service_subnet_cidr_block          = var.shared_service_subnet_cidr_block

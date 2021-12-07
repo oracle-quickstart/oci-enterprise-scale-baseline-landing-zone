@@ -180,3 +180,8 @@ variable "virtual_circuit_bandwidth_shape" {
   type        = string
   description = "Virtual Circuit bandwidth shape name"
 }
+
+variable "provider_service_key_name" {
+  type        = string
+  description = "Virtual Circuit provider service key"
+}

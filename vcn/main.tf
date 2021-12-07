@@ -351,7 +351,6 @@ resource "oci_core_ipsec" "ipsec_connection" {
 }
 
 # -----------------------------------------------------------------------------
-# FASTCONNECT AND VIRTUAL CIRCUITS ARE UNTESTED - Leo
 # Create FastConnect virtual circuit
 # -----------------------------------------------------------------------------
 resource "oci_core_virtual_circuit" "fastconnect_virtual_circuit" {
@@ -360,7 +359,8 @@ resource "oci_core_virtual_circuit" "fastconnect_virtual_circuit" {
   gateway_id                = oci_core_drg.drg.id
   bandwidth_shape_name      = var.virtual_circuit_bandwidth_shape
   display_name              = "OCI-LZ-VIRTUAL-CIRCUIT"
-  provider_service_id       = data.oci_core_fast_connect_provider_services.fast_connect_provider_services.fast_connect_provider_services.0.id
+  provider_service_id       = data.oci_core_fast_connect_provider_service.test_fast_connect_provider_service.id
+  provider_service_key_name = var.provider_service_key_name
   region                    = var.region_key
   routing_policy            = ["ORACLE_SERVICE_NETWORK"]
   type                      = "PRIVATE"

@@ -118,3 +118,9 @@ variable "virtual_circuit_bandwidth_shape" {
   description = "Virtual Circuit bandwidth shape name"
   default     = ""
 }
+
+variable "provider_service_key_name" {
+  type        = string
+  description = "Virtual Circuit provider service key"
+  default     = ""
+}

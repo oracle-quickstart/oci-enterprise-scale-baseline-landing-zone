@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    oci = {
+      configuration_aliases = [oci]
+    }
+  }
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Random IDs to prevent naming collision with tenancy level resources
 # ---------------------------------------------------------------------------------------------------------------------
@@ -68,13 +76,13 @@ resource "oci_cloud_guard_target" "cloud_guard_target" {
     "GeoLocation" = var.tag_geo_location
   }
 
-  target_detector_recipes {
-    detector_recipe_id = data.oci_cloud_guard_detector_recipes.configuration_detector_recipe.detector_recipe_collection.0.items.0.id
-  }
+  # target_detector_recipes {
+  #   detector_recipe_id = data.oci_cloud_guard_detector_recipes.configuration_detector_recipe.detector_recipe_collection.0.items.0.id
+  # }
 
-  target_detector_recipes {
-    detector_recipe_id = data.oci_cloud_guard_detector_recipes.activity_detector_recipe.detector_recipe_collection.0.items.0.id
-  }
+  # target_detector_recipes {
+  #   detector_recipe_id = data.oci_cloud_guard_detector_recipes.activity_detector_recipe.detector_recipe_collection.0.items.0.id
+  # }
 
   depends_on = [oci_cloud_guard_cloud_guard_configuration.tenancy_cloud_guard_configuration]
 }

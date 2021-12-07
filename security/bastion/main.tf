@@ -27,7 +27,7 @@ resource "oci_bastion_bastion" "bastion" {
   target_subnet_id             = oci_core_subnet.bastion_subnet.id
   client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
   max_session_ttl_in_seconds   = var.bastion_max_session_ttl_in_seconds
-  name                         = "LZBastion${random_id.bastion_name.id}"
+  name                         = "LZBastion${random_id.bastion_name.hex}"
 
   freeform_tags = {
     "Description" = "Bastion Service"

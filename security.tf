@@ -3,7 +3,7 @@
 # -----------------------------------------------------------------------------
 module "cloud-guard" {
   source                                                     = "./security/cloud-guard"
-  region                                                     = var.region
+  region                                                     = local.home_region[0]
   activity_detector_recipe_display_name                      = var.activity_detector_recipe_display_name
   cloud_guard_configuration_status                           = var.cloud_guard_configuration_status
   configuration_detector_recipe_display_name                 = var.configuration_detector_recipe_display_name
@@ -21,6 +21,9 @@ module "cloud-guard" {
   tag_geo_location                                           = var.tag_geo_location
   tag_cost_center                                            = var.tag_cost_center
   parent_compartment_name                                    = var.parent_compartment_name
+  providers = {
+    oci = oci.home_region
+  }
   depends_on                                                 = [
     module.parent-compartment, module.common-infra-compartment, module.security-compartment
   ]
@@ -58,7 +61,9 @@ module "audit" {
   retention_rule_duration_time_amount        = var.retention_rule_duration_time_amount
   tag_geo_location                           = var.tag_geo_location
   tag_cost_center                            = var.tag_cost_center
- 
+  providers = {
+    oci = oci.home_region
+  }
   depends_on = [
     module.parent-compartment, module.security-compartment
   ]
