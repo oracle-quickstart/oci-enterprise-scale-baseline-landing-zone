@@ -32,7 +32,3 @@ output "database_nat_route_table_id" {
 output "service_gateway_route_table" {
   value = oci_core_route_table.service_gateway_route_table.id
 }
-
-output "provider_list" {
-  value = data.oci_core_fast_connect_provider_services.test_fast_connect_provider_services.fast_connect_provider_services.*.provider_name
-}

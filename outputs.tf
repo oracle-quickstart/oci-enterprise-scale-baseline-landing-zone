@@ -33,7 +33,3 @@ output "fss_subnet_id" {
   description = "Shared service subnet ocid"
   value       = module.vcn.fss_subnet_id
 }
-
-output "provider_list" {
-  value = module.vcn.provider_list
-}
