@@ -19,9 +19,9 @@ module "groups" {
   random_group_name_id           = random_id.group_name.id
   tag_cost_center                = var.tag_cost_center
   tag_geo_location               = var.tag_geo_location
-  # providers = {
-  #   oci = oci.home_region
-  # }
+  providers = {
+    oci = oci.home_region
+  }
   depends_on = [
     module.parent-compartment, module.network-compartment, module.workload-compartment
   ]
@@ -56,9 +56,9 @@ module "policies" {
   tag_cost_center                     = var.tag_cost_center
   tag_geo_location                    = var.tag_geo_location
   random_policy_name_id               = random_id.policy_name.id
-  # providers = {
-  #   oci = oci.home_region
-  # }
+  providers = {
+    oci = oci.home_region
+  }
   depends_on                          = [module.groups]
 }
 
@@ -70,8 +70,8 @@ module "membership" {
   tenancy_ocid              = var.tenancy_ocid
   break_glass_username_list = var.break_glass_username_list
   administrator_group_id    = module.groups.administrator_group_id
-  # providers = {
-  #   oci = oci.home_region
-  # }
+  providers = {
+    oci = oci.home_region
+  }
   depends_on                = [module.groups]
 }
