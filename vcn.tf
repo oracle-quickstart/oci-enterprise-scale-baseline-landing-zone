@@ -13,6 +13,7 @@ module "vcn" {
   vcn_cidr_block                                                           = var.vcn_cidr_block
   vcn_dns_label                                                            = var.vcn_dns_label
   region_key                                                               = local.region_key[0]
+  fastconnect_provider                                                     = var.fastconnect_provider
   ip_sec_connection_static_routes                                          = var.ip_sec_connection_static_routes
   workload_compartment_names                                               = var.workload_compartment_names
   public_subnet_cidr_block                                                 = var.public_subnet_cidr_block

@@ -6,5 +6,5 @@ data "oci_core_fast_connect_provider_services" "fast_connect_provider_services" 
 }
 
 data "oci_core_fast_connect_provider_service" "fast_connect_provider_service" {
-  provider_service_id = "${lookup(element(data.oci_core_fast_connect_provider_services.fast_connect_provider_services.fast_connect_provider_services, index(data.oci_core_fast_connect_provider_services.fast_connect_provider_services.fast_connect_provider_services.*.provider_name, "Microsoft Azure")), "id")}"
+  provider_service_id = "${lookup(element(data.oci_core_fast_connect_provider_services.fast_connect_provider_services.fast_connect_provider_services, index(data.oci_core_fast_connect_provider_services.fast_connect_provider_services.fast_connect_provider_services.*.provider_name, var.fastconnect_provider)), "id")}"
 }
