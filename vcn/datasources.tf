@@ -1,10 +1,10 @@
 data "oci_core_cpe_device_shapes" "cpe_device_shapes" {
 }
 
-data "oci_core_fast_connect_provider_services" "test_fast_connect_provider_services" {
+data "oci_core_fast_connect_provider_services" "fast_connect_provider_services" {
   compartment_id = var.compartment_ocid
 }
 
-data "oci_core_fast_connect_provider_service" "test_fast_connect_provider_service" {
-  provider_service_id = "${lookup(element(data.oci_core_fast_connect_provider_services.test_fast_connect_provider_services.fast_connect_provider_services, index(data.oci_core_fast_connect_provider_services.test_fast_connect_provider_services.fast_connect_provider_services.*.provider_name, "Microsoft Azure")), "id")}"
+data "oci_core_fast_connect_provider_service" "fast_connect_provider_service" {
+  provider_service_id = "${lookup(element(data.oci_core_fast_connect_provider_services.fast_connect_provider_services.fast_connect_provider_services, index(data.oci_core_fast_connect_provider_services.fast_connect_provider_services.fast_connect_provider_services.*.provider_name, "Microsoft Azure")), "id")}"
 }

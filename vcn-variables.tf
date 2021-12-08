@@ -124,3 +124,23 @@ variable "provider_service_key_name" {
   description = "Virtual Circuit provider service key"
   default     = ""
 }
+
+variable "virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip" {
+  type = string
+  description = "This is the BGP IPv4 address of the customer's router"
+}
+
+variable "virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip" {
+  type = string
+  description= "IPv4 address for Oracle's end of the BGP session"
+}
+
+variable "virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip" {
+  type = string
+  description = "This is the secondary BGP IPv4 address of the customer's router"
+}
+
+variable "virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip" {
+  type = string
+  description= "Secondary IPv4 address for Oracle's end of the BGP session"
+}

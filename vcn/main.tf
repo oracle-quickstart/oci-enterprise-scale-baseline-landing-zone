@@ -359,11 +359,19 @@ resource "oci_core_virtual_circuit" "fastconnect_virtual_circuit" {
   gateway_id                = oci_core_drg.drg.id
   bandwidth_shape_name      = var.virtual_circuit_bandwidth_shape
   display_name              = "OCI-LZ-VIRTUAL-CIRCUIT"
-  provider_service_id       = data.oci_core_fast_connect_provider_service.test_fast_connect_provider_service.id
+  provider_service_id       = data.oci_core_fast_connect_provider_service.fast_connect_provider_service.id
   provider_service_key_name = var.provider_service_key_name
   region                    = var.region_key
-  routing_policy            = ["ORACLE_SERVICE_NETWORK"]
+  routing_policy            = ["GLOBAL"]
   type                      = "PRIVATE"
+  cross_connect_mappings {
+    customer_bgp_peering_ip = var.virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip
+    oracle_bgp_peering_ip   = var.virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip
+  }
+  cross_connect_mappings {
+    customer_bgp_peering_ip = var.virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip
+    oracle_bgp_peering_ip   = var.virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip
+  }
   freeform_tags             = {
     "Description" = "FastConnect virtual circuit"
     "CostCenter"  = var.tag_cost_center,
