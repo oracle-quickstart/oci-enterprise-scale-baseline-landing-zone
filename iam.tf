@@ -17,11 +17,6 @@ module "groups" {
   tenancy_ocid                   = var.tenancy_ocid
   workload_compartment_name_list = var.workload_compartment_names
   random_group_name_id           = random_id.group_name.id
-  workload_compartment_ocids     = module.workload-compartment
-  break_glass_user_email_list    = var.break_glass_user_email_list
-  region                         = var.region
-  key_id                         = var.key_id
-  vault_id                       = var.vault_id
   tag_cost_center                = var.tag_cost_center
   tag_geo_location               = var.tag_geo_location
   providers = {
@@ -68,15 +63,29 @@ module "policies" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
+# Break Glass Users
+# ---------------------------------------------------------------------------------------------------------------------
+module "users" {
+  for_each                = {for index, email in var.break_glass_user_email_list: index => email}
+  source                  = "./iam/users"
+  tenancy_ocid            = var.tenancy_ocid
+  break_glass_user_index  = each.key
+  break_glass_user_email  = each.value
+  tag_cost_center         = var.tag_cost_center
+  tag_geo_location        = var.tag_geo_location
+  depends_on              = [module.groups]
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
 # Break Glass User Group Membership
 # ---------------------------------------------------------------------------------------------------------------------
 module "membership" {
-  source                    = "./iam/membership"
-  tenancy_ocid              = var.tenancy_ocid
-  break_glass_username_list = var.break_glass_username_list
-  administrator_group_id    = module.groups.administrator_group_id
+  for_each               = module.users
+  source                 = "./iam/membership"
+  user_id                = each.value.break_glass_user_list.id
+  administrator_group_id = module.groups.administrator_group_id
   providers = {
     oci = oci.home_region
   }
-  depends_on                = [module.groups]
+  depends_on             = [module.groups]
 }
