@@ -156,7 +156,7 @@ variable "fastconnect_provider" {
 }
 
 variable "virtual_circuit_customer_asn" {
-  type        = string
+  type        = number
   description = "FastConnect customer BGP ASN"
-  default     = "0"
+  default     = 0
 }

@@ -212,11 +212,11 @@ variable "fastconnect_provider" {
 }
 
 variable "virtual_circuit_customer_asn" {
-  type        = string
+  type        = number
   description = "FastConnect customer ASN"
 }
 
-variable "fastconnect_service_key_provider_list" {
+variable "fastconnect_asn_provider_list" {
   type        = string
   description = "Providers that require customer asn"
   default     = "Megaport,QTS,C3ntro,Cologix,CoreSite,Digital Realty,EdgeConneX,Epsilon,Equinix,InterCloud,Lumen,Neutrona,OracleL2ItegDeployment,Zayo"

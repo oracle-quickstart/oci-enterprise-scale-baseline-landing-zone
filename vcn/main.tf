@@ -32,7 +32,7 @@ locals {
     }
   ])
 
-  fastconnect_service_key_provider_list = split(",", var.fastconnect_service_key_provider_list)
+  fastconnect_asn_provider_list = split(",", var.fastconnect_asn_provider_list)
 
   fastconnect_no_asn_provider_list      = split(",", var.fastconnect_no_asn_provider_list)
 }
@@ -386,8 +386,8 @@ resource "oci_core_virtual_circuit" "azure_fastconnect_virtual_circuit" {
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Create FastConnect virtual circuit for Megaport/QTS/C3ntro/Cologix/CoreSite/Digital Realty/EdgeConneX/Epsilon/Equinix/InterCloud/Lumen/Neutrona/OracleL2ItegDeployment/Zayo
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-resource "oci_core_virtual_circuit" "fastconnect_virtual_circuit" {
-  count                     = var.fastconnect_connectivity_option == "yes" && contains(local.fastconnect_service_key_provider_list, var.fastconnect_provider) ? 1 : 0
+resource "oci_core_virtual_circuit" "fastconnect_asn_virtual_circuit" {
+  count                     = var.fastconnect_connectivity_option == "yes" && contains(local.fastconnect_asn_provider_list, var.fastconnect_provider) ? 1 : 0
   compartment_id            = var.compartment_ocid
   customer_asn              = var.virtual_circuit_customer_asn
   gateway_id                = oci_core_drg.drg.id
