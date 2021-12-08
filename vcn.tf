@@ -10,6 +10,7 @@ module "vcn" {
   virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip = var.virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip
   virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip             = var.virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip
   virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip   = var.virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip
+  virtual_circuit_customer_asn                                             = var.virtual_circuit_customer_asn
   vcn_cidr_block                                                           = var.vcn_cidr_block
   vcn_dns_label                                                            = var.vcn_dns_label
   region_key                                                               = local.region_key[0]

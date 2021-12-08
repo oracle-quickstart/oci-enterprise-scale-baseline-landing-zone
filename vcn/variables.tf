@@ -207,6 +207,23 @@ variable "virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip
 }
 
 variable "fastconnect_provider" {
-  type = string
-  description= "FastConnect provider name"
+  type        = string
+  description = "Available FastConnect providers: AT&T, Microsoft Azure, Megaport, QTS, CEintro, Cologix, CoreSite, Digitial Realty, EdgeConneX, Epsilon, Equinix, InterCloud, Lumen, Neutrona, OMCS, OracleL2ItegDeployment, OracleL3ItegDeployment, Orange, Verizon, Zayo"
+}
+
+variable "virtual_circuit_customer_asn" {
+  type        = string
+  description = "FastConnect customer ASN"
+}
+
+variable "fastconnect_service_key_provider_list" {
+  type        = string
+  description = "Providers that require customer asn"
+  default     = "Megaport,QTS,C3ntro,Cologix,CoreSite,Digital Realty,EdgeConneX,Epsilon,Equinix,InterCloud,Lumen,Neutrona,OracleL2ItegDeployment,Zayo"
+}
+
+variable "fastconnect_no_asn_provider_list" {
+  type        = string
+  description = "Providers that don't require customer asn or peering ip"
+  default     = "AT&T,Verizon,BT,OMCS,OracleL3ItegDeployment,Orange"
 }
