@@ -32,9 +32,9 @@ locals {
     }
   ])
 
-  fastconnect_asn_provider_list = split(",", var.fastconnect_asn_provider_list)
+  fastconnect_asn_provider_list    = split(",", var.fastconnect_asn_provider_list)
 
-  fastconnect_no_asn_provider_list      = split(",", var.fastconnect_no_asn_provider_list)
+  fastconnect_no_asn_provider_list = split(",", var.fastconnect_no_asn_provider_list)
 }
 
 # -----------------------------------------------------------------------------
