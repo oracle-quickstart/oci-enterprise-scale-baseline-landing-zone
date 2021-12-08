@@ -366,7 +366,7 @@ resource "oci_core_virtual_circuit" "azure_fastconnect_virtual_circuit" {
   provider_service_id       = data.oci_core_fast_connect_provider_service.fast_connect_provider_service.id
   provider_service_key_name = var.provider_service_key_name
   region                    = var.region_key
-  routing_policy            = ["GLOBAL"]
+  routing_policy            = var.fastconnect_routing_policy
   type                      = "PRIVATE"
   cross_connect_mappings {
     customer_bgp_peering_ip = var.virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip
@@ -395,7 +395,7 @@ resource "oci_core_virtual_circuit" "fastconnect_asn_virtual_circuit" {
   display_name              = "OCI-LZ-VIRTUAL-CIRCUIT"
   provider_service_id       = data.oci_core_fast_connect_provider_service.fast_connect_provider_service.id
   region                    = var.region_key
-  routing_policy            = ["GLOBAL"]
+  routing_policy            = var.fastconnect_routing_policy
   type                      = "PRIVATE"
   cross_connect_mappings {
     customer_bgp_peering_ip = var.virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip
@@ -419,7 +419,7 @@ resource "oci_core_virtual_circuit" "fastconnect_no_asn_virtual_circuit" {
   display_name              = "OCI-LZ-VIRTUAL-CIRCUIT"
   provider_service_id       = data.oci_core_fast_connect_provider_service.fast_connect_provider_service.id
   region                    = var.region_key
-  routing_policy            = ["GLOBAL"]
+  routing_policy            = var.fastconnect_routing_policy
   type                      = "PRIVATE"
   freeform_tags             = {
     "Description" = "FastConnect virtual circuit"

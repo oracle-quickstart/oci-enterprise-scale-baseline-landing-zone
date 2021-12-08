@@ -227,3 +227,8 @@ variable "fastconnect_no_asn_provider_list" {
   description = "Providers that don't require customer asn or peering ip"
   default     = "AT&T,Verizon,BT,OMCS,OracleL3ItegDeployment,Orange"
 }
+
+variable "fastconnect_routing_policy" {
+  type        = list(string)
+  description = "FastConnect virtual circuit routing policy"
+}

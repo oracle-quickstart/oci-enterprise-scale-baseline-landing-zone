@@ -160,3 +160,9 @@ variable "virtual_circuit_customer_asn" {
   description = "FastConnect customer BGP ASN"
   default     = 0
 }
+
+variable "fastconnect_routing_policy" {
+  type        = list(string)
+  description = "Availible FastConnect routing policies: ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL"
+  default     = [""]
+}
