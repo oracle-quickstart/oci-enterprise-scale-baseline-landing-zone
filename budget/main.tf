@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    oci = {
+      configuration_aliases = [oci]
+    }
+  }
+}
+
 resource "oci_budget_budget" "oci_budget" {
   amount         = var.budget_amount
   compartment_id = var.tenancy_ocid

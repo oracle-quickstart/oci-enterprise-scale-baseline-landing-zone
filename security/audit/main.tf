@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    oci = {
+      configuration_aliases = [oci]
+    }
+  }
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Random IDs to prevent naming collision with tenancy level resources
 # ---------------------------------------------------------------------------------------------------------------------
@@ -22,7 +30,7 @@ resource "oci_identity_policy" "service_connector_policy" {
     "CostCenter"  = var.tag_cost_center,
     "GeoLocation" = var.tag_geo_location
   }
-
+  
   statements = [
     "Allow any-user to manage objects in compartment ${var.security_compartment_name} where all {request.principal.type='serviceconnector', target.bucket.name='${oci_objectstorage_bucket.audit_log_bucket.name}', request.principal.compartment.id='${var.security_compartment_ocid}'}"
   ]
