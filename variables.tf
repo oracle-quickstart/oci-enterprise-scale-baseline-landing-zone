@@ -23,11 +23,13 @@ variable "current_user_ocid" {
 variable "api_fingerprint" {
   type        = string
   description = "The fingerprint of API"
+  default     = ""
 }
 
 variable "api_private_key_path" {
   type        = string
   description = "The local path to the API private key"
+  default     = ""
 }
 
 # -----------------------------------------------------------------------------

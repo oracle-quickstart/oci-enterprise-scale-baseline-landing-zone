@@ -20,6 +20,7 @@ variableGroups:
     variables:
       - parent_compartment_name
       - workload_compartment_names
+      - show_extra_compartment_names
       - network_compartment_name
       - security_compartment_name
       - common_infra_compartment_name
@@ -85,13 +86,13 @@ variables:
   api_fingerprint:
     type: string
     description: The fingerprint of API
-    default: null
-    required: true
+    default: "Value not required in Oracle Resource Manager."
+    required: false
     title: Api Fingerprint
   api_private_key_path:
     type: string
     description: The local path to the API private key
-    default: null
+    default: "Value not required in Oracle Resource Manager."
     required: true
     title: Api Private Key Path
   region:
@@ -126,6 +127,13 @@ variables:
     default: null
     required: true
     title: Tag Geo Location
+  
+  # Compartments
+  show_extra_compartment_names:
+    type: boolean 
+    default: false
+    required: false
+    title: Override default compartment names
   parent_compartment_name:
     type: string
     description: Name of the top level / parent compartment
@@ -134,31 +142,37 @@ variables:
     title: Parent Compartment Name
   workload_compartment_names:
     type: array
+    items:
+      type: string
     description: List of application workload compartment names
     default: null
     required: true
     title: Workload Compartment Names
   network_compartment_name:
     type: string
-    description: Name of the top level / parent compartment
+    visible: show_extra_compartment_names
+    description: Name of the top level network compartment
     default: network
     required: false
     title: Network Compartment Name
   security_compartment_name:
     type: string
-    description: Name of the top level / parent compartment
+    visible: show_extra_compartment_names
+    description: Name of the top level security compartment
     default: security
     required: false
     title: Security Compartment Name
   common_infra_compartment_name:
     type: string
-    description: Name of the top level / parent compartment
+    visible: show_extra_compartment_names
+    description: Name of the top level common infrastructure compartment
     default: common-infra
     required: false
     title: Common Infra Compartment Name
   applications_compartment_name:
     type: string
-    description: Name of the top level / parent compartment
+    visible: show_extra_compartment_names
+    description: Name of the top level application compartment
     default: applications
     required: false
     title: Applications Compartment Name
@@ -251,8 +265,8 @@ variables:
     type: text
     description: "[Workload Security List] Egress Rules Map"
     default:
-      "egress_rules_map = {
-      \n\t'default' = {
+      "{
+      \n\t\"default\" = {
       \n\t\tegress_security_rules_tcp_options_destination_port_range_max = 65535
       \n\t\tegress_security_rules_tcp_options_destination_port_range_min = 1
       \n\t\tegress_security_rules_tcp_options_source_port_range_max      = 65535
@@ -266,8 +280,8 @@ variables:
     type: text
     description: "[Workload Security List] Ingress Rules Map"
     default: 
-      "ingress_rules_map = {
-      \n\t'default' = {
+      "{
+      \n\t\"default\" = {
       \n\t\tingress_security_rules_tcp_options_destination_port_range_max = 65535
       \n\t\tingress_security_rules_tcp_options_destination_port_range_min = 1
       \n\t\tingress_security_rules_tcp_options_source_port_range_max      = 65535
@@ -291,39 +305,43 @@ variables:
     title: Shared Service Subnet DNS Label
 
   # Budget
+  budget_alerting:
+    type: boolean
+    description: Set to true to enable budget alerting
+    default: false
+    required: true
+    title: Budget Alerting
   budget_alert_rule_message:
     type: string
+    visible: budget_alerting
     description:
       "(Optional if using budget alerts): The alert message for budget
       alerts."
     default: Default budget alert
-    required: false
+    required: true
     title: Budget Alert Rule Message
   budget_alert_rule_recipients:
     type: string
+    visible: budget_alerting
     description:
       "(Required if using budget alerts): Target email address for budget
       alerts"
     default: null
     required: true
     title: Budget Alert Rule Recipients
-    pattern: ^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$
+    pattern: ^([^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,})?$
   budget_alert_rule_threshold:
     type: string
+    visible: budget_alerting
     description:
       "(Required if using budget alerts): The target spending threshold
       for the budget"
     default: null
     required: true
     title: Budget Alert Rule Threshold
-  budget_alerting:
-    type: bool
-    description: Set to true to enable budget alerting
-    default: null
-    required: true
-    title: Budget Alerting
   budget_amount:
     type: string
+    visible: budget_alerting
     description:
       "(Required if using budget alerts): The amount of the budget expressed
       as a number in the currency of the customer's rate card."
@@ -427,6 +445,8 @@ variables:
     # Bastion
   bastion_client_cidr_block_allow_list:
     type: array
+    items:
+      type: string
     description:
       A list of address ranges in CIDR notation that bastion is allowed
       to connect
@@ -454,6 +474,5 @@ variables:
   retention_rule_duration_time_amount:
     type: string
     description: Amount of retention rule duration time in days
-    default: null
     required: true
     title: Retention Rule Duration Time Amount

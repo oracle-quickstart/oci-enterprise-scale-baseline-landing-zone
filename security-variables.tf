@@ -104,6 +104,7 @@ variable "bastion_max_session_ttl_in_seconds" {
 variable "retention_rule_duration_time_amount" {
  type        = string
  description = "Amount of retention rule duration time in days"
+ default     = 365
 
  validation {
     condition     = var.retention_rule_duration_time_amount >= 365
