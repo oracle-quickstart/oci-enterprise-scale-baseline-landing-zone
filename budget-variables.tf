@@ -4,20 +4,24 @@
 variable "budget_alerting" {
   description = "Set to true to enable budget alerting"
   type        = bool
+  default     = false
 }
 variable "budget_amount" {
   description = "(Required if using budget alerts): The amount of the budget expressed as a number in the currency of the customer's rate card."
   type        = string
+  default     = ""
 }
 
 variable "budget_alert_rule_threshold" {
   description = "(Required if using budget alerts): The target spending threshold for the budget"
   type        = string
+  default     = ""
 }
 
 variable "budget_alert_rule_recipients" {
   description = "(Required if using budget alerts): Target email address for budget alerts"
   type        = string
+  default     = ""
 }
 
 # -----------------------------------------------------------------------------

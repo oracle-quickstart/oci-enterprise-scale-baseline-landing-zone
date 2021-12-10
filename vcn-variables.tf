@@ -83,13 +83,10 @@ variable "ingress_rules_map" {
 # -----------------------------------------------------------------------------
 # Dynamic Routing Gateway Inputs
 # -----------------------------------------------------------------------------
-variable "ipsec_connectivity_option" {
-  type = string
-  description = "Do you want to deploy the ipsec connectivity option? (yes/no)"
-  validation {
-    condition     = var.ipsec_connectivity_option == "yes" || var.ipsec_connectivity_option == "no"
-    error_message = "Please enter yes or no for deploying IPSec tunnel resources."
-  }
+variable "use_ipsec_drg" {
+  type        = bool
+  description = "Do you want to deploy the ipsec connectivity option? (true/false)"
+  default     = false
 }
 
 variable "cpe_ip_address" {
@@ -104,13 +101,10 @@ variable "ip_sec_connection_static_routes" {
   default     = [""]
 }
 
-variable "fastconnect_connectivity_option" {
-  type        = string
-  description = "Do you want to deploy the fastconnect connectivity option? (yes/no)"
-  validation {
-    condition     = var.fastconnect_connectivity_option == "yes" || var.fastconnect_connectivity_option == "no"
-    error_message = "Please enter yes or no for deploying FastConnect resources."
-  }
+variable "use_fastconnect_drg" {
+  type        = bool
+  description = "Do you want to deploy the fastconnect connectivity option? (true/false)"
+  default     = false
 }
 
 variable "virtual_circuit_bandwidth_shape" {
