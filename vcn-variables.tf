@@ -79,3 +79,90 @@ variable "ingress_rules_map" {
   }))
   default = {}
 }
+
+# -----------------------------------------------------------------------------
+# Dynamic Routing Gateway Inputs
+# -----------------------------------------------------------------------------
+variable "ipsec_connectivity_option" {
+  type = string
+  description = "Do you want to deploy the ipsec connectivity option? (yes/no)"
+  validation {
+    condition     = var.ipsec_connectivity_option == "yes" || var.ipsec_connectivity_option == "no"
+    error_message = "Please enter yes or no for deploying IPSec tunnel resources."
+  }
+}
+
+variable "cpe_ip_address" {
+  type        = string
+  description = "Customer Premises Equipment IP address"
+  default     = ""
+}
+
+variable "ip_sec_connection_static_routes" {
+  type        = list(string)
+  description = "IPSec connection static routes"
+  default     = [""]
+}
+
+variable "fastconnect_connectivity_option" {
+  type        = string
+  description = "Do you want to deploy the fastconnect connectivity option? (yes/no)"
+  validation {
+    condition     = var.fastconnect_connectivity_option == "yes" || var.fastconnect_connectivity_option == "no"
+    error_message = "Please enter yes or no for deploying FastConnect resources."
+  }
+}
+
+variable "virtual_circuit_bandwidth_shape" {
+  type        = string
+  description = "Virtual Circuit bandwidth shape name"
+  default     = ""
+}
+
+variable "provider_service_key_name" {
+  type        = string
+  description = "Virtual Circuit provider service key"
+  default     = ""
+}
+
+variable "virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip" {
+  type        = string
+  description = "This is the BGP IPv4 address of the customer's router"
+  default     = ""
+}
+
+variable "virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip" {
+  type        = string
+  description = "IPv4 address for Oracle's end of the BGP session"
+  default     = ""
+}
+
+variable "virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip" {
+  type        = string
+  description = "This is the secondary BGP IPv4 address of the customer's router"
+  default     = ""
+}
+
+variable "virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip" {
+  type        = string
+  description = "Secondary IPv4 address for Oracle's end of the BGP session"
+  default     = ""
+}
+
+variable "fastconnect_provider" {
+  type        = string
+  description = "Available FastConnect providers: AT&T, Microsoft Azure, Megaport, QTS, CEintro, Cologix, CoreSite, Digitial Realty, EdgeConneX, Epsilon, Equinix, InterCloud, Lumen, Neutrona, OMCS, OracleL2ItegDeployment, OracleL3ItegDeployment, Orange, Verizon, Zayo"
+  default     = ""
+}
+
+variable "virtual_circuit_customer_asn" {
+  type        = number
+  description = "FastConnect customer BGP ASN"
+  default     = 0
+}
+
+variable "fastconnect_routing_policy" {
+  type        = list(string)
+  description = "Availible FastConnect routing policies: ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL"
+  default     = [""]
+}
