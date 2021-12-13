@@ -54,12 +54,9 @@ variableGroups:
       - budget_alert_rule_message
   - title: Security
     variables:
-      - network_compartment_ocid
-      - network_strategy
-      - network_configuration_strategy
-      - cloud_guard_configuration_status
-      - retention_rule_duration_time_amount
       - is_flow_log_enabled
+      - retention_rule_duration_time_amount
+      - cloud_guard_configuration_status
       - host_scan_recipe_agent_settings_scan_level
       - host_scan_recipe_port_settings_scan_level
       - agent_cis_benchmark_settings_scan_level
