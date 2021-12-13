@@ -28,6 +28,7 @@ variableGroups:
   - title: IAM
     variables:
       - break_glass_user_email_list
+      - show_extra_iam_vars
       - key_id
       - vault_id
   - title: VCN
@@ -174,16 +175,23 @@ variables:
       in the tenancy
     required: true
     title: Break Glass User Email List
+  show_extra_iam_vars:
+    type: bool
+    description: Show security policy variables. If you already have a vault and encryption key provisioned.
+    required: false 
+    title: Show Security Policy Variables?
   key_id:
     type: string
     description: Encryption key OCID for security admin policy
-    required: true
+    required: false 
     title: Key Id
+    visible: show_extra_iam_vars
   vault_id:
     type: string
     description: Vault OCID for security admin policy
-    required: true
+    required: false 
     title: Vault Id
+    visible: show_extra_iam_vars
 
   # VCN
   vcn_cidr_block:
