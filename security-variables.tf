@@ -117,6 +117,6 @@ variable "retention_rule_duration_time_amount" {
 # -----------------------------------------------------------------------------
 variable "is_flow_log_enabled" {
   type        = bool
-  default     = true
+  default     = false 
   description = "Enable or Disable VCN Flow Logs"
 }
