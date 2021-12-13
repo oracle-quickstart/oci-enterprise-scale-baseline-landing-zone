@@ -324,6 +324,19 @@ variables:
     title: Budget Amount
 
   # Security
+  is_flow_log_enabled:
+    type: enum
+    description: "Enable or Disable VCN Flow Logs"
+    required: false
+    title: Are VCN Flow Logs Enabled
+    enum:
+      - "true"
+      - "false"
+  retention_rule_duration_time_amount:
+    type: string
+    description: Number of days to retain Audit Logs
+    required: true
+    title: Audit Log Retention Rule Duration Time Amount
   cloud_guard_configuration_status:
     type: enum
     description: the status of the Cloud Guard tenant (ENABLED or DISABLED)
@@ -332,19 +345,6 @@ variables:
       - ENABLED
       - DISABLED
     title: Cloud Guard Configuration Status
-  retention_rule_duration_time_amount:
-    type: string
-    description: Amount of retention rule duration time in days
-    required: true
-    title: Retention Rule Duration Time Amount
-  is_flow_log_enabled:
-    type: enum
-    description: "Enable or Disable VCN Flow Logs"
-    required: false
-    title: Is Flow Log Enabled
-    enum:
-      - "true"
-      - "false"
   agent_cis_benchmark_settings_scan_level:
     type: enum
     enum:
