@@ -326,7 +326,7 @@ variables:
     type: boolean
     description: "Enable or Disable VCN Flow Logs"
     required: false
-    title: Is Flow Log Enabled
+    title: Enable VCN Flow Logs?
   retention_rule_duration_time_amount:
     type: string
     description: Number of days to retain Audit Logs
@@ -336,7 +336,7 @@ variables:
     type: boolean 
     description: the status of the Cloud Guard tenant (ENABLED if true or DISABLED if false)
     required: true
-    title: Cloud Guard Configuration Status
+    title: Enable Cloud Guard?
   show_extra_security_vars:
     type: boolean
     description: Show advanced Cloud Guard variables
