@@ -4,17 +4,12 @@
 module "cloud-guard" {
   source                                                     = "./security/cloud-guard"
   region                                                     = local.home_region[0]
-  activity_detector_recipe_display_name                      = var.activity_detector_recipe_display_name
   cloud_guard_configuration_status                           = var.cloud_guard_configuration_status
-  configuration_detector_recipe_display_name                 = var.configuration_detector_recipe_display_name
   host_scan_recipe_agent_settings_agent_configuration_vendor = var.host_scan_recipe_agent_settings_agent_configuration_vendor
   host_scan_recipe_agent_settings_scan_level                 = var.host_scan_recipe_agent_settings_scan_level
   host_scan_recipe_port_settings_scan_level                  = var.host_scan_recipe_port_settings_scan_level
   agent_cis_benchmark_settings_scan_level                    = var.agent_cis_benchmark_settings_scan_level
   vss_scan_schedule                                          = var.vss_scan_schedule
-  host_scan_recipe_display_name                              = var.host_scan_recipe_display_name
-  host_scan_target_display_name                              = var.host_scan_target_display_name
-  host_scan_target_description                               = var.host_scan_target_description
   parent_compartment_ocid                                    = module.parent-compartment.parent_compartment_id
   security_compartment_ocid                                  = module.security-compartment.security_compartment_id
   tenancy_ocid                                               = var.tenancy_ocid
