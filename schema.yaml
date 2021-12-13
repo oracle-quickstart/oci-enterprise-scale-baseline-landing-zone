@@ -323,13 +323,10 @@ variables:
 
   # Security
   is_flow_log_enabled:
-    type: enum
+    type: bool
     description: "Enable or Disable VCN Flow Logs"
     required: false
-    title: Are VCN Flow Logs Enabled
-    enum:
-      - "true"
-      - "false"
+    title: Is Flow Log Enabled
   retention_rule_duration_time_amount:
     type: string
     description: Number of days to retain Audit Logs
