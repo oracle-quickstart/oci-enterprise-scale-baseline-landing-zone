@@ -178,18 +178,18 @@ variables:
   show_extra_iam_vars:
     type: boolean
     description: Show security policy variables. If you already have a vault and encryption key provisioned.
-    required: false 
-    title: Show Security Policy Variables?
+    required: false
+    title: Show Security Policy Variables
   key_id:
     type: string
     description: Encryption key OCID for security admin policy
-    required: false 
+    required: false
     title: Key Id
     visible: show_extra_iam_vars
   vault_id:
     type: string
     description: Vault OCID for security admin policy
-    required: false 
+    required: false
     title: Vault Id
     visible: show_extra_iam_vars
 
@@ -348,7 +348,7 @@ variables:
   agent_cis_benchmark_settings_scan_level:
     type: enum
     enum:
-      - "NONE" 
+      - "NONE"
       - "LIGHT"
       - "MEDIUM"
       - "STRICT"
@@ -356,7 +356,7 @@ variables:
     required: false
     title: Agent Cis Benchmark Settings Scan Level
   host_scan_recipe_agent_settings_scan_level:
-    type: enum 
+    type: enum
     enum:
       - "NONE"
       - "STANDARD"
@@ -364,7 +364,7 @@ variables:
     required: false
     title: Host Scan Recipe Agent Settings Scan Level
   host_scan_recipe_port_settings_scan_level:
-    type: enum 
+    type: enum
     enum:
       - "NONE"
       - "STANDARD"
