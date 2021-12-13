@@ -176,7 +176,7 @@ variables:
     required: true
     title: Break Glass User Email List
   show_extra_iam_vars:
-    type: bool
+    type: boolean
     description: Show security policy variables. If you already have a vault and encryption key provisioned.
     required: false 
     title: Show Security Policy Variables?
@@ -346,22 +346,36 @@ variables:
       - "true"
       - "false"
   agent_cis_benchmark_settings_scan_level:
-    type: string
+    type: enum
+    enum:
+      - "NONE" 
+      - "LIGHT"
+      - "MEDIUM"
+      - "STRICT"
     description: Agent bechamrking settings scan level
     required: false
     title: Agent Cis Benchmark Settings Scan Level
   host_scan_recipe_agent_settings_scan_level:
-    type: string
+    type: enum 
+    enum:
+      - "NONE"
+      - "STANDARD"
     description: Vulnerability scanning service agent scan level
     required: false
     title: Host Scan Recipe Agent Settings Scan Level
   host_scan_recipe_port_settings_scan_level:
-    type: string
+    type: enum 
+    enum:
+      - "NONE"
+      - "STANDARD"
     description: Vulnerability scanning service port scan level
     required: false
     title: Host Scan Recipe Port Settings Scan Level
   vss_scan_schedule:
-    type: string
+    type: enum
+    enum:
+      - "DAILY"
+      - "WEEKLY"
     description: Vulnerability scanning service scan schedule
     required: false
     title: Vss Scan Schedule
