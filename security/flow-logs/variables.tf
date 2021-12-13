@@ -84,11 +84,6 @@ variable "log_configuration_source_source_type" {
   default     = "OCISERVICE"
 }
 
-variable "is_flow_log_enabled" {
-  type        = string
-  description = "Enable flow log on the subnets"
-}
-
 variable "log_retention_duration" {
   type        = number
   description = "The duration period of the log retention"

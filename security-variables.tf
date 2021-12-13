@@ -102,9 +102,9 @@ variable "bastion_max_session_ttl_in_seconds" {
 }
 
 variable "retention_rule_duration_time_amount" {
- type        = string
- description = "Amount of retention rule duration time in days"
- default     = 365
+  type        = string
+  description = "Amount of retention rule duration time in days"
+  default     = 365
 
   validation {
     condition     = var.retention_rule_duration_time_amount >= 365
@@ -116,6 +116,7 @@ variable "retention_rule_duration_time_amount" {
 # VCN Flow Log Variables
 # -----------------------------------------------------------------------------
 variable "is_flow_log_enabled" {
-  type    = string
-  default = true
+  type        = bool
+  default     = true
+  description = "Enable or Disable VCN Flow Logs"
 }

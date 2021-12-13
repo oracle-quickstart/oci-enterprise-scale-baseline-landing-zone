@@ -78,12 +78,12 @@ module "audit" {
 # -----------------------------------------------------------------------------
 module "flow-logs" {
   source                    = "./security/flow-logs"
+  count                     = var.is_flow_log_enabled ? 1 : 0
   tenancy_ocid              = var.tenancy_ocid
   security_compartment_ocid = module.security-compartment.security_compartment_id
   security_compartment_name = var.security_compartment_name
   network_compartment_ocid  = module.network-compartment.network_compartment_id
   subnet_map                = module.vcn_core.subnet_map
-  is_flow_log_enabled       = var.is_flow_log_enabled
   tag_geo_location          = var.tag_geo_location
   tag_cost_center           = var.tag_cost_center
 

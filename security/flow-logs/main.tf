@@ -48,7 +48,7 @@ resource "oci_logging_log" "vcn_flow_log" {
     compartment_id = var.security_compartment_ocid
   }
 
-  is_enabled         = var.is_flow_log_enabled
+  is_enabled         = "true"
   retention_duration = var.log_retention_duration
   freeform_tags = {
     "Description" = "VCN Flow Logs"
