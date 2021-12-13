@@ -36,7 +36,7 @@ module "cloud-guard" {
 # -----------------------------------------------------------------------------
 module "bastion" {
   source                               = "./security/bastion"
-  vcn_id                               = module.vcn.vcn_id
+  vcn_id                               = module.vcn_core.vcn_id
   tag_geo_location                     = var.tag_geo_location
   tag_cost_center                      = var.tag_cost_center
   bastion_subnet_cidr_block            = var.bastion_subnet_cidr_block
@@ -54,15 +54,15 @@ module "bastion" {
 # Audit Logging
 # -----------------------------------------------------------------------------
 module "audit" {
-  source                                     = "./security/audit"
-  tenancy_ocid                               = var.tenancy_ocid
-  parent_compartment_name                    = var.parent_compartment_name
-  parent_compartment_ocid                    = module.parent-compartment.parent_compartment_id
-  security_compartment_name                  = var.security_compartment_name
-  security_compartment_ocid                  = module.security-compartment.security_compartment_id
-  retention_rule_duration_time_amount        = var.retention_rule_duration_time_amount
-  tag_geo_location                           = var.tag_geo_location
-  tag_cost_center                            = var.tag_cost_center
+  source                              = "./security/audit"
+  tenancy_ocid                        = var.tenancy_ocid
+  parent_compartment_name             = var.parent_compartment_name
+  parent_compartment_ocid             = module.parent-compartment.parent_compartment_id
+  security_compartment_name           = var.security_compartment_name
+  security_compartment_ocid           = module.security-compartment.security_compartment_id
+  retention_rule_duration_time_amount = var.retention_rule_duration_time_amount
+  tag_geo_location                    = var.tag_geo_location
+  tag_cost_center                     = var.tag_cost_center
 
   providers = {
     oci = oci.home_region
@@ -82,7 +82,7 @@ module "flow-logs" {
   security_compartment_ocid = module.security-compartment.security_compartment_id
   security_compartment_name = var.security_compartment_name
   network_compartment_ocid  = module.network-compartment.network_compartment_id
-  subnet_map                = module.vcn.subnet_map
+  subnet_map                = module.vcn_core.subnet_map
   is_flow_log_enabled       = var.is_flow_log_enabled
   tag_geo_location          = var.tag_geo_location
   tag_cost_center           = var.tag_cost_center

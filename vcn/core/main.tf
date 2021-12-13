@@ -38,10 +38,6 @@ locals {
     oci_core_subnet.database_subnet.*,
     oci_core_subnet.private_subnet.*
   )
-
-  fastconnect_asn_provider_list = split(",", var.fastconnect_asn_provider_list)
-
-  fastconnect_no_asn_provider_list = split(",", var.fastconnect_no_asn_provider_list)
 }
 
 # -----------------------------------------------------------------------------
@@ -314,23 +310,6 @@ data "oci_core_services" "service_gateway_all_oci_services" {
 }
 
 # -----------------------------------------------------------------------------
-# Create customer premises equipment object
-# -----------------------------------------------------------------------------
-resource "oci_core_cpe" "ipsec_vpn_cpe" {
-  count          = var.ipsec_connectivity_option == "yes" ? 1 : 0
-  compartment_id = var.compartment_ocid
-  ip_address     = var.cpe_ip_address
-
-  cpe_device_shape_id = data.oci_core_cpe_device_shapes.cpe_device_shapes.cpe_device_shapes.0.cpe_device_shape_id
-  display_name        = "OCI-LZ-CPE"
-  freeform_tags = {
-    "Description" = "Customer Premises Equipment"
-    "CostCenter"  = var.tag_cost_center,
-    "GeoLocation" = var.tag_geo_location
-  }
-}
-
-# -----------------------------------------------------------------------------
 # Create Dynamic Routing Gateway
 # -----------------------------------------------------------------------------
 resource "oci_core_drg" "drg" {
@@ -340,97 +319,6 @@ resource "oci_core_drg" "drg" {
   freeform_tags = {
     "Description" = "Dynamic Routing Gateways"
     "CostCenter"  = var.tag_cost_center
-    "GeoLocation" = var.tag_geo_location
-  }
-}
-
-# -----------------------------------------------------------------------------
-# Create IPSec tunnel connection for site-to-site VPN
-# -----------------------------------------------------------------------------
-resource "oci_core_ipsec" "ipsec_connection" {
-  count          = var.ipsec_connectivity_option == "yes" ? 1 : 0
-  compartment_id = var.compartment_ocid
-  cpe_id         = oci_core_cpe.ipsec_vpn_cpe[count.index].id
-  drg_id         = oci_core_drg.drg.id
-  display_name   = "OCI-LZ-IPSEC-TUNNEL"
-  static_routes  = var.ip_sec_connection_static_routes
-  freeform_tags = {
-    "Description" = "IPSec tunnel connection"
-    "CostCenter"  = var.tag_cost_center,
-    "GeoLocation" = var.tag_geo_location
-  }
-}
-
-# -----------------------------------------------------------------------------
-# Create FastConnect virtual circuit for Azure ExpressRoute
-# -----------------------------------------------------------------------------
-resource "oci_core_virtual_circuit" "azure_fastconnect_virtual_circuit" {
-  count                     = var.fastconnect_connectivity_option == "yes" && var.fastconnect_provider == "Microsoft Azure" ? 1 : 0
-  compartment_id            = var.compartment_ocid
-  gateway_id                = oci_core_drg.drg.id
-  bandwidth_shape_name      = var.virtual_circuit_bandwidth_shape
-  display_name              = "OCI-LZ-VIRTUAL-CIRCUIT"
-  provider_service_id       = data.oci_core_fast_connect_provider_service.fast_connect_provider_service.id
-  provider_service_key_name = var.provider_service_key_name
-  region                    = var.region_key
-  routing_policy            = var.fastconnect_routing_policy
-  type                      = "PRIVATE"
-  cross_connect_mappings {
-    customer_bgp_peering_ip = var.virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip
-    oracle_bgp_peering_ip   = var.virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip
-  }
-  cross_connect_mappings {
-    customer_bgp_peering_ip = var.virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip
-    oracle_bgp_peering_ip   = var.virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip
-  }
-  freeform_tags = {
-    "Description" = "FastConnect virtual circuit"
-    "CostCenter"  = var.tag_cost_center,
-    "GeoLocation" = var.tag_geo_location
-  }
-}
-
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# Create FastConnect virtual circuit for Megaport/QTS/C3ntro/Cologix/CoreSite/Digital Realty/EdgeConneX/Epsilon/Equinix/InterCloud/Lumen/Neutrona/OracleL2ItegDeployment/Zayo
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-resource "oci_core_virtual_circuit" "fastconnect_asn_virtual_circuit" {
-  count                = var.fastconnect_connectivity_option == "yes" && contains(local.fastconnect_asn_provider_list, var.fastconnect_provider) ? 1 : 0
-  compartment_id       = var.compartment_ocid
-  customer_asn         = var.virtual_circuit_customer_asn
-  gateway_id           = oci_core_drg.drg.id
-  bandwidth_shape_name = var.virtual_circuit_bandwidth_shape
-  display_name         = "OCI-LZ-VIRTUAL-CIRCUIT"
-  provider_service_id  = data.oci_core_fast_connect_provider_service.fast_connect_provider_service.id
-  region               = var.region_key
-  routing_policy       = var.fastconnect_routing_policy
-  type                 = "PRIVATE"
-  cross_connect_mappings {
-    customer_bgp_peering_ip = var.virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip
-    oracle_bgp_peering_ip   = var.virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip
-  }
-  freeform_tags = {
-    "Description" = "FastConnect virtual circuit"
-    "CostCenter"  = var.tag_cost_center,
-    "GeoLocation" = var.tag_geo_location
-  }
-}
-
-# -----------------------------------------------------------------------------------------
-# Create FastConnect virtual circuit for AT&T/Verizon/BT/OMCS/OracleL3ItegDeployment/Orange
-# -----------------------------------------------------------------------------------------
-resource "oci_core_virtual_circuit" "fastconnect_no_asn_virtual_circuit" {
-  count                = var.fastconnect_connectivity_option == "yes" && contains(local.fastconnect_no_asn_provider_list, var.fastconnect_provider) ? 1 : 0
-  compartment_id       = var.compartment_ocid
-  gateway_id           = oci_core_drg.drg.id
-  bandwidth_shape_name = var.virtual_circuit_bandwidth_shape
-  display_name         = "OCI-LZ-VIRTUAL-CIRCUIT"
-  provider_service_id  = data.oci_core_fast_connect_provider_service.fast_connect_provider_service.id
-  region               = var.region_key
-  routing_policy       = var.fastconnect_routing_policy
-  type                 = "PRIVATE"
-  freeform_tags = {
-    "Description" = "FastConnect virtual circuit"
-    "CostCenter"  = var.tag_cost_center,
     "GeoLocation" = var.tag_geo_location
   }
 }
