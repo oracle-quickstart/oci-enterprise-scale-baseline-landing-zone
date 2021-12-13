@@ -58,21 +58,10 @@ variableGroups:
       - network_configuration_strategy
       - cloud_guard_configuration_status
       - is_flow_log_enabled
-      - show_extra_security_vars
-  - title: Security Extra Variables
-    variables:
-      - configuration_detector_recipe_display_name
-      - activity_detector_recipe_display_name
-      - vulnerability_scanning_service_policy_name
-      - host_scan_recipe_agent_settings_agent_configuration_vendor
       - host_scan_recipe_agent_settings_scan_level
       - host_scan_recipe_port_settings_scan_level
       - agent_cis_benchmark_settings_scan_level
       - vss_scan_schedule
-      - host_scan_recipe_display_name
-      - host_scan_target_display_name
-      - host_scan_target_description
-    visible: show_extra_security_vars
   - title: Bastion
     variables:
       - bastion_client_cidr_block_allow_list
@@ -347,70 +336,28 @@ variables:
     enum:
       - "true"
       - "false"
-  show_extra_security_vars:
-    type: boolean 
-    default: false
-    required: false
-    title: Show Extra Security Variables
-
-  # Security (Hidden)
-  configuration_detector_recipe_display_name:
-    type: string
-    description: display name for configuration detector recipe
-    required: false
-    title: Configuration Detector Recipe Display Name
-  activity_detector_recipe_display_name:
-    type: string
-    description: display name for activity detector recipe
-    required: false
-    title: Activity Detector Recipe Display Name
   agent_cis_benchmark_settings_scan_level:
     type: string
     description: Agent bechamrking settings scan level
     required: false
     title: Agent Cis Benchmark Settings Scan Level
-  host_scan_recipe_agent_settings_agent_configuration_vendor:
-    type: string
-    description: Vulnerability scanning service agent vendor
-    required: false
-    title: Host Scan Recipe Agent Settings Agent Configuration Vendor
   host_scan_recipe_agent_settings_scan_level:
     type: string
     description: Vulnerability scanning service agent scan level
     required: false
     title: Host Scan Recipe Agent Settings Scan Level
-  host_scan_recipe_display_name:
-    type: string
-    description: Vulnerability scanning service display name
-    required: false
-    title: Host Scan Recipe Display Name
   host_scan_recipe_port_settings_scan_level:
     type: string
     description: Vulnerability scanning service port scan level
     required: false
     title: Host Scan Recipe Port Settings Scan Level
-  host_scan_target_description:
-    type: string
-    description: Vulnerability scanning service target description
-    required: false
-    title: Host Scan Target Description
-  host_scan_target_display_name:
-    type: string
-    description: Vulnerability scanning service target display name
-    required: false
-    title: Host Scan Target Display Name
   vss_scan_schedule:
     type: string
     description: Vulnerability scanning service scan schedule
     required: false
     title: Vss Scan Schedule
-  vulnerability_scanning_service_policy_name:
-    type: string
-    description: Name of Scanning Service Policy
-    required: false
-    title: Vulnerability Scanning Service Policy Name
 
-    # Bastion
+  # Bastion
   bastion_client_cidr_block_allow_list:
     type: array
     items:

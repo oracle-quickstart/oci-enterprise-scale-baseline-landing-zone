@@ -10,12 +10,6 @@ variable "cloud_guard_configuration_status" {
   }
 }
 
-variable "host_scan_recipe_agent_settings_agent_configuration_vendor" {
-  type        = string
-  description = "Vulnerability scanning service agent vendor"
-  default     = "OCI"
-}
-
 variable "host_scan_recipe_agent_settings_scan_level" {
   type        = string
   description = "Vulnerability scanning service agent scan level"
@@ -57,11 +51,11 @@ variable "bastion_client_cidr_block_allow_list" {
 # Audit Logging Variables
 # -----------------------------------------------------------------------------
 variable "retention_rule_duration_time_amount" {
- type        = string
- description = "Amount of retention rule duration time in days"
- default     = 365
+  type        = string
+  description = "Amount of retention rule duration time in days"
+  default     = 365
 
- validation {
+  validation {
     condition     = var.retention_rule_duration_time_amount >= 365
     error_message = "The amount of retention rule time duration should be 365 days or greater."
   }

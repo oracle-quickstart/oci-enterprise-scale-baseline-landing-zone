@@ -97,6 +97,7 @@ variable "host_scan_recipe_agent_settings_scan_level" {
 variable "host_scan_recipe_agent_settings_agent_configuration_vendor" {
   type        = string
   description = "Vulnerability scanning service agent vendor"
+  default     = "OCI"
 }
 
 variable "host_scan_recipe_port_settings_scan_level" {
