@@ -31,6 +31,13 @@ locals {
       cidr_block = cidr_block
     }
   ])
+
+  subnet_list = concat([
+    oci_core_subnet.public_subnet,
+    oci_core_subnet.fss_subnet],
+    oci_core_subnet.database_subnet.*,
+    oci_core_subnet.private_subnet.*
+  )
 }
 
 # -----------------------------------------------------------------------------
@@ -320,8 +327,8 @@ resource "oci_core_drg" "drg" {
 # Create Dynamic Routing Gateway attachments
 # -----------------------------------------------------------------------------
 resource "oci_core_drg_attachment" "drg_vcn_attachment" {
-  drg_id             = oci_core_drg.drg.id
-  display_name       = "OCI-LZ-DRG-VCN-ATTACHMENT"
+  drg_id       = oci_core_drg.drg.id
+  display_name = "OCI-LZ-DRG-VCN-ATTACHMENT"
   freeform_tags = {
     "Description" = "DRG VCN Attachment"
     "CostCenter"  = var.tag_cost_center

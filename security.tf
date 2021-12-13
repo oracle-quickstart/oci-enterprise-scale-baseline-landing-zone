@@ -21,10 +21,12 @@ module "cloud-guard" {
   tag_geo_location                                           = var.tag_geo_location
   tag_cost_center                                            = var.tag_cost_center
   parent_compartment_name                                    = var.parent_compartment_name
+
   providers = {
     oci = oci.home_region
   }
-  depends_on                                                 = [
+
+  depends_on = [
     module.parent-compartment, module.common-infra-compartment, module.security-compartment
   ]
 }
@@ -52,19 +54,40 @@ module "bastion" {
 # Audit Logging
 # -----------------------------------------------------------------------------
 module "audit" {
-  source                                     = "./security/audit"
-  tenancy_ocid                               = var.tenancy_ocid
-  parent_compartment_name                    = var.parent_compartment_name
-  parent_compartment_ocid                    = module.parent-compartment.parent_compartment_id
-  security_compartment_name                  = var.security_compartment_name
-  security_compartment_ocid                  = module.security-compartment.security_compartment_id
-  retention_rule_duration_time_amount        = var.retention_rule_duration_time_amount
-  tag_geo_location                           = var.tag_geo_location
-  tag_cost_center                            = var.tag_cost_center
+  source                              = "./security/audit"
+  tenancy_ocid                        = var.tenancy_ocid
+  parent_compartment_name             = var.parent_compartment_name
+  parent_compartment_ocid             = module.parent-compartment.parent_compartment_id
+  security_compartment_name           = var.security_compartment_name
+  security_compartment_ocid           = module.security-compartment.security_compartment_id
+  retention_rule_duration_time_amount = var.retention_rule_duration_time_amount
+  tag_geo_location                    = var.tag_geo_location
+  tag_cost_center                     = var.tag_cost_center
+
   providers = {
     oci = oci.home_region
   }
+
   depends_on = [
     module.parent-compartment, module.security-compartment
+  ]
+}
+
+# -----------------------------------------------------------------------------
+# VCN Flow Log
+# -----------------------------------------------------------------------------
+module "flow-logs" {
+  source                    = "./security/flow-logs"
+  count                     = var.is_flow_log_enabled ? 1 : 0
+  tenancy_ocid              = var.tenancy_ocid
+  security_compartment_ocid = module.security-compartment.security_compartment_id
+  security_compartment_name = var.security_compartment_name
+  network_compartment_ocid  = module.network-compartment.network_compartment_id
+  subnet_map                = module.vcn_core.subnet_map
+  tag_geo_location          = var.tag_geo_location
+  tag_cost_center           = var.tag_cost_center
+
+  depends_on = [
+    module.parent-compartment, module.security-compartment, module.network-compartment
   ]
 }

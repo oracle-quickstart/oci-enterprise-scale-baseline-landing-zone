@@ -340,13 +340,10 @@ variables:
       - DISABLED
     title: Cloud Guard Configuration Status
   is_flow_log_enabled:
-    type: enum 
+    type: bool 
     description: "Enable or Disable VCN Flow Logs"
     required: false
     title: Is Flow Log Enabled
-    enum:
-      - "true"
-      - "false"
   show_extra_security_vars:
     type: boolean 
     default: false
