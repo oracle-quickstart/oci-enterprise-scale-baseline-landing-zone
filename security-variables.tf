@@ -84,23 +84,14 @@ variable "bastion_subnet_cidr_block" {
   description = "CIDR Block for bastion subnet"
 }
 
-variable "bastion_type" {
-  type        = string
-  description = "the type of bastion service"
-  default     = "STANDARD"
-}
-
 variable "bastion_client_cidr_block_allow_list" {
   type        = list(string)
   description = "A list of address ranges in CIDR notation that bastion is allowed to connect"
 }
 
-variable "bastion_max_session_ttl_in_seconds" {
-  type        = number
-  description = "The maximum amount of time that bastion session can remain active"
-  default     = 1800
-}
-
+# -----------------------------------------------------------------------------
+# Audit Logging Variables
+# -----------------------------------------------------------------------------
 variable "retention_rule_duration_time_amount" {
  type        = string
  description = "Amount of retention rule duration time in days"

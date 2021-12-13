@@ -38,9 +38,7 @@ module "bastion" {
   tag_geo_location                     = var.tag_geo_location
   tag_cost_center                      = var.tag_cost_center
   bastion_subnet_cidr_block            = var.bastion_subnet_cidr_block
-  bastion_type                         = var.bastion_type
   bastion_client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
-  bastion_max_session_ttl_in_seconds   = var.bastion_max_session_ttl_in_seconds
   network_compartment_id               = module.network-compartment.network_compartment_id
   region_key                           = local.region_key[0]
   depends_on = [
