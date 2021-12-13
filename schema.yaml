@@ -56,7 +56,7 @@ variableGroups:
     variables:
       - is_flow_log_enabled
       - retention_rule_duration_time_amount
-      - cloud_guard_configuration_status
+      - is_cloud_guard_enabled
       - show_extra_security_vars
       - host_scan_recipe_agent_settings_scan_level
       - host_scan_recipe_port_settings_scan_level
@@ -323,7 +323,7 @@ variables:
 
   # Security
   is_flow_log_enabled:
-    type: bool
+    type: boolean
     description: "Enable or Disable VCN Flow Logs"
     required: false
     title: Is Flow Log Enabled
@@ -332,13 +332,10 @@ variables:
     description: Number of days to retain Audit Logs
     required: true
     title: Audit Log Retention Rule Duration Time Amount
-  cloud_guard_configuration_status:
-    type: enum
-    description: the status of the Cloud Guard tenant (ENABLED or DISABLED)
+  is_cloud_guard_enabled:
+    type: boolean 
+    description: the status of the Cloud Guard tenant (ENABLED if true or DISABLED if false)
     required: true
-    enum:
-      - ENABLED
-      - DISABLED
     title: Cloud Guard Configuration Status
   show_extra_security_vars:
     type: boolean

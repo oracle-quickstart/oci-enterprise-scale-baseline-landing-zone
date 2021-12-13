@@ -29,7 +29,7 @@ variable "tag_geo_location" {
 # -----------------------------------------------------------------------------
 # Cloudguard Configuration Variables
 # -----------------------------------------------------------------------------
-variable "cloud_guard_configuration_status" {
+variable "is_cloud_guard_enabled" {
   type        = string
   description = "the status of the Cloud Guard tenant"
 }

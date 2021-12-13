@@ -4,7 +4,7 @@
 module "cloud-guard" {
   source                                     = "./security/cloud-guard"
   region                                     = local.home_region[0]
-  cloud_guard_configuration_status           = var.cloud_guard_configuration_status
+  is_cloud_guard_enabled                     = var.is_cloud_guard_enabled
   host_scan_recipe_agent_settings_scan_level = var.host_scan_recipe_agent_settings_scan_level
   host_scan_recipe_port_settings_scan_level  = var.host_scan_recipe_port_settings_scan_level
   agent_cis_benchmark_settings_scan_level    = var.agent_cis_benchmark_settings_scan_level

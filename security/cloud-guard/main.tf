@@ -20,7 +20,7 @@ resource "random_id" "target_name" {
 resource "oci_cloud_guard_cloud_guard_configuration" "tenancy_cloud_guard_configuration" {
   compartment_id   = var.tenancy_ocid
   reporting_region = var.region
-  status           = var.cloud_guard_configuration_status
+  status           = var.is_cloud_guard_enabled == true ? "ENABLED" : "DISABLED"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ resource "oci_identity_policy" "cloud_guard_policy" {
 # Cloud Guard target
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_cloud_guard_target" "cloud_guard_target" {
-  count                = var.cloud_guard_configuration_status == "ENABLED" ? 1 : 0
+  count                = var.is_cloud_guard_enabled == true ? 1 : 0
   compartment_id       = var.parent_compartment_ocid
   display_name         = "${var.cloud_guard_target_name}-${random_id.target_name.id}"
   target_resource_id   = var.parent_compartment_ocid
@@ -122,7 +122,7 @@ resource "oci_vulnerability_scanning_host_scan_recipe" "vss_host_scan_recipe" {
     agent_configuration {
       vendor = var.host_scan_recipe_agent_settings_agent_configuration_vendor
       cis_benchmark_settings {
-          scan_level = var.agent_cis_benchmark_settings_scan_level
+        scan_level = var.agent_cis_benchmark_settings_scan_level
       }
     }
   }

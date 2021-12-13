@@ -1,13 +1,9 @@
 # -----------------------------------------------------------------------------
 # Cloud Guard Related Variables
 # -----------------------------------------------------------------------------
-variable "cloud_guard_configuration_status" {
-  type        = string
-  description = "the status of the Cloud Guard tenant (ENABLED or DISABLED)"
-  validation {
-    condition     = var.cloud_guard_configuration_status == "ENABLED" || var.cloud_guard_configuration_status == "DISABLED"
-    error_message = "Please enter ENABLED or DISABLED for the status of the Cloud Guard Configuration."
-  }
+variable "is_cloud_guard_enabled" {
+  type        = bool
+  description = "the status of the Cloud Guard tenant (ENABLED if true or DISABLED if false)"
 }
 
 variable "host_scan_recipe_agent_settings_scan_level" {
@@ -66,6 +62,6 @@ variable "retention_rule_duration_time_amount" {
 # -----------------------------------------------------------------------------
 variable "is_flow_log_enabled" {
   type        = bool
-  default     = false 
   description = "Enable or Disable VCN Flow Logs"
+  default     = false
 }
