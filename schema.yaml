@@ -427,7 +427,7 @@ variables:
     required: true
     title: Virtual Circuit Bandwidth Shape
   provider_service_key_name:
-    type: string
+    type: string 
     visible: use_fastconnect_drg
     required: true
     title: Provider Service Key Name
@@ -452,7 +452,28 @@ variables:
     required: true
     title: Virtual Circuit Cross Connect Mappings - Oracle Secondary BGP Peering IP
   fastconnect_provider:
-    type: string
+    type: enum
+    enum:
+      - AT&T
+      - Microsoft Azure
+      - Megaport
+      - QTS
+      - CEintro
+      - Cologix
+      - CoreSite
+      - Digitial Realty
+      - EdgeConneX
+      - Epsilon
+      - Equinix
+      - InterCloud
+      - Lumen
+      - Neutrona
+      - OMCS
+      - OracleL2ItegDeployment
+      - OracleL3ItegDeployment
+      - Orange
+      - Verizon
+      - Zayo 
     visible: use_fastconnect_drg
     required: true
     title: FastConnect Provider
@@ -465,6 +486,11 @@ variables:
     type: array
     visible: use_fastconnect_drg
     items:
-      type: string
+      type: enum
+    enum:
+      - ORACLE_SERVICE_NETWORK
+      - REGIONAL
+      - MARKET_LEVEL
+      - GLOBAL
     required: true
     title: FastConnect Routing Policy
