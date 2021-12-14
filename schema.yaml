@@ -350,7 +350,7 @@ variables:
       - "MEDIUM"
       - "STRICT"
     description: Agent bechamrking settings scan level
-    required: false
+    required: true
     title: Agent Cis Benchmark Settings Scan Level
     visible: show_extra_security_vars
   host_scan_recipe_agent_settings_scan_level:
@@ -359,7 +359,7 @@ variables:
       - "NONE"
       - "STANDARD"
     description: Vulnerability scanning service agent scan level
-    required: false
+    required: true
     title: Host Scan Recipe Agent Settings Scan Level
     visible: show_extra_security_vars
   host_scan_recipe_port_settings_scan_level:
@@ -369,7 +369,7 @@ variables:
       - "LIGHT"
       - "STANDARD"
     description: Vulnerability scanning service port scan level
-    required: false
+    required: true
     title: Host Scan Recipe Port Settings Scan Level
     visible: show_extra_security_vars
   vss_scan_schedule:
@@ -378,7 +378,7 @@ variables:
       - "DAILY"
       - "WEEKLY"
     description: Vulnerability scanning service scan schedule
-    required: false
+    required: true
     title: Vss Scan Schedule
     visible: show_extra_security_vars
 
