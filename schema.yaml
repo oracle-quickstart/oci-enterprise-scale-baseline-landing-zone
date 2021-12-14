@@ -494,7 +494,7 @@ variables:
     title: Virtual Circuit Customer ASN
   fastconnect_routing_policy:
     type: array
-    description: Available FastConnect routing policies:\ ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL
+    description: Available FastConnect routing policies - ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL
     visible: use_fastconnect_drg
     items:
       type: string 
