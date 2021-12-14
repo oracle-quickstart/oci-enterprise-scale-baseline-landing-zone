@@ -220,7 +220,7 @@ resource "oci_identity_policy" "workload_users_policies_network" {
 # IAM Policies Security Admins
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "security_admins_policy" {
-  compartment_id = var.tenancy_ocid # this is supposed to be security compartment, but it needs to encrypt everything?
+  compartment_id = var.security_compartment_id
   description    = "OCI Landing Zone Security Admin Policy"
   name           = "${var.security_admins_policy_name}-${var.random_policy_name_id}"
 
@@ -232,23 +232,52 @@ resource "oci_identity_policy" "security_admins_policy" {
 
   statements = [
     # Ability to associate an Object Storage bucket, Block Volume volume, File Storage file system, Kubernetes cluster, or Streaming stream pool with a specific key
-    "Allow group ${var.security_admins_group_name} to use key-delegate in tenancy where target.key.id = '${var.key_id}'",
+    "Allow group ${var.security_admins_group_name} to use key-delegate in compartment ${var.security_compartment_name} where target.key.id = '${var.key_id}'",
     # Ability to list, view, and perform cryptographic operations with all keys in compartment
-    "Allow group ${var.security_admins_group_name} to use keys in tenancy",
-    "Allow service blockstorage, objectstorage-${var.region}, FssOc1Prod, oke, streaming to use keys in tenancy",
+    "Allow group ${var.security_admins_group_name} to use keys in compartment ${var.security_compartment_name}",
+    "Allow service blockstorage, objectstorage-${var.region}, FssOc1Prod, oke, streaming to use keys in compartment ${var.security_compartment_name}",
     # Ability to do all things with secrets in a specific vault
-    "Allow group ${var.security_admins_group_name} to read vaults in tenancy where target.vault.id='${var.vault_id}'",
-    "Allow group ${var.security_admins_group_name} to manage secret-family in tenancy where target.vault.id='${var.vault_id}'",
+    "Allow group ${var.security_admins_group_name} to read vaults in compartment ${var.security_compartment_name} where target.vault.id='${var.vault_id}'",
+    "Allow group ${var.security_admins_group_name} to manage secret-family in compartment ${var.security_compartment_name} where target.vault.id='${var.vault_id}'",
     # Ability to manage all resources in the Bastion service in all compartments
-    "Allow group ${var.security_admins_group_name} to manage bastion in tenancy",
-    "Allow group ${var.security_admins_group_name} to manage bastion-session in tenancy",
-    "Allow group ${var.security_admins_group_name} to manage virtual-network-family in tenancy",
+    "Allow group ${var.security_admins_group_name} to manage bastion in compartment ${var.security_compartment_name}",
+    "Allow group ${var.security_admins_group_name} to manage bastion-session in compartment ${var.security_compartment_name}",
+  ]
+}
+
+resource "oci_identity_policy" "security_admins_policy_network" {
+  compartment_id = var.network_compartment_id
+  description    = "OCI Landing Zone Security Admin Network Policy"
+  name           = "${var.security_admins_policy_name}-Network-${var.random_policy_name_id}"
+
+  freeform_tags = {
+    "Description" = "Network Policy for Security Admin Users",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
+
+  statements = [
+    "Allow group ${var.security_admins_group_name} to manage virtual-network-family in compartment ${var.network_compartment_name}",
+  ]
+}
+
+resource "oci_identity_policy" "security_admins_policy_compute" {
+  compartment_id = var.tenancy_ocid
+  description    = "OCI Landing Zone Security Admin Compute Policy"
+  name           = "${var.security_admins_policy_name}-Compute-${var.random_policy_name_id}"
+
+  freeform_tags = {
+    "Description" = "Compute Policy for Security Admin Users",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
+
+  statements = [
     "Allow group ${var.security_admins_group_name} to read instance-family in tenancy",
     "Allow group ${var.security_admins_group_name} to read instance-agent-plugins in tenancy",
     "Allow group ${var.security_admins_group_name} to inspect work-requests in tenancy"
   ]
 }
-
 # ---------------------------------------------------------------------------------------------------------------------
 # IAM Policy Cloud Guard Operator
 # ---------------------------------------------------------------------------------------------------------------------
