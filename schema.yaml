@@ -31,6 +31,18 @@ variableGroups:
       - show_extra_iam_vars
       - key_id
       - vault_id
+      - show_extra_group_names
+      - administrator_group_name
+      - network_admin_group_name
+      - lb_users_group_name
+      - workload_admins_group_name
+      - workload_users_group_name
+      - workload_storage_admins_group_name
+      - workload_storage_users_group_name
+      - security_admins_group_name
+      - cloud_guard_operators_group_name
+      - cloud_guard_analysts_group_name
+      - cloud_guard_architects_group_name
   - title: VCN
     variables:
       - vcn_cidr_block
@@ -190,6 +202,77 @@ variables:
     required: false
     title: Vault Id
     visible: show_extra_iam_vars
+  show_extra_group_names:
+    type: boolean
+    default: false
+    required: false
+    title: Override default group names
+  administrator_group_name:
+    type: string
+    description: The name for the administrator group
+    required: true 
+    title: Administrator Group Name
+    visible: show_extra_group_names
+  workload_admins_group_name:
+    type: string
+    description: The name for the workload administrators group
+    required: true 
+    title: Workload Admins Group Name
+    visible: show_extra_group_names
+  cloud_guard_analysts_group_name:
+    type: string
+    description: The name of the Cloud Guard Analyst group
+    required: true 
+    title: Cloud Guard Analyst Group Name
+    visible: show_extra_group_names
+  cloud_guard_architects_group_name:
+    type: string
+    description: The name for the Cloud Guard Architect group name
+    required: true 
+    title: Cloud Guard Architects Group Name
+    visible: show_extra_group_names
+  cloud_guard_operators_group_name:
+    type: string
+    description: The name for the Cloud Guard Operator group name
+    required: true 
+    title: Cloud Guard Operators Group Name
+    visible: show_extra_group_names
+  lb_users_group_name:
+    type: string
+    description: The name for the load balancer users group name
+    required: true 
+    title: Load Balancer User Group Name
+    visible: show_extra_group_names
+  network_admin_group_name:
+    type: string
+    description: The name for the network administrator group name
+    required: true 
+    title: Network Admins Group Name
+    visible: show_extra_group_names
+  security_admins_group_name:
+    type: string
+    description: The name of the security admin group
+    required: true 
+    title: Security Admins Group Name
+    visible: show_extra_group_names
+  workload_storage_admins_group_name:
+    type: string
+    description: The name for the workload storage administrators group
+    required: true 
+    title: Workload Storage Admins Group Name
+    visible: show_extra_group_names
+  workload_storage_users_group_name:
+    type: string
+    description: The name for the workload storage users group
+    required: true 
+    title: Workload Storage Users Group Name
+    visible: show_extra_group_names
+  workload_users_group_name:
+    type: string
+    description: The name for the workload users group
+    required: true 
+    title: Workload Users Group Name
+    visible: show_extra_group_names
 
   # VCN
   vcn_cidr_block:
@@ -333,7 +416,7 @@ variables:
     required: true
     title: Audit Log Retention Rule Duration Time Amount
   is_cloud_guard_enabled:
-    type: boolean 
+    type: boolean
     description: the status of the Cloud Guard tenant (ENABLED if true or DISABLED if false)
     required: true
     title: Enable Cloud Guard?

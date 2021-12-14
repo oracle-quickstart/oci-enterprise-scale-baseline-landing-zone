@@ -13,12 +13,23 @@ resource "random_id" "group_name" {
 # Create IAM groups
 # ---------------------------------------------------------------------------------------------------------------------
 module "groups" {
-  source                         = "./iam/groups"
-  tenancy_ocid                   = var.tenancy_ocid
-  workload_compartment_name_list = var.workload_compartment_names
-  random_group_name_id           = random_id.group_name.id
-  tag_cost_center                = var.tag_cost_center
-  tag_geo_location               = var.tag_geo_location
+  source                             = "./iam/groups"
+  tenancy_ocid                       = var.tenancy_ocid
+  workload_compartment_name_list     = var.workload_compartment_names
+  random_group_name_id               = random_id.group_name.id
+  tag_cost_center                    = var.tag_cost_center
+  tag_geo_location                   = var.tag_geo_location
+  administrator_group_name           = var.administrator_group_name
+  network_admin_group_name           = var.network_admin_group_name
+  lb_users_group_name                = var.lb_users_group_name
+  workload_admins_group_name         = var.workload_admins_group_name
+  workload_users_group_name          = var.workload_users_group_name
+  workload_storage_admins_group_name = var.workload_storage_admins_group_name
+  workload_storage_users_group_name  = var.workload_storage_users_group_name
+  security_admins_group_name         = var.security_admins_group_name
+  cloud_guard_operators_group_name   = var.cloud_guard_operators_group_name
+  cloud_guard_analysts_group_name    = var.cloud_guard_analysts_group_name
+  cloud_guard_architects_group_name  = var.cloud_guard_architects_group_name
   providers = {
     oci = oci.home_region
   }
@@ -61,21 +72,21 @@ module "policies" {
   providers = {
     oci = oci.home_region
   }
-  depends_on                          = [module.groups]
+  depends_on = [module.groups]
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Break Glass Users
 # ---------------------------------------------------------------------------------------------------------------------
 module "users" {
-  for_each                = {for index, email in var.break_glass_user_email_list: index => email}
-  source                  = "./iam/users"
-  tenancy_ocid            = var.tenancy_ocid
-  break_glass_user_index  = each.key
-  break_glass_user_email  = each.value
-  tag_cost_center         = var.tag_cost_center
-  tag_geo_location        = var.tag_geo_location
-  depends_on              = [module.groups]
+  for_each               = { for index, email in var.break_glass_user_email_list : index => email }
+  source                 = "./iam/users"
+  tenancy_ocid           = var.tenancy_ocid
+  break_glass_user_index = each.key
+  break_glass_user_email = each.value
+  tag_cost_center        = var.tag_cost_center
+  tag_geo_location       = var.tag_geo_location
+  depends_on             = [module.groups]
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -89,5 +100,5 @@ module "membership" {
   providers = {
     oci = oci.home_region
   }
-  depends_on             = [module.groups]
+  depends_on = [module.groups]
 }
