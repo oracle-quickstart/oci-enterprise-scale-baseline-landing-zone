@@ -22,6 +22,8 @@ module "groups" {
   administrator_group_name           = var.administrator_group_name
   network_admin_group_name           = var.network_admin_group_name
   lb_users_group_name                = var.lb_users_group_name
+  workload_admins_group_name         = var.workload_admins_group_name
+  workload_users_group_name          = var.workload_users_group_name
   workload_storage_admins_group_name = var.workload_storage_admins_group_name
   workload_storage_users_group_name  = var.workload_storage_users_group_name
   security_admins_group_name         = var.security_admins_group_name
