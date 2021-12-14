@@ -28,6 +28,7 @@ variableGroups:
   - title: IAM
     variables:
       - break_glass_user_email_list
+      - show_extra_iam_vars
       - key_id
       - vault_id
   - title: VCN
@@ -53,33 +54,18 @@ variableGroups:
       - budget_alert_rule_message
   - title: Security
     variables:
-      - network_compartment_ocid
-      - network_strategy
-      - network_configuration_strategy
-      - cloud_guard_configuration_status
       - is_flow_log_enabled
+      - retention_rule_duration_time_amount
+      - is_cloud_guard_enabled
       - show_extra_security_vars
-  - title: Security Extra Variables
-    variables:
-      - configuration_detector_recipe_display_name
-      - activity_detector_recipe_display_name
-      - vulnerability_scanning_service_policy_name
-      - host_scan_recipe_agent_settings_agent_configuration_vendor
       - host_scan_recipe_agent_settings_scan_level
       - host_scan_recipe_port_settings_scan_level
       - agent_cis_benchmark_settings_scan_level
       - vss_scan_schedule
-      - host_scan_recipe_display_name
-      - host_scan_target_display_name
-      - host_scan_target_description
-    visible: show_extra_security_vars
   - title: Bastion
     variables:
       - bastion_client_cidr_block_allow_list
       - bastion_subnet_cidr_block
-      - bastion_type
-      - bastion_max_session_ttl_in_seconds
-      - retention_rule_duration_time_amount
   - title: DRG (Dynamic Routing Gateways)
     variables:
       - use_ipsec_drg
@@ -132,10 +118,10 @@ variables:
     description: GeoLocation tag value
     required: true
     title: Tag Geo Location
-  
+
   # Compartments
   show_extra_compartment_names:
-    type: boolean 
+    type: boolean
     default: false
     required: false
     title: Override default compartment names
@@ -181,22 +167,29 @@ variables:
     type: array
     items:
       type: string
-      pattern: ^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$ 
+      pattern: ^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$
     description:
       Unique list of break glass user email addresses that do not exist
       in the tenancy
     required: true
     title: Break Glass User Email List
+  show_extra_iam_vars:
+    type: boolean
+    description: Show security policy variables. If you already have a vault and encryption key provisioned.
+    required: false
+    title: Show Security Policy Variables
   key_id:
     type: string
     description: Encryption key OCID for security admin policy
-    required: true
+    required: false
     title: Key Id
+    visible: show_extra_iam_vars
   vault_id:
     type: string
     description: Vault OCID for security admin policy
-    required: true
+    required: false
     title: Vault Id
+    visible: show_extra_iam_vars
 
   # VCN
   vcn_cidr_block:
@@ -252,8 +245,7 @@ variables:
   egress_rules_map:
     type: text
     description: "[Workload Security List] Egress Rules Map"
-    default:
-      "{
+    default: "{
       \n\t\"default\" = {
       \n\t\tegress_security_rules_tcp_options_destination_port_range_max = 65535
       \n\t\tegress_security_rules_tcp_options_destination_port_range_min = 1
@@ -267,8 +259,7 @@ variables:
   ingress_rules_map:
     type: text
     description: "[Workload Security List] Ingress Rules Map"
-    default: 
-      "{
+    default: "{
       \n\t\"default\" = {
       \n\t\tingress_security_rules_tcp_options_destination_port_range_max = 65535
       \n\t\tingress_security_rules_tcp_options_destination_port_range_min = 1
@@ -331,83 +322,66 @@ variables:
     title: Budget Amount
 
   # Security
-  cloud_guard_configuration_status:
-    type: enum 
-    description: the status of the Cloud Guard tenant (ENABLED or DISABLED)
-    required: true
-    enum:
-      - ENABLED
-      - DISABLED
-    title: Cloud Guard Configuration Status
   is_flow_log_enabled:
-    type: bool 
+    type: boolean
     description: "Enable or Disable VCN Flow Logs"
     required: false
-    title: Is Flow Log Enabled
-  show_extra_security_vars:
+    title: Enable VCN Flow Logs?
+  retention_rule_duration_time_amount:
+    type: string
+    description: Number of days to retain Audit Logs
+    required: true
+    title: Audit Log Retention Rule Duration Time Amount
+  is_cloud_guard_enabled:
     type: boolean 
-    default: false
+    description: the status of the Cloud Guard tenant (ENABLED if true or DISABLED if false)
+    required: true
+    title: Enable Cloud Guard?
+  show_extra_security_vars:
+    type: boolean
+    description: Show advanced Cloud Guard variables
     required: false
-    title: Show Extra Security Variables
-
-  # Security (Hidden)
-  configuration_detector_recipe_display_name:
-    type: string
-    description: display name for configuration detector recipe
-    required: false
-    title: Configuration Detector Recipe Display Name
-  activity_detector_recipe_display_name:
-    type: string
-    description: display name for activity detector recipe
-    required: false
-    title: Activity Detector Recipe Display Name
+    title: Show Advanced Cloud Guard Variables
   agent_cis_benchmark_settings_scan_level:
-    type: string
+    type: enum
+    enum:
+      - "NONE"
+      - "LIGHT"
+      - "MEDIUM"
+      - "STRICT"
     description: Agent bechamrking settings scan level
     required: false
     title: Agent Cis Benchmark Settings Scan Level
-  host_scan_recipe_agent_settings_agent_configuration_vendor:
-    type: string
-    description: Vulnerability scanning service agent vendor
-    required: false
-    title: Host Scan Recipe Agent Settings Agent Configuration Vendor
+    visible: show_extra_security_vars
   host_scan_recipe_agent_settings_scan_level:
-    type: string
+    type: enum
+    enum:
+      - "NONE"
+      - "STANDARD"
     description: Vulnerability scanning service agent scan level
     required: false
     title: Host Scan Recipe Agent Settings Scan Level
-  host_scan_recipe_display_name:
-    type: string
-    description: Vulnerability scanning service display name
-    required: false
-    title: Host Scan Recipe Display Name
+    visible: show_extra_security_vars
   host_scan_recipe_port_settings_scan_level:
-    type: string
+    type: enum
+    enum:
+      - "NONE"
+      - "STANDARD"
     description: Vulnerability scanning service port scan level
     required: false
     title: Host Scan Recipe Port Settings Scan Level
-  host_scan_target_description:
-    type: string
-    description: Vulnerability scanning service target description
-    required: false
-    title: Host Scan Target Description
-  host_scan_target_display_name:
-    type: string
-    description: Vulnerability scanning service target display name
-    required: false
-    title: Host Scan Target Display Name
+    visible: show_extra_security_vars
   vss_scan_schedule:
-    type: string
+    type: enum
+    enum:
+      - "DAILY"
+      - "WEEKLY"
     description: Vulnerability scanning service scan schedule
     required: false
     title: Vss Scan Schedule
-  vulnerability_scanning_service_policy_name:
-    type: string
-    description: Name of Scanning Service Policy
-    required: false
-    title: Vulnerability Scanning Service Policy Name
+    visible: show_extra_security_vars
 
-    # Bastion
+  # Bastion
   bastion_client_cidr_block_allow_list:
     type: array
     items:
@@ -417,26 +391,11 @@ variables:
       to connect
     required: true
     title: Bastion Client CIDR Block Allow List
-  bastion_max_session_ttl_in_seconds:
-    type: number
-    description: The maximum amount of time that bastion session can remain active
-    required: false
-    title: Bastion Max Session TTL In Seconds
   bastion_subnet_cidr_block:
     type: string
     description: CIDR Block for bastion subnet
     required: true
     title: Bastion Subnet CIDR Block
-  bastion_type:
-    type: string
-    description: the type of bastion service
-    required: false
-    title: Bastion Type
-  retention_rule_duration_time_amount:
-    type: string
-    description: Amount of retention rule duration time in days
-    required: true
-    title: Retention Rule Duration Time Amount
 
   # DRG Values
   use_ipsec_drg:
