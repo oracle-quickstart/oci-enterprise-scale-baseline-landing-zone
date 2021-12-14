@@ -137,13 +137,12 @@ resource "oci_identity_policy" "workload_admins_policies" {
     "Allow group ${var.workload_admins_group_names[each.value].name} to manage instances in compartment ${each.value}",
     "Allow group ${var.workload_admins_group_names[each.value].name} to manage object-family in compartment ${each.value}",
     "Allow group ${var.workload_admins_group_names[each.value].name} to use volume-family in compartment ${each.value}",
-    "Allow group ${var.workload_admins_group_names[each.value].name} to use virtual-network-family in compartment ${each.value}",
     # Ability to do all things with instance configurations, instance pools, and cluster networks
     "Allow group ${var.workload_admins_group_names[each.value].name} to manage compute-management-family in compartment ${each.value}",
     "Allow group ${var.workload_admins_group_names[each.value].name} to read instance-family in compartment ${each.value}",
     "Allow group ${var.workload_admins_group_names[each.value].name} to inspect volumes in compartment ${each.value}",
     # If resources used by the instance pool contain default tags, add the following  to give the group permission to the tag namespace Oracle-Tags
-    # "Allow group ${var.workload_admins_group_names[each.value].name} to use tag-namespaces in compartment ${each.value} where target.tag-namespace.name = 'oracle-tags'",
+    "Allow group ${var.workload_admins_group_names[each.value].name} to use tag-namespaces in compartment ${each.value} where target.tag-namespace.name = 'oracle-tags'",
     "Allow service compute_management to use compute-capacity-reservations in compartment ${each.value}",
     # Ability to create, update, and delete autoscaling configurations
     "Allow group ${var.workload_admins_group_names[each.value].name} to manage auto-scaling-configuration in compartment ${each.value}",
@@ -156,6 +155,23 @@ resource "oci_identity_policy" "workload_admins_policies" {
   ]
 }
 
+resource "oci_identity_policy" "workload_admins_policies_network" {
+  for_each       = toset(var.workload_compartment_name_list)
+  compartment_id = var.network_compartment_id
+  description    = "OCI Landing Zone Workload User Policy"
+  name           = "OCI-LZ-${each.value}-WorkloadAdminPolicy-Network"
+
+  freeform_tags = {
+    "Description" = "Network Policy for Workload Specific Administrators",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+
+  }
+
+  statements = [
+    "Allow group ${var.workload_admins_group_names[each.value].name} to use virtual-network-family in compartment ${var.network_compartment_name}",
+  ]
+}
 # ---------------------------------------------------------------------------------------------------------------------
 # IAM Policies Workload Users
 # ---------------------------------------------------------------------------------------------------------------------
@@ -174,13 +190,29 @@ resource "oci_identity_policy" "workload_users_policies" {
   statements = [
     # Ability to do everything with instances launched into the cloud network and subnets 
     "Allow group ${var.workload_users_group_names[each.value].name} to manage instance in compartment ${each.value}",
-    "Allow group ${var.workload_users_group_names[each.value].name} to use virtual-network-family in compartment ${each.value}",
     # Ability to create instance console creation
     "Allow group ${var.workload_users_group_names[each.value].name} to manage instance-console-connection in compartment ${each.value}",
     # Ability to list and create subscriptions to images in partner image catalog.
     "Allow group ${var.workload_users_group_names[each.value].name} to manage app-catalog-listing in compartment ${each.value}",
     # Ability to launch instances on dedicated virtual machine hosts
     "Allow group ${var.workload_users_group_names[each.value].name} to use dedicated-vm-hosts in compartment ${each.value}",
+  ]
+}
+
+resource "oci_identity_policy" "workload_users_policies_network" {
+  for_each       = toset(var.workload_compartment_name_list)
+  compartment_id = var.network_compartment_id
+  description    = "OCI Landing Zone Workload User Policy"
+  name           = "OCI-LZ-${each.value}-WorkloadUserPolicy-Network"
+
+  freeform_tags = {
+    "Description" = "Network Policy for Workload Specific Users",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
+
+  statements = [
+    "Allow group ${var.workload_users_group_names[each.value].name} to use virtual-network-family in compartment ${var.network_compartment_name}",
   ]
 }
 
@@ -205,6 +237,7 @@ resource "oci_identity_policy" "security_admins_policy" {
     "Allow group ${var.security_admins_group_name} to use keys in tenancy",
     "Allow service blockstorage, objectstorage-${var.region}, FssOc1Prod, oke, streaming to use keys in tenancy",
     # Ability to do all things with secrets in a specific vault
+    "Allow group ${var.security_admins_group_name} to read vaults in tenancy where target.vault.id='${var.vault_id}'",
     "Allow group ${var.security_admins_group_name} to manage secret-family in tenancy where target.vault.id='${var.vault_id}'",
     # Ability to manage all resources in the Bastion service in all compartments
     "Allow group ${var.security_admins_group_name} to manage bastion in tenancy",
