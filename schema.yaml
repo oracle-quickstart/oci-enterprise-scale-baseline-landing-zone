@@ -210,67 +210,67 @@ variables:
   administrator_group_name:
     type: string
     description: The name for the administrator group
-    required: false
+    required: true 
     title: Administrator Group Name
     visible: show_extra_group_names
   workload_admins_group_name:
     type: string
     description: The name for the workload administrators group
-    required: false
+    required: true 
     title: Workload Admins Group Name
     visible: show_extra_group_names
   cloud_guard_analysts_group_name:
     type: string
     description: The name of the Cloud Guard Analyst group
-    required: false
+    required: true 
     title: Cloud Guard Analyst Group Name
     visible: show_extra_group_names
   cloud_guard_architects_group_name:
     type: string
     description: The name for the Cloud Guard Architect group name
-    required: false
+    required: true 
     title: Cloud Guard Architects Group Name
     visible: show_extra_group_names
   cloud_guard_operators_group_name:
     type: string
     description: The name for the Cloud Guard Operator group name
-    required: false
+    required: true 
     title: Cloud Guard Operators Group Name
     visible: show_extra_group_names
   lb_users_group_name:
     type: string
     description: The name for the load balancer users group name
-    required: false
+    required: true 
     title: Load Balancer User Group Name
     visible: show_extra_group_names
   network_admin_group_name:
     type: string
     description: The name for the network administrator group name
-    required: false
+    required: true 
     title: Network Admins Group Name
     visible: show_extra_group_names
   security_admins_group_name:
     type: string
     description: The name of the security admin group
-    required: false
+    required: true 
     title: Security Admins Group Name
     visible: show_extra_group_names
   workload_storage_admins_group_name:
     type: string
     description: The name for the workload storage administrators group
-    required: false
+    required: true 
     title: Workload Storage Admins Group Name
     visible: show_extra_group_names
   workload_storage_users_group_name:
     type: string
     description: The name for the workload storage users group
-    required: false
+    required: true 
     title: Workload Storage Users Group Name
     visible: show_extra_group_names
   workload_users_group_name:
     type: string
     description: The name for the workload users group
-    required: false
+    required: true 
     title: Workload Users Group Name
     visible: show_extra_group_names
 
