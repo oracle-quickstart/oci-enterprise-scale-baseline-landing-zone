@@ -109,13 +109,13 @@ variable "use_fastconnect_drg" {
 
 variable "virtual_circuit_bandwidth_shape" {
   type        = string
-  description = "Virtual Circuit bandwidth shape name"
+  description = "The provisioned data rate of the connection"
   default     = ""
 }
 
 variable "provider_service_key_name" {
   type        = string
-  description = "Virtual Circuit provider service key"
+  description = "The provider service key that the provider gives you when you set up a virtual circuit connection from the provider to OCI."
   default     = ""
 }
 
