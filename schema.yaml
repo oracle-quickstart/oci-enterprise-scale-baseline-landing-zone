@@ -31,6 +31,16 @@ variableGroups:
       - show_extra_iam_vars
       - key_id
       - vault_id
+      - show_extra_group_names
+      - administrator_group_name           
+      - network_admin_group_name           
+      - lb_users_group_name                
+      - workload_storage_admins_group_name
+      - workload_storage_users_group_name
+      - security_admins_group_name      
+      - cloud_guard_operators_group_name   
+      - cloud_guard_analysts_group_name   
+      - cloud_guard_architects_group_name 
   - title: VCN
     variables:
       - vcn_cidr_block
