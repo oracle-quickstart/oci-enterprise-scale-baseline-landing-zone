@@ -141,25 +141,25 @@ variables:
     type: string
     visible: show_extra_compartment_names
     description: Name of the top level network compartment
-    required: false
+    required: true 
     title: Network Compartment Name
   security_compartment_name:
     type: string
     visible: show_extra_compartment_names
     description: Name of the top level security compartment
-    required: false
+    required: true 
     title: Security Compartment Name
   common_infra_compartment_name:
     type: string
     visible: show_extra_compartment_names
     description: Name of the top level common infrastructure compartment
-    required: false
+    required: true 
     title: Common Infra Compartment Name
   applications_compartment_name:
     type: string
     visible: show_extra_compartment_names
     description: Name of the top level application compartment
-    required: false
+    required: true 
     title: Applications Compartment Name
 
   # IAM
@@ -484,13 +484,11 @@ variables:
     title: Virtual Circuit Customer ASN
   fastconnect_routing_policy:
     type: array
+    description: Available FastConnect routing policies:\ ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL
     visible: use_fastconnect_drg
     items:
-      type: enum
-    enum:
-      - ORACLE_SERVICE_NETWORK
-      - REGIONAL
-      - MARKET_LEVEL
-      - GLOBAL
+      type: string 
+      pattern: \b(?:ORACLE_SERVICE_NETWORK|REGIONAL|MARKET_LEVEL|GLOBAL)\b
     required: true
+    uniqueItems: true
     title: FastConnect Routing Policy
