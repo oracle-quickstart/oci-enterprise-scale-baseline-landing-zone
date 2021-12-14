@@ -115,7 +115,7 @@ variable "virtual_circuit_bandwidth_shape" {
 
 variable "provider_service_key_name" {
   type        = string
-  description = "The provider service key that the provider gives you when you set up a virtual circuit connection from the provider to OCI."
+  description = "The provider service key that the provider gives you when you set up a virtual circuit connection from the provider to OCI"
   default     = ""
 }
 
