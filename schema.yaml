@@ -346,7 +346,7 @@ variables:
     type: enum
     enum:
       - "NONE"
-      - "LIGHT"
+      - "LIGHTWEIGHT"
       - "MEDIUM"
       - "STRICT"
     description: Agent bechamrking settings scan level
@@ -366,6 +366,7 @@ variables:
     type: enum
     enum:
       - "NONE"
+      - "LIGHT"
       - "STANDARD"
     description: Vulnerability scanning service port scan level
     required: false
