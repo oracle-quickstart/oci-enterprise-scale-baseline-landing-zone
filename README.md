@@ -31,7 +31,7 @@ category a particular variable belongs to. Not all the variables in this file ar
    ![Example](examples/ResourceManagerStackInfo.png )
 5. For the next step just enter the variables or override the default values for the existing variables. The example 
    [tfvars file](examples/terraform.tfvars.example) can be used for reference.
-   ![Example2](examples/ResourceManagerVariableInfo1.png)
+   ![Example2](examples/ResourceManagerVariableInfo.png)
    
 6. Finally, create the stack and apply to run it.
 
