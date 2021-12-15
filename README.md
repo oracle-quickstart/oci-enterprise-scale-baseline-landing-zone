@@ -13,9 +13,11 @@ An example [tfvars file](examples/terraform.tfvars.example) is included for refe
 category a particular variable belongs to. Not all the variables in this file are required.
 
 ## Deploy Using Oracle Resource Manager
-1. [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](PLACEHOLDER)
+1. Click to deploy the stack
+   
+   [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](PLACEHOLDER)
 
-If you aren't already signed in, when prompted, enter the tenancy and user credentials. Review and accept the terms and conditions.
+    If you aren't already signed in, when prompted, enter the tenancy and user credentials. Review and accept the terms and conditions.
 
 3. Select the region where you want to deploy the stack.
 
