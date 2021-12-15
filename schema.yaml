@@ -392,7 +392,6 @@ variables:
     description:
       "(Required if using budget alerts): The target spending threshold
       for the budget"
-    default: null
     required: true
     title: Budget Alert Rule Threshold
   budget_amount:
