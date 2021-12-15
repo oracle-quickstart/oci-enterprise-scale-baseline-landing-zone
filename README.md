@@ -28,10 +28,10 @@ category a particular variable belongs to. Not all the variables in this file ar
 2. Select the region to want to deploy the baseline landing zone to before you create the stack.
 3. From the OCI console, Navigate to > Resource Manager > Stacks and then create a stack.
 4. In the Create Stack wizard, upload the zip file from step 1.
-   ![Example](examples/ResourceManagerStackInfo.png)
+   ![Example](examples/ResourceManagerStackInfo.png )
 5. For the next step just enter the variables or override the default values for the existing variables. The example 
    [tfvars file](examples/terraform.tfvars.example) can be used for reference.
-   ![Example2](examples/ResourceManagerVariableInfo.png)
+   ![Example2](examples/ResourceManagerVariableInfo1.png)
    
 6. Finally, create the stack and apply to run it.
 
