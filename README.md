@@ -12,6 +12,9 @@ PENDING:
 
 Describe inputs and how to launch if using Resource Manager
 
+An example [tfvars file](/examples/terraform.tfvars.example) is included for reference. 
+Note: This is the preferred way to run the stack from the CLI, because of the large number of variables to manage.
+
 Describe inputs/tfvars and how to launch if using Terraform CLI
 
 ### Terraform Variables

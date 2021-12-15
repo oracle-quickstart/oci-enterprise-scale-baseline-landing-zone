@@ -1,4 +1,3 @@
-
 # PROVIDER
 region               = "us-phoenix-1"
 tenancy_ocid         = "ocid1.tenancy.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
