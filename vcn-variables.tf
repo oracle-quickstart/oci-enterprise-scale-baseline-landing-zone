@@ -71,7 +71,7 @@ variable "shared_service_subnet_dns_label" {
   description = "Shared Service Subnet DNS Label"
   validation {
     condition     = can(regex("^[a-zA-Z][a-zA-Z0-9]{1,14}$", var.shared_service_subnet_dns_label))
-    error_message = "Error. Allowed maximum 14 alphanumeric characters and must start with a letter."
+    error_message = "Error. Allowed maximum 15 alphanumeric characters and must start with a letter."
   }
 }
 
