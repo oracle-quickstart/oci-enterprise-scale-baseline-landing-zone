@@ -12,44 +12,50 @@ Detailed project prerequisites are included in the following [Architecture Docum
 An example [tfvars file](examples/terraform.tfvars.example) is included for reference. This file is arranged according to 
 category a particular variable belongs to. Not all the variables in this file are required.
 
-### Steps to run in Resource Manager:
+## Deploy Using Oracle Resource Manager
+Click below to launch the stack:
 
-1. Download the zip of the source code from the [release](PLACEHOLDER) or clone the repository
-   ```
-   git clone ADD_URL_HERE
-   ```
-   Use the following command to zip the source code 
-   
-    ```
-    zip -r oci-rsa-baseline-landing-zone.zip oci-rsa-baseline-landing-zone/ -x "*.git/*" "*.terraform*"
-    ```
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](PLACEHOLDER)
 
+1. If you aren't already signed in, when prompted, enter the tenancy and user credentials. Review and accept the terms and conditions.
 
-2. Select the region to want to deploy the baseline landing zone to before you create the stack.
-3. From the OCI console, Navigate to > Resource Manager > Stacks and then create a stack.
-4. In the Create Stack wizard, upload the zip file from step 1.
-   ![Example](examples/ResourceManagerStackInfo.png )
-5. For the next step just enter the variables or override the default values for the existing variables. The example 
-   [tfvars file](examples/terraform.tfvars.example) can be used for reference.
-   ![Example2](examples/ResourceManagerVariableInfo.png)
-   
-6. Finally, create the stack and apply to run it.
+3. Select the region where you want to deploy the stack.
+
+4. Follow the on-screen prompts and instructions to create the stack.
+
+5. After creating the stack, click Terraform Actions, and select Plan.
+
+6. Wait for the job to be completed, and review the plan.
+
+7. To make any changes, return to the Stack Details page, click Edit Stack, and make the required changes. Then, run the Plan action again.
+
+8. If no further changes are necessary, return to the Stack Details page, click Terraform Actions, and select Apply.
 
 
-### Steps to run the stack from CLI:
-Note: An example [tfvars file](examples/terraform.tfvars.example) is included for reference. Using this file is the 
-preferred way to run the stack from the CLI, because of the large number of variables to manage.
-
-To use this file just copy the example [tfvars file](examples/terraform.tfvars.example) and save it in the outermost directory.
-Next, rename the file to **terraform.tfvars**. You can ovverride the example values set in this file.
-
-#### Running Terraform
-After specifying the required variables you can run the stack using
+## Deploy Using the Terraform CLI
+###Clone the Module
+Clone the source code from suing the following command:
+```
+git clone ADD_URL_HERE
+cd repository_name
+```
+### Running Terraform
+After specifying the required variables you can run the stack using the following command:
 ```
 terraform init
 terraform plan
 terraform apply
 ```
+
+## Prerequisites
+Create a terraform.tfvars file and populate with the required variables or override existing variables.
+
+Note: An example [tfvars file](examples/terraform.tfvars.example) is included for reference. Using this file is the 
+preferred way to run the stack from the CLI, because of the large number of variables to manage.
+
+To use this file just copy the example [tfvars file](examples/terraform.tfvars.example) and save it in the outermost directory.
+Next, rename the file to **terraform.tfvars**. You can override the example values set in this file.
+
 
 ### Terraform Variables
 A complete listing of the Terraform variables used in this stack are referenced [here](VARIABLES.md). This document is automatically generated 
