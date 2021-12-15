@@ -34,7 +34,8 @@ category a particular variable belongs to. Not all the variables in this file ar
 
 
 ## Deploy Using the Terraform CLI
-###Clone the Module
+
+### Clone the Module
 Clone the source code from suing the following command:
 ```
 git clone ADD_URL_HERE
