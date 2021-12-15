@@ -16,20 +16,21 @@ category a particular variable belongs to. Not all the variables in this file ar
 1. Click to deploy the stack
    
    [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](PLACEHOLDER)
-
+   
     If you aren't already signed in, when prompted, enter the tenancy and user credentials. Review and accept the terms and conditions.
 
-3. Select the region where you want to deploy the stack.
 
-4. Follow the on-screen prompts and instructions to create the stack.
+2. Select the region where you want to deploy the stack.
 
-5. After creating the stack, click Terraform Actions, and select Plan.
+3. Follow the on-screen prompts and instructions to create the stack.
 
-6. Wait for the job to be completed, and review the plan.
+4. After creating the stack, click Terraform Actions, and select Plan.
 
-7. To make any changes, return to the Stack Details page, click Edit Stack, and make the required changes. Then, run the Plan action again.
+5. Wait for the job to be completed, and review the plan.
 
-8. If no further changes are necessary, return to the Stack Details page, click Terraform Actions, and select Apply.
+6. To make any changes, return to the Stack Details page, click Edit Stack, and make the required changes. Then, run the Plan action again.
+
+7. If no further changes are necessary, return to the Stack Details page, click Terraform Actions, and select Apply.
 
 
 ## Deploy Using the Terraform CLI
