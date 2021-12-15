@@ -151,7 +151,7 @@ variable "fastconnect_provider" {
 
 variable "virtual_circuit_customer_asn" {
   type        = number
-  description = "FastConnect customer BGP ASN"
+  description = "The BGP ASN of the network at the other end of the BGP session from Oracle"
   default     = 0
 }
 

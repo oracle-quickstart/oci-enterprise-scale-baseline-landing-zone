@@ -456,7 +456,7 @@ variables:
     title: Virtual Circuit Cross Connect Mappings - Oracle Secondary BGP Peering IP
   fastconnect_provider:
     type: enum
-    description: Available FastConnect providers - AT&T, Microsoft Azure, Megaport, QTS, CEintro, Cologix, CoreSite, Digitial Realty, EdgeConneX, Epsilon, Equinix, InterCloud, Lumen, Neutrona, OMCS, OracleL2ItegDeployment, OracleL3ItegDeployment, Orange, Verizon, Zayo
+    description: "Available FastConnect providers: AT&T, Microsoft Azure, Megaport, QTS, CEintro, Cologix, CoreSite, Digitial Realty, EdgeConneX, Epsilon, Equinix, InterCloud, Lumen, Neutrona, OMCS, OracleL2ItegDeployment, OracleL3ItegDeployment, Orange, Verizon, Zayo"
     enum:
       - AT&T
       - Microsoft Azure
@@ -483,13 +483,13 @@ variables:
     title: FastConnect Provider
   virtual_circuit_customer_asn:
     type: number
-    description: FastConnect customer BGP ASN
+    description: The BGP ASN of the network at the other end of the BGP session from Oracle
     visible: use_fastconnect_drg
     required: true
     title: Virtual Circuit Customer ASN
   fastconnect_routing_policy:
     type: array
-    description: Available FastConnect routing policies - ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL
+    description: "Available FastConnect routing policies: ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL"
     visible: use_fastconnect_drg
     items:
       type: string 
