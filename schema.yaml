@@ -179,7 +179,7 @@ variables:
     title: Show Security Policy Variables
   key_id:
     type: string
-    description: Encryption key OCID for security admin policy
+    description: Master encryption key OCID for security admin policy
     required: false
     title: Key Id
     visible: show_extra_iam_vars
