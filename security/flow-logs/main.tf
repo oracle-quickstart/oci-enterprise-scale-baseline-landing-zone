@@ -18,7 +18,7 @@ resource "oci_logging_log_group" "central_log_group" {
 
 resource "oci_log_analytics_log_analytics_log_group" "log_analytics_log_group" {
   compartment_id = var.security_compartment_ocid
-  display_name   = var.log_analytics_log_group_display_name
+  display_name   = "${var.log_analytics_log_group_display_name}_${random_id.policy_name.hex}"
   namespace      = data.oci_log_analytics_namespaces.logging_analytics_namespaces.namespace_collection[0].items[0].namespace
 
   freeform_tags = {

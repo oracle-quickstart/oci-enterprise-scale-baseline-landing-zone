@@ -118,7 +118,7 @@ variable "cpe_ip_address" {
 variable "ip_sec_connection_static_routes" {
   type        = list(string)
   description = "IPSec connection static routes"
-  default     = [""]
+  default     = []
 }
 
 variable "use_fastconnect_drg" {
@@ -129,13 +129,13 @@ variable "use_fastconnect_drg" {
 
 variable "virtual_circuit_bandwidth_shape" {
   type        = string
-  description = "Virtual Circuit bandwidth shape name"
+  description = "The provisioned data rate of the connection"
   default     = ""
 }
 
 variable "provider_service_key_name" {
   type        = string
-  description = "Virtual Circuit provider service key"
+  description = "The provider service key that the provider gives you when you set up a virtual circuit connection from the provider to OCI"
   default     = ""
 }
 
@@ -171,12 +171,12 @@ variable "fastconnect_provider" {
 
 variable "virtual_circuit_customer_asn" {
   type        = number
-  description = "FastConnect customer BGP ASN"
+  description = "The BGP ASN of the network at the other end of the BGP session from Oracle"
   default     = 0
 }
 
 variable "fastconnect_routing_policy" {
   type        = list(string)
   description = "Availible FastConnect routing policies: ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL"
-  default     = [""]
+  default     = []
 }
