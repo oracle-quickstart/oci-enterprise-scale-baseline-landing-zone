@@ -419,8 +419,8 @@ variables:
     required: true
     title: Use FastConnect?
   virtual_circuit_bandwidth_shape:
-    type: string
-    description: The provisioned data rate of the connection. Choose betwwen 1 or 10 for FastConnect partner. Or choose between 1, 10 or 100 for FastConnect Direct.
+    type: enum
+    description: The provisioned data rate of the connection. Choose between 1 or 10 for FastConnect partner. Or choose between 1, 10 or 100 for FastConnect Direct.
     enum:
       - 1
       - 10
