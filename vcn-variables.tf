@@ -8,8 +8,12 @@ variable "vcn_cidr_block" {
 }
 
 variable "vcn_dns_label" {
-  type        = string
-  description = "VCN DNS Label"
+  type            = string
+  description     = "VCN DNS Label"
+  validation {
+    condition     = can(regex("^[a-zA-Z][a-zA-Z0-9]{1,14}$", var.vcn_dns_label))
+    error_message = "Error. Allowed maximum 15 alphanumeric characters and must start with a letter."
+  }
 }
 
 # -----------------------------------------------------------------------------
@@ -23,6 +27,10 @@ variable "public_subnet_cidr_block" {
 variable "public_subnet_dns_label" {
   type        = string
   description = "Public Subnet DNS Label"
+  validation {
+    condition     = can(regex("^[a-zA-Z][a-zA-Z0-9]{1,14}$", var.public_subnet_dns_label))
+    error_message = "Error. Allowed maximum 15 alphanumeric characters and must start with a letter."
+  }
 }
 
 variable "private_subnet_cidr_blocks" {
@@ -33,6 +41,10 @@ variable "private_subnet_cidr_blocks" {
 variable "private_subnet_dns_labels" {
   type        = list(string)
   description = "List of Private Subnet DNS Label (one per workload)"
+  validation {
+    condition     = alltrue([for i in var.private_subnet_dns_labels : can(regex("^[a-zA-Z][a-zA-Z0-9]{1,14}$", i))])
+    error_message = "Error. Allowed maximum 15 alphanumeric characters and must start with a letter."
+  }
 }
 
 variable "database_subnet_cidr_blocks" {
@@ -43,6 +55,10 @@ variable "database_subnet_cidr_blocks" {
 variable "database_subnet_dns_labels" {
   type        = list(string)
   description = "List of Database Subnet DNS Label (one per workload)"
+  validation {
+    condition     = alltrue([for i in var.database_subnet_dns_labels : can(regex("^[a-zA-Z][a-zA-Z0-9]{1,14}$", i))])
+    error_message = "Error. Allowed maximum 15 alphanumeric characters and must start with a letter."
+  }
 }
 
 variable "shared_service_subnet_cidr_block" {
@@ -53,6 +69,10 @@ variable "shared_service_subnet_cidr_block" {
 variable "shared_service_subnet_dns_label" {
   type        = string
   description = "Shared Service Subnet DNS Label"
+  validation {
+    condition     = can(regex("^[a-zA-Z][a-zA-Z0-9]{1,14}$", var.shared_service_subnet_dns_label))
+    error_message = "Error. Allowed maximum 15 alphanumeric characters and must start with a letter."
+  }
 }
 
 # -----------------------------------------------------------------------------
