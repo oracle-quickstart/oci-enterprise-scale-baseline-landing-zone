@@ -69,7 +69,6 @@ variableGroups:
       - is_flow_log_enabled
       - retention_rule_duration_time_amount
       - is_cloud_guard_enabled
-      - show_extra_security_vars
       - host_scan_recipe_agent_settings_scan_level
       - host_scan_recipe_port_settings_scan_level
       - agent_cis_benchmark_settings_scan_level
@@ -153,25 +152,25 @@ variables:
     type: string
     visible: show_extra_compartment_names
     description: Name of the top level network compartment
-    required: false
+    required: true 
     title: Network Compartment Name
   security_compartment_name:
     type: string
     visible: show_extra_compartment_names
     description: Name of the top level security compartment
-    required: false
+    required: true 
     title: Security Compartment Name
   common_infra_compartment_name:
     type: string
     visible: show_extra_compartment_names
     description: Name of the top level common infrastructure compartment
-    required: false
+    required: true 
     title: Common Infra Compartment Name
   applications_compartment_name:
     type: string
     visible: show_extra_compartment_names
     description: Name of the top level application compartment
-    required: false
+    required: true 
     title: Applications Compartment Name
 
   # IAM
@@ -192,7 +191,7 @@ variables:
     title: Show Security Policy Variables
   key_id:
     type: string
-    description: Encryption key OCID for security admin policy
+    description: Master encryption key OCID for security admin policy
     required: false
     title: Key Id
     visible: show_extra_iam_vars
@@ -394,6 +393,7 @@ variables:
       "(Required if using budget alerts): The target spending threshold
       for the budget"
     default: null
+    required: true
     title: Budget Alert Rule Threshold
   budget_amount:
     type: string
@@ -420,49 +420,45 @@ variables:
     description: the status of the Cloud Guard tenant (ENABLED if true or DISABLED if false)
     required: true
     title: Enable Cloud Guard?
-  show_extra_security_vars:
-    type: boolean
-    description: Show advanced Cloud Guard variables
-    required: false
-    title: Show Advanced Cloud Guard Variables
   agent_cis_benchmark_settings_scan_level:
     type: enum
     enum:
       - "NONE"
-      - "LIGHT"
+      - "LIGHTWEIGHT"
       - "MEDIUM"
       - "STRICT"
     description: Agent bechamrking settings scan level
-    required: false
+    required: true
     title: Agent Cis Benchmark Settings Scan Level
-    visible: show_extra_security_vars
+    visible: is_cloud_guard_enabled
   host_scan_recipe_agent_settings_scan_level:
     type: enum
     enum:
       - "NONE"
       - "STANDARD"
     description: Vulnerability scanning service agent scan level
-    required: false
+    required: true
     title: Host Scan Recipe Agent Settings Scan Level
-    visible: show_extra_security_vars
+    visible: is_cloud_guard_enabled
   host_scan_recipe_port_settings_scan_level:
     type: enum
     enum:
       - "NONE"
+      - "LIGHT"
       - "STANDARD"
     description: Vulnerability scanning service port scan level
-    required: false
+    required: true
     title: Host Scan Recipe Port Settings Scan Level
-    visible: show_extra_security_vars
+    visible: is_cloud_guard_enabled
   vss_scan_schedule:
     type: enum
     enum:
       - "DAILY"
       - "WEEKLY"
     description: Vulnerability scanning service scan schedule
-    required: false
+    required: true
     title: Vss Scan Schedule
-    visible: show_extra_security_vars
+    visible: is_cloud_guard_enabled
 
   # Bastion
   bastion_client_cidr_block_allow_list:
@@ -488,12 +484,14 @@ variables:
     title: Use IPsec DRG?
   cpe_ip_address:
     type: string
+    description: Customer Premises Equipment IP address
     visible: use_ipsec_drg
     required: true
     title: CPE IP Address
   ip_sec_connection_static_routes:
     visible: use_ipsec_drg
     type: array
+    description: IPSec connection static routes
     items:
       type: string
     required: true
@@ -504,49 +502,85 @@ variables:
     required: true
     title: Use FastConnect?
   virtual_circuit_bandwidth_shape:
-    type: string
+    type: enum
+    description: The provisioned data rate of the connection. Choose between 1 or 10 for FastConnect partner. Or choose between 1, 10 or 100 for FastConnect Direct.
+    enum:
+      - 1
+      - 10
+      - 100
     visible: use_fastconnect_drg
     required: true
     title: Virtual Circuit Bandwidth Shape
   provider_service_key_name:
     type: string
+    description: The provider service key that the provider gives you when you set up a virtual circuit connection from the provider to OCI
     visible: use_fastconnect_drg
     required: true
     title: Provider Service Key Name
   virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip:
     type: string
+    description: This is the BGP IPv4 address of the customer's router
     visible: use_fastconnect_drg
     required: true
     title: Virtual Circuit Cross Connect Mappings - Customer BGP peering IP
   virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip:
     type: string
+    description: IPv4 address for Oracle's end of the BGP session
     visible: use_fastconnect_drg
     required: true
     title: Virtual Circuit Cross Connect Mappings - Oracle BPG Peering IP
   virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip:
     type: string
+    description: This is the secondary BGP IPv4 address of the customer's router
     visible: use_fastconnect_drg
     required: true
     title: Virtual Circuit Cross Connect Mappings - Customer Secondary BGP Peering IP
   virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip:
     type: string
+    description: Secondary IPv4 address for Oracle's end of the BGP session
     visible: use_fastconnect_drg
     required: true
     title: Virtual Circuit Cross Connect Mappings - Oracle Secondary BGP Peering IP
   fastconnect_provider:
-    type: string
+    type: enum
+    description: "Available FastConnect providers: AT&T, Microsoft Azure, Megaport, QTS, CEintro, Cologix, CoreSite, Digitial Realty, EdgeConneX, Epsilon, Equinix, InterCloud, Lumen, Neutrona, OMCS, OracleL2ItegDeployment, OracleL3ItegDeployment, Orange, Verizon, Zayo"
+    enum:
+      - AT&T
+      - Microsoft Azure
+      - Megaport
+      - QTS
+      - CEintro
+      - Cologix
+      - CoreSite
+      - Digitial Realty
+      - EdgeConneX
+      - Epsilon
+      - Equinix
+      - InterCloud
+      - Lumen
+      - Neutrona
+      - OMCS
+      - OracleL2ItegDeployment
+      - OracleL3ItegDeployment
+      - Orange
+      - Verizon
+      - Zayo 
     visible: use_fastconnect_drg
     required: true
     title: FastConnect Provider
   virtual_circuit_customer_asn:
     type: number
+    description: The BGP ASN of the network at the other end of the BGP session from Oracle
     visible: use_fastconnect_drg
     required: true
     title: Virtual Circuit Customer ASN
   fastconnect_routing_policy:
     type: array
+    description: "Available FastConnect routing policies: ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL"
     visible: use_fastconnect_drg
     items:
-      type: string
+      type: string 
+      pattern: \b(?:ORACLE_SERVICE_NETWORK|REGIONAL|MARKET_LEVEL|GLOBAL)\b
     required: true
+    uniqueItems: true
     title: FastConnect Routing Policy

@@ -22,8 +22,8 @@ resource "oci_core_ipsec" "ipsec_connection" {
   cpe_id         = oci_core_cpe.ipsec_vpn_cpe.id
   drg_id         = var.drg_id
   display_name   = "OCI-LZ-IPSEC-TUNNEL"
-  static_routes  = var.ip_sec_connection_static_routes
-  freeform_tags  = {
+  static_routes  = length(var.ip_sec_connection_static_routes) == 0 ? [""] : var.ip_sec_connection_static_routes
+  freeform_tags = {
     "Description" = "IPSec tunnel connection"
     "CostCenter"  = var.tag_cost_center,
     "GeoLocation" = var.tag_geo_location
