@@ -94,6 +94,6 @@ virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip           = "10.0
 virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip             = "10.0.0.21/30"
 virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip = "10.0.0.26/30"
 virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip   = "10.0.0.25/30"
-fastconnect_provider                                                     = "Megaport"
+fastconnect_provider                                                     = "Microsoft Azure"
 virtual_circuit_customer_asn                                             = "12345"
 fastconnect_routing_policy                                               = ["GLOBAL"]
