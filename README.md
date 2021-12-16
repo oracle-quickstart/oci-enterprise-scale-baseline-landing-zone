@@ -35,6 +35,15 @@ category a particular variable belongs to. Not all the variables in this file ar
 
 ## Deploy Using the Terraform CLI
 
+### Prerequisites
+Create a terraform.tfvars file and populate with the required variables or override existing variables.
+
+Note: An example [tfvars file](examples/terraform.tfvars.example) is included for reference. Using this file is the 
+preferred way to run the stack from the CLI, because of the large number of variables to manage.
+
+To use this file just copy the example [tfvars file](examples/terraform.tfvars.example) and save it in the outermost directory.
+Next, rename the file to **terraform.tfvars**. You can override the example values set in this file.
+
 ### Clone the Module
 
 Clone the source code from suing the following command:
@@ -50,16 +59,6 @@ terraform init
 terraform plan
 terraform apply
 ```
-
-## Prerequisites
-Create a terraform.tfvars file and populate with the required variables or override existing variables.
-
-Note: An example [tfvars file](examples/terraform.tfvars.example) is included for reference. Using this file is the 
-preferred way to run the stack from the CLI, because of the large number of variables to manage.
-
-To use this file just copy the example [tfvars file](examples/terraform.tfvars.example) and save it in the outermost directory.
-Next, rename the file to **terraform.tfvars**. You can override the example values set in this file.
-
 
 ### Terraform Variables
 A complete listing of the Terraform variables used in this stack are referenced [here](VARIABLES.md). This document is automatically generated 
