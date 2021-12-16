@@ -7,6 +7,7 @@ locals {
 # Create FastConnect virtual circuit for Azure ExpressRoute
 # -----------------------------------------------------------------------------
 resource "oci_core_virtual_circuit" "azure_fastconnect_virtual_circuit" {
+  count                     = var.use_fastconnect_drg == true && var.fastconnect_provider == "Microsoft Azure" ? 1 : 0
   compartment_id            = var.compartment_ocid
   gateway_id                = var.drg_id
   bandwidth_shape_name      = var.virtual_circuit_bandwidth_shape
@@ -35,6 +36,7 @@ resource "oci_core_virtual_circuit" "azure_fastconnect_virtual_circuit" {
 # Create FastConnect virtual circuit for Megaport/QTS/C3ntro/Cologix/CoreSite/Digital Realty/EdgeConneX/Epsilon/Equinix/InterCloud/Lumen/Neutrona/OracleL2ItegDeployment/Zayo
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 resource "oci_core_virtual_circuit" "fastconnect_asn_virtual_circuit" {
+  count                     = var.use_fastconnect_drg == true && contains(local.fastconnect_asn_provider_list, var.fastconnect_provider) ? 1 : 0
   compartment_id            = var.compartment_ocid
   customer_asn              = var.virtual_circuit_customer_asn
   gateway_id                = var.drg_id
@@ -59,6 +61,7 @@ resource "oci_core_virtual_circuit" "fastconnect_asn_virtual_circuit" {
 # Create FastConnect virtual circuit for AT&T/Verizon/BT/OMCS/OracleL3ItegDeployment/Orange
 # -----------------------------------------------------------------------------------------
 resource "oci_core_virtual_circuit" "fastconnect_no_asn_virtual_circuit" {
+  count                     = var.use_fastconnect_drg == true && contains(local.fastconnect_no_asn_provider_list, var.fastconnect_provider) ? 1 : 0
   compartment_id            = var.compartment_ocid
   gateway_id                = var.drg_id
   bandwidth_shape_name      = var.virtual_circuit_bandwidth_shape

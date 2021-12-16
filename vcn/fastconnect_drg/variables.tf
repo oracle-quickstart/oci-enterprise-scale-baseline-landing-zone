@@ -82,3 +82,8 @@ variable "tag_geo_location" {
   type        = string
   description = "Geo location for OCI resources"
 }
+
+variable "use_fastconnect_drg" {
+  type        = bool
+  description = "Do you want to deploy the fastconnect connectivity option? (true/false)"
+}

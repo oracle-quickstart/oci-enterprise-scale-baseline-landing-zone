@@ -39,6 +39,7 @@ module "fastconnect_drg" {
   region_key                                                               = local.region_key[0]
   source                                                                   = "./vcn/fastconnect_drg"
   count                                                                    = var.use_fastconnect_drg ? 1 : 0
+  use_fastconnect_drg                                                      = var.use_fastconnect_drg
   drg_id                                                                   = module.vcn_core.drg_id
   virtual_circuit_bandwidth_shape                                          = format("%s %s", var.virtual_circuit_bandwidth_shape, "Gbps")
   virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip           = var.virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip
