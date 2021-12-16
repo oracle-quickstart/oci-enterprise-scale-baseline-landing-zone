@@ -1,0 +1,99 @@
+# PROVIDER
+region               = "us-phoenix-1"
+tenancy_ocid         = "ocid1.tenancy.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+current_user_ocid    = "ocid1.user.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+api_fingerprint      = "a1:b2:c3:4d:5e:6f:7g:8h:99:10:aa:bb:11:12:13:cc"
+api_private_key_path = "~/path_to_example_api_key.pem"
+
+# COMPARTMENT
+parent_compartment_name       = "landing_zone_parent"
+workload_compartment_names    = ["Workload-A", "Workload-B"]
+applications_compartment_name = "applications"
+common_infra_compartment_name = "common-infra"
+security_compartment_name     = "security"
+network_compartment_name      = "network"
+
+# TAGGING
+tag_cost_center  = "example_tag_cost_center"
+tag_geo_location = "example_tag_geo_location"
+
+# IAM
+break_glass_user_email_list        = ["example@test.com", "example2@test.com"]
+vault_id                           = "ocid1.tenancy.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+key_id                             = "ocid1.tenancy.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+administrator_group_name           = "Administrators"
+cloud_guard_analysts_group_name    = "CloudGuard-Analyst"
+cloud_guard_architects_group_name  = "CloudGuard-Architect"
+cloud_guard_operators_group_name   = "CloudGuard-Operator"
+workload_admins_group_name         = "Workload-Admins"
+workload_storage_admins_group_name = "Workload-Storage-Admins"
+workload_storage_users_group_name  = "Workload-Storage-Users"
+workload_users_group_name          = "Workload-Users"
+lb_users_group_name                = "LBUsers"
+network_admin_group_name           = "Virtual-Network-Admins"
+security_admins_group_name         = "SecurityAdmins"
+
+# VCN
+public_subnet_dns_label          = "public"
+private_subnet_dns_labels        = ["private0", "private1"]
+database_subnet_dns_labels       = ["database0", "database1"]
+shared_service_subnet_dns_label  = "shared"
+vcn_dns_label                    = "vcn"
+vcn_cidr_block                   = "10.0.0.0/16"
+public_subnet_cidr_block         = "10.0.1.0/24"
+private_subnet_cidr_blocks       = ["10.0.2.0/24", "10.0.3.0/24"]
+database_subnet_cidr_blocks      = ["10.0.4.0/24", "10.0.5.0/24"]
+shared_service_subnet_cidr_block = "10.0.6.0/24"
+ingress_rules_map = {
+  "default" = {
+    ingress_security_rules_tcp_options_destination_port_range_max = 65535
+    ingress_security_rules_tcp_options_destination_port_range_min = 1
+    ingress_security_rules_tcp_options_source_port_range_max      = 65535
+    ingress_security_rules_tcp_options_source_port_range_min      = 1
+  }
+}
+egress_rules_map = {
+  "default" = {
+    egress_security_rules_tcp_options_destination_port_range_max = 65535
+    egress_security_rules_tcp_options_destination_port_range_min = 1
+    egress_security_rules_tcp_options_source_port_range_max      = 65535
+    egress_security_rules_tcp_options_source_port_range_min      = 1
+  }
+}
+
+# BUDGET
+budget_alerting              = true
+budget_amount                = "10000"
+budget_alert_rule_threshold  = "100"
+budget_alert_rule_recipients = "example3@test.com"
+budget_alert_rule_message    = "Default Budget Alert"
+
+# SECURITY
+retention_rule_duration_time_amount        = 366
+is_flow_log_enabled                        = true
+is_cloud_guard_enabled                     = true
+vss_scan_schedule                          = "DAILY"
+agent_cis_benchmark_settings_scan_level    = "STRICT"
+host_scan_recipe_agent_settings_scan_level = "STANDARD"
+host_scan_recipe_port_settings_scan_level  = "STANDARD"
+
+# BASTION
+bastion_client_cidr_block_allow_list = ["10.0.0.0/16", "10.0.0.0/24"]
+bastion_subnet_cidr_block            = "10.0.7.0/24"
+
+# IPSSEC
+use_ipsec_drg                   = false
+cpe_ip_address                  = "10.0.0.0"
+ip_sec_connection_static_routes = ["10.0.1.0/24"]
+
+# FASTCONNECT
+use_fastconnect_drg                                                      = false
+provider_service_key_name                                                = "aaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+virtual_circuit_bandwidth_shape                                          = "10"
+virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip           = "10.0.0.22/30"
+virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip             = "10.0.0.21/30"
+virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip = "10.0.0.26/30"
+virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip   = "10.0.0.25/30"
+fastconnect_provider                                                     = "Megaport"
+virtual_circuit_customer_asn                                             = "12345"
+fastconnect_routing_policy                                               = ["GLOBAL"]
