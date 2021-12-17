@@ -152,25 +152,25 @@ variables:
     type: string
     visible: show_extra_compartment_names
     description: Name of the top level network compartment
-    required: true 
+    required: true
     title: Network Compartment Name
   security_compartment_name:
     type: string
     visible: show_extra_compartment_names
     description: Name of the top level security compartment
-    required: true 
+    required: true
     title: Security Compartment Name
   common_infra_compartment_name:
     type: string
     visible: show_extra_compartment_names
     description: Name of the top level common infrastructure compartment
-    required: true 
+    required: true
     title: Common Infra Compartment Name
   applications_compartment_name:
     type: string
     visible: show_extra_compartment_names
     description: Name of the top level application compartment
-    required: true 
+    required: true
     title: Applications Compartment Name
 
   # IAM
@@ -209,67 +209,67 @@ variables:
   administrator_group_name:
     type: string
     description: The name for the administrator group
-    required: true 
+    required: true
     title: Administrator Group Name
     visible: show_extra_group_names
   workload_admins_group_name:
     type: string
     description: The name for the workload administrators group
-    required: true 
+    required: true
     title: Workload Admins Group Name
     visible: show_extra_group_names
   cloud_guard_analysts_group_name:
     type: string
     description: The name of the Cloud Guard Analyst group
-    required: true 
+    required: true
     title: Cloud Guard Analyst Group Name
     visible: show_extra_group_names
   cloud_guard_architects_group_name:
     type: string
     description: The name for the Cloud Guard Architect group name
-    required: true 
+    required: true
     title: Cloud Guard Architects Group Name
     visible: show_extra_group_names
   cloud_guard_operators_group_name:
     type: string
     description: The name for the Cloud Guard Operator group name
-    required: true 
+    required: true
     title: Cloud Guard Operators Group Name
     visible: show_extra_group_names
   lb_users_group_name:
     type: string
     description: The name for the load balancer users group name
-    required: true 
+    required: true
     title: Load Balancer User Group Name
     visible: show_extra_group_names
   network_admin_group_name:
     type: string
     description: The name for the network administrator group name
-    required: true 
+    required: true
     title: Network Admins Group Name
     visible: show_extra_group_names
   security_admins_group_name:
     type: string
     description: The name of the security admin group
-    required: true 
+    required: true
     title: Security Admins Group Name
     visible: show_extra_group_names
   workload_storage_admins_group_name:
     type: string
     description: The name for the workload storage administrators group
-    required: true 
+    required: true
     title: Workload Storage Admins Group Name
     visible: show_extra_group_names
   workload_storage_users_group_name:
     type: string
     description: The name for the workload storage users group
-    required: true 
+    required: true
     title: Workload Storage Users Group Name
     visible: show_extra_group_names
   workload_users_group_name:
     type: string
     description: The name for the workload users group
-    required: true 
+    required: true
     title: Workload Users Group Name
     visible: show_extra_group_names
 
@@ -538,13 +538,7 @@ variables:
     description: This is the secondary BGP IPv4 address of the customer's router
     visible: use_fastconnect_drg
     required: true
-    title: Virtual Circuit Cross Connect Mappings - Customer Secondary BGP Peering IP
-  virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip:
-    type: string
-    description: Secondary IPv4 address for Oracle's end of the BGP session
-    visible: use_fastconnect_drg
-    required: true
-    title: Virtual Circuit Cross Connect Mappings - Oracle Secondary BGP Peering IP
+    title: Virtual Circuit Cross Connect Mappings - Customer Secondary BGP Peering I
   fastconnect_provider:
     type: enum
     description: "Available FastConnect providers: AT&T, Microsoft Azure, Megaport, QTS, CEintro, Cologix, CoreSite, Digitial Realty, EdgeConneX, Epsilon, Equinix, InterCloud, Lumen, Neutrona, OMCS, OracleL2ItegDeployment, OracleL3ItegDeployment, Orange, Verizon, Zayo"
@@ -572,6 +566,19 @@ variables:
     visible: use_fastconnect_drg
     required: true
     title: FastConnect Provider
+  virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip:
+    type: string
+    description: Secondary IPv4 address for Oracle's end of the BGP session
+    visible:
+      and:
+        - eq:
+            - use_fastconnect_drg
+            - "true"
+        - eq:
+            - fastconnect_provider
+            - "Microsoft Azure"
+    required: true
+    title: Virtual Circuit Cross Connect Mappings - Oracle Secondary BGP Peering IP
   virtual_circuit_customer_asn:
     type: number
     description: The BGP ASN of the network at the other end of the BGP session from Oracle
