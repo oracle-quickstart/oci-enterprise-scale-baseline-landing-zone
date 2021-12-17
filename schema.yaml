@@ -281,7 +281,7 @@ variables:
     title: VCN CIDR Block
   vcn_dns_label:
     type: string
-    description: VCN DNS Label
+    description: VCN DNS Label. Allowed maximum 15 alphanumeric characters and must start with a letter.
     pattern: ^[a-zA-Z][a-zA-Z0-9]{1,14}$
     required: true
     title: VCN DNS Label
@@ -298,7 +298,7 @@ variables:
     items:
       type: string
       pattern: ^[a-zA-Z][a-zA-Z0-9]{1,14}$
-    description: List of Private Subnet DNS Label (one per workload)
+    description: List of Private Subnet DNS Label (one per workload). Allowed maximum 15 alphanumeric characters and must start with a letter.
     required: true
     title: Private Subnet DNS Labels
   public_subnet_cidr_block:
@@ -311,7 +311,7 @@ variables:
     description: Public Subnet DNS Label
     pattern: ^[a-zA-Z][a-zA-Z0-9]{1,14}$
     required: true
-    title: Public Subnet DNS Label
+    title: Public Subnet DNS Label. Allowed maximum 15 alphanumeric characters and must start with a letter.
   database_subnet_cidr_blocks:
     type: array
     items:
@@ -325,7 +325,7 @@ variables:
     items:
       type: string
       pattern: ^[a-zA-Z][a-zA-Z0-9]{1,14}$
-    description: List of Database Subnet DNS Label (one per workload)
+    description: List of Database Subnet DNS Label (one per workload). Allowed maximum 15 alphanumeric characters and must start with a letter.
     required: true
     title: Database Subnet DNS Labels
   egress_rules_map:
@@ -363,7 +363,7 @@ variables:
     title: Shared Service Subnet CIDR Block
   shared_service_subnet_dns_label:
     type: string
-    description: Shared Service Subnet DNS Label
+    description: Shared Service Subnet DNS Label. Allowed maximum 15 alphanumeric characters and must start with a letter.
     pattern: ^[a-zA-Z][a-zA-Z0-9]{1,14}$
     required: true
     title: Shared Service Subnet DNS Label
@@ -568,7 +568,7 @@ variables:
       - OracleL3ItegDeployment
       - Orange
       - Verizon
-      - Zayo 
+      - Zayo
     visible: use_fastconnect_drg
     required: true
     title: FastConnect Provider
@@ -583,7 +583,7 @@ variables:
     description: "Available FastConnect routing policies: ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL"
     visible: use_fastconnect_drg
     items:
-      type: string 
+      type: string
       pattern: \b(?:ORACLE_SERVICE_NETWORK|REGIONAL|MARKET_LEVEL|GLOBAL)\b
     required: true
     uniqueItems: true
