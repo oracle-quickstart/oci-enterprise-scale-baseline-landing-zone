@@ -83,15 +83,15 @@ variableGroups:
       - cpe_ip_address
       - ip_sec_connection_static_routes
       - use_fastconnect_drg
+      - fastconnect_provider
+      - fastconnect_routing_policy
       - virtual_circuit_bandwidth_shape
-      - provider_service_key_name
       - virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip
       - virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip
       - virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip
       - virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip
-      - fastconnect_provider
+      - provider_service_key_name
       - virtual_circuit_customer_asn
-      - fastconnect_routing_policy
 
 variables:
   #Provider Variables
@@ -152,25 +152,25 @@ variables:
     type: string
     visible: show_extra_compartment_names
     description: Name of the top level network compartment
-    required: true 
+    required: true
     title: Network Compartment Name
   security_compartment_name:
     type: string
     visible: show_extra_compartment_names
     description: Name of the top level security compartment
-    required: true 
+    required: true
     title: Security Compartment Name
   common_infra_compartment_name:
     type: string
     visible: show_extra_compartment_names
     description: Name of the top level common infrastructure compartment
-    required: true 
+    required: true
     title: Common Infra Compartment Name
   applications_compartment_name:
     type: string
     visible: show_extra_compartment_names
     description: Name of the top level application compartment
-    required: true 
+    required: true
     title: Applications Compartment Name
 
   # IAM
@@ -209,67 +209,67 @@ variables:
   administrator_group_name:
     type: string
     description: The name for the administrator group
-    required: true 
+    required: true
     title: Administrator Group Name
     visible: show_extra_group_names
   workload_admins_group_name:
     type: string
     description: The name for the workload administrators group
-    required: true 
+    required: true
     title: Workload Admins Group Name
     visible: show_extra_group_names
   cloud_guard_analysts_group_name:
     type: string
     description: The name of the Cloud Guard Analyst group
-    required: true 
+    required: true
     title: Cloud Guard Analyst Group Name
     visible: show_extra_group_names
   cloud_guard_architects_group_name:
     type: string
     description: The name for the Cloud Guard Architect group name
-    required: true 
+    required: true
     title: Cloud Guard Architects Group Name
     visible: show_extra_group_names
   cloud_guard_operators_group_name:
     type: string
     description: The name for the Cloud Guard Operator group name
-    required: true 
+    required: true
     title: Cloud Guard Operators Group Name
     visible: show_extra_group_names
   lb_users_group_name:
     type: string
     description: The name for the load balancer users group name
-    required: true 
+    required: true
     title: Load Balancer User Group Name
     visible: show_extra_group_names
   network_admin_group_name:
     type: string
     description: The name for the network administrator group name
-    required: true 
+    required: true
     title: Network Admins Group Name
     visible: show_extra_group_names
   security_admins_group_name:
     type: string
     description: The name of the security admin group
-    required: true 
+    required: true
     title: Security Admins Group Name
     visible: show_extra_group_names
   workload_storage_admins_group_name:
     type: string
     description: The name for the workload storage administrators group
-    required: true 
+    required: true
     title: Workload Storage Admins Group Name
     visible: show_extra_group_names
   workload_storage_users_group_name:
     type: string
     description: The name for the workload storage users group
-    required: true 
+    required: true
     title: Workload Storage Users Group Name
     visible: show_extra_group_names
   workload_users_group_name:
     type: string
     description: The name for the workload users group
-    required: true 
+    required: true
     title: Workload Users Group Name
     visible: show_extra_group_names
 
@@ -281,7 +281,7 @@ variables:
     title: VCN CIDR Block
   vcn_dns_label:
     type: string
-    description: VCN DNS Label
+    description: VCN DNS Label. Allowed maximum 15 alphanumeric characters and must start with a letter.
     pattern: ^[a-zA-Z][a-zA-Z0-9]{1,14}$
     required: true
     title: VCN DNS Label
@@ -298,7 +298,7 @@ variables:
     items:
       type: string
       pattern: ^[a-zA-Z][a-zA-Z0-9]{1,14}$
-    description: List of Private Subnet DNS Label (one per workload)
+    description: List of Private Subnet DNS Label (one per workload). Allowed maximum 15 alphanumeric characters and must start with a letter.
     required: true
     title: Private Subnet DNS Labels
   public_subnet_cidr_block:
@@ -311,7 +311,7 @@ variables:
     description: Public Subnet DNS Label
     pattern: ^[a-zA-Z][a-zA-Z0-9]{1,14}$
     required: true
-    title: Public Subnet DNS Label
+    title: Public Subnet DNS Label. Allowed maximum 15 alphanumeric characters and must start with a letter.
   database_subnet_cidr_blocks:
     type: array
     items:
@@ -325,7 +325,7 @@ variables:
     items:
       type: string
       pattern: ^[a-zA-Z][a-zA-Z0-9]{1,14}$
-    description: List of Database Subnet DNS Label (one per workload)
+    description: List of Database Subnet DNS Label (one per workload). Allowed maximum 15 alphanumeric characters and must start with a letter.
     required: true
     title: Database Subnet DNS Labels
   egress_rules_map:
@@ -363,7 +363,7 @@ variables:
     title: Shared Service Subnet CIDR Block
   shared_service_subnet_dns_label:
     type: string
-    description: Shared Service Subnet DNS Label
+    description: Shared Service Subnet DNS Label. Allowed maximum 15 alphanumeric characters and must start with a letter.
     pattern: ^[a-zA-Z][a-zA-Z0-9]{1,14}$
     required: true
     title: Shared Service Subnet DNS Label
@@ -505,46 +505,6 @@ variables:
     description: Choose whether or not to use FastConnect
     required: true
     title: Use FastConnect?
-  virtual_circuit_bandwidth_shape:
-    type: enum
-    description: The provisioned data rate of the connection. Choose between 1 or 10 for FastConnect partner. Or choose between 1, 10 or 100 for FastConnect Direct.
-    enum:
-      - 1
-      - 10
-      - 100
-    visible: use_fastconnect_drg
-    required: true
-    title: Virtual Circuit Bandwidth Shape
-  provider_service_key_name:
-    type: string
-    description: The provider service key that the provider gives you when you set up a virtual circuit connection from the provider to OCI
-    visible: use_fastconnect_drg
-    required: true
-    title: Provider Service Key Name
-  virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip:
-    type: string
-    description: This is the BGP IPv4 address of the customer's router
-    visible: use_fastconnect_drg
-    required: true
-    title: Virtual Circuit Cross Connect Mappings - Customer BGP peering IP
-  virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip:
-    type: string
-    description: IPv4 address for Oracle's end of the BGP session
-    visible: use_fastconnect_drg
-    required: true
-    title: Virtual Circuit Cross Connect Mappings - Oracle BPG Peering IP
-  virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip:
-    type: string
-    description: This is the secondary BGP IPv4 address of the customer's router
-    visible: use_fastconnect_drg
-    required: true
-    title: Virtual Circuit Cross Connect Mappings - Customer Secondary BGP Peering IP
-  virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip:
-    type: string
-    description: Secondary IPv4 address for Oracle's end of the BGP session
-    visible: use_fastconnect_drg
-    required: true
-    title: Virtual Circuit Cross Connect Mappings - Oracle Secondary BGP Peering IP
   fastconnect_provider:
     type: enum
     description: "Available FastConnect providers: AT&T, Microsoft Azure, Megaport, QTS, CEintro, Cologix, CoreSite, Digitial Realty, EdgeConneX, Epsilon, Equinix, InterCloud, Lumen, Neutrona, OMCS, OracleL2ItegDeployment, OracleL3ItegDeployment, Orange, Verizon, Zayo"
@@ -568,23 +528,119 @@ variables:
       - OracleL3ItegDeployment
       - Orange
       - Verizon
-      - Zayo 
+      - Zayo
     visible: use_fastconnect_drg
     required: true
     title: FastConnect Provider
-  virtual_circuit_customer_asn:
-    type: number
-    description: The BGP ASN of the network at the other end of the BGP session from Oracle
-    visible: use_fastconnect_drg
+  virtual_circuit_bandwidth_shape:
+    type: enum
+    description: The provisioned data rate of the connection. Choose between 1 or 10 for FastConnect partner. Or choose between 1, 10 or 100 for FastConnect Direct.
+    enum:
+      - 1
+      - 10
+      - 100
+    visible:
+      and:
+        - ${use_fastconnect_drg}
+        - or:
+          - eq:
+            - ${fastconnect_provider}
+            - Microsoft Azure
+          - eq:
+            - ${fastconnect_provider}
+            - Megaport
     required: true
-    title: Virtual Circuit Customer ASN
+    title: Virtual Circuit Bandwidth Shape
+  virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip:
+    type: string
+    description: This is the BGP IPv4 address of the customer's router
+    visible:
+      and:
+        - ${use_fastconnect_drg}
+        - or:
+          - eq:
+            - ${fastconnect_provider}
+            - Microsoft Azure
+          - eq:
+            - ${fastconnect_provider}
+            - Megaport
+    required: true
+    title: Virtual Circuit Cross Connect Mappings - Customer BGP peering IP
+  virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip:
+    type: string
+    description: IPv4 address for Oracle's end of the BGP session
+    visible:
+      and:
+        - ${use_fastconnect_drg}
+        - or:
+          - eq:
+            - ${fastconnect_provider}
+            - Microsoft Azure
+          - eq:
+            - ${fastconnect_provider}
+            - Megaport
+    required: true
+    title: Virtual Circuit Cross Connect Mappings - Oracle BPG Peering IP
   fastconnect_routing_policy:
     type: array
     description: "Available FastConnect routing policies: ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL"
-    visible: use_fastconnect_drg
+    visible:
+      and:
+        - ${use_fastconnect_drg}
+        - or:
+          - eq:
+            - ${fastconnect_provider}
+            - Microsoft Azure
+          - eq:
+            - ${fastconnect_provider}
+            - Megaport
     items:
-      type: string 
+      type: string
       pattern: \b(?:ORACLE_SERVICE_NETWORK|REGIONAL|MARKET_LEVEL|GLOBAL)\b
     required: true
     uniqueItems: true
     title: FastConnect Routing Policy
+  provider_service_key_name:
+    type: string
+    description: The provider service key that the provider gives you when you set up a virtual circuit connection from the provider to OCI
+    visible:
+      and:
+        - ${use_fastconnect_drg}
+        - eq:
+          - ${fastconnect_provider}
+          - Microsoft Azure
+    required: true
+    title: Provider Service Key Name
+  virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip:
+    type: string
+    description: This is the secondary BGP IPv4 address of the customer's router
+    visible:
+      and:
+        - ${use_fastconnect_drg}
+        - eq:
+          - ${fastconnect_provider}
+          - Microsoft Azure
+    required: true
+    title: Virtual Circuit Cross Connect Mappings - Customer Secondary BGP Peering IP
+  virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip:
+    type: string
+    description: Secondary IPv4 address for Oracle's end of the BGP session
+    visible:
+      and:
+        - ${use_fastconnect_drg}
+        - eq:
+          - ${fastconnect_provider}
+          - Microsoft Azure
+    required: true
+    title: Virtual Circuit Cross Connect Mappings - Oracle Secondary BGP Peering IP
+  virtual_circuit_customer_asn:
+    type: number
+    description: The BGP ASN of the network at the other end of the BGP session from Oracle
+    visible:
+      and:
+        - ${use_fastconnect_drg}
+        - eq:
+          - ${fastconnect_provider}
+          - Megaport
+    required: true
+    title: Virtual Circuit Customer ASN
