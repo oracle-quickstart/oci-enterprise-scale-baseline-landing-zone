@@ -83,15 +83,15 @@ variableGroups:
       - cpe_ip_address
       - ip_sec_connection_static_routes
       - use_fastconnect_drg
+      - fastconnect_provider
+      - fastconnect_routing_policy
       - virtual_circuit_bandwidth_shape
-      - provider_service_key_name
       - virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip
       - virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip
       - virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip
       - virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip
-      - fastconnect_provider
+      - provider_service_key_name
       - virtual_circuit_customer_asn
-      - fastconnect_routing_policy
 
 variables:
   #Provider Variables
@@ -505,40 +505,6 @@ variables:
     description: Choose whether or not to use FastConnect
     required: true
     title: Use FastConnect?
-  virtual_circuit_bandwidth_shape:
-    type: enum
-    description: The provisioned data rate of the connection. Choose between 1 or 10 for FastConnect partner. Or choose between 1, 10 or 100 for FastConnect Direct.
-    enum:
-      - 1
-      - 10
-      - 100
-    visible: use_fastconnect_drg
-    required: true
-    title: Virtual Circuit Bandwidth Shape
-  provider_service_key_name:
-    type: string
-    description: The provider service key that the provider gives you when you set up a virtual circuit connection from the provider to OCI
-    visible: use_fastconnect_drg
-    required: true
-    title: Provider Service Key Name
-  virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip:
-    type: string
-    description: This is the BGP IPv4 address of the customer's router
-    visible: use_fastconnect_drg
-    required: true
-    title: Virtual Circuit Cross Connect Mappings - Customer BGP peering IP
-  virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip:
-    type: string
-    description: IPv4 address for Oracle's end of the BGP session
-    visible: use_fastconnect_drg
-    required: true
-    title: Virtual Circuit Cross Connect Mappings - Oracle BPG Peering IP
-  virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip:
-    type: string
-    description: This is the secondary BGP IPv4 address of the customer's router
-    visible: use_fastconnect_drg
-    required: true
-    title: Virtual Circuit Cross Connect Mappings - Customer Secondary BGP Peering I
   fastconnect_provider:
     type: enum
     description: "Available FastConnect providers: AT&T, Microsoft Azure, Megaport, QTS, CEintro, Cologix, CoreSite, Digitial Realty, EdgeConneX, Epsilon, Equinix, InterCloud, Lumen, Neutrona, OMCS, OracleL2ItegDeployment, OracleL3ItegDeployment, Orange, Verizon, Zayo"
@@ -566,32 +532,115 @@ variables:
     visible: use_fastconnect_drg
     required: true
     title: FastConnect Provider
-  virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip:
-    type: string
-    description: Secondary IPv4 address for Oracle's end of the BGP session
+  virtual_circuit_bandwidth_shape:
+    type: enum
+    description: The provisioned data rate of the connection. Choose between 1 or 10 for FastConnect partner. Or choose between 1, 10 or 100 for FastConnect Direct.
+    enum:
+      - 1
+      - 10
+      - 100
     visible:
       and:
-        - eq:
-            - use_fastconnect_drg
-            - "true"
-        - eq:
-            - fastconnect_provider
-            - "Microsoft Azure"
+        - ${use_fastconnect_drg}
+        - or:
+          - eq:
+            - ${fastconnect_provider}
+            - Microsoft Azure
+          - eq:
+            - ${fastconnect_provider}
+            - Megaport
     required: true
-    title: Virtual Circuit Cross Connect Mappings - Oracle Secondary BGP Peering IP
-  virtual_circuit_customer_asn:
-    type: number
-    description: The BGP ASN of the network at the other end of the BGP session from Oracle
-    visible: use_fastconnect_drg
+    title: Virtual Circuit Bandwidth Shape
+  virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip:
+    type: string
+    description: This is the BGP IPv4 address of the customer's router
+    visible:
+      and:
+        - ${use_fastconnect_drg}
+        - or:
+          - eq:
+            - ${fastconnect_provider}
+            - Microsoft Azure
+          - eq:
+            - ${fastconnect_provider}
+            - Megaport
     required: true
-    title: Virtual Circuit Customer ASN
+    title: Virtual Circuit Cross Connect Mappings - Customer BGP peering IP
+  virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip:
+    type: string
+    description: IPv4 address for Oracle's end of the BGP session
+    visible:
+      and:
+        - ${use_fastconnect_drg}
+        - or:
+          - eq:
+            - ${fastconnect_provider}
+            - Microsoft Azure
+          - eq:
+            - ${fastconnect_provider}
+            - Megaport
+    required: true
+    title: Virtual Circuit Cross Connect Mappings - Oracle BPG Peering IP
   fastconnect_routing_policy:
     type: array
     description: "Available FastConnect routing policies: ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL"
-    visible: use_fastconnect_drg
+    visible:
+      and:
+        - ${use_fastconnect_drg}
+        - or:
+          - eq:
+            - ${fastconnect_provider}
+            - Microsoft Azure
+          - eq:
+            - ${fastconnect_provider}
+            - Megaport
     items:
       type: string
       pattern: \b(?:ORACLE_SERVICE_NETWORK|REGIONAL|MARKET_LEVEL|GLOBAL)\b
     required: true
     uniqueItems: true
     title: FastConnect Routing Policy
+  provider_service_key_name:
+    type: string
+    description: The provider service key that the provider gives you when you set up a virtual circuit connection from the provider to OCI
+    visible:
+      and:
+        - ${use_fastconnect_drg}
+        - eq:
+          - ${fastconnect_provider}
+          - Microsoft Azure
+    required: true
+    title: Provider Service Key Name
+  virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip:
+    type: string
+    description: This is the secondary BGP IPv4 address of the customer's router
+    visible:
+      and:
+        - ${use_fastconnect_drg}
+        - eq:
+          - ${fastconnect_provider}
+          - Microsoft Azure
+    required: true
+    title: Virtual Circuit Cross Connect Mappings - Customer Secondary BGP Peering IP
+  virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip:
+    type: string
+    description: Secondary IPv4 address for Oracle's end of the BGP session
+    visible:
+      and:
+        - ${use_fastconnect_drg}
+        - eq:
+          - ${fastconnect_provider}
+          - Microsoft Azure
+    required: true
+    title: Virtual Circuit Cross Connect Mappings - Oracle Secondary BGP Peering IP
+  virtual_circuit_customer_asn:
+    type: number
+    description: The BGP ASN of the network at the other end of the BGP session from Oracle
+    visible:
+      and:
+        - ${use_fastconnect_drg}
+        - eq:
+          - ${fastconnect_provider}
+          - Megaport
+    required: true
+    title: Virtual Circuit Customer ASN
