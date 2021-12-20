@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    oci = {
+      configuration_aliases = [oci, oci.home_region]
+    }
+  }
+}
+
 resource "random_id" "policy_name" {
   byte_length = 8
 }
@@ -62,6 +70,7 @@ resource "oci_logging_log" "vcn_flow_log" {
 # Service Connector policies
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "log_analytics_policy" {
+  provider       = oci.home_region
   compartment_id = var.security_compartment_ocid
   description    = "OCI Landing Zone Log Analytics Policy"
   name           = "${var.log_analytics_policy_name}-${random_id.policy_name.id}"
