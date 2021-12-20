@@ -124,13 +124,13 @@ variables:
     description: CostCenter tag value. Allows printable ASCII, excluding periods (.) and spaces and max 100 characters.
     required: true
     title: Tag Cost Center
-    pattern: ^[ -~][^. ]{1,99}$
+    pattern: ^((?!\.| )[ -~]){1,99}$
   tag_geo_location:
     type: string
     description: GeoLocation tag value. Allows printable ASCII, excluding periods (.) and spaces and max 100 characters.
     required: true
     title: Tag Geo Location
-    pattern: ^[ -~][^. ]{1,99}$
+    pattern: ^((?!\.| )[ -~]){1,99}$
 
   # Compartments
   show_extra_compartment_names:
