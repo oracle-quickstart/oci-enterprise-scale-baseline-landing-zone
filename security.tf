@@ -55,7 +55,8 @@ module "audit" {
   tag_geo_location                    = var.tag_geo_location
   tag_cost_center                     = var.tag_cost_center
   providers = {
-    oci = oci.home_region
+    oci = oci
+    oci.home_region = oci.home_region
   }
 
   depends_on = [
