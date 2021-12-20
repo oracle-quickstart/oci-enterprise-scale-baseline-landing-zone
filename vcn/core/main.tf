@@ -109,11 +109,11 @@ resource "oci_core_security_list" "workload_security_list" {
     protocol    = var.egress_security_rules_protocol
     stateless   = var.egress_security_rules_stateless
     tcp_options {
-      max = lookup(var.egress_rules_map[local.workload-list[count.index].name], "egress_security_rules_tcp_options_destination_port_range_max")
-      min = lookup(var.egress_rules_map[local.workload-list[count.index].name], "egress_security_rules_tcp_options_destination_port_range_min")
+      max = try(lookup(var.egress_rules_map[local.workload-list[count.index].name], "egress_security_rules_tcp_options_destination_port_range_max"), var.egress_rules_map["default"]["egress_security_rules_tcp_options_destination_port_range_max"])
+      min = try(lookup(var.egress_rules_map[local.workload-list[count.index].name], "egress_security_rules_tcp_options_destination_port_range_min"), var.egress_rules_map["default"]["egress_security_rules_tcp_options_destination_port_range_min"])
       source_port_range {
-        max = lookup(var.egress_rules_map[local.workload-list[count.index].name], "egress_security_rules_tcp_options_source_port_range_max")
-        min = lookup(var.egress_rules_map[local.workload-list[count.index].name], "egress_security_rules_tcp_options_source_port_range_min")
+        max = try(lookup(var.egress_rules_map[local.workload-list[count.index].name], "egress_security_rules_tcp_options_source_port_range_max"), var.egress_rules_map["default"]["egress_security_rules_tcp_options_source_port_range_max"])
+        min = try(lookup(var.egress_rules_map[local.workload-list[count.index].name], "egress_security_rules_tcp_options_source_port_range_min"), var.egress_rules_map["default"]["egress_security_rules_tcp_options_source_port_range_min"])
       }
     }
   }
@@ -124,11 +124,11 @@ resource "oci_core_security_list" "workload_security_list" {
     source      = var.vcn_cidr_block
     stateless   = var.ingress_security_rules_stateless
     tcp_options {
-      max = lookup(var.ingress_rules_map[local.workload-list[count.index].name], "ingress_security_rules_tcp_options_destination_port_range_max")
-      min = lookup(var.ingress_rules_map[local.workload-list[count.index].name], "ingress_security_rules_tcp_options_destination_port_range_min")
+      max = try(lookup(var.ingress_rules_map[local.workload-list[count.index].name], "ingress_security_rules_tcp_options_destination_port_range_max"), var.ingress_rules_map["default"]["ingress_security_rules_tcp_options_destination_port_range_max"])
+      min = try(lookup(var.ingress_rules_map[local.workload-list[count.index].name], "ingress_security_rules_tcp_options_destination_port_range_min"), var.ingress_rules_map["default"]["ingress_security_rules_tcp_options_destination_port_range_min"])
       source_port_range {
-        max = lookup(var.ingress_rules_map[local.workload-list[count.index].name], "ingress_security_rules_tcp_options_source_port_range_max")
-        min = lookup(var.ingress_rules_map[local.workload-list[count.index].name], "ingress_security_rules_tcp_options_source_port_range_min")
+        max = try(lookup(var.ingress_rules_map[local.workload-list[count.index].name], "ingress_security_rules_tcp_options_source_port_range_max"), var.ingress_rules_map["default"]["ingress_security_rules_tcp_options_source_port_range_max"])
+        min = try(lookup(var.ingress_rules_map[local.workload-list[count.index].name], "ingress_security_rules_tcp_options_source_port_range_min"), var.ingress_rules_map["default"]["ingress_security_rules_tcp_options_source_port_range_min"])
       }
     }
   }
