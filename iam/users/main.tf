@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    oci = {
+      configuration_aliases = [oci]
+    }
+  }
+}
+
 resource "random_id" "user_name" {
   byte_length = 8
 }

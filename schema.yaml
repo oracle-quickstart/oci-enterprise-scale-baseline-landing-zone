@@ -506,6 +506,7 @@ variables:
     description: IPSec connection static routes
     items:
       type: string
+      pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-4]))$
     required: true
     title: IPsec Connection Static Routes
   use_fastconnect_drg:
@@ -550,43 +551,34 @@ variables:
     visible:
       and:
         - ${use_fastconnect_drg}
-        - or:
+        - not:
           - eq:
             - ${fastconnect_provider}
-            - Microsoft Azure
-          - eq:
-            - ${fastconnect_provider}
-            - Megaport
+            - ""
     required: true
     title: Virtual Circuit Bandwidth Shape
-  virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip:
+  virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip: # this shouldn't show for no_asn virtual circuits
     type: string
-    description: This is the BGP IPv4 address of the customer's router
+    description: This is the BGP IPv4 address of the customer's router. Enter Placeholder value for Non-ASN Virtual Circuits.
     visible:
       and:
         - ${use_fastconnect_drg}
-        - or:
+        - not:
           - eq:
             - ${fastconnect_provider}
-            - Microsoft Azure
-          - eq:
-            - ${fastconnect_provider}
-            - Megaport
+            - ""
     required: true
     title: Virtual Circuit Cross Connect Mappings - Customer BGP peering IP
-  virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip:
+  virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip: # this shouldn't show for no_asn virtual circuits
     type: string
-    description: IPv4 address for Oracle's end of the BGP session
+    description: IPv4 address for Oracle's end of the BGP session. Enter Placeholder value for Non-ASN Virtual Circuits.
     visible:
       and:
         - ${use_fastconnect_drg}
-        - or:
+        - not:
           - eq:
             - ${fastconnect_provider}
-            - Microsoft Azure
-          - eq:
-            - ${fastconnect_provider}
-            - Megaport
+            - ""
     required: true
     title: Virtual Circuit Cross Connect Mappings - Oracle BPG Peering IP
   fastconnect_routing_policy:
@@ -595,13 +587,10 @@ variables:
     visible:
       and:
         - ${use_fastconnect_drg}
-        - or:
+        - not:
           - eq:
             - ${fastconnect_provider}
-            - Microsoft Azure
-          - eq:
-            - ${fastconnect_provider}
-            - Megaport
+            - ""
     items:
       type: string
       pattern: \b(?:ORACLE_SERVICE_NETWORK|REGIONAL|MARKET_LEVEL|GLOBAL)\b
@@ -641,14 +630,19 @@ variables:
           - Microsoft Azure
     required: true
     title: Virtual Circuit Cross Connect Mappings - Oracle Secondary BGP Peering IP
-  virtual_circuit_customer_asn:
+  virtual_circuit_customer_asn: # this shouldn't show for no_asn virtual circuits
     type: number
-    description: The BGP ASN of the network at the other end of the BGP session from Oracle
+    description: The BGP ASN of the network at the other end of the BGP session from Oracle. Enter Placeholder value for Non-ASN Virtual Circuits.
     visible:
       and:
         - ${use_fastconnect_drg}
-        - eq:
-          - ${fastconnect_provider}
-          - Megaport
+        - not:
+          - eq:
+            - ${fastconnect_provider}
+            - ""
+        - not:
+          - eq:
+            - ${fastconnect_provider}
+            - Microsoft Azure
     required: true
     title: Virtual Circuit Customer ASN

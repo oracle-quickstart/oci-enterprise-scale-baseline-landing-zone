@@ -86,6 +86,9 @@ module "users" {
   break_glass_user_email = each.value
   tag_cost_center        = var.tag_cost_center
   tag_geo_location       = var.tag_geo_location
+  providers = {
+    oci = oci.home_region
+  }
   depends_on             = [module.groups]
 }
 
