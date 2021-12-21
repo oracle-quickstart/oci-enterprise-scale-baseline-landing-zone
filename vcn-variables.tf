@@ -6,7 +6,7 @@ variable "vcn_cidr_block" {
   description = "Primary VCN CIDR Block"
   default     = "10.0.0.0/16"
   validation {
-    condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", var.vcn_cidr_block))
+    condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1][0-9]|[2][0-9]))$", var.vcn_cidr_block))
     error_message = "Must be a valid address range in CIDR notation."
   }
 }
@@ -27,7 +27,7 @@ variable "public_subnet_cidr_block" {
   type        = string
   description = "Public Subnet CIDR Block"
   validation {
-    condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", var.public_subnet_cidr_block))
+    condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1][0-9]|[2][0-9]))$", var.public_subnet_cidr_block))
     error_message = "Must be a valid address range in CIDR notation."
   }
 }
@@ -45,7 +45,7 @@ variable "private_subnet_cidr_blocks" {
   type        = list(string)
   description = "List of Private Subnet CIDR Block (one per workload)"
   validation {
-    condition     =  alltrue([for i in var.private_subnet_cidr_blocks: can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", i))])
+    condition     =  alltrue([for i in var.private_subnet_cidr_blocks: can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1][0-9]|[2][0-9]))$", i))])
     error_message = "Must be a list of valid address ranges in CIDR notation."
   }
 }
@@ -63,7 +63,7 @@ variable "database_subnet_cidr_blocks" {
   type        = list(string)
   description = "List of Database Subnet CIDR Block (one per workload)"
   validation {
-    condition     =  alltrue([for i in var.database_subnet_cidr_blocks: can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", i))])
+    condition     =  alltrue([for i in var.database_subnet_cidr_blocks: can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1][0-9]|[2][0-9]))$", i))])
     error_message = "Must be a list of valid address ranges in CIDR notation."
   }
 }
@@ -81,7 +81,7 @@ variable "shared_service_subnet_cidr_block" {
   type        = string
   description = "Shared Service Subnet CIDR Block"
   validation {
-    condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", var.shared_service_subnet_cidr_block))
+    condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1][0-9]|[2][0-9]))$", var.shared_service_subnet_cidr_block))
     error_message = "Must be a valid address range in CIDR notation."
   }
 }
@@ -134,7 +134,7 @@ variable "cpe_ip_address" {
   description = "Customer Premises Equipment IP address"
   default     = ""
   validation {
-    condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", var.cpe_ip_address))
+    condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", var.cpe_ip_address))
     error_message = "Must be a valid address range in CIDR notation."
   }
 }
@@ -144,7 +144,7 @@ variable "ip_sec_connection_static_routes" {
   description = "IPSec connection static routes"
   default     = []
   validation {
-    condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", var.ip_sec_connection_static_routes))
+    condition     = alltrue([for i in var.ip_sec_connection_static_routes: can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1][0-9]|[2][0-9]))$", i))])
     error_message = "Must be a valid address range in CIDR notation."
   }
 }

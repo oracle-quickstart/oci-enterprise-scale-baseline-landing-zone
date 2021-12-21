@@ -18,7 +18,7 @@ variable "break_glass_user_email_list" {
   description = "Unique list of break glass user email addresses that do not exist in the tenancy"
   default     = []
   validation {
-    condition     = alltrue([for i in var.break_glass_user_email_list: can(regex("^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$", i))])
+    condition     = alltrue([for i in var.break_glass_user_email_list: can(regex("^[^\\s@]+@([^\\s@\\.,]+.)+[^\\s@\\.,]{2,}$", i))])
     error_message = "Must be a list of valid email addresses."
   }
 }
