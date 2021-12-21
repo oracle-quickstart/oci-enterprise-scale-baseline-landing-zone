@@ -32,6 +32,18 @@ locals {
     }
   ])
 
+  customized-egress-rule-list = flatten([
+    for workload-name in var.workload_compartment_names : {
+      rule_name = can(var.egress_rules_map[workload-name]) ? workload-name : "default"
+    }
+  ])
+
+  customized-ingress-rule-list = flatten([
+    for workload-name in var.workload_compartment_names : {
+      rule_name = can(var.ingress_rules_map[workload-name]) ? workload-name : "default"
+    }
+  ])
+
   subnet_list = concat([
     oci_core_subnet.public_subnet,
     oci_core_subnet.fss_subnet],
@@ -109,11 +121,11 @@ resource "oci_core_security_list" "workload_security_list" {
     protocol    = var.egress_security_rules_protocol
     stateless   = var.egress_security_rules_stateless
     tcp_options {
-      max = try(lookup(var.egress_rules_map[local.workload-list[count.index].name], "egress_security_rules_tcp_options_destination_port_range_max"), var.egress_rules_map["default"]["egress_security_rules_tcp_options_destination_port_range_max"])
-      min = try(lookup(var.egress_rules_map[local.workload-list[count.index].name], "egress_security_rules_tcp_options_destination_port_range_min"), var.egress_rules_map["default"]["egress_security_rules_tcp_options_destination_port_range_min"])
+      max = var.egress_rules_map[local.customized-egress-rule-list[count.index].rule_name]["egress_security_rules_tcp_options_destination_port_range_max"]
+      min = var.egress_rules_map[local.customized-egress-rule-list[count.index].rule_name]["egress_security_rules_tcp_options_destination_port_range_min"]
       source_port_range {
-        max = try(lookup(var.egress_rules_map[local.workload-list[count.index].name], "egress_security_rules_tcp_options_source_port_range_max"), var.egress_rules_map["default"]["egress_security_rules_tcp_options_source_port_range_max"])
-        min = try(lookup(var.egress_rules_map[local.workload-list[count.index].name], "egress_security_rules_tcp_options_source_port_range_min"), var.egress_rules_map["default"]["egress_security_rules_tcp_options_source_port_range_min"])
+        max = var.egress_rules_map[local.customized-egress-rule-list[count.index].rule_name]["egress_security_rules_tcp_options_source_port_range_max"]
+        min = var.egress_rules_map[local.customized-egress-rule-list[count.index].rule_name]["egress_security_rules_tcp_options_source_port_range_min"]
       }
     }
   }
@@ -124,11 +136,11 @@ resource "oci_core_security_list" "workload_security_list" {
     source      = var.vcn_cidr_block
     stateless   = var.ingress_security_rules_stateless
     tcp_options {
-      max = try(lookup(var.ingress_rules_map[local.workload-list[count.index].name], "ingress_security_rules_tcp_options_destination_port_range_max"), var.ingress_rules_map["default"]["ingress_security_rules_tcp_options_destination_port_range_max"])
-      min = try(lookup(var.ingress_rules_map[local.workload-list[count.index].name], "ingress_security_rules_tcp_options_destination_port_range_min"), var.ingress_rules_map["default"]["ingress_security_rules_tcp_options_destination_port_range_min"])
+      max = var.ingress_rules_map[local.customized-ingress-rule-list[count.index].rule_name]["ingress_security_rules_tcp_options_destination_port_range_max"]
+      min = var.ingress_rules_map[local.customized-ingress-rule-list[count.index].rule_name]["ingress_security_rules_tcp_options_destination_port_range_min"]
       source_port_range {
-        max = try(lookup(var.ingress_rules_map[local.workload-list[count.index].name], "ingress_security_rules_tcp_options_source_port_range_max"), var.ingress_rules_map["default"]["ingress_security_rules_tcp_options_source_port_range_max"])
-        min = try(lookup(var.ingress_rules_map[local.workload-list[count.index].name], "ingress_security_rules_tcp_options_source_port_range_min"), var.ingress_rules_map["default"]["ingress_security_rules_tcp_options_source_port_range_min"])
+        max = var.ingress_rules_map[local.customized-ingress-rule-list[count.index].rule_name]["ingress_security_rules_tcp_options_source_port_range_max"]
+        min = var.ingress_rules_map[local.customized-ingress-rule-list[count.index].rule_name]["ingress_security_rules_tcp_options_source_port_range_min"]
       }
     }
   }
