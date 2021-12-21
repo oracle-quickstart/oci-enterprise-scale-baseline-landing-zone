@@ -55,7 +55,8 @@ module "audit" {
   tag_geo_location                    = var.tag_geo_location
   tag_cost_center                     = var.tag_cost_center
   providers = {
-    oci = oci.home_region
+    oci = oci
+    oci.home_region = oci.home_region
   }
 
   depends_on = [
@@ -76,6 +77,10 @@ module "flow-logs" {
   subnet_map                = module.vcn_core.subnet_map
   tag_geo_location          = var.tag_geo_location
   tag_cost_center           = var.tag_cost_center
+  providers = {
+    oci             = oci
+    oci.home_region = oci.home_region
+  }
   depends_on = [
     module.parent-compartment, module.security-compartment, module.network-compartment
   ]

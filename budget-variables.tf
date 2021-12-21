@@ -22,6 +22,10 @@ variable "budget_alert_rule_recipients" {
   description = "(Required if using budget alerts): Target email address for budget alerts"
   type        = string
   default     = ""
+  validation {
+    condition     = can(regex("^([^\\s@]+@([^\\s@\\.,]+\\.)+[^\\s@\\.,]{2,})?$", var.budget_alert_rule_recipients))
+    error_message = "Must be a list of valid email addresses."
+  }
 }
 
 # -----------------------------------------------------------------------------
