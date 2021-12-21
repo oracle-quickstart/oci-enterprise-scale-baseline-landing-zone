@@ -32,6 +32,18 @@ locals {
     }
   ])
 
+  customized-egress-rule-list = flatten([
+    for workload-name in var.workload_compartment_names : {
+      rule_name = can(var.egress_rules_map[workload-name]) ? workload-name : "default"
+    }
+  ])
+
+  customized-ingress-rule-list = flatten([
+    for workload-name in var.workload_compartment_names : {
+      rule_name = can(var.ingress_rules_map[workload-name]) ? workload-name : "default"
+    }
+  ])
+
   subnet_list = concat([
     oci_core_subnet.public_subnet,
     oci_core_subnet.fss_subnet],
@@ -103,38 +115,32 @@ resource "oci_core_security_list" "workload_security_list" {
     "GeoLocation" = var.tag_geo_location
   }
 
-  dynamic "egress_security_rules" {
-    for_each = var.egress_rules_map
-    content {
-      description = var.egress_security_rules_description
-      destination = var.vcn_cidr_block
-      protocol    = var.egress_security_rules_protocol
-      stateless   = var.egress_security_rules_stateless
-      tcp_options {
-        max = egress_security_rules.value.egress_security_rules_tcp_options_destination_port_range_max
-        min = egress_security_rules.value.egress_security_rules_tcp_options_destination_port_range_min
-        source_port_range {
-          max = egress_security_rules.value.egress_security_rules_tcp_options_source_port_range_max
-          min = egress_security_rules.value.egress_security_rules_tcp_options_source_port_range_min
-        }
+  egress_security_rules {
+    description = var.egress_security_rules_description
+    destination = var.vcn_cidr_block
+    protocol    = var.egress_security_rules_protocol
+    stateless   = var.egress_security_rules_stateless
+    tcp_options {
+      max = var.egress_rules_map[local.customized-egress-rule-list[count.index].rule_name]["egress_security_rules_tcp_options_destination_port_range_max"]
+      min = var.egress_rules_map[local.customized-egress-rule-list[count.index].rule_name]["egress_security_rules_tcp_options_destination_port_range_min"]
+      source_port_range {
+        max = var.egress_rules_map[local.customized-egress-rule-list[count.index].rule_name]["egress_security_rules_tcp_options_source_port_range_max"]
+        min = var.egress_rules_map[local.customized-egress-rule-list[count.index].rule_name]["egress_security_rules_tcp_options_source_port_range_min"]
       }
     }
   }
 
-  dynamic "ingress_security_rules" {
-    for_each = var.ingress_rules_map
-    content {
-      description = var.ingress_security_rules_description
-      protocol    = var.ingress_security_rules_protocol
-      source      = var.vcn_cidr_block
-      stateless   = var.ingress_security_rules_stateless
-      tcp_options {
-        max = ingress_security_rules.value.ingress_security_rules_tcp_options_destination_port_range_max
-        min = ingress_security_rules.value.ingress_security_rules_tcp_options_destination_port_range_min
-        source_port_range {
-          max = ingress_security_rules.value.ingress_security_rules_tcp_options_source_port_range_max
-          min = ingress_security_rules.value.ingress_security_rules_tcp_options_source_port_range_min
-        }
+  ingress_security_rules {
+    description = var.ingress_security_rules_description
+    protocol    = var.ingress_security_rules_protocol
+    source      = var.vcn_cidr_block
+    stateless   = var.ingress_security_rules_stateless
+    tcp_options {
+      max = var.ingress_rules_map[local.customized-ingress-rule-list[count.index].rule_name]["ingress_security_rules_tcp_options_destination_port_range_max"]
+      min = var.ingress_rules_map[local.customized-ingress-rule-list[count.index].rule_name]["ingress_security_rules_tcp_options_destination_port_range_min"]
+      source_port_range {
+        max = var.ingress_rules_map[local.customized-ingress-rule-list[count.index].rule_name]["ingress_security_rules_tcp_options_source_port_range_max"]
+        min = var.ingress_rules_map[local.customized-ingress-rule-list[count.index].rule_name]["ingress_security_rules_tcp_options_source_port_range_min"]
       }
     }
   }

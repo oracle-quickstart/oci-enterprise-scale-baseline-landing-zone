@@ -330,7 +330,7 @@ variables:
     title: Database Subnet DNS Labels
   egress_rules_map:
     type: text
-    description: "[Workload Security List] Egress Rules Map"
+    description: "[Workload Security List] Egress Rules Map. To customize rules for a workload, use the workload name as the value of key."
     default: "{
       \n\t\"default\" = {
       \n\t\tegress_security_rules_tcp_options_destination_port_range_max = 65535
@@ -344,7 +344,7 @@ variables:
     multiline: true
   ingress_rules_map:
     type: text
-    description: "[Workload Security List] Ingress Rules Map"
+    description: "[Workload Security List] Ingress Rules Map. To customize rules for a workload, use the workload name as the value of key"
     default: "{
       \n\t\"default\" = {
       \n\t\tingress_security_rules_tcp_options_destination_port_range_max = 65535
