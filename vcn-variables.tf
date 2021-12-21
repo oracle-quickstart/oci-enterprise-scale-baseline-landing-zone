@@ -207,8 +207,4 @@ variable "fastconnect_routing_policy" {
   type        = list(string)
   description = "Available FastConnect routing policies: ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL"
   default     = []
-  validation {
-    condition     = alltrue([for i in var.fastconnect_routing_policy: can(regex("\b(?:ORACLE_SERVICE_NETWORK|REGIONAL|MARKET_LEVEL|GLOBAL)\b", i))])
-    error_message = "Error. Must be a valid FastConnect Routing Policy(ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL)"
-  }
 }
