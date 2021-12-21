@@ -79,7 +79,7 @@ variable "shared_service_subnet_dns_label" {
 # Security List Variables
 # -----------------------------------------------------------------------------
 variable "egress_rules_map" {
-  description = "[Workload Security List] Egress Rules Map"
+  description = "[Workload Security List] Egress Rules Map. To customize rules for a workload, use the workload name as the value of key."
   type = map(object({
     egress_security_rules_tcp_options_destination_port_range_max = number
     egress_security_rules_tcp_options_destination_port_range_min = number
@@ -90,7 +90,7 @@ variable "egress_rules_map" {
 }
 
 variable "ingress_rules_map" {
-  description = "[Workload Security List] Ingress Rules Map"
+  description = "[Workload Security List] Ingress Rules Map. To customize rules for a workload, use the workload name as the value of key."
   type = map(object({
     ingress_security_rules_tcp_options_destination_port_range_max = number
     ingress_security_rules_tcp_options_destination_port_range_min = number
