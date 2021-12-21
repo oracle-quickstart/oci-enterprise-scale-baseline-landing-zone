@@ -57,12 +57,6 @@ ingress_rules_map = {
     ingress_security_rules_tcp_options_source_port_range_max      = 65534
     ingress_security_rules_tcp_options_source_port_range_min      = 2
   }
-  "Workload-B" = {
-    ingress_security_rules_tcp_options_destination_port_range_max = 65533
-    ingress_security_rules_tcp_options_destination_port_range_min = 3
-    ingress_security_rules_tcp_options_source_port_range_max      = 65533
-    ingress_security_rules_tcp_options_source_port_range_min      = 3
-  }
 }
 egress_rules_map = {
   "default" = {
@@ -76,12 +70,6 @@ egress_rules_map = {
     egress_security_rules_tcp_options_destination_port_range_min = 2
     egress_security_rules_tcp_options_source_port_range_max      = 65534
     egress_security_rules_tcp_options_source_port_range_min      = 2
-  }
-  "Workload-B" = {
-    egress_security_rules_tcp_options_destination_port_range_max = 65533
-    egress_security_rules_tcp_options_destination_port_range_min = 3
-    egress_security_rules_tcp_options_source_port_range_max      = 65533
-    egress_security_rules_tcp_options_source_port_range_min      = 3
   }
 }
 
