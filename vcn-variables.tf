@@ -5,6 +5,10 @@ variable "vcn_cidr_block" {
   type        = string
   description = "Primary VCN CIDR Block"
   default     = "10.0.0.0/16"
+  validation {
+    condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", var.vcn_cidr_block))
+    error_message = "Error. Must be a valid address range in CIDR notation"
+  }
 }
 
 variable "vcn_dns_label" {
@@ -22,6 +26,10 @@ variable "vcn_dns_label" {
 variable "public_subnet_cidr_block" {
   type        = string
   description = "Public Subnet CIDR Block"
+  validation {
+    condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", var.public_subnet_cidr_block))
+    error_message = "Error. Must be a valid address range in CIDR notation"
+  }
 }
 
 variable "public_subnet_dns_label" {
@@ -36,6 +44,10 @@ variable "public_subnet_dns_label" {
 variable "private_subnet_cidr_blocks" {
   type        = list(string)
   description = "List of Private Subnet CIDR Block (one per workload)"
+  validation {
+    condition     =  alltrue([for i in var.private_subnet_cidr_blocks: can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", i))])
+    error_message = "Error. Must be a list of valid address ranges in CIDR notation"
+  }
 }
 
 variable "private_subnet_dns_labels" {
@@ -50,6 +62,10 @@ variable "private_subnet_dns_labels" {
 variable "database_subnet_cidr_blocks" {
   type        = list(string)
   description = "List of Database Subnet CIDR Block (one per workload)"
+  validation {
+    condition     =  alltrue([for i in var.database_subnet_cidr_blocks: can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", i))])
+    error_message = "Error. Must be a list of valid address ranges in CIDR notation"
+  }
 }
 
 variable "database_subnet_dns_labels" {
@@ -64,6 +80,10 @@ variable "database_subnet_dns_labels" {
 variable "shared_service_subnet_cidr_block" {
   type        = string
   description = "Shared Service Subnet CIDR Block"
+  validation {
+    condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", var.shared_service_subnet_cidr_block))
+    error_message = "Error. Must be a valid address range in CIDR notation"
+  }
 }
 
 variable "shared_service_subnet_dns_label" {
@@ -113,12 +133,20 @@ variable "cpe_ip_address" {
   type        = string
   description = "Customer Premises Equipment IP address"
   default     = ""
+  validation {
+    condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", var.cpe_ip_address))
+    error_message = "Error. Must be a valid address range in CIDR notation"
+  }
 }
 
 variable "ip_sec_connection_static_routes" {
   type        = list(string)
   description = "IPSec connection static routes"
   default     = []
+  validation {
+    condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", var.ip_sec_connection_static_routes))
+    error_message = "Error. Must be a valid address range in CIDR notation"
+  }
 }
 
 variable "use_fastconnect_drg" {
@@ -177,6 +205,10 @@ variable "virtual_circuit_customer_asn" {
 
 variable "fastconnect_routing_policy" {
   type        = list(string)
-  description = "Availible FastConnect routing policies: ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL"
+  description = "Available FastConnect routing policies: ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL"
   default     = []
+  validation {
+    condition     = alltrue([for i in var.fastconnect_routing_policy: can(regex("\b(?:ORACLE_SERVICE_NETWORK|REGIONAL|MARKET_LEVEL|GLOBAL)\b", i))])
+    error_message = "Error. Must be a valid FastConnect Routing Policy(ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL)"
+  }
 }

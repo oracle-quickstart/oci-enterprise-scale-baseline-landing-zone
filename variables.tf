@@ -38,9 +38,17 @@ variable "api_private_key_path" {
 variable "tag_cost_center" {
   type        = string
   description = "CostCenter tag value"
+  validation {
+    condition     = can(regex("^((?!\.| )[ -~]){1,100}$", var.tag_cost_center))
+    error_message = "Error. Must be a valid CostCenter tag value. Allows printable ASCII, excluding periods (.) and spaces and max 100 characters."
+  }
 }
 
 variable "tag_geo_location" {
   type        = string
   description = "GeoLocation tag value"
+  validation {
+    condition     = can(regex("^((?!\.| )[ -~]){1,100}$", var.tag_geo_location))
+    error_message = "Error. Must be a valid Geolocation tag value. Allows printable ASCII, excluding periods (.) and spaces and max 100 characters."
+  }
 }
