@@ -38,7 +38,7 @@ variable "bastion_subnet_cidr_block" {
   description = "CIDR Block for bastion subnet"
   validation {
     condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", bastion_subnet_cidr_block))
-    error_message = "Error. Must be a valid address range in CIDR notation that bastion is allowed to connect."
+    error_message = "Must be a valid address range in CIDR notation that bastion is allowed to connect."
   }
 }
 
@@ -47,7 +47,7 @@ variable "bastion_client_cidr_block_allow_list" {
   description = "A list of address ranges in CIDR notation that bastion is allowed to connect"
   validation {
     condition     = alltrue([for i in var.bastion_client_cidr_block_allow_list: can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", i))])
-    error_message = "Error. Must be a valid list of address ranges in CIDR notation that bastion is allowed to connect."
+    error_message = "Must be a valid list of address ranges in CIDR notation that bastion is allowed to connect."
   }
 }
 

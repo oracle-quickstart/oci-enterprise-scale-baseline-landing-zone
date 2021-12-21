@@ -7,7 +7,7 @@ variable "vcn_cidr_block" {
   default     = "10.0.0.0/16"
   validation {
     condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", var.vcn_cidr_block))
-    error_message = "Error. Must be a valid address range in CIDR notation"
+    error_message = "Must be a valid address range in CIDR notation."
   }
 }
 
@@ -16,7 +16,7 @@ variable "vcn_dns_label" {
   description     = "VCN DNS Label"
   validation {
     condition     = can(regex("^[a-zA-Z][a-zA-Z0-9]{1,14}$", var.vcn_dns_label))
-    error_message = "Error. Allowed maximum 15 alphanumeric characters and must start with a letter."
+    error_message = "Allowed maximum 15 alphanumeric characters and must start with a letter."
   }
 }
 
@@ -28,7 +28,7 @@ variable "public_subnet_cidr_block" {
   description = "Public Subnet CIDR Block"
   validation {
     condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", var.public_subnet_cidr_block))
-    error_message = "Error. Must be a valid address range in CIDR notation"
+    error_message = "Must be a valid address range in CIDR notation."
   }
 }
 
@@ -37,7 +37,7 @@ variable "public_subnet_dns_label" {
   description = "Public Subnet DNS Label"
   validation {
     condition     = can(regex("^[a-zA-Z][a-zA-Z0-9]{1,14}$", var.public_subnet_dns_label))
-    error_message = "Error. Allowed maximum 15 alphanumeric characters and must start with a letter."
+    error_message = "Allowed maximum 15 alphanumeric characters and must start with a letter."
   }
 }
 
@@ -46,7 +46,7 @@ variable "private_subnet_cidr_blocks" {
   description = "List of Private Subnet CIDR Block (one per workload)"
   validation {
     condition     =  alltrue([for i in var.private_subnet_cidr_blocks: can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", i))])
-    error_message = "Error. Must be a list of valid address ranges in CIDR notation"
+    error_message = "Must be a list of valid address ranges in CIDR notation."
   }
 }
 
@@ -55,7 +55,7 @@ variable "private_subnet_dns_labels" {
   description = "List of Private Subnet DNS Label (one per workload)"
   validation {
     condition     = alltrue([for i in var.private_subnet_dns_labels : can(regex("^[a-zA-Z][a-zA-Z0-9]{1,14}$", i))])
-    error_message = "Error. Allowed maximum 15 alphanumeric characters and must start with a letter."
+    error_message = "Allowed maximum 15 alphanumeric characters and must start with a letter."
   }
 }
 
@@ -64,7 +64,7 @@ variable "database_subnet_cidr_blocks" {
   description = "List of Database Subnet CIDR Block (one per workload)"
   validation {
     condition     =  alltrue([for i in var.database_subnet_cidr_blocks: can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", i))])
-    error_message = "Error. Must be a list of valid address ranges in CIDR notation"
+    error_message = "Must be a list of valid address ranges in CIDR notation."
   }
 }
 
@@ -73,7 +73,7 @@ variable "database_subnet_dns_labels" {
   description = "List of Database Subnet DNS Label (one per workload)"
   validation {
     condition     = alltrue([for i in var.database_subnet_dns_labels : can(regex("^[a-zA-Z][a-zA-Z0-9]{1,14}$", i))])
-    error_message = "Error. Allowed maximum 15 alphanumeric characters and must start with a letter."
+    error_message = "Allowed maximum 15 alphanumeric characters and must start with a letter."
   }
 }
 
@@ -82,7 +82,7 @@ variable "shared_service_subnet_cidr_block" {
   description = "Shared Service Subnet CIDR Block"
   validation {
     condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", var.shared_service_subnet_cidr_block))
-    error_message = "Error. Must be a valid address range in CIDR notation"
+    error_message = "Must be a valid address range in CIDR notation."
   }
 }
 
@@ -91,7 +91,7 @@ variable "shared_service_subnet_dns_label" {
   description = "Shared Service Subnet DNS Label"
   validation {
     condition     = can(regex("^[a-zA-Z][a-zA-Z0-9]{1,14}$", var.shared_service_subnet_dns_label))
-    error_message = "Error. Allowed maximum 15 alphanumeric characters and must start with a letter."
+    error_message = "Allowed maximum 15 alphanumeric characters and must start with a letter."
   }
 }
 
@@ -135,7 +135,7 @@ variable "cpe_ip_address" {
   default     = ""
   validation {
     condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", var.cpe_ip_address))
-    error_message = "Error. Must be a valid address range in CIDR notation"
+    error_message = "Must be a valid address range in CIDR notation."
   }
 }
 
@@ -145,7 +145,7 @@ variable "ip_sec_connection_static_routes" {
   default     = []
   validation {
     condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$", var.ip_sec_connection_static_routes))
-    error_message = "Error. Must be a valid address range in CIDR notation"
+    error_message = "Must be a valid address range in CIDR notation."
   }
 }
 

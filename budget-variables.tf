@@ -24,7 +24,7 @@ variable "budget_alert_rule_recipients" {
   default     = ""
   validation {
     condition     = alltrue([for i in var.budget_alert_rule_recipients: can(regex("^([^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,})?$", i))])
-    error_message = "Error. Must be a list of valid email addresses."
+    error_message = "Must be a list of valid email addresses."
   }
 }
 
