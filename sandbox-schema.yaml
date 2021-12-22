@@ -1,0 +1,17 @@
+title: Landing Zone Sandbox
+description: Landing Zone Sandbox developed by OCI RSA
+schemaVersion: 1.1.0
+version: "0.1"
+locale: en
+variableGroups:
+  - title: Advanced Logging
+    visible: true
+    variables:
+      - is_advanced_logging_enabled
+
+variables:
+  is_advanced_logging_enabled:
+    type: boolean
+    description: "Enable or Disable Advanced Logging (VCN flow logs and audit logs)"
+    required: false
+    title: Enable Advanced Logging?
