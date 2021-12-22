@@ -538,6 +538,7 @@ variables:
       - Orange
       - Verizon
       - Zayo
+    default: AT&T
     visible: use_fastconnect_drg
     required: true
     title: FastConnect Provider
@@ -548,49 +549,25 @@ variables:
       - 1
       - 10
       - 100
-    visible:
-      and:
-        - ${use_fastconnect_drg}
-        - not:
-          - eq:
-            - ${fastconnect_provider}
-            - ""
+    visible: use_fastconnect_drg
     required: true
     title: Virtual Circuit Bandwidth Shape
   virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip: # this shouldn't show for no_asn virtual circuits
     type: string
     description: This is the BGP IPv4 address of the customer's router. Enter Placeholder value for Non-ASN Virtual Circuits.
-    visible:
-      and:
-        - ${use_fastconnect_drg}
-        - not:
-          - eq:
-            - ${fastconnect_provider}
-            - ""
+    visible: use_fastconnect_drg
     required: true
     title: Virtual Circuit Cross Connect Mappings - Customer BGP peering IP
   virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip: # this shouldn't show for no_asn virtual circuits
     type: string
     description: IPv4 address for Oracle's end of the BGP session. Enter Placeholder value for Non-ASN Virtual Circuits.
-    visible:
-      and:
-        - ${use_fastconnect_drg}
-        - not:
-          - eq:
-            - ${fastconnect_provider}
-            - ""
+    visible: use_fastconnect_drg
     required: true
     title: Virtual Circuit Cross Connect Mappings - Oracle BPG Peering IP
   fastconnect_routing_policy:
     type: array
     description: "Available FastConnect routing policies: ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL"
-    visible:
-      and:
-        - ${use_fastconnect_drg}
-        - not:
-          - eq:
-            - ${fastconnect_provider}
-            - ""
+    visible: use_fastconnect_drg
     items:
       type: string
       pattern: \b(?:ORACLE_SERVICE_NETWORK|REGIONAL|MARKET_LEVEL|GLOBAL)\b
@@ -602,7 +579,7 @@ variables:
     description: The provider service key that the provider gives you when you set up a virtual circuit connection from the provider to OCI
     visible:
       and:
-        - ${use_fastconnect_drg}
+        - use_fastconnect_drg
         - eq:
           - ${fastconnect_provider}
           - Microsoft Azure
@@ -613,7 +590,7 @@ variables:
     description: This is the secondary BGP IPv4 address of the customer's router
     visible:
       and:
-        - ${use_fastconnect_drg}
+        - use_fastconnect_drg
         - eq:
           - ${fastconnect_provider}
           - Microsoft Azure
@@ -624,7 +601,7 @@ variables:
     description: Secondary IPv4 address for Oracle's end of the BGP session
     visible:
       and:
-        - ${use_fastconnect_drg}
+        - use_fastconnect_drg
         - eq:
           - ${fastconnect_provider}
           - Microsoft Azure
@@ -635,11 +612,7 @@ variables:
     description: The BGP ASN of the network at the other end of the BGP session from Oracle. Enter Placeholder value for Non-ASN Virtual Circuits.
     visible:
       and:
-        - ${use_fastconnect_drg}
-        - not:
-          - eq:
-            - ${fastconnect_provider}
-            - ""
+        - use_fastconnect_drg
         - not:
           - eq:
             - ${fastconnect_provider}
