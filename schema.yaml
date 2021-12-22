@@ -141,7 +141,7 @@ variables:
     pattern: ^([\w\.-]){1,100}$
   parent_compartment_name:
     type: string
-    description: Name of the top level / parent compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment. 
+    description: Name of the top level / parent compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment.
     required: true
     title: Parent Compartment Name
     pattern: ^([\w\.-]){1,100}$
@@ -150,34 +150,34 @@ variables:
     items:
       type: string
       pattern: ^([\w\.-]){1,100}$
-    description: List of application workload compartment names. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment. 
+    description: List of application workload compartment names. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment.
     required: true
     title: Workload Compartment Names
   network_compartment_name:
     type: string
     visible: show_extra_compartment_names
-    description: Name of the top level network compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment. 
+    description: Name of the top level network compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment.
     required: true
     title: Network Compartment Name
     pattern: ^([\w\.-]){1,100}$
   security_compartment_name:
     type: string
     visible: show_extra_compartment_names
-    description: Name of the top level security compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment. 
+    description: Name of the top level security compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment.
     required: true
     title: Security Compartment Name
     pattern: ^([\w\.-]){1,100}$
   common_infra_compartment_name:
     type: string
     visible: show_extra_compartment_names
-    description: Name of the top level common infrastructure compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment. 
+    description: Name of the top level common infrastructure compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment.
     required: true
     title: Common Infra Compartment Name
     pattern: ^([\w\.-]){1,100}$
   applications_compartment_name:
     type: string
     visible: show_extra_compartment_names
-    description: Name of the top level application compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment. 
+    description: Name of the top level application compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment.
     required: true
     title: Applications Compartment Name
     pattern: ^([\w\.-]){1,100}$
@@ -570,13 +570,13 @@ variables:
     visible: use_fastconnect_drg
     required: true
     title: Virtual Circuit Bandwidth Shape
-  virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip: # this shouldn't show for no_asn virtual circuits
+  virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip:
     type: string
     description: This is the BGP IPv4 address of the customer's router. Enter Placeholder value for Non-ASN Virtual Circuits.
     visible: use_fastconnect_drg
     required: true
     title: Virtual Circuit Cross Connect Mappings - Customer BGP peering IP
-  virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip: # this shouldn't show for no_asn virtual circuits
+  virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip:
     type: string
     description: IPv4 address for Oracle's end of the BGP session. Enter Placeholder value for Non-ASN Virtual Circuits.
     visible: use_fastconnect_drg
@@ -599,8 +599,8 @@ variables:
       and:
         - use_fastconnect_drg
         - eq:
-          - ${fastconnect_provider}
-          - Microsoft Azure
+            - ${fastconnect_provider}
+            - Microsoft Azure
     required: true
     title: Provider Service Key Name
   virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip:
@@ -610,8 +610,8 @@ variables:
       and:
         - use_fastconnect_drg
         - eq:
-          - ${fastconnect_provider}
-          - Microsoft Azure
+            - ${fastconnect_provider}
+            - Microsoft Azure
     required: true
     title: Virtual Circuit Cross Connect Mappings - Customer Secondary BGP Peering IP
   virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip:
@@ -621,19 +621,19 @@ variables:
       and:
         - use_fastconnect_drg
         - eq:
-          - ${fastconnect_provider}
-          - Microsoft Azure
+            - ${fastconnect_provider}
+            - Microsoft Azure
     required: true
     title: Virtual Circuit Cross Connect Mappings - Oracle Secondary BGP Peering IP
-  virtual_circuit_customer_asn: # this shouldn't show for no_asn virtual circuits
+  virtual_circuit_customer_asn:
     type: number
     description: The BGP ASN of the network at the other end of the BGP session from Oracle. Enter Placeholder value for Non-ASN Virtual Circuits.
     visible:
       and:
         - use_fastconnect_drg
         - not:
-          - eq:
-            - ${fastconnect_provider}
-            - Microsoft Azure
+            - eq:
+                - ${fastconnect_provider}
+                - Microsoft Azure
     required: true
     title: Virtual Circuit Customer ASN
