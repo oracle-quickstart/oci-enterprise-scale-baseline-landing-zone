@@ -138,42 +138,49 @@ variables:
     default: false
     required: false
     title: Override default compartment names
+    pattern: ^([\w\.-]){1,100}$
   parent_compartment_name:
     type: string
-    description: Name of the top level / parent compartment
+    description: Name of the top level / parent compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment. 
     required: true
     title: Parent Compartment Name
+    pattern: ^([\w\.-]){1,100}$
   workload_compartment_names:
     type: array
     items:
       type: string
-    description: List of application workload compartment names
+      pattern: ^([\w\.-]){1,100}$
+    description: List of application workload compartment names. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment. 
     required: true
     title: Workload Compartment Names
   network_compartment_name:
     type: string
     visible: show_extra_compartment_names
-    description: Name of the top level network compartment
+    description: Name of the top level network compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment. 
     required: true
     title: Network Compartment Name
+    pattern: ^([\w\.-]){1,100}$
   security_compartment_name:
     type: string
     visible: show_extra_compartment_names
-    description: Name of the top level security compartment
+    description: Name of the top level security compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment. 
     required: true
     title: Security Compartment Name
+    pattern: ^([\w\.-]){1,100}$
   common_infra_compartment_name:
     type: string
     visible: show_extra_compartment_names
-    description: Name of the top level common infrastructure compartment
+    description: Name of the top level common infrastructure compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment. 
     required: true
     title: Common Infra Compartment Name
+    pattern: ^([\w\.-]){1,100}$
   applications_compartment_name:
     type: string
     visible: show_extra_compartment_names
-    description: Name of the top level application compartment
+    description: Name of the top level application compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment. 
     required: true
     title: Applications Compartment Name
+    pattern: ^([\w\.-]){1,100}$
 
   # IAM
   break_glass_user_email_list:
