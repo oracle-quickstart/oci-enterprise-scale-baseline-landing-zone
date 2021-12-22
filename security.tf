@@ -3,7 +3,7 @@
 # -----------------------------------------------------------------------------
 module "cloud-guard" {
   source                                     = "./security/cloud-guard"
-  region                                     = local.home_region[0]
+  region                                     = var.region
   is_cloud_guard_enabled                     = var.is_cloud_guard_enabled
   host_scan_recipe_agent_settings_scan_level = var.host_scan_recipe_agent_settings_scan_level
   host_scan_recipe_port_settings_scan_level  = var.host_scan_recipe_port_settings_scan_level
@@ -15,8 +15,10 @@ module "cloud-guard" {
   tag_geo_location                           = var.tag_geo_location
   tag_cost_center                            = var.tag_cost_center
   parent_compartment_name                    = var.parent_compartment_name
+
   providers = {
-    oci = oci.home_region
+    oci             = oci
+    oci.home_region = oci.home_region
   }
 
   depends_on = [
@@ -36,6 +38,7 @@ module "bastion" {
   bastion_client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
   network_compartment_id               = module.network-compartment.network_compartment_id
   region_key                           = local.region_key[0]
+
   depends_on = [
     module.network-compartment
   ]
@@ -54,8 +57,9 @@ module "audit" {
   retention_rule_duration_time_amount = var.retention_rule_duration_time_amount
   tag_geo_location                    = var.tag_geo_location
   tag_cost_center                     = var.tag_cost_center
+
   providers = {
-    oci = oci
+    oci             = oci
     oci.home_region = oci.home_region
   }
 
@@ -77,10 +81,12 @@ module "flow-logs" {
   subnet_map                = module.vcn_core.subnet_map
   tag_geo_location          = var.tag_geo_location
   tag_cost_center           = var.tag_cost_center
+
   providers = {
     oci             = oci
     oci.home_region = oci.home_region
   }
+
   depends_on = [
     module.parent-compartment, module.security-compartment, module.network-compartment
   ]

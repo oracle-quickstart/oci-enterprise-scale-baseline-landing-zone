@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     oci = {
-      configuration_aliases = [oci]
+      configuration_aliases = [oci, oci.home_region]
     }
   }
 }
@@ -27,6 +27,7 @@ resource "oci_cloud_guard_cloud_guard_configuration" "tenancy_cloud_guard_config
 # Cloud Guard policies
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "cloud_guard_policy" {
+  provider       = oci.home_region
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Cloud Guard Policy"
   name           = "${var.cloud_guard_policy_name}-${random_id.policy_name.id}"
@@ -91,6 +92,7 @@ resource "oci_cloud_guard_target" "cloud_guard_target" {
 # Vulnerability scanning service polices for each cloud guard target
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "vulnerability_scanning_service_policy" {
+  provider       = oci.home_region
   compartment_id = var.parent_compartment_ocid
   description    = "OCI Landing Zone Scanning-service Policy"
   name           = "${var.vulnerability_scanning_service_policy_name}-${random_id.policy_name.id}"
