@@ -141,7 +141,7 @@ variables:
     pattern: ^([\w\.-]){1,100}$
   parent_compartment_name:
     type: string
-    description: Name of the top level / parent compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment. 
+    description: Name of the top level / parent compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment.
     required: true
     title: Parent Compartment Name
     pattern: ^([\w\.-]){1,100}$

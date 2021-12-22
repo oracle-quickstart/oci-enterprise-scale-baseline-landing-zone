@@ -30,64 +30,108 @@ variable "administrator_group_name" {
   type        = string
   description = "The name for the administrator group"
   default     = "Administrators"
+  validation {
+    condition     = can(regex("^([\\w\\.-]){1,100}$", var.administrator_group_name))
+    error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
+  }
 }
 
 variable "network_admin_group_name" {
   type        = string
   description = "The name for the network administrator group name"
   default     = "Virtual-Network-Admins"
+  validation {
+    condition     = can(regex("^([\\w\\.-]){1,100}$", var.network_admin_group_name))
+    error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
+  }
 }
 
 variable "lb_users_group_name" {
   type        = string
   description = "The name for the load balancer users group name"
   default     = "LBUsers"
+  validation {
+    condition     = can(regex("^([\\w\\.-]){1,100}$", var.lb_users_group_name))
+    error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
+  }
 }
 
 variable "workload_storage_admins_group_name" {
   type        = string
   description = "The name for the workload storage administrators group"
   default     = "Workload-Storage-Admins"
+  validation {
+    condition     = can(regex("^([\\w\\.-]){1,100}$", var.workload_storage_admins_group_name))
+    error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
+  }
 }
 
 variable "workload_storage_users_group_name" {
   type        = string
   description = "The name for the workload storage users group"
   default     = "Workload-Storage-Users"
+  validation {
+    condition     = can(regex("^([\\w\\.-]){1,100}$", var.workload_storage_users_group_name))
+    error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
+  }
 }
 
 variable "workload_admins_group_name" {
   type        = string
   description = "The name for the workload administrators group"
   default     = "Workload-Admins"
+  validation {
+    condition     = can(regex("^([\\w\\.-]){1,100}$", var.workload_admins_group_name))
+    error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
+  }
 }
 
 variable "workload_users_group_name" {
   type        = string
   description = "The name for the workload users group"
   default     = "Workload-Users"
+  validation {
+    condition     = can(regex("^([\\w\\.-]){1,100}$", var.workload_users_group_name))
+    error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
+  }
 }
 
 variable "security_admins_group_name" {
   type        = string
   description = "The name of the security admin group"
   default     = "SecurityAdmins"
+  validation {
+    condition     = can(regex("^([\\w\\.-]){1,100}$", var.security_admins_group_name))
+    error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
+  }
 }
 
 variable "cloud_guard_operators_group_name" {
   type        = string
   description = "The name for the Cloud Guard Operator group name"
   default     = "CloudGuard-Operator"
+  validation {
+    condition     = can(regex("^([\\w\\.-]){1,100}$", var.cloud_guard_operators_group_name))
+    error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
+  }
 }
 
 variable "cloud_guard_analysts_group_name" {
   type        = string
   description = "The name of the Cloud Guard Analyst group"
   default     = "CloudGuard-Analyst"
+  validation {
+    condition     = can(regex("^([\\w\\.-]){1,100}$", var.cloud_guard_analysts_group_name))
+    error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
+  }
 }
 
 variable "cloud_guard_architects_group_name" {
   type        = string
   description = "The name for the Cloud Guard Architect group name"
   default     = "CloudGuard-Architect"
+  validation {
+    condition     = can(regex("^([\\w\\.-]){1,100}$", var.cloud_guard_architects_group_name))
+    error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
+  }
 }
