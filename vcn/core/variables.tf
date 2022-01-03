@@ -40,19 +40,6 @@ variable "vcn_dns_label" {
 }
 
 # -----------------------------------------------------------------------------
-# Public Subnet Inputs
-# -----------------------------------------------------------------------------
-variable "public_subnet_cidr_block" {
-  type        = string
-  description = "Public Subnet CIDR Block"
-}
-
-variable "public_subnet_dns_label" {
-  type        = string
-  description = "Public Subnet DNS Label"
-}
-
-# -----------------------------------------------------------------------------
 # Private Subnet Inputs
 # -----------------------------------------------------------------------------
 variable "private_subnet_cidr_blocks" {
@@ -78,77 +65,3 @@ variable "database_subnet_dns_labels" {
   description = "List of Database Subnet DNS Label"
 }
 
-# -----------------------------------------------------------------------------
-# Shared Service Subnet Inputs
-# -----------------------------------------------------------------------------
-variable "shared_service_subnet_cidr_block" {
-  type        = string
-  description = "Shared Service Subnet CIDR Block"
-}
-
-variable "shared_service_subnet_dns_label" {
-  type        = string
-  description = "Shared Service Subnet DNS Label"
-}
-
-# -----------------------------------------------------------------------------
-# Security List Egress Inputs
-# -----------------------------------------------------------------------------
-variable "egress_security_rules_description" {
-  description = "[Workload Security List] Description"
-  type        = string
-  default     = "Workload Security List - Egress"
-}
-
-variable "egress_security_rules_protocol" {
-  description = "[Workload Security List] Egress Protocol"
-  type        = string
-  default     = "6"
-}
-
-variable "egress_security_rules_stateless" {
-  description = "[Workload Security List] Egress Stateless"
-  type        = bool
-  default     = false
-}
-
-variable "egress_rules_map" {
-  description = "[Workload Security List] Egress Rules Map"
-  type = map(object({
-    egress_security_rules_tcp_options_destination_port_range_max = string
-    egress_security_rules_tcp_options_destination_port_range_min = string
-    egress_security_rules_tcp_options_source_port_range_max      = string
-    egress_security_rules_tcp_options_source_port_range_min      = string
-  }))
-}
-
-# -----------------------------------------------------------------------------
-# Security List Ingress Inputs
-# -----------------------------------------------------------------------------
-variable "ingress_security_rules_description" {
-  description = "[Workload Security List] Description"
-  type        = string
-  default     = "Workload Security List - Ingress"
-}
-
-variable "ingress_security_rules_protocol" {
-  description = "[Workload Security List] Ingress Protocol"
-  type        = string
-  default     = "6"
-}
-
-variable "ingress_security_rules_stateless" {
-  description = "[Workload Security List]"
-  type        = bool
-  default     = false
-}
-
-variable "ingress_rules_map" {
-  description = "[Workload Security List] Ingress Rules Map"
-  type = map(object({
-    ingress_security_rules_tcp_options_destination_port_range_max = string
-    ingress_security_rules_tcp_options_destination_port_range_min = string
-    ingress_security_rules_tcp_options_source_port_range_max      = string
-    ingress_security_rules_tcp_options_source_port_range_min      = string
-  }))
-}

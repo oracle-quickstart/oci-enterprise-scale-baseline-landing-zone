@@ -81,7 +81,7 @@ module "flow-logs" {
   security_compartment_ocid = module.security-compartment.security_compartment_id
   security_compartment_name = var.security_compartment_name
   network_compartment_ocid  = module.network-compartment.network_compartment_id
-  subnet_map                = module.vcn_core.subnet_map
+  subnet_map                = local.subnet_map
   tag_geo_location          = var.tag_geo_location
   tag_cost_center           = var.tag_cost_center
   random_id                 = var.is_sandbox_mode_enabled == true ? "-${random_id.unique_prefix.hex}" : ""

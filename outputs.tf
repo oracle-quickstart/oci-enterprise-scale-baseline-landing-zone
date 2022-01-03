@@ -16,20 +16,24 @@ output "vcn_ocid" {
 
 output "public_subnet_id" {
   description = "Public subnet ocid"
-  value       = module.vcn_core.public_subnet_id
+  value       = var.is_public_subnet_enabled == true ? module.public_subnet.public_subnet.id : ""
 }
 
 output "private_subnet_id" {
   description = "Private subnet ocid"
-  value       = module.vcn_core.private_subnet_id
+  value       = module.vcn_core.private_subnet.*.id
 }
 
 output "database_subnet_id" {
   description = "Database subnet ocid"
-  value       = module.vcn_core.database_subnet_id
+  value       = module.vcn_core.database_subnet.*.id
 }
 
 output "fss_subnet_id" {
   description = "Shared service subnet ocid"
-  value       = module.vcn_core.fss_subnet_id
+  value       = var.is_shared_services_subnet_enabled == true ? module.fss_subnet.fss_subnet.id : ""
+}
+
+output "subnet_map" {
+  value = { for subnet in local.subnet_list : subnet.display_name => subnet.id }
 }
