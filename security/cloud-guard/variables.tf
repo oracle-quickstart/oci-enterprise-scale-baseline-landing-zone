@@ -40,6 +40,7 @@ variable "tag_geo_location" {
 variable "is_cloud_guard_enabled" {
   type        = string
   description = "the status of the Cloud Guard tenant"
+  default     = true
 }
 
 variable "region" {
@@ -136,7 +137,7 @@ variable "host_scan_target_description" {
 
 variable "agent_cis_benchmark_settings_scan_level" {
   type        = string
-  description = "Agent bechamrking settings scan level"
+  description = "Agent benchmarking settings scan level"
 }
 
 # -----------------------------------------------------------------------------
