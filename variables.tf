@@ -59,3 +59,11 @@ variable "tag_geo_location" {
 resource "random_id" "unique_prefix" {
   byte_length = 8
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Sandbox Mode
+# ---------------------------------------------------------------------------------------------------------------------
+variable "is_sandbox_mode" {
+  type        = bool
+  description = "Do you want to run the stack in Sandbox mode?"
+}
