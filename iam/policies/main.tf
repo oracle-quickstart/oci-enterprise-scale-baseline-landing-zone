@@ -222,7 +222,7 @@ resource "oci_identity_policy" "workload_users_policies_network" {
 resource "oci_identity_policy" "security_admins_policy" {
   compartment_id = var.security_compartment_id
   description    = "OCI Landing Zone Security Admin Policy"
-  name           = "${var.security_admins_policy_name}-${var.random_id}"
+  name           = "${var.security_admins_policy_name}"
 
   freeform_tags = {
     "Description" = "Policy for Security Admin Users",
@@ -248,7 +248,7 @@ resource "oci_identity_policy" "security_admins_policy" {
 resource "oci_identity_policy" "security_admins_policy_network" {
   compartment_id = var.network_compartment_id
   description    = "OCI Landing Zone Security Admin Network Policy"
-  name           = "${var.security_admins_policy_name}-Network-${var.random_id}"
+  name           = "${var.security_admins_policy_name}-Network"
 
   freeform_tags = {
     "Description" = "Network Policy for Security Admin Users",

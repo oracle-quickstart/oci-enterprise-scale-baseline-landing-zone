@@ -69,7 +69,7 @@ resource "oci_identity_policy" "log_analytics_policy" {
   provider       = oci.home_region
   compartment_id = var.security_compartment_ocid
   description    = "OCI Landing Zone Log Analytics Policy"
-  name           = "${var.log_analytics_policy_name}-${var.random_id}"
+  name           = "${var.log_analytics_policy_name}"
 
   freeform_tags = {
     "Description" = "Service Connector policy"

@@ -15,7 +15,7 @@ module "cloud-guard" {
   tag_geo_location                           = var.tag_geo_location
   tag_cost_center                            = var.tag_cost_center
   parent_compartment_name                    = var.parent_compartment_name
-  random_id                                  = random_id.unique_prefix.id
+  random_id                                  = random_id.unique_prefix.hex
 
   providers = {
     oci             = oci
@@ -59,7 +59,7 @@ module "audit" {
   retention_rule_duration_time_amount = var.retention_rule_duration_time_amount
   tag_geo_location                    = var.tag_geo_location
   tag_cost_center                     = var.tag_cost_center
-  random_id                           = random_id.unique_prefix.id
+  random_id                           = random_id.unique_prefix.hex
 
   providers = {
     oci             = oci
