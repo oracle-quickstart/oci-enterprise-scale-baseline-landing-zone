@@ -6,6 +6,13 @@ terraform {
   }
 }
 
+resource "oci_cloud_guard_cloud_guard_configuration" "tenancy_cloud_guard_configuration" {
+  compartment_id   = var.tenancy_ocid
+  reporting_region = var.region
+  status           = var.is_cloud_guard_enabled == true ? "ENABLED" : "DISABLED"
+  self_manage_resources = true
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Cloud Guard policies
 # ---------------------------------------------------------------------------------------------------------------------
@@ -41,13 +48,6 @@ resource "oci_identity_policy" "cloud_guard_policy" {
     "Allow service cloudguard to read authentication-policies in tenancy",
     "Allow service cloudguard to read policies in tenancy"
   ]
-}
-
-resource "oci_cloud_guard_cloud_guard_configuration" "tenancy_cloud_guard_configuration" {
-  compartment_id   = var.tenancy_ocid
-  reporting_region = var.region
-  status           = var.is_cloud_guard_enabled == true ? "ENABLED" : "DISABLED"
-  self_manage_resources = true
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
