@@ -39,7 +39,7 @@ module "bastion" {
   bastion_client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
   network_compartment_id               = module.network-compartment.network_compartment_id
   region_key                           = local.region_key[0]
-  random_id                            = var.is_sandbox_mode_enabled == true ? "-${random_id.unique_prefix.hex}" : ""
+  random_id                            = var.is_sandbox_mode_enabled == true ? random_id.unique_prefix.hex : ""
 
   depends_on = [
     module.network-compartment
