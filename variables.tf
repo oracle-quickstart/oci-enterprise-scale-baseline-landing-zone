@@ -63,7 +63,7 @@ resource "random_id" "unique_prefix" {
 # ---------------------------------------------------------------------------------------------------------------------
 # Sandbox Mode
 # ---------------------------------------------------------------------------------------------------------------------
-variable "is_sandbox_mode" {
+variable "is_sandbox_mode_enabled" {
   type        = bool
   description = "Do you want to run the stack in Sandbox mode?"
 }
