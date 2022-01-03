@@ -52,3 +52,10 @@ variable "tag_geo_location" {
     error_message = "Must be a valid Geolocation tag value. Allows printable ASCII, excluding periods (.) and spaces and max 100 characters."
   }
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Random IDs to prevent naming collision with tenancy level resources
+# ---------------------------------------------------------------------------------------------------------------------
+resource "random_id" "unique_prefix" {
+  byte_length = 8
+}

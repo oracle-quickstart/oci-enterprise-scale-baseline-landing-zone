@@ -15,6 +15,7 @@ module "cloud-guard" {
   tag_geo_location                           = var.tag_geo_location
   tag_cost_center                            = var.tag_cost_center
   parent_compartment_name                    = var.parent_compartment_name
+  random_id                                  = random_id.unique_prefix.id
 
   providers = {
     oci             = oci
@@ -38,6 +39,7 @@ module "bastion" {
   bastion_client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
   network_compartment_id               = module.network-compartment.network_compartment_id
   region_key                           = local.region_key[0]
+  random_id                            = random_id.unique_prefix.hex
 
   depends_on = [
     module.network-compartment
@@ -57,6 +59,7 @@ module "audit" {
   retention_rule_duration_time_amount = var.retention_rule_duration_time_amount
   tag_geo_location                    = var.tag_geo_location
   tag_cost_center                     = var.tag_cost_center
+  random_id                           = random_id.unique_prefix.id
 
   providers = {
     oci             = oci
@@ -81,6 +84,7 @@ module "flow-logs" {
   subnet_map                = module.vcn_core.subnet_map
   tag_geo_location          = var.tag_geo_location
   tag_cost_center           = var.tag_cost_center
+  random_id                 = random_id.unique_prefix.hex
 
   providers = {
     oci             = oci

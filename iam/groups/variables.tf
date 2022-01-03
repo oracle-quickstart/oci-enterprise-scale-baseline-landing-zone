@@ -3,9 +3,12 @@ variable "tenancy_ocid" {
   description = "The OCID of tenancy"
 }
 
-variable "random_group_name_id" {
+# ---------------------------------------------------------------------------------------------------------------------
+# Random IDs to prevent naming collision with tenancy level resources
+# ---------------------------------------------------------------------------------------------------------------------
+variable "random_id" {
   type        = string
-  description = "Random unique string used in group name"
+  description = "Random unique string used in a resource name"
 }
 
 # -----------------------------------------------------------------------------

@@ -34,6 +34,14 @@ variable "security_compartment_name" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
+# Random IDs to prevent naming collision with tenancy level resources
+# ---------------------------------------------------------------------------------------------------------------------
+variable "random_id" {
+  type        = string
+  description = "Random unique string used in a resource name"
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
 # Variables for Object storage Bucket and Retention Rules
 # ---------------------------------------------------------------------------------------------------------------------
 variable "audit_log_bucket_name" {

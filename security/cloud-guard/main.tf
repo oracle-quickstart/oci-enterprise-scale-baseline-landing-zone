@@ -7,30 +7,13 @@ terraform {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# Random IDs to prevent naming collision with tenancy level resources
-# ---------------------------------------------------------------------------------------------------------------------
-resource "random_id" "policy_name" {
-  byte_length = 8
-}
-
-resource "random_id" "target_name" {
-  byte_length = 8
-}
-
-resource "oci_cloud_guard_cloud_guard_configuration" "tenancy_cloud_guard_configuration" {
-  compartment_id   = var.tenancy_ocid
-  reporting_region = var.region
-  status           = var.is_cloud_guard_enabled == true ? "ENABLED" : "DISABLED"
-}
-
-# ---------------------------------------------------------------------------------------------------------------------
 # Cloud Guard policies
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "cloud_guard_policy" {
   provider       = oci.home_region
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Cloud Guard Policy"
-  name           = "${var.cloud_guard_policy_name}-${random_id.policy_name.id}"
+  name           = "${var.cloud_guard_policy_name}-${var.random_id}"
 
   freeform_tags = {
     "Description" = "Cloud guard policy"
@@ -56,8 +39,18 @@ resource "oci_identity_policy" "cloud_guard_policy" {
     "Allow service cloudguard to read users in tenancy",
     "Allow service cloudguard to read database-family in tenancy",
     "Allow service cloudguard to read authentication-policies in tenancy",
-    "Allow service cloudguard to read policies in tenancy"
+    "Allow service cloudguard to read policies in tenancy",
+    "Allow service cloudguard to use network-security-groups in tenancy",
+    "Allow service cloudguard to read data-safe-family in tenancy",
+    "Allow service cloudguard to read autonomous-database-family in tenancy"
   ]
+}
+
+resource "oci_cloud_guard_cloud_guard_configuration" "tenancy_cloud_guard_configuration" {
+  compartment_id   = var.tenancy_ocid
+  reporting_region = var.region
+  status           = var.is_cloud_guard_enabled == true ? "ENABLED" : "DISABLED"
+  self_manage_resources = true
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -66,7 +59,7 @@ resource "oci_identity_policy" "cloud_guard_policy" {
 resource "oci_cloud_guard_target" "cloud_guard_target" {
   count                = var.is_cloud_guard_enabled == true ? 1 : 0
   compartment_id       = var.parent_compartment_ocid
-  display_name         = "${var.cloud_guard_target_name}-${random_id.target_name.id}"
+  display_name         = "${var.cloud_guard_target_name}-${var.random_id}"
   target_resource_id   = var.parent_compartment_ocid
   target_resource_type = var.target_resource_type
   description          = var.target_description
@@ -95,7 +88,7 @@ resource "oci_identity_policy" "vulnerability_scanning_service_policy" {
   provider       = oci.home_region
   compartment_id = var.parent_compartment_ocid
   description    = "OCI Landing Zone Scanning-service Policy"
-  name           = "${var.vulnerability_scanning_service_policy_name}-${random_id.policy_name.id}"
+  name           = "${var.vulnerability_scanning_service_policy_name}-${var.random_id}"
 
   freeform_tags = {
     "Description" = "Vulnerability Scanning Service Policy"

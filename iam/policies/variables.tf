@@ -3,11 +3,6 @@ variable "tenancy_ocid" {
   description = "The OCID of tenancy"
 }
 
-variable "random_policy_name_id" {
-  type        = string
-  description = "Random unique string used in group name"
-}
-
 variable "region" {
   type        = string
   description = "Region for use in object storage policy"
@@ -21,6 +16,14 @@ variable "key_id" {
 variable "vault_id" {
   type        = string
   description = "Vault ocid for security admin policy"
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Random IDs to prevent naming collision with tenancy level resources
+# ---------------------------------------------------------------------------------------------------------------------
+variable "random_id" {
+  type        = string
+  description = "Random unique string used in a resource name"
 }
 
 # -----------------------------------------------------------------------------
