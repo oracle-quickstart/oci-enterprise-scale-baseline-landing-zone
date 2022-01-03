@@ -1,0 +1,62 @@
+title: Landing Zone Sandbox
+description: Landing Zone Sandbox developed by OCI RSA
+schemaVersion: 1.1.0
+version: "0.1"
+locale: en
+variableGroups:
+  - title: Provider Variables
+    visible: false
+    variables:
+      - api_fingerprint
+      - api_private_key_path
+      - region
+      - tenancy_ocid
+      - current_user_ocid
+  - title: Advanced Logging
+    visible: true
+    variables:
+      - is_advanced_logging_enabled
+
+variables:
+  #Provider Variables
+  api_fingerprint:
+    type: string
+    description: The fingerprint of API
+    default: "Value not required in Oracle Resource Manager."
+    title: Api Fingerprint
+  api_private_key_path:
+    type: string
+    description: The local path to the API private key
+    default: "Value not required in Oracle Resource Manager."
+    title: Api Private Key Path
+  region:
+    type: string
+    description: the OCI region
+    title: Region
+  tenancy_ocid:
+    type: string
+    description: The OCID of tenancy
+    title: Tenancy OCID
+  current_user_ocid:
+    type: string
+    description: OCID of the current user
+    title: Current User OCID
+
+  #Logging
+  is_advanced_logging_enabled:
+    type: boolean
+    description: "Enable or Disable Advanced Logging (VCN flow logs and audit logs)"
+    required: false
+    title: Enable Advanced Logging?
+
+  # Bastion CIDR block allow list
+  bastion_client_cidr_block_allow_list:
+    type: array
+    items:
+      type: string
+      pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    description:
+      A list of address ranges in CIDR notation that bastion is allowed
+      to connect
+    required: true
+    title: Bastion Client CIDR Block Allow List
