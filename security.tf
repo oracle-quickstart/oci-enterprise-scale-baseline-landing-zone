@@ -77,7 +77,7 @@ module "audit" {
 # -----------------------------------------------------------------------------
 module "flow-logs" {
   source                    = "./security/flow-logs"
-  count                     = var.is_advanced_logging_enabled == "FLOW_LOGS" || var.advanced_logging_option == "BOTH"  ? 1 : 0
+  count                     = var.advanced_logging_option == "FLOW_LOGS" || var.advanced_logging_option == "BOTH"  ? 1 : 0
   tenancy_ocid              = var.tenancy_ocid
   security_compartment_ocid = module.security-compartment.security_compartment_id
   security_compartment_name = var.security_compartment_name
