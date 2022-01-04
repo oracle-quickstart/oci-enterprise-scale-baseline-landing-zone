@@ -10,7 +10,6 @@ resource "oci_cloud_guard_cloud_guard_configuration" "tenancy_cloud_guard_config
   compartment_id   = var.tenancy_ocid
   reporting_region = var.region
   status           = var.is_cloud_guard_enabled == true ? "ENABLED" : "DISABLED"
-  self_manage_resources = true
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
