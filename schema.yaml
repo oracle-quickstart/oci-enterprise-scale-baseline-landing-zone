@@ -68,7 +68,7 @@ variableGroups:
       - budget_alert_rule_message
   - title: Security
     variables:
-      - is_advanced_logging_enabled
+      - advanced_logging_option
       - retention_rule_duration_time_amount
       - is_cloud_guard_enabled
       - host_scan_recipe_agent_settings_scan_level
@@ -453,7 +453,7 @@ variables:
     title: Budget Amount
 
   # Security
-  is_advanced_logging_enabled:
+  advanced_logging_option:
     type: enum
     description: "Enable or Disable Advanced Logging (VCN flow logs and/or Audit logs)"
     enum:
