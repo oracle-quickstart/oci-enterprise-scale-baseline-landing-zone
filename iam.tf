@@ -18,7 +18,7 @@ module "groups" {
   cloud_guard_operators_group_name   = var.cloud_guard_operators_group_name
   cloud_guard_analysts_group_name    = var.cloud_guard_analysts_group_name
   cloud_guard_architects_group_name  = var.cloud_guard_architects_group_name
-  random_id                          = var.is_sandbox_mode_enabled == true ? "-${random_id.unique_prefix.hex}" : ""
+  suffix                             = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
   providers = {
     oci = oci.home_region
   }
@@ -57,7 +57,7 @@ module "policies" {
   vault_id                            = var.vault_id
   tag_cost_center                     = var.tag_cost_center
   tag_geo_location                    = var.tag_geo_location
-  random_id                           = var.is_sandbox_mode_enabled == true ? "-${random_id.unique_prefix.hex}" : ""
+  suffix                              = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
   providers = {
     oci = oci.home_region
   }
@@ -75,7 +75,7 @@ module "users" {
   break_glass_user_email = each.value
   tag_cost_center        = var.tag_cost_center
   tag_geo_location       = var.tag_geo_location
-  random_id              = var.is_sandbox_mode_enabled == true ? "-${random_id.unique_prefix.hex}" : ""
+  suffix                 = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
   providers = {
     oci = oci.home_region
   }

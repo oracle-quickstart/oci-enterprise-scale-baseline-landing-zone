@@ -32,7 +32,7 @@ resource "oci_identity_policy" "service_connector_policy" {
 resource "oci_objectstorage_bucket" "audit_log_bucket" {
   compartment_id = var.security_compartment_ocid
   namespace      = data.oci_objectstorage_namespace.ns.namespace
-  name           = "${var.audit_log_bucket_name}${var.random_id}"
+  name           = "${var.audit_log_bucket_name}${var.suffix}"
   access_type    = "NoPublicAccess"
   storage_tier   = "Archive"
 

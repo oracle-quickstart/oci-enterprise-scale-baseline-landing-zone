@@ -12,7 +12,7 @@ terraform {
 resource "oci_identity_policy" "administrator_policies" {
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Administrator Tenancy Policy"
-  name           = "${var.administrator_policy_name}${var.random_id}"
+  name           = "${var.administrator_policy_name}${var.suffix}"
 
   freeform_tags = {
     "Description" = "Policy for access to all resources in tenancy",
@@ -264,7 +264,7 @@ resource "oci_identity_policy" "security_admins_policy_network" {
 resource "oci_identity_policy" "security_admins_policy_compute" {
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Security Admin Compute Policy"
-  name           = "${var.security_admins_policy_name}-Compute${var.random_id}"
+  name           = "${var.security_admins_policy_name}-Compute${var.suffix}"
 
   freeform_tags = {
     "Description" = "Compute Policy for Security Admin Users",
@@ -284,7 +284,7 @@ resource "oci_identity_policy" "security_admins_policy_compute" {
 resource "oci_identity_policy" "cloud_guard_operators_policies" {
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Cloud Guard Operators Policy"
-  name           = "${var.cloud_guard_operators_policy_name}${var.random_id}"
+  name           = "${var.cloud_guard_operators_policy_name}${var.suffix}"
 
   freeform_tags = {
     "Description" = "Policy for Cloud Guard Operators",
@@ -316,7 +316,7 @@ resource "oci_identity_policy" "cloud_guard_operators_policies" {
 resource "oci_identity_policy" "cloud_guard_analysts_policy" {
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Cloud Guard Analyst Policy"
-  name           = "${var.cloud_guard_analysts_policy_name}${var.random_id}"
+  name           = "${var.cloud_guard_analysts_policy_name}${var.suffix}"
 
   freeform_tags = {
     "Description" = "Policy for Cloud Guard Analyst Users",
@@ -356,7 +356,7 @@ resource "oci_identity_policy" "cloud_guard_analysts_policy" {
 resource "oci_identity_policy" "cloud_guard_architects_policies" {
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Cloud Guard Architect Policy"
-  name           = "${var.cloud_guard_architects_policy_name}${var.random_id}"
+  name           = "${var.cloud_guard_architects_policy_name}${var.suffix}"
 
   freeform_tags = {
     "Description" = "Policy for Cloud Guard Architect",

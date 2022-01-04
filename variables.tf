@@ -56,7 +56,7 @@ variable "tag_geo_location" {
 # ---------------------------------------------------------------------------------------------------------------------
 # Random IDs to prevent naming collision with tenancy level resources
 # ---------------------------------------------------------------------------------------------------------------------
-resource "random_id" "unique_prefix" {
+resource "random_id" "suffix" {
   byte_length = 8
 }
 
