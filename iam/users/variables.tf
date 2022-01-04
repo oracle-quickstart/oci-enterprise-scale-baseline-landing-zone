@@ -14,7 +14,7 @@ variable "break_glass_user_email" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# Random IDs to prevent naming collision with tenancy level resources
+# Optional suffix string to prevent naming collision with tenancy level resources
 # ---------------------------------------------------------------------------------------------------------------------
 variable "suffix" {
   type        = string

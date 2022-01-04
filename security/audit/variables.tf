@@ -34,11 +34,11 @@ variable "security_compartment_name" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# Random IDs to prevent naming collision with tenancy level resources
+# Optional suffix string to prevent naming collision with tenancy level resources
 # ---------------------------------------------------------------------------------------------------------------------
 variable "suffix" {
   type        = string
-  description = "Random unique string used in a resource name"
+  description = "Optional suffix string used in a resource name"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
