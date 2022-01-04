@@ -15,7 +15,7 @@ variableGroups:
   - title: Advanced Logging
     visible: true
     variables:
-      - is_advanced_logging_enabled
+      - advanced_logging_option
 
 variables:
   #Provider Variables
@@ -43,10 +43,14 @@ variables:
     title: Current User OCID
 
   #Logging
-  is_advanced_logging_enabled:
-    type: boolean
-    description: "Enable or Disable Advanced Logging (VCN flow logs and Audit logs)"
-    required: false
+  advanced_logging_option:
+    type: enum
+    description: "Enable or Disable Advanced Logging (VCN flow logs and/or Audit logs)"
+    enum:
+      - AUDIT_LOGS
+      - FLOW_LOGS
+      - BOTH
+    required: true
     title: Enable Advanced Logging?
 
   # Bastion CIDR block allow list

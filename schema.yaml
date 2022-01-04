@@ -455,11 +455,11 @@ variables:
   # Security
   is_advanced_logging_enabled:
     type: enum
-    description: "Enable or Disable Advanced Logging (VCN flow logs and Audit logs)"
+    description: "Enable or Disable Advanced Logging (VCN flow logs and/or Audit logs)"
     enum:
-      - Audit Logging
-      - VCN Flow Logs
-      - Both
+      - AUDIT_LOGS
+      - FLOW_LOGS
+      - BOTH
     required: true
     title: Enable Advanced Logging?
   retention_rule_duration_time_amount:
