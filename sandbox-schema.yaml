@@ -45,7 +45,7 @@ variables:
   #Logging
   is_advanced_logging_enabled:
     type: boolean
-    description: "Enable or Disable Advanced Logging (VCN flow logs and audit logs)"
+    description: "Enable or Disable Advanced Logging (VCN flow logs and Audit logs)"
     required: false
     title: Enable Advanced Logging?
 

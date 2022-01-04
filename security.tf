@@ -51,6 +51,7 @@ module "bastion" {
 # -----------------------------------------------------------------------------
 module "audit" {
   source                              = "./security/audit"
+  count                               = var.is_advanced_logging_enabled ? 1 : 0
   tenancy_ocid                        = var.tenancy_ocid
   parent_compartment_name             = var.parent_compartment_name
   parent_compartment_ocid             = module.parent-compartment.parent_compartment_id
@@ -76,7 +77,7 @@ module "audit" {
 # -----------------------------------------------------------------------------
 module "flow-logs" {
   source                    = "./security/flow-logs"
-  count                     = var.is_flow_log_enabled ? 1 : 0
+  count                     = var.is_advanced_logging_enabled ? 1 : 0
   tenancy_ocid              = var.tenancy_ocid
   security_compartment_ocid = module.security-compartment.security_compartment_id
   security_compartment_name = var.security_compartment_name

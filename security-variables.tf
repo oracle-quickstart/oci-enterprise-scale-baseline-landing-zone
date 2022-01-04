@@ -69,8 +69,7 @@ variable "retention_rule_duration_time_amount" {
 # -----------------------------------------------------------------------------
 # VCN Flow Log Variables
 # -----------------------------------------------------------------------------
-variable "is_flow_log_enabled" {
+variable "is_advanced_logging_enabled" {
   type        = bool
-  description = "Enable or Disable VCN Flow Logs"
-  default     = false
+  description = "Enable or Disable Advanced Logging (VCN flow logs and Audit logs)"
 }

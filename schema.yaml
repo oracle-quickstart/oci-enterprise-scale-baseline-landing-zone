@@ -68,7 +68,7 @@ variableGroups:
       - budget_alert_rule_message
   - title: Security
     variables:
-      - is_flow_log_enabled
+      - is_advanced_logging_enabled
       - retention_rule_duration_time_amount
       - is_cloud_guard_enabled
       - host_scan_recipe_agent_settings_scan_level
@@ -453,11 +453,11 @@ variables:
     title: Budget Amount
 
   # Security
-  is_flow_log_enabled:
+  is_advanced_logging_enabled:
     type: boolean
-    description: "Enable or Disable VCN Flow Logs"
+    description: "Enable or Disable Advanced Logging (VCN flow logs and Audit logs)"
     required: false
-    title: Enable VCN Flow Logs?
+    title: Enable Advanced Logging?
   retention_rule_duration_time_amount:
     type: string
     description: Number of days to retain Audit Logs
