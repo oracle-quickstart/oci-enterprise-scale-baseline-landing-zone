@@ -94,7 +94,7 @@ budget_alert_rule_message    = "Default Budget Alert"
 
 # SECURITY
 retention_rule_duration_time_amount        = 366
-is_advanced_logging_enabled                = "Both"
+is_advanced_logging_enabled                = "BOTH"
 is_cloud_guard_enabled                     = true
 vss_scan_schedule                          = "DAILY"
 agent_cis_benchmark_settings_scan_level    = "STRICT"
