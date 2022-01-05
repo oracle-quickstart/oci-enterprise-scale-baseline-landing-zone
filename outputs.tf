@@ -16,7 +16,7 @@ output "vcn_ocid" {
 
 output "public_subnet_id" {
   description = "Public subnet ocid"
-  value       = var.is_public_subnet_enabled == true ? module.public_subnet.public_subnet.id : ""
+  value       = var.is_public_subnet_enabled == true ? module.public_subnet[0].public_subnet.id : null
 }
 
 output "private_subnet_id" {
@@ -31,7 +31,7 @@ output "database_subnet_id" {
 
 output "fss_subnet_id" {
   description = "Shared service subnet ocid"
-  value       = var.is_shared_services_subnet_enabled == true ? module.fss_subnet.fss_subnet.id : ""
+  value       = var.is_shared_services_subnet_enabled == true ? module.fss_subnet[0].fss_subnet.id : null
 }
 
 output "subnet_map" {
