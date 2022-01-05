@@ -17,6 +17,8 @@ vault_id="ocid1.vault.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 key_id="ocid1.key.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 # VCN
+is_public_subnet_enabled = false
+is_shared_services_subnet_enabled = false
 public_subnet_dns_label="public"
 private_subnet_dns_labels=["private0", "private1"]
 database_subnet_dns_labels=["database0", "database1"]
