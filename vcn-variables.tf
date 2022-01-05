@@ -133,20 +133,12 @@ variable "cpe_ip_address" {
   type        = string
   description = "Customer Premises Equipment IP address"
   default     = ""
-  validation {
-    condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", var.cpe_ip_address))
-    error_message = "Must be a valid address range in CIDR notation."
-  }
 }
 
 variable "ip_sec_connection_static_routes" {
   type        = list(string)
   description = "IPSec connection static routes"
   default     = []
-  validation {
-    condition     = alltrue([for i in var.ip_sec_connection_static_routes: can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1][0-9]|[2][0-9]))$", i))])
-    error_message = "Must be a valid address range in CIDR notation."
-  }
 }
 
 variable "use_fastconnect_drg" {

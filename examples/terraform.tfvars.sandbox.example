@@ -1,3 +1,6 @@
+# SANDBOX MODE
+is_sandbox_mode_enabled=true
+
 # COMPARTMENT
 parent_compartment_name="baseline_lz_sandbox"
 workload_compartment_names=["Workload"]
@@ -36,22 +39,5 @@ egress_rules_map={
   }
 }
 
-# BUDGET
-budget_alerting=false
-
-# SECURITY
-retention_rule_duration_time_amount=366
-
 # BASTION
 bastion_subnet_cidr_block="10.0.7.0/24"
-
-# IPSSEC
-use_ipsec_drg=false
-cpe_ip_address="10.0.0.0"
-ip_sec_connection_static_routes=["10.0.1.0/24"]
-
-# FASTCONNECT
-use_fastconnect_drg=false
-
-# SANDBOX MODE
-is_sandbox_mode_enabled=true
