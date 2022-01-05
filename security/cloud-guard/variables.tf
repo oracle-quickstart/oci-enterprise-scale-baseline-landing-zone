@@ -38,9 +38,8 @@ variable "tag_geo_location" {
 # Cloudguard Configuration Variables
 # -----------------------------------------------------------------------------
 variable "is_cloud_guard_enabled" {
-  type        = string
+  type        = bool
   description = "the status of the Cloud Guard tenant"
-  default     = true
 }
 
 variable "region" {
