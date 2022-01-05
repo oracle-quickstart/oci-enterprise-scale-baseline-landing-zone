@@ -59,6 +59,8 @@ bastion_subnet_cidr_block = "10.0.7.0/24"
 
 # IPSSEC
 use_ipsec_drg = false
+cpe_ip_address                  = "10.0.0.0"
+ip_sec_connection_static_routes = ["10.0.1.0/24"]
 
 # FASTCONNECT
 use_fastconnect_drg = false
