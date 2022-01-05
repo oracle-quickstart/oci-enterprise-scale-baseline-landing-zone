@@ -6,41 +6,36 @@ api_fingerprint="a1:b2:c3:4d:5e:6f:7g:8h:99:10:aa:bb:11:12:13:cc"
 api_private_key_path="~/path_to_example_api_key.pem"
 
 # COMPARTMENT
-parent_compartment_name="example_LZ"
+parent_compartment_name="baseline_lz_sandbox"
 workload_compartment_names=["Workload"]
 tag_cost_center="example_tag_cost_center"
 tag_geo_location="example_tag_geo_location"
 
-# IAM
-break_glass_user_email_list=[]
-vault_id="ocid1.vault.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-key_id="ocid1.key.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-
 # VCN
-is_public_subnet_enabled = false
-is_shared_services_subnet_enabled = false
+is_public_subnet_enabled=false
+is_shared_services_subnet_enabled=false
 public_subnet_dns_label="public"
-private_subnet_dns_labels=["private0", "private1"]
-database_subnet_dns_labels=["database0", "database1"]
+private_subnet_dns_labels=["private0"]
+database_subnet_dns_labels=["database0"]
 shared_service_subnet_dns_label="shared"
 vcn_dns_label="vcn"
 vcn_cidr_block="10.0.0.0/16"
 public_subnet_cidr_block="10.0.1.0/24"
-private_subnet_cidr_blocks=["10.0.2.0/24", "10.0.3.0/24"]
-database_subnet_cidr_blocks=["10.0.4.0/24", "10.0.5.0/24"]
-shared_service_subnet_cidr_block="10.0.6.0/24"
+private_subnet_cidr_blocks=["10.0.2.0/24"]
+database_subnet_cidr_blocks=["10.0.3.0/24"]
+shared_service_subnet_cidr_block="10.0.4.0/24"
 
 # VCN GATEWAYS
-ingress_rules_map = {
-  "default" = {
+ingress_rules_map={
+  "default"={
     ingress_security_rules_tcp_options_destination_port_range_max = 65535
     ingress_security_rules_tcp_options_destination_port_range_min = 1
     ingress_security_rules_tcp_options_source_port_range_max      = 65535
     ingress_security_rules_tcp_options_source_port_range_min      = 1
   }
 }
-egress_rules_map = {
-  "default" = {
+egress_rules_map={
+  "default"={
     egress_security_rules_tcp_options_destination_port_range_max = 65535
     egress_security_rules_tcp_options_destination_port_range_min = 1
     egress_security_rules_tcp_options_source_port_range_max      = 65535
@@ -49,21 +44,21 @@ egress_rules_map = {
 }
 
 # BUDGET
-budget_alerting = false
+budget_alerting=false
 
 # SECURITY
-retention_rule_duration_time_amount = 366
+retention_rule_duration_time_amount=366
 
 # BASTION
-bastion_subnet_cidr_block = "10.0.7.0/24"
+bastion_subnet_cidr_block="10.0.7.0/24"
 
 # IPSSEC
-use_ipsec_drg = false
-cpe_ip_address                  = "10.0.0.0"
-ip_sec_connection_static_routes = ["10.0.1.0/24"]
+use_ipsec_drg=false
+cpe_ip_address="10.0.0.0"
+ip_sec_connection_static_routes=["10.0.1.0/24"]
 
 # FASTCONNECT
-use_fastconnect_drg = false
+use_fastconnect_drg=false
 
-
-is_sandbox_mode_enabled = true
+# SANDBOX MODE
+is_sandbox_mode_enabled=true
