@@ -73,8 +73,8 @@ variable "advanced_logging_option" {
   type        = string
   description = "Enable or Disable VCN flow logs and/or Audit Logs"
   validation {
-    condition     = can(regex("\b(?:AUDIT_LOGS|FLOW_LOGS|BOTH)\b", var.advanced_logging_option))
-    error_message = "Select an option between AUDIT_LOGS, FLOW_LOGS or BOTH."
+    condition     = can(regex("\b(?:AUDIT_LOGS|FLOW_LOGS|BOTH|NONE)\b", var.advanced_logging_option))
+    error_message = "Select an option between NONE, AUDIT_LOGS, FLOW_LOGS or BOTH."
   }
 
 }

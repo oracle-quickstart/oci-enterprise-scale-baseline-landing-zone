@@ -460,6 +460,7 @@ variables:
       - "AUDIT_LOGS"
       - "FLOW_LOGS"
       - "BOTH"
+      - "NONE"
     required: true
     title: Enable Advanced Logging?
   retention_rule_duration_time_amount:

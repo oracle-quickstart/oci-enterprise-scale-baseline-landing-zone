@@ -47,9 +47,10 @@ variables:
     type: enum
     description: "Enable or Disable Advanced Logging (VCN flow logs and/or Audit logs)"
     enum:
-      - AUDIT_LOGS
-      - FLOW_LOGS
-      - BOTH
+      - "AUDIT_LOGS"
+      - "FLOW_LOGS"
+      - "BOTH"
+      - "NONE"
     required: true
     title: Enable Advanced Logging?
 
