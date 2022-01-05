@@ -162,6 +162,3 @@ variables:
       to connect
     required: true
     title: Bastion Client CIDR Block Allow List
-
-
-
