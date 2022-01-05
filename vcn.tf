@@ -1,3 +1,14 @@
+locals {
+  subnet_list = concat(
+    var.is_public_subnet_enabled == true ? [module.public_subnet[0].public_subnet] : [],
+    var.is_shared_services_subnet_enabled == true ? [module.fss_subnet[0].fss_subnet] : [],
+    module.vcn_core.database_subnet.*,
+    module.vcn_core.private_subnet.*
+  )
+
+  subnet_map = { for subnet in local.subnet_list : subnet.display_name => subnet.id }
+}
+
 # -----------------------------------------------------------------------------
 # Create VCN and subnets
 # -----------------------------------------------------------------------------
@@ -8,18 +19,12 @@ module "vcn_core" {
   vcn_dns_label                    = var.vcn_dns_label
   region_key                       = local.region_key[0]
   workload_compartment_names       = var.workload_compartment_names
-  public_subnet_cidr_block         = var.public_subnet_cidr_block
-  public_subnet_dns_label          = var.public_subnet_dns_label
   private_subnet_cidr_blocks       = var.private_subnet_cidr_blocks
   private_subnet_dns_labels        = var.private_subnet_dns_labels
   database_subnet_dns_labels       = var.database_subnet_dns_labels
   database_subnet_cidr_blocks      = var.database_subnet_cidr_blocks
-  shared_service_subnet_cidr_block = var.shared_service_subnet_cidr_block
-  shared_service_subnet_dns_label  = var.shared_service_subnet_dns_label
   tag_geo_location                 = var.tag_geo_location
   tag_cost_center                  = var.tag_cost_center
-  ingress_rules_map                = var.ingress_rules_map
-  egress_rules_map                 = var.egress_rules_map
   depends_on                       = [module.network-compartment]
 }
 
@@ -52,4 +57,34 @@ module "fastconnect_drg" {
   provider_service_key_name                                                = var.provider_service_key_name
   tag_geo_location                                                         = var.tag_geo_location
   tag_cost_center                                                          = var.tag_cost_center
+}
+
+module "public_subnet" {
+  count                            = var.is_public_subnet_enabled == true ? 1 : 0
+  source                           = "./vcn/public_subnet"
+  compartment_ocid                 = module.network-compartment.network_compartment_id
+  vcn_id                           = module.vcn_core.vcn_id
+  vcn_cidr_block                   = var.vcn_cidr_block
+  internet_gateway_id              = module.vcn_core.internet_gateway_id
+  region_key                       = local.region_key[0]
+  workload_compartment_names       = var.workload_compartment_names
+  public_subnet_cidr_block         = var.public_subnet_cidr_block
+  public_subnet_dns_label          = var.public_subnet_dns_label
+  tag_geo_location                 = var.tag_geo_location
+  tag_cost_center                  = var.tag_cost_center
+  ingress_rules_map                = var.ingress_rules_map
+  egress_rules_map                 = var.egress_rules_map
+  depends_on                       = [module.network-compartment]
+}
+
+module "fss_subnet" {
+  count                            = var.is_shared_services_subnet_enabled == true ? 1 : 0
+  source                           = "./vcn/fss_subnet"
+  compartment_ocid                 = module.network-compartment.network_compartment_id
+  vcn_id                           = module.vcn_core.vcn_id
+  shared_service_subnet_cidr_block = var.shared_service_subnet_cidr_block
+  shared_service_subnet_dns_label  = var.shared_service_subnet_dns_label
+  tag_geo_location                 = var.tag_geo_location
+  tag_cost_center                  = var.tag_cost_center
+  depends_on                       = [module.network-compartment]
 }

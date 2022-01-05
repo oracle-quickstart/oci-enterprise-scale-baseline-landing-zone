@@ -52,3 +52,30 @@ variable "tag_geo_location" {
     error_message = "Must be a valid Geolocation tag value. Allows printable ASCII, excluding periods (.) and spaces and max 100 characters."
   }
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Optional suffix string to prevent naming collision with tenancy level resources
+# ---------------------------------------------------------------------------------------------------------------------
+resource "random_id" "suffix" {
+  byte_length = 8
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Sandbox Mode
+# ---------------------------------------------------------------------------------------------------------------------
+variable "is_sandbox_mode_enabled" {
+  type        = bool
+  description = "Do you want to run the stack in Sandbox mode?"
+}
+
+variable "is_public_subnet_enabled" {
+  type        = bool
+  description = "Do you want to provision a public subnet?"
+  default     = true
+}
+
+variable "is_shared_services_subnet_enabled" {
+  type        = bool
+  description = "Do you want to provision a private shared services subnet?"
+  default     = true
+}

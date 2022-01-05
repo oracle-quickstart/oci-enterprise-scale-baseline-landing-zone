@@ -1,22 +1,10 @@
 # ---------------------------------------------------------------------------------------------------------------------
-# Random IDs to prevent naming collision with tenancy level resources
-# ---------------------------------------------------------------------------------------------------------------------
-resource "random_id" "policy_name" {
-  byte_length = 8
-}
-
-resource "random_id" "group_name" {
-  byte_length = 8
-}
-
-# ---------------------------------------------------------------------------------------------------------------------
 # Create IAM groups
 # ---------------------------------------------------------------------------------------------------------------------
 module "groups" {
   source                             = "./iam/groups"
   tenancy_ocid                       = var.tenancy_ocid
   workload_compartment_name_list     = var.workload_compartment_names
-  random_group_name_id               = random_id.group_name.id
   tag_cost_center                    = var.tag_cost_center
   tag_geo_location                   = var.tag_geo_location
   administrator_group_name           = var.administrator_group_name
@@ -30,6 +18,7 @@ module "groups" {
   cloud_guard_operators_group_name   = var.cloud_guard_operators_group_name
   cloud_guard_analysts_group_name    = var.cloud_guard_analysts_group_name
   cloud_guard_architects_group_name  = var.cloud_guard_architects_group_name
+  suffix                             = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
   providers = {
     oci = oci.home_region
   }
@@ -68,7 +57,7 @@ module "policies" {
   vault_id                            = var.vault_id
   tag_cost_center                     = var.tag_cost_center
   tag_geo_location                    = var.tag_geo_location
-  random_policy_name_id               = random_id.policy_name.id
+  suffix                              = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
   providers = {
     oci = oci.home_region
   }
@@ -86,6 +75,7 @@ module "users" {
   break_glass_user_email = each.value
   tag_cost_center        = var.tag_cost_center
   tag_geo_location       = var.tag_geo_location
+  suffix                 = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
   providers = {
     oci = oci.home_region
   }

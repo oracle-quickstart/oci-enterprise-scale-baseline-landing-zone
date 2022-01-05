@@ -7,24 +7,13 @@ terraform {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# Random IDs to prevent naming collision with tenancy level resources
-# ---------------------------------------------------------------------------------------------------------------------
-resource "random_id" "policy_name" {
-  byte_length = 8
-}
-
-resource "random_id" "bucket_name" {
-  byte_length = 8
-}
-
-# ---------------------------------------------------------------------------------------------------------------------
 # Service Connector policies
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "service_connector_policy" {
   provider       = oci.home_region
   compartment_id = var.security_compartment_ocid
   description    = "OCI Landing Zone Service Connector Policy"
-  name           = "${var.service_connector_policy_name}-${random_id.policy_name.id}"
+  name           = "${var.service_connector_policy_name}"
 
   freeform_tags = {
     "Description" = "Service Connector policy"
@@ -43,7 +32,7 @@ resource "oci_identity_policy" "service_connector_policy" {
 resource "oci_objectstorage_bucket" "audit_log_bucket" {
   compartment_id = var.security_compartment_ocid
   namespace      = data.oci_objectstorage_namespace.ns.namespace
-  name           = "${var.audit_log_bucket_name}-${random_id.bucket_name.id}"
+  name           = "${var.audit_log_bucket_name}${var.suffix}"
   access_type    = "NoPublicAccess"
   storage_tier   = "Archive"
 

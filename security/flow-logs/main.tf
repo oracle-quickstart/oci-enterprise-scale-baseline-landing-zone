@@ -6,10 +6,6 @@ terraform {
   }
 }
 
-resource "random_id" "policy_name" {
-  byte_length = 8
-}
-
 # ---------------------------------------------------------------------------------------------------------------------
 # Central logging group for VCN Flow Logs
 # ---------------------------------------------------------------------------------------------------------------------
@@ -26,7 +22,7 @@ resource "oci_logging_log_group" "central_log_group" {
 
 resource "oci_log_analytics_log_analytics_log_group" "log_analytics_log_group" {
   compartment_id = var.security_compartment_ocid
-  display_name   = "${var.log_analytics_log_group_display_name}_${random_id.policy_name.hex}"
+  display_name   = "${var.log_analytics_log_group_display_name}${var.suffix}"
   namespace      = data.oci_log_analytics_namespaces.logging_analytics_namespaces.namespace_collection[0].items[0].namespace
 
   freeform_tags = {
@@ -73,7 +69,7 @@ resource "oci_identity_policy" "log_analytics_policy" {
   provider       = oci.home_region
   compartment_id = var.security_compartment_ocid
   description    = "OCI Landing Zone Log Analytics Policy"
-  name           = "${var.log_analytics_policy_name}-${random_id.policy_name.id}"
+  name           = "${var.log_analytics_policy_name}"
 
   freeform_tags = {
     "Description" = "Service Connector policy"

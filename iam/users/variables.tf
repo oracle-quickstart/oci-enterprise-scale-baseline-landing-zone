@@ -13,6 +13,14 @@ variable "break_glass_user_email" {
   description = "The email address of the break glass user"
 }
 
+# ---------------------------------------------------------------------------------------------------------------------
+# Optional suffix string to prevent naming collision with tenancy level resources
+# ---------------------------------------------------------------------------------------------------------------------
+variable "suffix" {
+  type        = string
+  description = "Random unique string used in suffix name"
+}
+
 # -----------------------------------------------------------------------------
 # Tag Variables
 # -----------------------------------------------------------------------------

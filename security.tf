@@ -15,6 +15,7 @@ module "cloud-guard" {
   tag_geo_location                           = var.tag_geo_location
   tag_cost_center                            = var.tag_cost_center
   parent_compartment_name                    = var.parent_compartment_name
+  suffix                                     = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
 
   providers = {
     oci             = oci
@@ -38,6 +39,7 @@ module "bastion" {
   bastion_client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
   network_compartment_id               = module.network-compartment.network_compartment_id
   region_key                           = local.region_key[0]
+  suffix                               = var.is_sandbox_mode_enabled == true ? random_id.suffix.hex : ""
 
   depends_on = [
     module.network-compartment
@@ -57,6 +59,7 @@ module "audit" {
   retention_rule_duration_time_amount = var.retention_rule_duration_time_amount
   tag_geo_location                    = var.tag_geo_location
   tag_cost_center                     = var.tag_cost_center
+  suffix                              = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
 
   providers = {
     oci             = oci
@@ -78,9 +81,10 @@ module "flow-logs" {
   security_compartment_ocid = module.security-compartment.security_compartment_id
   security_compartment_name = var.security_compartment_name
   network_compartment_ocid  = module.network-compartment.network_compartment_id
-  subnet_map                = module.vcn_core.subnet_map
+  subnet_map                = local.subnet_map
   tag_geo_location          = var.tag_geo_location
   tag_cost_center           = var.tag_cost_center
+  suffix                    = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
 
   providers = {
     oci             = oci

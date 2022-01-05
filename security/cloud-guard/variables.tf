@@ -1,3 +1,11 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# Optional suffix string to prevent naming collision with tenancy level resources
+# ---------------------------------------------------------------------------------------------------------------------
+variable "suffix" {
+  type        = string
+  description = "Optional suffix string used in a resource name"
+}
+
 # -----------------------------------------------------------------------------
 # Common Variables
 # -----------------------------------------------------------------------------
@@ -30,7 +38,7 @@ variable "tag_geo_location" {
 # Cloudguard Configuration Variables
 # -----------------------------------------------------------------------------
 variable "is_cloud_guard_enabled" {
-  type        = string
+  type        = bool
   description = "the status of the Cloud Guard tenant"
 }
 
@@ -128,7 +136,7 @@ variable "host_scan_target_description" {
 
 variable "agent_cis_benchmark_settings_scan_level" {
   type        = string
-  description = "Agent bechamrking settings scan level"
+  description = "Agent benchmarking settings scan level"
 }
 
 # -----------------------------------------------------------------------------

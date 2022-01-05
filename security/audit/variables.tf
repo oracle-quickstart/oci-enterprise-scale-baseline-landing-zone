@@ -34,6 +34,14 @@ variable "security_compartment_name" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
+# Optional suffix string to prevent naming collision with tenancy level resources
+# ---------------------------------------------------------------------------------------------------------------------
+variable "suffix" {
+  type        = string
+  description = "Optional suffix string used in a resource name"
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
 # Variables for Object storage Bucket and Retention Rules
 # ---------------------------------------------------------------------------------------------------------------------
 variable "audit_log_bucket_name" {

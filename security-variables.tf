@@ -4,6 +4,7 @@
 variable "is_cloud_guard_enabled" {
   type        = bool
   description = "the status of the Cloud Guard tenant (ENABLED if true or DISABLED if false)"
+  default     = true
 }
 
 variable "host_scan_recipe_agent_settings_scan_level" {

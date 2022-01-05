@@ -1,11 +1,4 @@
 # ---------------------------------------------------------------------------------------------------------------------
-# Random IDs to prevent naming collision with tenancy level resources
-# ---------------------------------------------------------------------------------------------------------------------
-resource "random_id" "bastion_name" {
-  byte_length = 8
-}
-
-# ---------------------------------------------------------------------------------------------------------------------
 # Bastion subnet and resources
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_core_subnet" "bastion_subnet" {
@@ -27,7 +20,7 @@ resource "oci_bastion_bastion" "bastion" {
   target_subnet_id             = oci_core_subnet.bastion_subnet.id
   client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
   max_session_ttl_in_seconds   = var.bastion_max_session_ttl_in_seconds
-  name                         = "LZBastion${random_id.bastion_name.hex}"
+  name                         = "LZBastion${var.suffix}"
 
   freeform_tags = {
     "Description" = "Bastion Service"
