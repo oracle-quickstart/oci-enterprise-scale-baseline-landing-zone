@@ -29,6 +29,10 @@ resource "oci_identity_policy" "service_connector_policy" {
 # ---------------------------------------------------------------------------------------------------------------------
 # Create Object storage Bucket for Audit Log
 # ---------------------------------------------------------------------------------------------------------------------
+resource "time_offset" "bucket_creation_timestamp" {
+  offset_days = 15
+}
+
 resource "oci_objectstorage_bucket" "audit_log_bucket" {
   compartment_id = var.security_compartment_ocid
   namespace      = data.oci_objectstorage_namespace.ns.namespace
@@ -44,7 +48,7 @@ resource "oci_objectstorage_bucket" "audit_log_bucket" {
       time_unit   = var.retention_rule_duration_time_unit
     }
 
-    time_rule_locked = timeadd(timestamp(), "337h")
+    time_rule_locked = time_offset.bucket_creation_timestamp.rfc3339
   }
 
   freeform_tags = {
