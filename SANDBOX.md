@@ -1,16 +1,30 @@
-# oci-rsa-baseline-landing-zone
-This Terraform stack deploys a baseline landing zone.
+# oci-rsa-baseline-landing-zone-sandbox-mode 
+The sandbox mode can be used for development or demonstration purposes. 
+
+It adds a unique suffix for all the tenancy 
+level resources which will allow multiple instances of the stack within the same tenancy.
+
+Sandbox Mode limits the number of inputs by adding safe defaults. This includes:
+- One workload
+- Disabling Budgeting 
+- Disabling the Public Subnet
+- Disabling the Shared Services Subnet
+- Setting safe defaults for VCN and Subnet configuration
+- Enabling the Cloud Guard
+- Enabling the Vulnerability Scanning Service
+- Disabling the IPSEC Tunnel
+- Disabling the FastConnect Virtual Circuit
 
 ## Requirements
 - [Terraform](https://www.terraform.io/) >= 1.0.6
 
-## Prerequisites
-Detailed project prerequisites are included in the following [Architecture Documentation](PLACEHOLDER)
-
 ## Usage
 
-An example [tfvars file](examples/terraform.tfvars.example) is included for reference. This file is arranged according to 
-category a particular variable belongs to. Not all the variables in this file are required.
+An [tfvars file](examples/terraform.tfvars.sandbox.example) is included and will be required for the implementation. All the variables are set to safe defaults. 
+
+The required inputs are: 
+- Enable Advance Logging: This option allows you to enable Audit Logging and/or VCN Flow Logs 
+
 
 ## Deploy Using Oracle Resource Manager
 1. Click to deploy the stack
@@ -35,15 +49,6 @@ category a particular variable belongs to. Not all the variables in this file ar
 
 ## Deploy Using the Terraform CLI
 
-### Prerequisites
-Create a terraform.tfvars file and populate with the required variables or override existing variables.
-
-Note: An example [tfvars file](examples/terraform.tfvars.example) is included for reference. Using this file is the 
-preferred way to run the stack from the CLI, because of the large number of variables to manage.
-
-To use this file just copy the example [tfvars file](examples/terraform.tfvars.example) and save it in the outermost directory.
-Next, rename the file to **terraform.tfvars**. You can override the example values set in this file.
-
 ### Clone the Module
 
 Clone the source code from suing the following command:
@@ -53,7 +58,13 @@ cd repository_name
 ```
 
 ### Running Terraform
-After specifying the required variables you can run the stack using the following command:
+Before running terraform apply, rename the [file](examples/terraform.tfvars.sandbox.example) from example directory to  
+**terraform.tfvars** and save it in the outermost directory.
+
+```
+cp examples/terraform.tfvars.sandbox.example terraform.tfvars
+```
+Run the stack using the following commands:
 ```
 terraform init
 terraform plan
@@ -68,11 +79,7 @@ using the [terraform-docs](https://github.com/terraform-docs/terraform-docs) wit
 terraform-docs markdown table --sort-by required --show inputs --show outputs . > VARIABLES.md
 ```
 
-## Sandbox Mode
 
-The sandbox mode is an alternate deployment method that can be used for development or demonstration purposes. 
-
-For more information follow this [link](SANDBOX.md).
 
 ## The Team
 This repository was developed by the Oracle OCI Regulatory Solutions and Automation (RSA) team. 

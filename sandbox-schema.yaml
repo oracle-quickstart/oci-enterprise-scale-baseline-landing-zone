@@ -15,7 +15,104 @@ variableGroups:
   - title: Advanced Logging
     visible: true
     variables:
-      - is_advanced_logging_enabled
+      - advanced_logging_option
+  - title: Bastion CIDR block allow list
+    visible: true
+    variables:
+      - bastion_client_cidr_block_allow_list
+  - title: Tagging
+    visible: false
+    variables:
+      - tag_cost_center
+      - tag_geo_location
+  - title: Compartment
+    visible: false
+    variables:
+      - parent_compartment_name
+      - workload_compartment_names
+      - show_extra_compartment_names
+      - network_compartment_name
+      - security_compartment_name
+      - common_infra_compartment_name
+      - applications_compartment_name
+  - title: IAM
+    visible: false
+    variables:
+      - break_glass_user_email_list
+      - show_extra_iam_vars
+      - key_id
+      - vault_id
+      - show_extra_group_names
+      - administrator_group_name
+      - network_admin_group_name
+      - lb_users_group_name
+      - workload_admins_group_name
+      - workload_users_group_name
+      - workload_storage_admins_group_name
+      - workload_storage_users_group_name
+      - security_admins_group_name
+      - cloud_guard_operators_group_name
+      - cloud_guard_analysts_group_name
+      - cloud_guard_architects_group_name
+  - title: VCN
+    visible: false
+    variables:
+      - vcn_cidr_block
+      - vcn_dns_label
+      - private_subnet_cidr_blocks
+      - private_subnet_dns_labels
+      - database_subnet_cidr_blocks
+      - database_subnet_dns_labels
+      - is_public_subnet_enabled
+      - public_subnet_cidr_block
+      - public_subnet_dns_label
+      - ingress_rules_map
+      - egress_rules_map
+      - is_shared_services_subnet_enabled
+      - shared_service_subnet_cidr_block
+      - shared_service_subnet_dns_label
+  - title: Budget
+    visible: false
+    variables:
+      - budget_alerting
+      - budget_amount
+      - budget_alert_rule_threshold
+      - budget_alert_rule_recipients
+      - budget_alert_rule_message
+  - title: Security
+    visible: false
+    variables:
+      - retention_rule_duration_time_amount
+      - is_cloud_guard_enabled
+      - host_scan_recipe_agent_settings_scan_level
+      - host_scan_recipe_port_settings_scan_level
+      - agent_cis_benchmark_settings_scan_level
+      - vss_scan_schedule
+  - title: Bastion
+    visible: false
+    variables:
+      - bastion_subnet_cidr_block
+  - title: DRG (Dynamic Routing Gateways)
+    visible: false
+    variables:
+      - use_ipsec_drg
+      - cpe_ip_address
+      - ip_sec_connection_static_routes
+      - use_fastconnect_drg
+      - fastconnect_provider
+      - fastconnect_routing_policy
+      - virtual_circuit_bandwidth_shape
+      - virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip
+      - virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip
+      - virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip
+      - virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip
+      - provider_service_key_name
+      - virtual_circuit_customer_asn
+  - title: Sandbox Mode
+    visible: false
+    variables:
+      - is_sandbox_mode_enabled
+
 
 variables:
   #Provider Variables
@@ -43,10 +140,15 @@ variables:
     title: Current User OCID
 
   #Logging
-  is_advanced_logging_enabled:
-    type: boolean
-    description: "Enable or Disable Advanced Logging (VCN flow logs and audit logs)"
-    required: false
+  advanced_logging_option:
+    type: enum
+    description: "Enable or Disable Advanced Logging (VCN flow logs and/or Audit logs)"
+    enum:
+      - "AUDIT_LOGS"
+      - "FLOW_LOGS"
+      - "BOTH"
+      - "NONE"
+    required: true
     title: Enable Advanced Logging?
 
   # Bastion CIDR block allow list
