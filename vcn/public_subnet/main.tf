@@ -44,7 +44,7 @@ resource "oci_core_route_table" "public_subnet_route_table" {
 resource "oci_core_security_list" "workload_security_list" {
   for_each       = setunion(toset(keys(var.egress_rules_map)), toset(keys(var.ingress_rules_map)))
   compartment_id = var.compartment_ocid
-  vcn_id         = oci_core_vcn.primary_vcn.id
+  vcn_id         = var.vcn_id
   display_name   = "OCI-LZ-VCN-${var.region_key}-${each.key}-SecurityList"
   freeform_tags = {
     "Description" = "Security list for ${each.key}"
