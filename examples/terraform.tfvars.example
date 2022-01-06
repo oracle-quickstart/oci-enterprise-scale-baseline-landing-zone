@@ -45,44 +45,44 @@ private_subnet_cidr_blocks       = ["10.0.2.0/24", "10.0.3.0/24"]
 database_subnet_cidr_blocks      = ["10.0.4.0/24", "10.0.5.0/24"]
 shared_service_subnet_cidr_block = "10.0.6.0/24"
 ingress_rules_map = {
-  "default" = {
+  "default" = [{
     ingress_security_rules_tcp_options_destination_port_range_max = 65535
     ingress_security_rules_tcp_options_destination_port_range_min = 1
     ingress_security_rules_tcp_options_source_port_range_max      = 65535
     ingress_security_rules_tcp_options_source_port_range_min      = 1
-  }
-  "Workload-A" = {
+  }]
+  "Workload-A" = [{
     ingress_security_rules_tcp_options_destination_port_range_max = 65534
     ingress_security_rules_tcp_options_destination_port_range_min = 2
     ingress_security_rules_tcp_options_source_port_range_max      = 65534
     ingress_security_rules_tcp_options_source_port_range_min      = 2
-  }
-  "Workload-B" = {
+  }]
+  "Workload-B" = [{
     ingress_security_rules_tcp_options_destination_port_range_max = 65533
     ingress_security_rules_tcp_options_destination_port_range_min = 3
     ingress_security_rules_tcp_options_source_port_range_max      = 65533
     ingress_security_rules_tcp_options_source_port_range_min      = 3
-  }
+  }]
 }
 egress_rules_map = {
-  "default" = {
+  "default" = [{
     egress_security_rules_tcp_options_destination_port_range_max = 65535
     egress_security_rules_tcp_options_destination_port_range_min = 1
     egress_security_rules_tcp_options_source_port_range_max      = 65535
     egress_security_rules_tcp_options_source_port_range_min      = 1
-  }
-  "Workload-A" = {
+  }]
+  "Workload-A" = [{
     egress_security_rules_tcp_options_destination_port_range_max = 65534
     egress_security_rules_tcp_options_destination_port_range_min = 2
     egress_security_rules_tcp_options_source_port_range_max      = 65534
     egress_security_rules_tcp_options_source_port_range_min      = 2
-  }
-  "Workload-B" = {
+  }]
+  "Workload-B" = [{
     egress_security_rules_tcp_options_destination_port_range_max = 65533
     egress_security_rules_tcp_options_destination_port_range_min = 3
     egress_security_rules_tcp_options_source_port_range_max      = 65533
     egress_security_rules_tcp_options_source_port_range_min      = 3
-  }
+  }]
 }
 
 # BUDGET
