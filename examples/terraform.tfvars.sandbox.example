@@ -41,3 +41,4 @@ egress_rules_map={
 
 # BASTION
 bastion_subnet_cidr_block="10.0.7.0/24"
+bastion_client_cidr_block_allow_list=[]
