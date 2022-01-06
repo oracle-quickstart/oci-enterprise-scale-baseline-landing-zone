@@ -68,7 +68,11 @@ using the [terraform-docs](https://github.com/terraform-docs/terraform-docs) wit
 terraform-docs markdown table --sort-by required --show inputs --show outputs . > VARIABLES.md
 ```
 
+## Sandbox Mode
 
+The sandbox mode is an alternate deployment method that can be used for development or demonstration purposes. 
+
+For more information follow this [link](SANDBOX.md).
 
 ## The Team
 This repository was developed by the Oracle OCI Regulatory Solutions and Automation (RSA) team. 
