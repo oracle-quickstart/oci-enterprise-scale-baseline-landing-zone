@@ -155,7 +155,7 @@ variables:
     items:
       type: string
       pattern: ^([\w\.-]){1,100}$
-    description: List of application workload compartment names. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment.
+    description: List of up to five application workload compartment names. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment.
     required: true
     title: Workload Compartment Names
   network_compartment_name:
@@ -321,7 +321,7 @@ variables:
     items:
       type: string
       pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
-    description: List of Private Subnet CIDR Block (one per workload)
+    description: List of Private Subnet CIDR Block (one per workload, maximum of five)
     required: true
     title: Private Subnet CIDR Blocks
   private_subnet_dns_labels:
@@ -329,7 +329,7 @@ variables:
     items:
       type: string
       pattern: ^[a-zA-Z][a-zA-Z0-9]{1,14}$
-    description: List of Private Subnet DNS Label (one per workload). Allowed maximum 15 alphanumeric characters and must start with a letter.
+    description: List of Private Subnet DNS Label (one per workload, maximum of five). Allowed maximum 15 alphanumeric characters and must start with a letter.
     required: true
     title: Private Subnet DNS Labels
   public_subnet_cidr_block:
@@ -351,7 +351,7 @@ variables:
     items:
       type: string
       pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
-    description: List of Database Subnet CIDR Block (one per workload)
+    description: List of Database Subnet CIDR Block (one per workload, maximum of five)
     required: true
     title: Database Subnet CIDR Blocks
   database_subnet_dns_labels:
@@ -359,7 +359,7 @@ variables:
     items:
       type: string
       pattern: ^[a-zA-Z][a-zA-Z0-9]{1,14}$
-    description: List of Database Subnet DNS Label (one per workload). Allowed maximum 15 alphanumeric characters and must start with a letter.
+    description: List of Database Subnet DNS Label (one per workload, maximum of five). Allowed maximum 15 alphanumeric characters and must start with a letter.
     required: true
     title: Database Subnet DNS Labels
   egress_rules_map:
