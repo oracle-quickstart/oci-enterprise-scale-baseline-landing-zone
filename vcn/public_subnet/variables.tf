@@ -80,13 +80,14 @@ variable "egress_security_rules_stateless" {
 }
 
 variable "egress_rules_map" {
-  description = "[Workload Security List] Egress Rules Map"
-  type = map(object({
-    egress_security_rules_tcp_options_destination_port_range_max = string
-    egress_security_rules_tcp_options_destination_port_range_min = string
-    egress_security_rules_tcp_options_source_port_range_max      = string
-    egress_security_rules_tcp_options_source_port_range_min      = string
-  }))
+  description = "[Workload Security List] Egress Rules Map. To customize rules for a workload, use the workload name as the value of key."
+  type = map(list(object({
+    egress_security_rules_tcp_options_destination_port_range_max = number
+    egress_security_rules_tcp_options_destination_port_range_min = number
+    egress_security_rules_tcp_options_source_port_range_max      = number
+    egress_security_rules_tcp_options_source_port_range_min      = number
+  })))
+  default = {}
 }
 
 # -----------------------------------------------------------------------------
@@ -111,11 +112,12 @@ variable "ingress_security_rules_stateless" {
 }
 
 variable "ingress_rules_map" {
-  description = "[Workload Security List] Ingress Rules Map"
-  type = map(object({
-    ingress_security_rules_tcp_options_destination_port_range_max = string
-    ingress_security_rules_tcp_options_destination_port_range_min = string
-    ingress_security_rules_tcp_options_source_port_range_max      = string
-    ingress_security_rules_tcp_options_source_port_range_min      = string
-  }))
+  description = "[Workload Security List] Ingress Rules Map. To customize rules for a workload, use the workload name as the value of key."
+  type = map(list(object({
+    ingress_security_rules_tcp_options_destination_port_range_max = number
+    ingress_security_rules_tcp_options_destination_port_range_min = number
+    ingress_security_rules_tcp_options_source_port_range_max      = number
+    ingress_security_rules_tcp_options_source_port_range_min      = number
+  })))
+  default = {}
 }

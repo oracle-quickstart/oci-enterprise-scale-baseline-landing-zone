@@ -42,42 +42,48 @@ resource "oci_core_route_table" "public_subnet_route_table" {
 # Create security list for each workloads
 # -----------------------------------------------------------------------------
 resource "oci_core_security_list" "workload_security_list" {
-  count          = length(local.workload-list)
+  for_each       = setunion(toset(keys(var.egress_rules_map)), toset(keys(var.ingress_rules_map)))
   compartment_id = var.compartment_ocid
   vcn_id         = var.vcn_id
-  display_name   = "OCI-LZ-VCN-${var.region_key}-${local.workload-list[count.index].name}-SecurityList"
+  display_name   = "OCI-LZ-VCN-${var.region_key}-${each.key}-SecurityList"
   freeform_tags = {
-    "Description" = "Security list for ${local.workload-list[count.index].name}"
+    "Description" = "Security list for ${each.key}"
     "CostCenter"  = var.tag_cost_center,
     "GeoLocation" = var.tag_geo_location
   }
 
-  egress_security_rules {
-    description = var.egress_security_rules_description
-    destination = var.vcn_cidr_block
-    protocol    = var.egress_security_rules_protocol
-    stateless   = var.egress_security_rules_stateless
-    tcp_options {
-      max = var.egress_rules_map[local.customized-egress-rule-list[count.index].rule_name]["egress_security_rules_tcp_options_destination_port_range_max"]
-      min = var.egress_rules_map[local.customized-egress-rule-list[count.index].rule_name]["egress_security_rules_tcp_options_destination_port_range_min"]
-      source_port_range {
-        max = var.egress_rules_map[local.customized-egress-rule-list[count.index].rule_name]["egress_security_rules_tcp_options_source_port_range_max"]
-        min = var.egress_rules_map[local.customized-egress-rule-list[count.index].rule_name]["egress_security_rules_tcp_options_source_port_range_min"]
+  dynamic "egress_security_rules" {
+    for_each = can(var.egress_rules_map[each.key]) ? toset(var.egress_rules_map[each.key]) : []
+    content {
+      description = var.egress_security_rules_description
+      destination = var.vcn_cidr_block
+      protocol    = var.egress_security_rules_protocol
+      stateless   = var.egress_security_rules_stateless
+      tcp_options {
+        max = egress_security_rules.key["egress_security_rules_tcp_options_destination_port_range_max"]
+        min = egress_security_rules.key["egress_security_rules_tcp_options_destination_port_range_min"]
+        source_port_range {
+          max = egress_security_rules.key["egress_security_rules_tcp_options_source_port_range_max"]
+          min = egress_security_rules.key["egress_security_rules_tcp_options_source_port_range_min"]
+        }
       }
     }
   }
 
-  ingress_security_rules {
-    description = var.ingress_security_rules_description
-    protocol    = var.ingress_security_rules_protocol
-    source      = var.vcn_cidr_block
-    stateless   = var.ingress_security_rules_stateless
-    tcp_options {
-      max = var.ingress_rules_map[local.customized-ingress-rule-list[count.index].rule_name]["ingress_security_rules_tcp_options_destination_port_range_max"]
-      min = var.ingress_rules_map[local.customized-ingress-rule-list[count.index].rule_name]["ingress_security_rules_tcp_options_destination_port_range_min"]
-      source_port_range {
-        max = var.ingress_rules_map[local.customized-ingress-rule-list[count.index].rule_name]["ingress_security_rules_tcp_options_source_port_range_max"]
-        min = var.ingress_rules_map[local.customized-ingress-rule-list[count.index].rule_name]["ingress_security_rules_tcp_options_source_port_range_min"]
+  dynamic "ingress_security_rules" {
+    for_each = can(var.ingress_rules_map[each.key]) ? toset(var.ingress_rules_map[each.key]) : []
+    content {
+      description = var.ingress_security_rules_description
+      source      = var.vcn_cidr_block
+      protocol    = var.ingress_security_rules_protocol
+      stateless   = var.ingress_security_rules_stateless
+      tcp_options {
+        max = ingress_security_rules.key["ingress_security_rules_tcp_options_destination_port_range_max"]
+        min = ingress_security_rules.key["ingress_security_rules_tcp_options_destination_port_range_min"]
+        source_port_range {
+          max = ingress_security_rules.key["ingress_security_rules_tcp_options_source_port_range_max"]
+          min = ingress_security_rules.key["ingress_security_rules_tcp_options_source_port_range_min"]
+        }
       }
     }
   }
@@ -93,10 +99,11 @@ resource "oci_core_subnet" "public_subnet" {
   compartment_id    = var.compartment_ocid
   vcn_id            = var.vcn_id
   route_table_id    = oci_core_route_table.public_subnet_route_table.id
-  security_list_ids = oci_core_security_list.workload_security_list.*.id
+  security_list_ids = values(oci_core_security_list.workload_security_list)[*].id
   freeform_tags = {
     "Description" = "Public Subnet"
     "CostCenter"  = var.tag_cost_center,
     "GeoLocation" = var.tag_geo_location
   }
 }
+
