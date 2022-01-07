@@ -43,37 +43,53 @@ variable "public_subnet_dns_label" {
 
 variable "private_subnet_cidr_blocks" {
   type        = list(string)
-  description = "List of Private Subnet CIDR Block (one per workload)"
+  description = "List of Private Subnet CIDR Block (one per workload, maximum of five)"
   validation {
     condition     =  alltrue([for i in var.private_subnet_cidr_blocks: can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1][0-9]|[2][0-9]))$", i))])
     error_message = "Must be a list of valid address ranges in CIDR notation."
+  }
+  validation {
+    condition     = length(var.private_subnet_cidr_blocks) < 6
+    error_message = "A max of 5 workoad related entries are supported."
   }
 }
 
 variable "private_subnet_dns_labels" {
   type        = list(string)
-  description = "List of Private Subnet DNS Label (one per workload)"
+  description = "List of Private Subnet DNS Label (one per workload, maximum of five)"
   validation {
     condition     = alltrue([for i in var.private_subnet_dns_labels : can(regex("^[a-zA-Z][a-zA-Z0-9]{1,14}$", i))])
     error_message = "Allowed maximum 15 alphanumeric characters and must start with a letter."
+  }
+  validation {
+    condition     = length(var.private_subnet_dns_labels) < 6
+    error_message = "A max of 5 workoad related entries are supported."
   }
 }
 
 variable "database_subnet_cidr_blocks" {
   type        = list(string)
-  description = "List of Database Subnet CIDR Block (one per workload)"
+  description = "List of Database Subnet CIDR Block (one per workload, maximum of five)"
   validation {
     condition     =  alltrue([for i in var.database_subnet_cidr_blocks: can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1][0-9]|[2][0-9]))$", i))])
     error_message = "Must be a list of valid address ranges in CIDR notation."
+  } 
+  validation {
+    condition     = length(var.database_subnet_cidr_blocks) < 6
+    error_message = "A max of 5 workoad related entries are supported."
   }
 }
 
 variable "database_subnet_dns_labels" {
   type        = list(string)
-  description = "List of Database Subnet DNS Label (one per workload)"
+  description = "List of Database Subnet DNS Label (one per workload, maximum of five)"
   validation {
     condition     = alltrue([for i in var.database_subnet_dns_labels : can(regex("^[a-zA-Z][a-zA-Z0-9]{1,14}$", i))])
     error_message = "Allowed maximum 15 alphanumeric characters and must start with a letter."
+  }
+  validation {
+    condition     = length(var.database_subnet_dns_labels) < 6
+    error_message = "A max of 5 workoad related entries are supported."
   }
 }
 
@@ -100,23 +116,23 @@ variable "shared_service_subnet_dns_label" {
 # -----------------------------------------------------------------------------
 variable "egress_rules_map" {
   description = "[Workload Security List] Egress Rules Map. To customize rules for a workload, use the workload name as the value of key."
-  type = map(object({
+  type = map(list(object({
     egress_security_rules_tcp_options_destination_port_range_max = number
     egress_security_rules_tcp_options_destination_port_range_min = number
     egress_security_rules_tcp_options_source_port_range_max      = number
     egress_security_rules_tcp_options_source_port_range_min      = number
-  }))
+  })))
   default = {}
 }
 
 variable "ingress_rules_map" {
   description = "[Workload Security List] Ingress Rules Map. To customize rules for a workload, use the workload name as the value of key."
-  type = map(object({
+  type = map(list(object({
     ingress_security_rules_tcp_options_destination_port_range_max = number
     ingress_security_rules_tcp_options_destination_port_range_min = number
     ingress_security_rules_tcp_options_source_port_range_max      = number
     ingress_security_rules_tcp_options_source_port_range_min      = number
-  }))
+  })))
   default = {}
 }
 
