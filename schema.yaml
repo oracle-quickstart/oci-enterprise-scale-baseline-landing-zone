@@ -379,7 +379,7 @@ variables:
     visible: is_public_subnet_enabled
   ingress_rules_map:
     type: text
-    description: "[Workload Security List] Ingress Rules Map. To customize rules for a workload, use the workload name as the value of key"
+    description: "[Workload Security List] Ingress Rules Map. To customize rules for a workload, use the workload name as the key and a list of security rules as the value. Each security list is attached to the public subnet."
     default: "{
       \n\t\"default\" = [{
       \n\t\tingress_security_rules_tcp_options_destination_port_range_max = 443
