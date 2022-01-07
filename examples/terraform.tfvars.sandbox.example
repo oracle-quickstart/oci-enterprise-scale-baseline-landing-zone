@@ -23,20 +23,26 @@ shared_service_subnet_cidr_block="10.0.4.0/24"
 
 # VCN GATEWAYS
 ingress_rules_map={
-  "default"={
-    ingress_security_rules_tcp_options_destination_port_range_max = 65535
-    ingress_security_rules_tcp_options_destination_port_range_min = 1
-    ingress_security_rules_tcp_options_source_port_range_max      = 65535
-    ingress_security_rules_tcp_options_source_port_range_min      = 1
-  }
+  "default"=[{
+    ingress_security_rules_tcp_options_destination_port_range_max = 443
+    ingress_security_rules_tcp_options_destination_port_range_min = 443
+    ingress_security_rules_tcp_options_source_port_range_max      = 443
+    ingress_security_rules_tcp_options_source_port_range_min      = 443
+  }]
 }
 egress_rules_map={
-  "default"={
+  "default"=[{
     egress_security_rules_tcp_options_destination_port_range_max = 65535
     egress_security_rules_tcp_options_destination_port_range_min = 1
     egress_security_rules_tcp_options_source_port_range_max      = 65535
     egress_security_rules_tcp_options_source_port_range_min      = 1
   }
+  "Workload"=[{
+    egress_security_rules_tcp_options_destination_port_range_max = 65535
+    egress_security_rules_tcp_options_destination_port_range_min = 1
+    egress_security_rules_tcp_options_source_port_range_max      = 65535
+    egress_security_rules_tcp_options_source_port_range_min      = 1
+  }]
 }
 
 # BASTION
