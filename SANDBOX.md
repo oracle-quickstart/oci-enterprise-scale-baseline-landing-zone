@@ -46,12 +46,18 @@ The required inputs are:
 
 7. If no further changes are necessary, return to the Stack Details page, click Terraform Actions, and select Apply.
 
+## Destroy Resources Using Oracle Resource Manager
+1. If audit log bucket was provisioned, delete this bucket manually.
+2. If flow logs were provisioned, delete these logs manually.
+3. Go to the Stack Details page, then click Destroy.
+4. A pop-up confirmation dialog page will appear. Click Destroy again.
+5. Clean up leftover compartments in the OCI console.
 
 ## Deploy Using the Terraform CLI
 
 ### Clone the Module
 
-Clone the source code from suing the following command:
+Clone the source code from using the following command:
 ```
 git clone ADD_URL_HERE
 cd repository_name
@@ -70,6 +76,17 @@ terraform init
 terraform plan
 terraform apply
 ```
+
+## Destroy Resources Using the Terraform CLI
+1. If audit log buck was provisioned, delete this bucket manually.
+2. If flow logs were provisioned, delete these logs manually.
+3. Run the following commands to delete the stack:
+```
+terraform init
+terraform destroy
+```
+4. Wait for Terraform to finish destroying resources.
+5. Clean up leftover compartments in the OCI console.
 
 ### Terraform Variables
 A complete listing of the Terraform variables used in this stack are referenced [here](VARIABLES.md). This document is automatically generated 
