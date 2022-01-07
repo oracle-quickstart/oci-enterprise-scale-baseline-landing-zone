@@ -12,10 +12,14 @@ variable "parent_compartment_name" {
 
 variable "workload_compartment_names" {
   type        = list(string)
-  description = "List of application workload compartment names"
+  description = "List of application workload compartment names (maximum of five)"
   validation {
     condition     = alltrue([for i in var.workload_compartment_names: can(regex("^([\\w\\.-]){1,100}$", i))])
     error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment."
+  }
+  validation {
+    condition     = length(var.workload_compartment_names) < 6
+    error_message = "A max of 5 workoad related entries are supported."
   }
 }
 
