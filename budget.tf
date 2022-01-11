@@ -14,7 +14,8 @@ module "budget" {
   budget_alert_rule_recipients = var.budget_alert_rule_recipients
   tag_geo_location             = var.tag_geo_location
   tag_cost_center              = var.tag_cost_center
-  providers                    = {
+  
+  providers = {
     oci = oci.home_region
   }
 }
