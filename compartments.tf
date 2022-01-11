@@ -7,6 +7,8 @@ module "parent-compartment" {
   compartment_name = var.parent_compartment_name
   tag_geo_location = var.tag_geo_location
   tag_cost_center  = var.tag_cost_center
+  suffix           = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
+  
   providers = {
     oci = oci.home_region
   }

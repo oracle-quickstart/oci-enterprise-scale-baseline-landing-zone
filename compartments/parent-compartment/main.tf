@@ -12,7 +12,7 @@ terraform {
 resource "oci_identity_compartment" "parent_compartment" {
   compartment_id  = var.tenancy_ocid
   description     = "Parent Compartment"
-  name            = var.compartment_name
+  name            = "${var.compartment_name}${var.suffix}"
 
   freeform_tags = {
     "Description" = "Parent Compartment",

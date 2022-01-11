@@ -668,3 +668,8 @@ variables:
     type: boolean
     title: Enable Sandbox Mode?
     description: Enable the sandbox mode if using the stack for development or demonstrations. Adds a unique suffix for all the tenancy level resources.
+
+outputs:
+  more_info_url:
+    type: link
+    displayText: For more information, please see the Cloud Adoption Framework - Technical Implementation

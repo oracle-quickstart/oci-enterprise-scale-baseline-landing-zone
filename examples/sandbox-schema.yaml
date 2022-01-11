@@ -162,3 +162,8 @@ variables:
       to connect
     required: true
     title: Bastion Client CIDR Block Allow List
+
+outputs:
+  more_info_url:
+    type: link
+    displayText: For more information, please see the Cloud Adoption Framework - Technical Implementation
