@@ -20,3 +20,11 @@ variable "tag_geo_location" {
   type        = string
   description = "GeoLocation tag value"
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Optional suffix string to prevent naming collision with tenancy level resources
+# ---------------------------------------------------------------------------------------------------------------------
+variable "suffix" {
+  type        = string
+  description = "Optional suffix string used in a resource name"
+}

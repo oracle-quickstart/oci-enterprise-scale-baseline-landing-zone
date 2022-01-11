@@ -34,7 +34,7 @@ module "policies" {
   source                              = "./iam/policies"
   tenancy_ocid                        = var.tenancy_ocid
   parent_compartment_id               = module.parent-compartment.parent_compartment_id
-  parent_compartment_name             = var.parent_compartment_name
+  parent_compartment_name             = module.parent-compartment.parent_compartment_name
   network_compartment_id              = module.network-compartment.network_compartment_id
   network_compartment_name            = var.network_compartment_name
   security_compartment_id             = module.security-compartment.security_compartment_id

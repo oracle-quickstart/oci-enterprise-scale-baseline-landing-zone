@@ -2,6 +2,13 @@
 # Baseline Landing Zone variable file - see service-specific variable files where they exist
 # -----------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------------------------------------------------
+# Optional suffix string to prevent naming collision with tenancy level resources
+# ---------------------------------------------------------------------------------------------------------------------
+resource "random_id" "suffix" {
+  byte_length = 8
+}
+
 # -----------------------------------------------------------------------------
 # Provider specific variables
 # -----------------------------------------------------------------------------
@@ -51,13 +58,6 @@ variable "tag_geo_location" {
     condition     = can(regex("^[!-~]{1,100}$", var.tag_geo_location))
     error_message = "Must be a valid Geolocation tag value. Allows printable ASCII, excluding periods (.) and spaces and max 100 characters."
   }
-}
-
-# ---------------------------------------------------------------------------------------------------------------------
-# Optional suffix string to prevent naming collision with tenancy level resources
-# ---------------------------------------------------------------------------------------------------------------------
-resource "random_id" "suffix" {
-  byte_length = 8
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
