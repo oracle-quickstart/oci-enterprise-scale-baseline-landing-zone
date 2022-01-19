@@ -11,7 +11,7 @@ output "workload_compartment_ocids" {
 # -----------------------------------------------------------------------------
 output "vcn_ocid" {
   description = "VCN ocid"
-  value       = module.vcn_core.vcn_id
+  value       = module.vcn-core.vcn_id
 }
 
 output "public_subnet_id" {
@@ -21,12 +21,12 @@ output "public_subnet_id" {
 
 output "private_subnet_id" {
   description = "Private subnet ocid"
-  value       = module.vcn_core.private_subnet.*.id
+  value       = module.vcn-core.private_subnet.*.id
 }
 
 output "database_subnet_id" {
   description = "Database subnet ocid"
-  value       = module.vcn_core.database_subnet.*.id
+  value       = module.vcn-core.database_subnet.*.id
 }
 
 output "fss_subnet_id" {
@@ -35,7 +35,8 @@ output "fss_subnet_id" {
 }
 
 output "subnet_map" {
-  value = { for subnet in local.subnet_list : subnet.display_name => subnet.id }
+  description = "Subnet list mapped to display name"
+  value       = { for subnet in local.subnet_list : subnet.display_name => subnet.id }
 }
 
 output "more_info_url" {

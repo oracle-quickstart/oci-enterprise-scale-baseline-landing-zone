@@ -33,5 +33,3 @@ output "service_gateway_route_table" {
 output "drg_id" {
   value = oci_core_drg.drg.id
 }
-
-
