@@ -13,7 +13,7 @@ resource "oci_identity_policy" "service_connector_policy" {
   provider       = oci.home_region
   compartment_id = var.security_compartment_ocid
   description    = "OCI Landing Zone Service Connector Policy"
-  name           = "${var.service_connector_policy_name}"
+  name           = var.service_connector_policy_name
 
   freeform_tags = {
     "Description" = "Service Connector policy"

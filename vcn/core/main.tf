@@ -104,7 +104,7 @@ resource "oci_core_route_table" "workload_nat_route_table" {
   display_name   = "OCI-LZ-VCN-${local.workload-list[count.index].name}-${var.region_key}-RouteTable"
   vcn_id         = oci_core_vcn.primary_vcn.id
   freeform_tags = {
-    "Description" = "Primary VCN - NAT route table for ${local.workload-list[count.index].name}"
+    "Description" = "Primary VCN - NAT route table for local.workload-list[count.index].name"
     "CostCenter"  = var.tag_cost_center,
     "GeoLocation" = var.tag_geo_location
   }

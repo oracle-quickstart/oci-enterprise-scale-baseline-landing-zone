@@ -32,7 +32,7 @@ module "cloud-guard" {
 # -----------------------------------------------------------------------------
 module "bastion" {
   source                               = "./security/bastion"
-  vcn_id                               = module.vcn_core.vcn_id
+  vcn_id                               = module.vcn-core.vcn_id
   tag_geo_location                     = var.tag_geo_location
   tag_cost_center                      = var.tag_cost_center
   bastion_subnet_cidr_block            = var.bastion_subnet_cidr_block
