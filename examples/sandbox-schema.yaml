@@ -12,13 +12,10 @@ variableGroups:
       - region
       - tenancy_ocid
       - current_user_ocid
-  - title: Advanced Logging
+  - title: Required Inputs
     visible: true
     variables:
       - advanced_logging_option
-  - title: Bastion CIDR block allow list
-    visible: true
-    variables:
       - bastion_client_cidr_block_allow_list
   - title: Tagging
     visible: false
@@ -30,7 +27,6 @@ variableGroups:
     variables:
       - parent_compartment_name
       - workload_compartment_names
-      - show_extra_compartment_names
       - network_compartment_name
       - security_compartment_name
       - common_infra_compartment_name
@@ -39,10 +35,8 @@ variableGroups:
     visible: false
     variables:
       - break_glass_user_email_list
-      - show_extra_iam_vars
       - key_id
       - vault_id
-      - show_extra_group_names
       - administrator_group_name
       - network_admin_group_name
       - lb_users_group_name
