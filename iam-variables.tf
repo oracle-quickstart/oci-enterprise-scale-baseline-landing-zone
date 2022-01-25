@@ -1,3 +1,11 @@
+# -----------------------------------------------------------------------------
+# IAM Group OCID Variable
+# -----------------------------------------------------------------------------
+variable "administrator_group_id" {
+  type        = string
+  description = "The OCID for the administrator group"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Resource naming
 # ---------------------------------------------------------------------------------------------------------------------
@@ -26,16 +34,6 @@ variable "break_glass_user_email_list" {
 # ---------------------------------------------------------------------------------------------------------------------
 # IAM Group Names
 # ---------------------------------------------------------------------------------------------------------------------
-variable "administrator_group_name" {
-  type        = string
-  description = "The name for the administrator group"
-  default     = "Administrators"
-  validation {
-    condition     = can(regex("^([\\w\\.-]){1,100}$", var.administrator_group_name))
-    error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
-  }
-}
-
 variable "network_admin_group_name" {
   type        = string
   description = "The name for the network administrator group name"

@@ -7,25 +7,6 @@ terraform {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# IAM Policy for Administrators
-# ---------------------------------------------------------------------------------------------------------------------
-resource "oci_identity_policy" "administrator_policies" {
-  compartment_id = var.tenancy_ocid
-  description    = "OCI Landing Zone Administrator Tenancy Policy"
-  name           = "${var.administrator_policy_name}${var.suffix}"
-
-  freeform_tags = {
-    "Description" = "Policy for access to all resources in tenancy",
-    "CostCenter"  = var.tag_cost_center,
-    "GeoLocation" = var.tag_geo_location
-  }
-
-  statements = [
-    "Allow group ${var.administrator_group_name} to manage all-resources in tenancy where request.user.mfaTotpVerified='true'"
-  ]
-}
-
-# ---------------------------------------------------------------------------------------------------------------------
 # IAM Policy Network Admins
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "network_admin_policies" {

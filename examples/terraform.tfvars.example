@@ -21,7 +21,6 @@ tag_geo_location = "example_tag_geo_location"
 break_glass_user_email_list        = ["example@test.com", "example2@test.com"]
 vault_id                           = "ocid1.tenancy.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 key_id                             = "ocid1.tenancy.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-administrator_group_name           = "Administrators"
 cloud_guard_analysts_group_name    = "CloudGuard-Analyst"
 cloud_guard_architects_group_name  = "CloudGuard-Architect"
 cloud_guard_operators_group_name   = "CloudGuard-Operator"

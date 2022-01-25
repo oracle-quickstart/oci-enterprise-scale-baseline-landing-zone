@@ -21,7 +21,6 @@
 | <a name="input_tenancy_ocid"></a> [tenancy\_ocid](#input\_tenancy\_ocid) | The OCID of tenancy | `string` | n/a | yes |
 | <a name="input_vcn_dns_label"></a> [vcn\_dns\_label](#input\_vcn\_dns\_label) | VCN DNS Label | `string` | n/a | yes |
 | <a name="input_workload_compartment_names"></a> [workload\_compartment\_names](#input\_workload\_compartment\_names) | List of application workload compartment names | `list(string)` | n/a | yes |
-| <a name="input_administrator_group_name"></a> [administrator\_group\_name](#input\_administrator\_group\_name) | The name for the administrator group | `string` | `"Administrators"` | no |
 | <a name="input_agent_cis_benchmark_settings_scan_level"></a> [agent\_cis\_benchmark\_settings\_scan\_level](#input\_agent\_cis\_benchmark\_settings\_scan\_level) | Agent bechamrking settings scan level | `string` | `"STRICT"` | no |
 | <a name="input_api_fingerprint"></a> [api\_fingerprint](#input\_api\_fingerprint) | The fingerprint of API | `string` | `""` | no |
 | <a name="input_api_private_key_path"></a> [api\_private\_key\_path](#input\_api\_private\_key\_path) | The local path to the API private key | `string` | `""` | no |

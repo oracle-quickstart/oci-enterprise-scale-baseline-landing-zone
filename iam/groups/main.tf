@@ -7,21 +7,6 @@ terraform {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# IAM Group for Administrators
-# ---------------------------------------------------------------------------------------------------------------------
-resource "oci_identity_group" "administrator_group" {
-  compartment_id = var.tenancy_ocid
-  description    = "OCI Landing Zone Administrators group - manages all resources"
-  name           = "${var.administrator_group_name}${var.suffix}"
-
-  freeform_tags = {
-    "Description" = "Group for Administrators",
-    "CostCenter"  = var.tag_cost_center,
-    "GeoLocation" = var.tag_geo_location
-  }
-}
-
-# ---------------------------------------------------------------------------------------------------------------------
 # IAM Group for Network Administrators
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_group" "network_admin_group" {
