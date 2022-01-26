@@ -18,7 +18,6 @@ tag_cost_center  = "example_tag_cost_center"
 tag_geo_location = "example_tag_geo_location"
 
 # IAM
-administrator_group_id             = "ocid1.group.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 break_glass_user_email_list        = ["example@test.com", "example2@test.com"]
 vault_id                           = "ocid1.tenancy.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 key_id                             = "ocid1.tenancy.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"

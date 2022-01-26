@@ -84,10 +84,11 @@ module "users" {
 # Break Glass User Group Membership
 # ---------------------------------------------------------------------------------------------------------------------
 module "membership" {
-  for_each               = module.users
-  source                 = "./iam/membership"
-  user_id                = each.value.break_glass_user_list.id
-  administrator_group_id = var.administrator_group_id
+  for_each                 = module.users
+  source                   = "./iam/membership"
+  tenancy_ocid             = var.tenancy_ocid
+  administrator_group_name = var.administrator_group_name
+  user_id                  = each.value.break_glass_user_list.id
   providers = {
     oci = oci.home_region
   }
