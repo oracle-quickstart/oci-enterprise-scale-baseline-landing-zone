@@ -22,11 +22,6 @@ variable "workload_compartment_name_list" {
 # -----------------------------------------------------------------------------
 # IAM Group Name Variables
 # -----------------------------------------------------------------------------
-variable "administrator_group_name" {
-  type        = string
-  description = "The name for the administrator group"
-}
-
 variable "network_admin_group_name" {
   type        = string
   description = "The name for the network administrator group name"

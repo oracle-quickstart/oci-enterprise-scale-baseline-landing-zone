@@ -32,7 +32,6 @@ variableGroups:
       - key_id
       - vault_id
       - show_extra_group_names
-      - administrator_group_name
       - network_admin_group_name
       - lb_users_group_name
       - workload_admins_group_name
@@ -194,7 +193,7 @@ variables:
       type: string
       pattern: ^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$
     description:
-      Unique list of break glass user email addresses that do not exist
+      Unique list of break glass user email addresses that do not exist. These users are added to the Administrator group.
       in the tenancy
     required: true
     title: Break Glass User Email List
@@ -220,13 +219,6 @@ variables:
     default: false
     required: false
     title: Override default group names
-  administrator_group_name:
-    type: string
-    description: The name for the administrator group. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups.
-    required: true
-    title: Administrator Group Name
-    visible: show_extra_group_names
-    pattern: ^([\w\.-]){1,100}$
   workload_admins_group_name:
     type: string
     description: The name for the workload administrators group. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups.

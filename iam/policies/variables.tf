@@ -111,11 +111,6 @@ variable "cloud_guard_architects_policy_name" {
 # -----------------------------------------------------------------------------
 # IAM Group Variables
 # -----------------------------------------------------------------------------
-variable "administrator_group_name" {
-  type        = string
-  description = "Group name for Administrators"
-}
-
 variable "network_admin_group_name" {
   type        = string
   description = "Group name for Network Administrators"

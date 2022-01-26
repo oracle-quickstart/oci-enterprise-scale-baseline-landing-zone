@@ -1,15 +1,4 @@
 # ---------------------------------------------------------------------------------------------------------------------
-#  Outputs for Administrators (Group Name and OCID)
-# ---------------------------------------------------------------------------------------------------------------------
-output "administrator_group_name" {
-  value = oci_identity_group.administrator_group.name
-}
-
-output "administrator_group_id" {
-  value = oci_identity_group.administrator_group.id
-}
-
-# ---------------------------------------------------------------------------------------------------------------------
 # Output for Network Administrators (Group Name)
 # ---------------------------------------------------------------------------------------------------------------------
 output "network_admin_group_name" {

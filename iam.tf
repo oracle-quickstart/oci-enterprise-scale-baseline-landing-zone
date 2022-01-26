@@ -7,7 +7,6 @@ module "groups" {
   workload_compartment_name_list     = var.workload_compartment_names
   tag_cost_center                    = var.tag_cost_center
   tag_geo_location                   = var.tag_geo_location
-  administrator_group_name           = var.administrator_group_name
   network_admin_group_name           = var.network_admin_group_name
   lb_users_group_name                = var.lb_users_group_name
   workload_admins_group_name         = var.workload_admins_group_name
@@ -41,7 +40,6 @@ module "policies" {
   security_compartment_name           = var.security_compartment_name
   workload_compartment_name_list      = var.workload_compartment_names
   workload_compartment_ocids          = module.workload-compartment
-  administrator_group_name            = module.groups.administrator_group_name
   network_admin_group_name            = module.groups.network_admin_group_name
   lb_users_group_name                 = module.groups.lb_users_group_name
   workload_storage_admins_group_names = module.groups.workload_storage_admins_group_names
@@ -86,10 +84,11 @@ module "users" {
 # Break Glass User Group Membership
 # ---------------------------------------------------------------------------------------------------------------------
 module "membership" {
-  for_each               = module.users
-  source                 = "./iam/membership"
-  user_id                = each.value.break_glass_user_list.id
-  administrator_group_id = module.groups.administrator_group_id
+  for_each                 = module.users
+  source                   = "./iam/membership"
+  tenancy_ocid             = var.tenancy_ocid
+  administrator_group_name = var.administrator_group_name
+  user_id                  = each.value.break_glass_user_list.id
   providers = {
     oci = oci.home_region
   }
