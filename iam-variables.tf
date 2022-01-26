@@ -15,7 +15,7 @@ variable "vault_id" {
 
 variable "break_glass_user_email_list" {
   type        = list(string)
-  description = "Unique list of break glass user email addresses that do not exist in the tenancy"
+  description = "Unique list of break glass user email addresses that do not exist in the tenancy. These users are added to the Administrator group."
   default     = []
   validation {
     condition     = alltrue([for i in var.break_glass_user_email_list: can(regex("^[^\\s@]+@([^\\s@\\.,]+.)+[^\\s@\\.,]{2,}$", i))])
