@@ -26,8 +26,9 @@ variable "vcn_dns_label" {
 variable "public_subnet_cidr_block" {
   type        = string
   description = "Public Subnet CIDR Block"
+  default     = ""
   validation {
-    condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1][0-9]|[2][0-9]))$", var.public_subnet_cidr_block))
+    condition     = can(regex("^$|^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1][0-9]|[2][0-9]))$", var.public_subnet_cidr_block))
     error_message = "Must be a valid address range in CIDR notation."
   }
 }
@@ -35,8 +36,9 @@ variable "public_subnet_cidr_block" {
 variable "public_subnet_dns_label" {
   type        = string
   description = "Public Subnet DNS Label"
+  default     = ""
   validation {
-    condition     = can(regex("^[a-zA-Z][a-zA-Z0-9]{1,14}$", var.public_subnet_dns_label))
+    condition     = can(regex("^$|^[a-zA-Z][a-zA-Z0-9]{1,14}$", var.public_subnet_dns_label))
     error_message = "Allowed maximum 15 alphanumeric characters and must start with a letter."
   }
 }
@@ -96,8 +98,9 @@ variable "database_subnet_dns_labels" {
 variable "shared_service_subnet_cidr_block" {
   type        = string
   description = "Shared Service Subnet CIDR Block"
+  default     = ""
   validation {
-    condition     = can(regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1][0-9]|[2][0-9]))$", var.shared_service_subnet_cidr_block))
+    condition     = can(regex("^$|^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1][0-9]|[2][0-9]))$", var.shared_service_subnet_cidr_block))
     error_message = "Must be a valid address range in CIDR notation."
   }
 }
@@ -105,8 +108,9 @@ variable "shared_service_subnet_cidr_block" {
 variable "shared_service_subnet_dns_label" {
   type        = string
   description = "Shared Service Subnet DNS Label"
+  default     = ""
   validation {
-    condition     = can(regex("^[a-zA-Z][a-zA-Z0-9]{1,14}$", var.shared_service_subnet_dns_label))
+    condition     = can(regex("^$|^[a-zA-Z][a-zA-Z0-9]{1,14}$", var.shared_service_subnet_dns_label))
     error_message = "Allowed maximum 15 alphanumeric characters and must start with a letter."
   }
 }
