@@ -219,6 +219,9 @@ variables:
     default: false
     required: false
     title: Override default group names
+  administrator_group_name:
+    type: string
+    visible: false
   workload_admins_group_name:
     type: string
     description: The name for the workload administrators group. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups.
