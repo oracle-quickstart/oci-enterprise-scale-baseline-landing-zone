@@ -21,6 +21,11 @@ variable "tag_geo_location" {
   description = "GeoLocation tag value"
 }
 
+variable "is_sandbox_mode_enabled" {
+  type        = bool
+  description = "Do you want to run the stack in Sandbox mode?"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Optional suffix string to prevent naming collision with tenancy level resources
 # ---------------------------------------------------------------------------------------------------------------------

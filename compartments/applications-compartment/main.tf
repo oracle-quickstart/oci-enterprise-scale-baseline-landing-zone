@@ -13,6 +13,8 @@ resource "oci_identity_compartment" "applications_compartment" {
   compartment_id  = var.parent_compartment_ocid
   description     = "Applications Compartment"
   name            = var.compartment_name
+  enable_delete   = var.is_sandbox_mode_enabled == true ? true : false
+
   freeform_tags = {
     "Description" = "Applications Compartment",
     "CostCenter"  = var.tag_cost_center,

@@ -13,6 +13,7 @@ resource "oci_identity_compartment" "network_compartment" {
   compartment_id  = var.common_infra_compartment_ocid
   description     = "Network Compartment"
   name            = var.compartment_name
+  enable_delete   = var.is_sandbox_mode_enabled == true ? true : false
 
   freeform_tags = {
     "Description" = "Network Compartment",

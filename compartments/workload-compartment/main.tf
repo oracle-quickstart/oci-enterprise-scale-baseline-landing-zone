@@ -13,6 +13,7 @@ resource "oci_identity_compartment" "workload_compartment" {
   compartment_id  = var.applications_compartment_ocid
   description     = "Compartment for ${var.compartment_name} workload"
   name            = var.compartment_name
+  enable_delete   = var.is_sandbox_mode_enabled == true ? true : false
 
   freeform_tags = {
     "Description" = "${var.compartment_name} Workload Compartment",

@@ -20,3 +20,8 @@ variable "tag_geo_location" {
   type        = string
   description = "Geo location for OCI resources"
 }
+
+variable "is_sandbox_mode_enabled" {
+  type        = bool
+  description = "Do you want to run the stack in Sandbox mode?"
+}
