@@ -13,6 +13,7 @@ resource "oci_identity_compartment" "parent_compartment" {
   compartment_id  = var.tenancy_ocid
   description     = "Parent Compartment"
   name            = "${var.compartment_name}${var.suffix}"
+  enable_delete   = var.compartment_delete_enabled
 
   freeform_tags = {
     "Description" = "Parent Compartment",

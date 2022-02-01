@@ -21,6 +21,11 @@ variable "tag_geo_location" {
   description = "GeoLocation tag value"
 }
 
+variable "compartment_delete_enabled" {
+  type        = bool
+  description = "Compartment delete would be enabled in Sandbox mode"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Optional suffix string to prevent naming collision with tenancy level resources
 # ---------------------------------------------------------------------------------------------------------------------

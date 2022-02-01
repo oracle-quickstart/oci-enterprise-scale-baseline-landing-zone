@@ -20,3 +20,8 @@ variable "tag_geo_location" {
   type        = string
   description = "Geo location for OCI resources"
 }
+
+variable "compartment_delete_enabled" {
+  type        = bool
+  description = "Compartment delete would be enabled in Sandbox mode"
+}

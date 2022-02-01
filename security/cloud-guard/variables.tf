@@ -145,11 +145,11 @@ variable "agent_cis_benchmark_settings_scan_level" {
 variable "configuration_detector_recipe_display_name" {
   type        = string
   description = "display name for configuration detector recipe"
-  default     = "OCI Internal Configuration Detector Recipe"
+  default     = "OCI Configuration Detector Recipe"
 }
 
 variable "activity_detector_recipe_display_name" {
   type        = string
   description = "display name for activity detector recipe"
-  default     = "OCI Internal Activity Detector Recipe"
+  default     = "OCI Activity Detector Recipe"
 }
