@@ -13,7 +13,7 @@ resource "oci_identity_compartment" "security_compartment" {
   compartment_id  = var.common_infra_compartment_ocid
   description     = "Security Compartment"
   name            = var.compartment_name
-  enable_delete   = var.is_sandbox_mode_enabled == true ? true : false
+  enable_delete   = var.compartment_delete_enabled
 
   freeform_tags = {
     "Description" = "Security Compartment",

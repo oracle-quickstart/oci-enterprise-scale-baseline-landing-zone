@@ -21,9 +21,9 @@ variable "tag_geo_location" {
   description = "GeoLocation tag value"
 }
 
-variable "is_sandbox_mode_enabled" {
+variable "compartment_delete_enabled" {
   type        = bool
-  description = "Do you want to run the stack in Sandbox mode?"
+  description = "Compartment delete would be enabled in Sandbox mode"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
