@@ -47,6 +47,7 @@ variableGroups:
       - cloud_guard_operators_group_name
       - cloud_guard_analysts_group_name
       - cloud_guard_architects_group_name
+      - administrator_group_name
   - title: VCN
     visible: false
     variables:
