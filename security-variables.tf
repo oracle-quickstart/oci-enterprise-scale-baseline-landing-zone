@@ -57,12 +57,17 @@ variable "bastion_client_cidr_block_allow_list" {
 # -----------------------------------------------------------------------------
 variable "retention_rule_duration_time_amount" {
   type        = string
-  description = "Amount of retention rule duration time in days"
-  default     = 365
+  description = <<EOF
+        “Please note this feature is irreversible after 14 days.
+        Please review (and/or) unlock the retention rule before it is locked permanently.
+        By enabling this feature, logs will be archived in an immutable storage with locked retention rule avoiding object modification and deletion.
+        After the rule is locked, only increase in the retention is allowed”
+      EOF
+  default     = 1
 
   validation {
-    condition     = var.retention_rule_duration_time_amount >= 365
-    error_message = "The amount of retention rule time duration should be 365 days or greater."
+    condition     = var.retention_rule_duration_time_amount >= 1
+    error_message = "The amount of retention rule time duration should be 1 days or greater."
   }
 }
 
