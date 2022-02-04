@@ -45,7 +45,9 @@ resource "oci_identity_policy" "cloud_guard_policy" {
     "Allow service cloudguard to read users in tenancy",
     "Allow service cloudguard to read database-family in tenancy",
     "Allow service cloudguard to read authentication-policies in tenancy",
-    "Allow service cloudguard to read policies in tenancy"
+    "Allow service cloudguard to read policies in tenancy",
+    "Allow service cloudguard to read data-safe-family in tenancy",
+    "Allow service cloudguard to read autonomous-database-family in tenancy"
   ]
 }
 
