@@ -460,7 +460,11 @@ variables:
     title: Enable Advanced Logging?
   retention_rule_duration_time_amount:
     type: string
-    description: Number of days to retain Audit Logs
+    description:
+      Please note this feature is irreversible after 14 days.
+      Please review (and/or) unlock the retention rule before it is locked permanently.
+      By enabling this feature, logs will be archived in an immutable storage with locked retention rule avoiding object modification and deletion.
+      After the rule is locked, only increase in the retention is allowed
     required: true
     title: Audit Log Retention Rule Duration Time Amount
   is_cloud_guard_enabled:
