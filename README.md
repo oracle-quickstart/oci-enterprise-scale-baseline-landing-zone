@@ -5,7 +5,7 @@ This Terraform stack deploys a baseline landing zone.
 - [Terraform](https://www.terraform.io/) >= 1.0.6
 
 ## Prerequisites
-Detailed project prerequisites are included in the following [Architecture Documentation](PLACEHOLDER)
+Detailed project prerequisites are included in the following [OCI CAF - Architecture Documentation](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/technology-implementation.htm)
 
 ## Usage
 
@@ -15,8 +15,8 @@ category a particular variable belongs to. Not all the variables in this file ar
 ## Deploy Using Oracle Resource Manager
 1. Click to deploy the stack
    
-   [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](PLACEHOLDER)
-   
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/oci-rsa-baseline-landing-zone/releases/download/latest/oci-rsa-baseline-landing-zone.zip)
+
     If you aren't already signed in, when prompted, enter the tenancy and user credentials. Review and accept the terms and conditions.
 
 
