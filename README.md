@@ -5,7 +5,7 @@ This Terraform stack deploys a baseline landing zone.
 - [Terraform](https://www.terraform.io/) >= 1.0.6
 
 ## Prerequisites
-Detailed project prerequisites are included in the following [Architecture Documentation](PLACEHOLDER)
+Detailed project prerequisites are included in the following [OCI CAF - Architecture Documentation](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/technology-implementation.htm)
 
 ## Usage
 
