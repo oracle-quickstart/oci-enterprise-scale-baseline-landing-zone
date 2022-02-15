@@ -465,8 +465,16 @@ variables:
       Please review (and/or) unlock the retention rule before it is locked permanently.
       By enabling this feature, logs will be archived in an immutable storage with locked retention rule avoiding object modification and deletion.
       After the rule is locked, only increase in the retention is allowed
-    required: true
+    required: false
     title: Audit Log Retention Rule Duration Time Amount
+    visible:
+      or:
+      - eq:
+        - advanced_logging_option
+        - "AUDIT_LOGS"
+      - eq:
+        - advanced_logging_option
+        - "BOTH"
   is_cloud_guard_enabled:
     type: boolean
     description: the status of the Cloud Guard tenant (ENABLED if true or DISABLED if false)
