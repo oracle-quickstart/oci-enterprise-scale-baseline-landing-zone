@@ -7,6 +7,7 @@ terraform {
 }
 
 resource "oci_cloud_guard_cloud_guard_configuration" "tenancy_cloud_guard_configuration" {
+  provider         = oci.home_region
   compartment_id   = var.tenancy_ocid
   reporting_region = var.region
   status           = var.is_cloud_guard_enabled == true ? "ENABLED" : "DISABLED"
@@ -56,6 +57,7 @@ resource "oci_identity_policy" "cloud_guard_policy" {
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_cloud_guard_target" "cloud_guard_target" {
   count                = var.is_cloud_guard_enabled == true ? 1 : 0
+  provider             = oci.home_region
   compartment_id       = var.parent_compartment_ocid
   display_name         = "${var.cloud_guard_target_name}${var.suffix}"
   target_resource_id   = var.parent_compartment_ocid
