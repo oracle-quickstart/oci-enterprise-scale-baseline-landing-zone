@@ -1,4 +1,4 @@
-# oci-rsa-baseline-landing-zone-sandbox-mode 
+# oci-enterprise-scale-baseline-landing-zone-sandbox-mode 
 The sandbox mode can be used for development or demonstration purposes. 
 
 It adds a unique suffix for all the tenancy 
