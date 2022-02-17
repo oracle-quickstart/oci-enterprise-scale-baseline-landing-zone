@@ -27,24 +27,11 @@ The required inputs are:
 
 
 ## Deploy Using Oracle Resource Manager
-1. Click to deploy the stack
-   
-   [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](PLACEHOLDER)
-   
-    If you aren't already signed in, when prompted, enter the tenancy and user credentials. Review and accept the terms and conditions.
+1. From the home page of the [OCI Console](https://cloud.oracle.com/), under the Oracle Quickstarts, look for the "Deploy a baseline landing zone".
 
+2. Review the deployment summary, and then select “Continue” to begin the deployment.
 
-2. Select the region where you want to deploy the stack.
-
-3. Follow the on-screen prompts and instructions to create the stack.
-
-4. After creating the stack, click Terraform Actions, and select Plan.
-
-5. Wait for the job to be completed, and review the plan.
-
-6. To make any changes, return to the Stack Details page, click Edit Stack, and make the required changes. Then, run the Plan action again.
-
-7. If no further changes are necessary, return to the Stack Details page, click Terraform Actions, and select Apply.
+3. Enter the inputs and then select "Start deployment".
 
 ## Destroy Resources Using Oracle Resource Manager
 1. If audit log bucket was provisioned, delete this bucket manually.
