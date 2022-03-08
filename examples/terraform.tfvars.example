@@ -45,7 +45,7 @@ private_subnet_cidr_blocks       = ["10.0.2.0/24", "10.0.3.0/24"]
 database_subnet_cidr_blocks      = ["10.0.4.0/24", "10.0.5.0/24"]
 shared_service_subnet_cidr_block = "10.0.6.0/24"
 ingress_rules_map = {
-  "default" = [{
+  "Workload-A" = [{
     ingress_security_rules_tcp_options_destination_port_range_max = 443
     ingress_security_rules_tcp_options_destination_port_range_min = 443
     ingress_security_rules_tcp_options_source_port_range_max      = 443
@@ -53,12 +53,6 @@ ingress_rules_map = {
   }]
 }
 egress_rules_map = {
-  "default" = [{
-    egress_security_rules_tcp_options_destination_port_range_max = 65535
-    egress_security_rules_tcp_options_destination_port_range_min = 1
-    egress_security_rules_tcp_options_source_port_range_max      = 65535
-    egress_security_rules_tcp_options_source_port_range_min      = 1
-  }]
   "Workload-A" = [{
     egress_security_rules_tcp_options_destination_port_range_max = 65534
     egress_security_rules_tcp_options_destination_port_range_min = 2
