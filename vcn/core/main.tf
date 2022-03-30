@@ -229,3 +229,10 @@ resource "oci_core_drg_attachment" "drg_vcn_attachment" {
     type = "VCN"
   }
 }
+
+# -----------------------------------------------------------------------------
+# Lock Down Default Security List
+# -----------------------------------------------------------------------------
+resource "oci_core_default_security_list" "default_security_list_locked_down" {
+  manage_default_resource_id = oci_core_vcn.primary_vcn.default_security_list_id
+}
