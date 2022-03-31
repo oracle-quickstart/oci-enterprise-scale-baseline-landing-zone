@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    oci = {
+      configuration_aliases = [oci, oci.home_region]
+    }
+  }
+}
+
 # -----------------------------------------------------------------------------
 # Create Topics and Subscription
 # -----------------------------------------------------------------------------
@@ -51,7 +59,7 @@ locals  {
 module "lz-home-region-topics" {
   source     = "./monitoring/topics"
   depends_on = [module.network-compartment, module.security-compartment]
-  providers  = { oci = oci.home }
+  providers   = { oci = oci.home_region }
   topics     = local.home_region_topics
 }
 
@@ -63,7 +71,7 @@ module "lz-topics" {
 
 module "lz-home-region-subscriptions" {
   source        = "./monitoring/subscriptions"
-  providers     = { oci = oci.home }
+  providers   = { oci = oci.home_region }
   subscriptions = {
     for e in var.security_admin_email_endpoints: "${e}-${local.security_topic.name}" => {
       compartment_id = local.security_topic.cmp_id
@@ -224,7 +232,7 @@ locals {
     {for i in [1] : (local.notify_on_budget_changes_rule.key) => {
       compartment_id = var.tenancy_ocid
       description    = "Landing Zone events rule to detect when cost resources such as budgets and financial tracking constructs are created, updated or deleted."
-      is_enabled     = var.create_events_as_enabled
+      is_enabled     = true
       condition      = <<EOT
         {"eventType":
         ["com.oraclecloud.budgets.updatealertrule",
@@ -258,6 +266,6 @@ module "lz-notifications" {
 module "lz-home-region-notifications" {
   depends_on = [module.lz-home-region-subscriptions]
   source     = "./monitoring/notifications"
-  providers  = { oci = oci.home }
+  providers   = { oci = oci.home_region }
   rules      = local.home_region_notifications
 }
