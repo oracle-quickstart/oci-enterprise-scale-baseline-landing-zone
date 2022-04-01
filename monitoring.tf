@@ -27,7 +27,7 @@ locals  {
         "CostCenter"  = var.tag_cost_center,
         "GeoLocation" = var.tag_geo_location
       }
-    }
+    } if local.security_topic.id == null && length(var.security_admin_email_endpoints) > 0
   }
 
   regional_topics = merge(
@@ -40,7 +40,7 @@ locals  {
           "CostCenter"  = var.tag_cost_center,
           "GeoLocation" = var.tag_geo_location
         }
-      }},
+      } if local.network_topic.id == null && length(var.network_admin_email_endpoints) > 0},
 
       {for i in [1]: (local.budget_topic.key) => {
         compartment_id = var.tenancy_ocid
@@ -51,7 +51,7 @@ locals  {
           "CostCenter"  = var.tag_cost_center,
           "GeoLocation" = var.tag_geo_location
         }
-      }}
+      } if length(var.budget_admin_email_endpoints) > 0}
   )
 
 }
@@ -71,7 +71,7 @@ module "lz-topics" {
 
 module "lz-home-region-subscriptions" {
   source        = "./monitoring/subscriptions"
-  providers   = { oci = oci.home_region }
+  providers     = { oci = oci.home_region }
   subscriptions = {
     for e in var.security_admin_email_endpoints: "${e}-${local.security_topic.name}" => {
       compartment_id = local.security_topic.cmp_id
@@ -83,7 +83,7 @@ module "lz-home-region-subscriptions" {
         "CostCenter"  = var.tag_cost_center,
         "GeoLocation" = var.tag_geo_location
       }
-    }
+    } if length(var.security_admin_email_endpoints) > 0
   }
   depends_on = [module.lz-home-region-topics]
 }
@@ -92,27 +92,28 @@ module "lz-subscriptions" {
   source        = "./monitoring/subscriptions"
   subscriptions = merge(
     { for e in var.network_admin_email_endpoints: "${e}-${local.network_topic.name}" => {
-        compartment_id = local.network_topic.cmp_id
-        topic_id       = local.network_topic.id == null ? module.lz-topics.topics[local.network_topic.key].id : local.network_topic.id
-        protocol       = "EMAIL"
-        endpoint       = e
-        freeform_tags = {
-          "Description" = "Network Admin Subscription",
-          "CostCenter"  = var.tag_cost_center,
-          "GeoLocation" = var.tag_geo_location
-        }
-    }},
+      compartment_id = local.network_topic.cmp_id
+      topic_id       = local.network_topic.id == null ? module.lz-topics.topics[local.network_topic.key].id : local.network_topic.id
+      protocol       = "EMAIL"
+      endpoint       = e
+      freeform_tags = {
+        "Description" = "Network Admin Subscription",
+        "CostCenter"  = var.tag_cost_center,
+        "GeoLocation" = var.tag_geo_location
+      }
+    } if length(var.network_admin_email_endpoints) > 0},
+
     { for e in var.budget_admin_email_endpoints: "${e}-${local.budget_topic.name}" => {
-        compartment_id = local.budget_topic.cmp_id
-        topic_id = local.budget_topic.id == null ? module.lz-topics.topics[local.budget_topic.key].id : local.budget_topic.id
-        protocol = "EMAIL"
-        endpoint = e
-        freeform_tags = {
-          "Description" = "Budget Admin Subscription",
-          "CostCenter"  = var.tag_cost_center,
-          "GeoLocation" = var.tag_geo_location
-        }
-    }}
+      compartment_id = local.budget_topic.cmp_id
+      topic_id = local.budget_topic.id == null ? module.lz-topics.topics[local.budget_topic.key].id : local.budget_topic.id
+      protocol = "EMAIL"
+      endpoint = e
+      freeform_tags = {
+        "Description" = "Budget Admin Subscription",
+        "CostCenter"  = var.tag_cost_center,
+        "GeoLocation" = var.tag_geo_location
+      }
+    } if length(var.budget_admin_email_endpoints) > 0}
   )
   depends_on = [module.lz-topics]
 }
@@ -251,11 +252,10 @@ locals {
         "CostCenter"  = var.tag_cost_center,
         "GeoLocation" = var.tag_geo_location
       }
-    }}
+    } if length(var.budget_admin_email_endpoints) > 0}
 
   )
 }
-
 
 module "lz-notifications" {
   depends_on = [module.lz-subscriptions]
