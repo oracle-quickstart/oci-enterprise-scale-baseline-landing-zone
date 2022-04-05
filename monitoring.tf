@@ -15,7 +15,7 @@ locals  {
   # If you have an existing topic you want to use enter the OCID(s) in the id property.
   security_topic    = {key: "SECURITY-TOPIC",   name: "security-topic",   cmp_id: module.security-compartment.security_compartment_id, id: null}
   network_topic     = {key: "NETWORK-TOPIC",    name: "network-topic",    cmp_id: module.network-compartment.network_compartment_id,  id: null}
-  budget_topic      = {key: "BUDGET-TOPIC",     name: "arjp-budget-topic",     cmp_id: var.tenancy_ocid, id : null }
+  budget_topic      = {key: "BUDGET-TOPIC",     name: "budget-topic-${random_id.suffix.hex}",     cmp_id: var.tenancy_ocid, id : null }
 
   home_region_topics = {
     for i in [1] : (local.security_topic.key) => {
