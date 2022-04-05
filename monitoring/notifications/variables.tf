@@ -9,7 +9,7 @@ variable "rules" {
     actions_is_enabled  = bool,
     actions_description = string,
     topic_id            = string,
-    defined_tags        = map(string)
+    # defined_tags        = map(string)
     freeform_tags       = map(string)
   }))
 }
