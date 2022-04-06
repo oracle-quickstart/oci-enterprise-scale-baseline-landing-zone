@@ -17,3 +17,8 @@ variable "tag_geo_location" {
   type        = string
   description = "Geo location for OCI resources"
 }
+
+variable "suffix" {
+  type        = string
+  description = "Suffix string used in a resource name to prevent naming collision with tenancy level resources"
+}

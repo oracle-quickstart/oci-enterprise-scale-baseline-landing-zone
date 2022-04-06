@@ -2,22 +2,24 @@
 # Create Topics
 # -----------------------------------------------------------------------------
 module "security-topics" {
-  source                  = "./monitoring/topics/security-topic"
-  compartment_id          = module.security-compartment.security_compartment_id
-  security_topic_name     = var.security_topic_name
-  tag_geo_location        = var.tag_geo_location
-  tag_cost_center         = var.tag_cost_center
-  providers               = { oci = oci.home_region }
-  depends_on              = [ module.security-compartment ]
+  source              = "./monitoring/topics/security-topic"
+  compartment_id      = module.security-compartment.security_compartment_id
+  security_topic_name = var.security_topic_name
+  tag_geo_location    = var.tag_geo_location
+  tag_cost_center     = var.tag_cost_center
+  providers           = { oci = oci.home_region }
+  depends_on          = [ module.security-compartment ]
+  suffix              = random_id.suffix.hex
 }
 
 module "network-topics" {
-  source                 = "./monitoring/topics/network-topic"
-  compartment_id         = module.network-compartment.network_compartment_id
-  network_topic_name     = var.network_topic_name
-  tag_geo_location       = var.tag_geo_location
-  tag_cost_center        = var.tag_cost_center
-  depends_on             = [ module.network-compartment ]
+  source             = "./monitoring/topics/network-topic"
+  compartment_id     = module.network-compartment.network_compartment_id
+  network_topic_name = var.network_topic_name
+  tag_geo_location   = var.tag_geo_location
+  tag_cost_center    = var.tag_cost_center
+  depends_on         = [ module.network-compartment ]
+  suffix             = random_id.suffix.hex
 }
 
 module "budget-topics" {
