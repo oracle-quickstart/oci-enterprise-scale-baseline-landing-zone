@@ -29,4 +29,44 @@ module "budget-topics" {
   suffix            = random_id.suffix.hex
 }
 
+# -----------------------------------------------------------------------------
+# Create Subscription
+# -----------------------------------------------------------------------------
+module "security-subscription" {
+  for_each              = toset(var.security_admin_email_endpoints)
+  source                = "./monitoring/subscription/security-subscription"
+  compartment_id        = module.security-compartment.security_compartment_id
+  endpoint              = each.value
+  subscription_protocol = var.subscription_protocol
+  tag_geo_location      = var.tag_geo_location
+  tag_cost_center       = var.tag_cost_center
+  topic_id              = module.security-topics.security_topic_id
+  providers             = { oci = oci.home_region }
+  depends_on            = [ module.security-topics ]
+}
+
+module "budget-subscription" {
+  for_each              = toset(var.budget_admin_email_endpoints)
+  source                = "./monitoring/subscription/budget-subscription"
+  compartment_id        = var.tenancy_ocid
+  endpoint              = each.value
+  subscription_protocol = var.subscription_protocol
+  tag_geo_location      = var.tag_geo_location
+  tag_cost_center       = var.tag_cost_center
+  topic_id              = module.budget-topics.budget_topic_id
+  depends_on            = [ module.budget-topics ]
+}
+
+module "network-subscription" {
+  for_each              = toset(var.network_admin_email_endpoints)
+  source                = "./monitoring/subscription/network-subscription"
+  compartment_id        = module.network-compartment.network_compartment_id
+  endpoint              = each.value
+  subscription_protocol = var.subscription_protocol
+  tag_geo_location      = var.tag_geo_location
+  tag_cost_center       = var.tag_cost_center
+  topic_id              = module.network-topics.network_topic_id
+  providers             = { oci = oci.home_region }
+  depends_on            = [ module.security-topics ]
+}
 

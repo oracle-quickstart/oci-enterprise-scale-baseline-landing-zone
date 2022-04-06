@@ -5,7 +5,7 @@ variable "security_topic_name" {
 
 variable "compartment_id" {
   type        = string
-  description = "The OCID of security compartment"
+  description = "The compartment ocid where security topic lives on"
 }
 
 variable "tag_cost_center" {
