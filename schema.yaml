@@ -93,6 +93,32 @@ variableGroups:
       - virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip
       - provider_service_key_name
       - virtual_circuit_customer_asn
+  - title: Monitoring Invisible
+    visible: false
+    variables:
+      - security_topic_name
+      - network_topic_name
+      - budget_topic_name
+      - subscription_protocol
+      - notification_action_type
+      - notification_action_description
+      - enable_iam_notification_action
+      - iam_notification_display_name
+      - network_notification_display_name
+      - enable_network_notification_action
+      - enable_iam_notification_rule
+      - iam_notification_description
+      - enable_network_notification_rule
+      - network_notification_description
+      - enable_budget_notification_action
+      - budget_notification_display_name
+      - enable_budget_notification_rule
+      - budget_notification_description
+  - title: Monitoring
+    variables:
+      - security_admin_email_endpoints
+      - budget_admin_email_endpoints
+      - network_admin_email_endpoints
   - title: Sandbox Mode
     variables:
       - is_sandbox_mode_enabled
@@ -670,6 +696,121 @@ variables:
                 - Microsoft Azure
     required: true
     title: Virtual Circuit Customer ASN
+  # Monitoring
+  security_admin_email_endpoints:
+    type: array
+    items:
+      type: string
+      pattern: ^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$
+    required: true
+    title: Security Admin Email Endpoints
+    description: List of email addresses for all security related notifications.
+  budget_admin_email_endpoints:
+    type: array
+    items:
+      type: string
+      pattern: ^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$
+    required: true
+    title: Budget Admin Email Endpoints
+    description: List of email addresses for all budget related notifications.
+  network_admin_email_endpoints:
+    type: array
+    items:
+      type: string
+      pattern: ^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$
+    required: true
+    title: Network Admin Email Endpoints
+    description: List of email addresses for all network related notifications.
+  security_topic_name:
+    type: string
+    description: The name of security topic
+    default: security-topic
+    required: false
+  network_topic_name:
+    type: string
+    description: The name of network topic
+    default: network-topic
+    required: false
+  budget_topic_name:
+    type: string
+    description: The name of budget topic
+    default: budget-topic
+    required: false
+  subscription_protocol:
+    type: string
+    description: The protocol used for the subscription
+    default: EMAIL
+    required: false
+  notification_action_type:
+    type: string
+    description: "The action to perform if the condition in the rule matches an event. Available options: ONS, OSS, FAAS"
+    default: ONS
+    required: false
+  notification_action_description:
+    type: string
+    description: The details of the action
+    default: Sends notification via ONS
+    required: false
+  enable_iam_notification_action:
+    type: boolean
+    description: Whether or not the iam notification action is currently enabled
+    default: true
+    required: false
+  iam_notification_display_name:
+    type: string
+    description: The display name of iam notification rule
+    default: iam-change-notification
+    required: false
+  network_notification_display_name:
+    type: string
+    description: The display name of network notification rule
+    default: network-change-notification
+    required: false
+  enable_network_notification_action:
+    type: boolean
+    description: Whether or not the network notification action is currently enabled
+    default: true
+    required: false
+  enable_iam_notification_rule:
+    type: boolean
+    description: Whether or not the iam rule is currently enabled
+    default: true
+    required: false
+  iam_notification_description:
+    type: string
+    description: Details of the iam notification rule
+    default: "Events rule to detect when IAM resources are created, updated or deleted"
+    required: false
+  enable_network_notification_rule:
+    type: boolean
+    description: Whether or not the network rule is currently enabled
+    default: true
+    required: false
+  network_notification_description:
+    type: string
+    description: Details of the network notification rule
+    default: "Events rule to detect when network resources are created, updated or deleted"
+    required: false
+  enable_budget_notification_action:
+    type: boolean
+    description: Whether or not the budget notification action is currently enabled
+    default: true
+    required: false
+  budget_notification_display_name:
+    type: string
+    description: the display name of budget notification rule
+    default: budget-change-notification
+    required: false
+  enable_budget_notification_rule:
+    type: boolean
+    description: Whether or not the budget rule is currently enabled
+    default: true
+    required: false
+  budget_notification_description:
+    type: string
+    description: Details of the budget notification rule
+    default: "Events rule to detect when budget resources are created, updated or deleted"
+    required: false
   # Sandbox Mode
   is_sandbox_mode_enabled:
     type: boolean

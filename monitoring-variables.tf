@@ -141,6 +141,6 @@ variable "enable_budget_notification_rule" {
 
 variable "budget_notification_description" {
   type        = string
-  description = "Details of the budgetnotification rule"
+  description = "Details of the budget notification rule"
   default     = "Events rule to detect when budget resources are created, updated or deleted"
 }

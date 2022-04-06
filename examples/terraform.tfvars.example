@@ -103,3 +103,8 @@ virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip   = "10.0
 fastconnect_provider                                                     = "Microsoft Azure"
 virtual_circuit_customer_asn                                             = "12345"
 fastconnect_routing_policy                                               = ["GLOBAL"]
+
+# MONITORING
+security_admin_email_endpoints = ["example@example.com"]
+budget_admin_email_endpoints = ["example@example.com"]
+network_admin_email_endpoints = ["example@example.com"]
