@@ -8,7 +8,7 @@ module "security-topics" {
   tag_geo_location    = var.tag_geo_location
   tag_cost_center     = var.tag_cost_center
   providers           = { oci = oci.home_region }
-  depends_on          = [ module.security-compartment ]
+  depends_on          = [module.security-compartment]
   suffix              = random_id.suffix.hex
 }
 
@@ -18,7 +18,7 @@ module "network-topics" {
   network_topic_name = var.network_topic_name
   tag_geo_location   = var.tag_geo_location
   tag_cost_center    = var.tag_cost_center
-  depends_on         = [ module.network-compartment ]
+  depends_on         = [module.network-compartment]
   suffix             = random_id.suffix.hex
 }
 
@@ -44,7 +44,7 @@ module "security-subscription" {
   tag_cost_center       = var.tag_cost_center
   topic_id              = module.security-topics.security_topic_id
   providers             = { oci = oci.home_region }
-  depends_on            = [ module.security-topics ]
+  depends_on            = [module.security-topics]
 }
 
 module "budget-subscription" {
@@ -56,7 +56,7 @@ module "budget-subscription" {
   tag_geo_location      = var.tag_geo_location
   tag_cost_center       = var.tag_cost_center
   topic_id              = module.budget-topics.budget_topic_id
-  depends_on            = [ module.budget-topics ]
+  depends_on            = [module.budget-topics]
 }
 
 module "network-subscription" {
@@ -68,7 +68,7 @@ module "network-subscription" {
   tag_geo_location      = var.tag_geo_location
   tag_cost_center       = var.tag_cost_center
   topic_id              = module.network-topics.network_topic_id
-  depends_on            = [ module.security-topics ]
+  depends_on            = [module.security-topics]
 }
 
 # -----------------------------------------------------------------------------
@@ -88,7 +88,7 @@ module "iam-notifications" {
   tag_cost_center                 = var.tag_cost_center
   suffix                          = random_id.suffix.hex
   providers                       = { oci = oci.home_region }
-  depends_on                      = [ module.security-topics ]
+  depends_on                      = [module.security-topics]
 }
 
 module "network-notifications" {
@@ -104,7 +104,7 @@ module "network-notifications" {
   tag_geo_location                   = var.tag_geo_location
   tag_cost_center                    = var.tag_cost_center
   suffix                             = random_id.suffix.hex
-  depends_on                         = [ module.network-topics ]
+  depends_on                         = [module.network-topics]
 }
 
 module "budget-notifications" {
@@ -120,5 +120,16 @@ module "budget-notifications" {
   tag_geo_location                  = var.tag_geo_location
   tag_cost_center                   = var.tag_cost_center
   suffix                            = random_id.suffix.hex
-  depends_on                        = [ module.budget-topics ]
+  depends_on                        = [module.budget-topics]
+}
+
+# -----------------------------------------------------------------------------
+# Create Tags 
+# -----------------------------------------------------------------------------
+module "tagging" {
+  source                = "./monitoring/tags/architecture-center"
+  tenancy_ocid          = var.tenancy_ocid
+  parent_compartment_id = module.parent-compartment.parent_compartment_id
+  providers             = { oci = oci.home_region }
+  depends_on            = [module.parent-compartment]
 }
