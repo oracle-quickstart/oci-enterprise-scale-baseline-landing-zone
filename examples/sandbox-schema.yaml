@@ -102,6 +102,30 @@ variableGroups:
       - virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip
       - provider_service_key_name
       - virtual_circuit_customer_asn
+  - title: Monitoring
+    visible: false
+    variables:
+      - security_topic_name
+      - network_topic_name
+      - budget_topic_name
+      - subscription_protocol
+      - notification_action_type
+      - notification_action_description
+      - enable_iam_notification_action
+      - iam_notification_display_name
+      - network_notification_display_name
+      - enable_network_notification_action
+      - enable_iam_notification_rule
+      - iam_notification_description
+      - enable_network_notification_rule
+      - network_notification_description
+      - enable_budget_notification_action
+      - budget_notification_display_name
+      - enable_budget_notification_rule
+      - budget_notification_description
+      - security_admin_email_endpoints
+      - budget_admin_email_endpoints
+      - network_admin_email_endpoints
   - title: Sandbox Mode
     visible: false
     variables:
