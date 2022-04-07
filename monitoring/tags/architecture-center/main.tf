@@ -3,7 +3,6 @@ resource "random_id" "tag" {
 }
 
 resource "oci_identity_tag_namespace" "ArchitectureCenterTagNamespace" {
-  provider       = oci.home_region
   compartment_id = var.tenancy_ocid
   description    = "ArchitectureCenterTagNamespace"
   name           = "ArchitectureCenter\\oci-enterprise-scale-baseline-landing-zone-${random_id.tag.hex}"
@@ -15,14 +14,13 @@ resource "oci_identity_tag_namespace" "ArchitectureCenterTagNamespace" {
 }
 
 resource "oci_identity_tag" "ArchitectureCenterTag" {
-  provider         = oci.home_region
   description      = "ArchitectureCenterTag"
   name             = "release"
   tag_namespace_id = oci_identity_tag_namespace.ArchitectureCenterTagNamespace.id
 
   validator {
     validator_type = "ENUM"
-    values         = ["release", "1.0.0"]
+    values         = ["release", var.release_tag_default_value]
   }
 
   provisioner "local-exec" {
@@ -31,8 +29,8 @@ resource "oci_identity_tag" "ArchitectureCenterTag" {
 }
 
 resource "oci_identity_tag_default" "benchmarking_tag_default" {
-  compartment_id    = module.parent-compartment.parent_compartment_id
+  compartment_id    = var.parent_compartment_id
   tag_definition_id = oci_identity_tag.ArchitectureCenterTag.id
-  value             = "1.0.0"
+  value             = var.release_tag_default_value
   is_required       = false
 }
