@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    oci = {
+      source                = "oracle/oci"
+      configuration_aliases = [oci]
+    }
+  }
+}
+
 resource "random_id" "tag" {
   byte_length = 2
 }
