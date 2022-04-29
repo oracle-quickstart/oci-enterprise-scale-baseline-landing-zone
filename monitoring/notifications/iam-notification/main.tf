@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    oci = {
+      source                = "oracle/oci"
+      configuration_aliases = [oci]
+    }
+  }
+}
+
 resource "oci_events_rule" "iam_notification" {
   actions {
     actions {
