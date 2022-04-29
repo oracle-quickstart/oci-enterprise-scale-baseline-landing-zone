@@ -66,6 +66,11 @@ variable "retention_rule_duration_time_unit" {
   default     = "DAYS"
 }
 
+variable "key_id" {
+  type        = string
+  description = "Encryption key ocid for bucket"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Variables for Service Connector
 # ---------------------------------------------------------------------------------------------------------------------
