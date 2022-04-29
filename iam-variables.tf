@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------------------------------------------------------
 variable "key_id" {
   type        = string
-  description = "Encryption key OCID for security admin policy"
+  description = "Encryption key OCID for security admin policy and audit bucket"
   default     = "PLACEHOLDER"
 }
 
