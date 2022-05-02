@@ -81,7 +81,8 @@ module "audit" {
   tag_geo_location                    = var.tag_geo_location
   tag_cost_center                     = var.tag_cost_center
   suffix                              = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
-
+  key_id                              = var.key_id
+  is_sandbox_mode_enabled             = var.is_sandbox_mode_enabled
   providers = {
     oci             = oci
     oci.home_region = oci.home_region

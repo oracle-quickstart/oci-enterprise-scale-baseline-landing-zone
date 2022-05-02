@@ -41,6 +41,11 @@ variable "suffix" {
   description = "Optional suffix string used in a resource name"
 }
 
+variable "is_sandbox_mode_enabled" {
+  type        = bool
+  description = "Do you want to run the stack in Sandbox mode?"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Variables for Object storage Bucket and Retention Rules
 # ---------------------------------------------------------------------------------------------------------------------
@@ -64,6 +69,11 @@ variable "retention_rule_duration_time_unit" {
   type        = string
   description = "The unit of time to retain the objects (DAYS)"
   default     = "DAYS"
+}
+
+variable "key_id" {
+  type        = string
+  description = "Encryption key ocid for bucket"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

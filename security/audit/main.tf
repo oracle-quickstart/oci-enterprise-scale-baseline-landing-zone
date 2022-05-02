@@ -39,6 +39,7 @@ resource "oci_objectstorage_bucket" "audit_log_bucket" {
   namespace      = data.oci_objectstorage_namespace.ns.namespace
   name           = "${var.audit_log_bucket_name}${var.suffix}"
   access_type    = "NoPublicAccess"
+  kms_key_id     = var.is_sandbox_mode_enabled == true ? "" : var.key_id
   storage_tier   = "Archive"
 
   retention_rules {
