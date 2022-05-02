@@ -41,6 +41,11 @@ variable "suffix" {
   description = "Optional suffix string used in a resource name"
 }
 
+variable "is_sandbox_mode_enabled" {
+  type        = bool
+  description = "Do you want to run the stack in Sandbox mode?"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Variables for Object storage Bucket and Retention Rules
 # ---------------------------------------------------------------------------------------------------------------------
