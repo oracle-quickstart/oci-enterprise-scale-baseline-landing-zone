@@ -22,7 +22,10 @@ resource "oci_identity_policy" "network_admin_policies" {
   }
 
   statements = [
-    "Allow group ${var.network_admin_group_name} to manage virtual-network-family in compartment ${var.network_compartment_name}"
+    "Allow group ${var.network_admin_group_name} to manage virtual-network-family in compartment ${var.network_compartment_name}",
+    # Ability to manage all resources in the Bastion service in all compartments
+    "Allow group ${var.network_admin_group_name} to manage bastion in compartment ${var.network_compartment_name}",
+    "Allow group ${var.network_admin_group_name} to manage bastion-session in compartment ${var.network_compartment_name}",
   ]
 }
 
@@ -220,10 +223,8 @@ resource "oci_identity_policy" "security_admins_policy" {
     "Allow service blockstorage, objectstorage-${var.region}, FssOc1Prod, oke, streaming to use keys in compartment ${var.security_compartment_name}",
     # Ability to do all things with secrets in a specific vault
     "Allow group ${var.security_admins_group_name} to read vaults in compartment ${var.security_compartment_name} where target.vault.id='${var.vault_id}'",
-    "Allow group ${var.security_admins_group_name} to manage secret-family in compartment ${var.security_compartment_name} where target.vault.id='${var.vault_id}'",
-    # Ability to manage all resources in the Bastion service in all compartments
-    "Allow group ${var.security_admins_group_name} to manage bastion in compartment ${var.security_compartment_name}",
-    "Allow group ${var.security_admins_group_name} to manage bastion-session in compartment ${var.security_compartment_name}",
+    "Allow group ${var.security_admins_group_name} to manage secret-family in compartment ${var.security_compartment_name} where target.vault.id='${var.vault_id}'"
+
   ]
 }
 
