@@ -60,6 +60,12 @@ variable "tag_geo_location" {
   }
 }
 
+variable "deploy_global_resources" {
+  type        = bool
+  description = "Whether to deploy global resources, including tenancy level IAM service and security service."
+  default     = true
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Sandbox Mode
 # ---------------------------------------------------------------------------------------------------------------------
