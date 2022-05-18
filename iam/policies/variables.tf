@@ -59,16 +59,6 @@ variable "security_compartment_name" {
   description = "The name for the network compartment"
 }
 
-variable "workload_compartment_ocids" {
-  type        = map(map(string))
-  description = "The list of workload compartments"
-}
-
-variable "workload_compartment_name_list" {
-  type        = list(string)
-  description = "List of application workload compartment names"
-}
-
 # -----------------------------------------------------------------------------
 # IAM Policy Variables
 # -----------------------------------------------------------------------------
@@ -121,26 +111,6 @@ variable "lb_users_group_name" {
   description = "Group name for Load Balancer Users"
 }
 
-variable "workload_storage_admins_group_names" {
-  type        = map(any)
-  description = "Map of workload compartment names and group names for Workload Storage Administrators"
-}
-
-variable "workload_storage_users_group_names" {
-  type        = map(any)
-  description = "Map of workload compartment names and group names for Workload Storage Users"
-}
-
-variable "workload_admins_group_names" {
-  type        = map(any)
-  description = "Map of workload compartment names and group names for Workload Administrators"
-}
-
-variable "workload_users_group_names" {
-  type        = map(any)
-  description = "Map of workload compartment names and group names for Workload Users"
-}
-
 variable "security_admins_group_name" {
   type        = string
   description = "The name for the Security Admins group name"
@@ -150,6 +120,7 @@ variable "cloud_guard_analysts_group_name" {
   type        = string
   description = "The name for the Cloud Guard Analyst group name"
 }
+
 variable "cloud_guard_operators_group_name" {
   type        = string
   description = "The name for the Cloud Guard Operator group name"

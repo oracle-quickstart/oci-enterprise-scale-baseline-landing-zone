@@ -12,14 +12,6 @@ variable "suffix" {
 }
 
 # -----------------------------------------------------------------------------
-# Identity Compartment Variables
-# -----------------------------------------------------------------------------
-variable "workload_compartment_name_list" {
-  type        = list(string)
-  description = "List of application workload compartment names"
-}
-
-# -----------------------------------------------------------------------------
 # IAM Group Name Variables
 # -----------------------------------------------------------------------------
 variable "network_admin_group_name" {
@@ -30,26 +22,6 @@ variable "network_admin_group_name" {
 variable "lb_users_group_name" {
   type        = string
   description = "The name for the load balancer users group name"
-}
-
-variable "workload_storage_admins_group_name" {
-  type        = string
-  description = "The name for the workload storage administrators group"
-}
-
-variable "workload_storage_users_group_name" {
-  type        = string
-  description = "The name for the workload storage users group"
-}
-
-variable "workload_admins_group_name" {
-  type        = string
-  description = "The name for the workload administrators group"
-}
-
-variable "workload_users_group_name" {
-  type        = string
-  description = "The name for the workload users group"
 }
 
 variable "security_admins_group_name" {
