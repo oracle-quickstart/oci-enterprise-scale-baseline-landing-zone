@@ -26,7 +26,6 @@ variableGroups:
     visible: false
     variables:
       - parent_compartment_name
-      - workload_compartment_names
       - network_compartment_name
       - security_compartment_name
       - common_infra_compartment_name
@@ -39,10 +38,6 @@ variableGroups:
       - vault_id
       - network_admin_group_name
       - lb_users_group_name
-      - workload_admins_group_name
-      - workload_users_group_name
-      - workload_storage_admins_group_name
-      - workload_storage_users_group_name
       - security_admins_group_name
       - cloud_guard_operators_group_name
       - cloud_guard_analysts_group_name
@@ -53,15 +48,6 @@ variableGroups:
     variables:
       - vcn_cidr_block
       - vcn_dns_label
-      - private_subnet_cidr_blocks
-      - private_subnet_dns_labels
-      - database_subnet_cidr_blocks
-      - database_subnet_dns_labels
-      - is_public_subnet_enabled
-      - public_subnet_cidr_block
-      - public_subnet_dns_label
-      - ingress_rules_map
-      - egress_rules_map
       - is_shared_services_subnet_enabled
       - shared_service_subnet_cidr_block
       - shared_service_subnet_dns_label
@@ -76,6 +62,7 @@ variableGroups:
   - title: Security
     visible: false
     variables:
+      - external_subnet_ocids
       - retention_rule_duration_time_amount
       - is_cloud_guard_enabled
       - host_scan_recipe_agent_settings_scan_level

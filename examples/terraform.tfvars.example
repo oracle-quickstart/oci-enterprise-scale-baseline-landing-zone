@@ -7,7 +7,6 @@ api_private_key_path = "~/path_to_example_api_key.pem"
 
 # COMPARTMENT
 parent_compartment_name       = "landing_zone_parent"
-workload_compartment_names    = ["Workload-A", "Workload-B"]
 applications_compartment_name = "applications"
 common_infra_compartment_name = "common-infra"
 security_compartment_name     = "security"
@@ -25,47 +24,15 @@ key_id                             = "ocid1.tenancy.oc1..aaaaaaaaaaaaaaaaaaaaaaa
 cloud_guard_analysts_group_name    = "CloudGuard-Analyst"
 cloud_guard_architects_group_name  = "CloudGuard-Architect"
 cloud_guard_operators_group_name   = "CloudGuard-Operator"
-workload_admins_group_name         = "Workload-Admins"
-workload_storage_admins_group_name = "Workload-Storage-Admins"
-workload_storage_users_group_name  = "Workload-Storage-Users"
-workload_users_group_name          = "Workload-Users"
 lb_users_group_name                = "LBUsers"
 network_admin_group_name           = "Virtual-Network-Admins"
 security_admins_group_name         = "SecurityAdmins"
 
 # VCN
-public_subnet_dns_label          = "public"
-private_subnet_dns_labels        = ["private0", "private1"]
-database_subnet_dns_labels       = ["database0", "database1"]
 shared_service_subnet_dns_label  = "shared"
 vcn_dns_label                    = "vcn"
 vcn_cidr_block                   = "10.0.0.0/16"
-public_subnet_cidr_block         = "10.0.1.0/24"
-private_subnet_cidr_blocks       = ["10.0.2.0/24", "10.0.3.0/24"]
-database_subnet_cidr_blocks      = ["10.0.4.0/24", "10.0.5.0/24"]
 shared_service_subnet_cidr_block = "10.0.6.0/24"
-ingress_rules_map = {
-  "Workload-A" = [{
-    ingress_security_rules_tcp_options_destination_port_range_max = 443
-    ingress_security_rules_tcp_options_destination_port_range_min = 443
-    ingress_security_rules_tcp_options_source_port_range_max      = 443
-    ingress_security_rules_tcp_options_source_port_range_min      = 443
-  }]
-}
-egress_rules_map = {
-  "Workload-A" = [{
-    egress_security_rules_tcp_options_destination_port_range_max = 65534
-    egress_security_rules_tcp_options_destination_port_range_min = 2
-    egress_security_rules_tcp_options_source_port_range_max      = 65534
-    egress_security_rules_tcp_options_source_port_range_min      = 2
-  }]
-  "Workload-B" = [{
-    egress_security_rules_tcp_options_destination_port_range_max = 65533
-    egress_security_rules_tcp_options_destination_port_range_min = 3
-    egress_security_rules_tcp_options_source_port_range_max      = 65533
-    egress_security_rules_tcp_options_source_port_range_min      = 3
-  }]
-}
 
 # BUDGET
 budget_alerting              = true
@@ -82,6 +49,7 @@ vss_scan_schedule                          = "DAILY"
 agent_cis_benchmark_settings_scan_level    = "STRICT"
 host_scan_recipe_agent_settings_scan_level = "STANDARD"
 host_scan_recipe_port_settings_scan_level  = "STANDARD"
+external_subnet_ocids                      = ["ocid1.subnet.oc1.phx.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
 
 # BASTION
 bastion_client_cidr_block_allow_list = ["10.0.0.0/16", "10.0.0.0/24"]
