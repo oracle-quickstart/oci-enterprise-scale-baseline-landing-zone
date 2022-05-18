@@ -3,6 +3,7 @@
 # -----------------------------------------------------------------------------
 module "cloud-guard" {
   source                                     = "./security/cloud-guard"
+  count                                      = var.deploy_global_resources ? 1 : 0
   region                                     = local.home_region[0]
   is_cloud_guard_enabled                     = var.is_cloud_guard_enabled
   parent_compartment_ocid                    = module.parent-compartment.parent_compartment_id
@@ -71,7 +72,7 @@ module "bastion" {
 # -----------------------------------------------------------------------------
 module "audit" {
   source                              = "./security/audit"
-  count                               = var.advanced_logging_option == "AUDIT_LOGS" || var.advanced_logging_option == "BOTH"  ? 1 : 0
+  count                               = var.deploy_global_resources && (var.advanced_logging_option == "AUDIT_LOGS" || var.advanced_logging_option == "BOTH")  ? 1 : 0
   tenancy_ocid                        = var.tenancy_ocid
   parent_compartment_name             = module.parent-compartment.parent_compartment_name
   parent_compartment_ocid             = module.parent-compartment.parent_compartment_id
@@ -98,7 +99,7 @@ module "audit" {
 # -----------------------------------------------------------------------------
 module "flow-logs" {
   source                    = "./security/flow-logs"
-  count                     = var.advanced_logging_option == "FLOW_LOGS" || var.advanced_logging_option == "BOTH"  ? 1 : 0
+  count                     = var.deploy_global_resources && (var.advanced_logging_option == "FLOW_LOGS" || var.advanced_logging_option == "BOTH")  ? 1 : 0
   tenancy_ocid              = var.tenancy_ocid
   security_compartment_ocid = module.security-compartment.security_compartment_id
   security_compartment_name = var.security_compartment_name
