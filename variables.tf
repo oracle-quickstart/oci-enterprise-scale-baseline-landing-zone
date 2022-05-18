@@ -68,12 +68,6 @@ variable "is_sandbox_mode_enabled" {
   description = "Do you want to run the stack in Sandbox mode?"
 }
 
-variable "is_public_subnet_enabled" {
-  type        = bool
-  description = "Do you want to provision a public subnet?"
-  default     = true
-}
-
 variable "is_shared_services_subnet_enabled" {
   type        = bool
   description = "Do you want to provision a private shared services subnet?"

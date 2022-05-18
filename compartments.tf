@@ -1,3 +1,13 @@
+locals {
+  compartments_map = {
+    ( var.parent_compartment_name ) = module.parent-compartment.parent_compartment_id
+    ( var.common_infra_compartment_name ) = module.common-infra-compartment.common_infra_compartment_id
+    ( var.applications_compartment_name ) = module.applications-compartment.applications_compartment_id
+    ( var.network_compartment_name ) = module.network-compartment.network_compartment_id
+    ( var.security_compartment_name ) = module.security-compartment.security_compartment_id
+  }
+}
+
 # -----------------------------------------------------------------------------
 # Create Parent compartment, for top level organization
 # -----------------------------------------------------------------------------
