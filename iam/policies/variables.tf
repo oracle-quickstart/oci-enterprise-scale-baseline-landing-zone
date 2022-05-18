@@ -62,12 +62,6 @@ variable "security_compartment_name" {
 # -----------------------------------------------------------------------------
 # IAM Policy Variables
 # -----------------------------------------------------------------------------
-variable "administrator_policy_name" {
-  type        = string
-  default     = "OCI-LZ-Admin-TenantAdminPolicy"
-  description = "Policy name for Administrators"
-}
-
 variable "network_admin_policy_name" {
   type        = string
   default     = "OCI-LZ-VCNAdminPolicy"
@@ -104,11 +98,6 @@ variable "cloud_guard_architects_policy_name" {
 variable "network_admin_group_name" {
   type        = string
   description = "Group name for Network Administrators"
-}
-
-variable "lb_users_group_name" {
-  type        = string
-  description = "Group name for Load Balancer Users"
 }
 
 variable "security_admins_group_name" {
