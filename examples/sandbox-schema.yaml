@@ -173,3 +173,4 @@ outputs:
   more_info_url:
     type: link
     displayText: For more information, please see the Cloud Adoption Framework - Technical Implementation
+primaryOutputButton: more_info_url
