@@ -26,6 +26,7 @@ module "cloud-guard" {
 
 module "vss" {
   source                                     = "./security/vss"
+  count                                      = var.deploy_global_resources ? 1 : 0
   host_scan_recipe_agent_settings_scan_level = var.host_scan_recipe_agent_settings_scan_level
   host_scan_recipe_port_settings_scan_level  = var.host_scan_recipe_port_settings_scan_level
   agent_cis_benchmark_settings_scan_level    = var.agent_cis_benchmark_settings_scan_level
