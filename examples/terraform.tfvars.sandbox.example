@@ -6,6 +6,9 @@ parent_compartment_name="baseline_lz_sandbox"
 tag_cost_center="example_tag_cost_center"
 tag_geo_location="example_tag_geo_location"
 
+# Global Resources Control
+deploy_global_resources = true
+
 # VCN
 is_shared_services_subnet_enabled=false
 shared_service_subnet_dns_label="shared"

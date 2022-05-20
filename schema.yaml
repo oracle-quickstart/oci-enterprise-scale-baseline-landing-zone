@@ -24,6 +24,9 @@ variableGroups:
       - security_compartment_name
       - common_infra_compartment_name
       - applications_compartment_name
+  - title: Global Resources Control
+    variables:
+      - deploy_global_resources
   - title: IAM
     variables:
       - break_glass_user_email_list
@@ -190,6 +193,14 @@ variables:
     required: true
     title: Applications Compartment Name
     pattern: ^([\w\.-]){1,100}$
+
+  # Global Resources Control
+  deploy_global_resources:
+    type: boolean
+    description: Whether to deploy global resources, including tenancy level IAM service and Security service (Cloud Guard, VSS, Flow Log). Choose false if extend your Landing Zone to another region.
+    required: true
+    defaul: true
+    title: Deploy Global Resources
 
   # IAM
   break_glass_user_email_list:

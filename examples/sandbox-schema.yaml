@@ -30,6 +30,10 @@ variableGroups:
       - security_compartment_name
       - common_infra_compartment_name
       - applications_compartment_name
+  - title: Global Resource Control
+    visible: false
+    variables:
+      - deploy_global_resources
   - title: IAM
     visible: false
     variables:
