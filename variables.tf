@@ -60,6 +60,12 @@ variable "tag_geo_location" {
   }
 }
 
+variable "deploy_global_resources" {
+  type        = bool
+  description = "Whether to deploy global resources, including tenancy level IAM service and Security service (Cloud Guard, VSS, Flow Log). Choose false if extend your Landing Zone to another region."
+  default     = true
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Sandbox Mode
 # ---------------------------------------------------------------------------------------------------------------------

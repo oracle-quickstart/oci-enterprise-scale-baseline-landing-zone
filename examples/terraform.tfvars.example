@@ -17,6 +17,9 @@ network_compartment_name      = "network"
 tag_cost_center  = "example_tag_cost_center"
 tag_geo_location = "example_tag_geo_location"
 
+# Global Resources Control
+deploy_global_resources = true
+
 # IAM
 administrator_group_name           = "Administrators"
 break_glass_user_email_list        = ["example@test.com", "example2@test.com"]
