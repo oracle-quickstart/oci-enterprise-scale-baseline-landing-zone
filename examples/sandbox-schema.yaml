@@ -158,7 +158,7 @@ variables:
       - "BOTH"
       - "NONE"
     required: true
-    default: "BOTH"
+    default: "NONE"
     title: Enable Advanced Logging?
 
   # Bastion CIDR block allow list
