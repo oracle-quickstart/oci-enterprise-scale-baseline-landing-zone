@@ -151,14 +151,14 @@ variables:
   #Logging
   advanced_logging_option:
     type: enum
-    description: "Enable or Disable Advanced Logging (VCN flow logs and/or Audit logs). Set default to BOTH to meet the CIS OCI Foundations Benchmark but may accrue charges."
+    description: "Enable or Disable Advanced Logging (VCN flow logs and/or Audit logs)."
     enum:
       - "AUDIT_LOGS"
       - "FLOW_LOGS"
       - "BOTH"
       - "NONE"
     required: true
-    default: "BOTH"
+    default: "NONE"
     title: Enable Advanced Logging?
 
   # Bastion CIDR block allow list
