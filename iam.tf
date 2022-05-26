@@ -44,10 +44,10 @@ module "policies" {
   workload_compartment_ocids          = module.workload-compartment
   network_admin_group_name            = var.network_admin_group_name
   lb_users_group_name                 = var.lb_users_group_name
-  workload_storage_admins_group_names = var.deploy_global_resources ? module.groups.workload_storage_admins_group_names : ""
-  workload_storage_users_group_names  = var.deploy_global_resources ? module.groups.workload_storage_users_group_names : ""
-  workload_admins_group_names         = var.deploy_global_resources ? module.groups.workload_admins_group_names : ""
-  workload_users_group_names          = var.deploy_global_resources ? module.groups.workload_users_group_names : ""
+  workload_storage_admins_group_names = module.groups[0].workload_storage_admins_group_names
+  workload_storage_users_group_names  = module.groups[0].workload_storage_users_group_names
+  workload_admins_group_names         = module.groups[0].workload_admins_group_names
+  workload_users_group_names          = module.groups[0].workload_users_group_names
   security_admins_group_name          = var.security_admins_group_name
   cloud_guard_operators_group_name    = var.cloud_guard_operators_group_name
   cloud_guard_analysts_group_name     = var.cloud_guard_analysts_group_name
