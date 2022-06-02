@@ -20,9 +20,6 @@ resource "oci_identity_tag_namespace" "ArchitectureCenterTagNamespace" {
     command = "sleep 10"
   }
 }
-output "tag" {
-  value = oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name
-}
 
 resource "oci_identity_tag" "ArchitectureCenterTag" {
   description      = "ArchitectureCenterTag"
