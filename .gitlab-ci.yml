@@ -1,0 +1,11 @@
+stages:
+    - test
+
+run_tests:
+    stage: test
+    image: python:3.9
+    before_script:
+        - pip install pytest
+        - pip install pytest-terraform
+    script:
+        - pytest -v
