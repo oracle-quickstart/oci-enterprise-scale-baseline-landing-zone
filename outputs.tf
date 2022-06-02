@@ -7,7 +7,8 @@ output "vcn_ocid" {
 }
 
 output "compartments_map" {
-  value = local.compartments_map
+  value       = local.compartments_map
+  description = "Map of the compartments ocids"
 }
 
 output "subnet_map" {

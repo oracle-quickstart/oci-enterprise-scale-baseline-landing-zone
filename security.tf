@@ -54,6 +54,7 @@ module "vss" {
 # -----------------------------------------------------------------------------
 module "bastion" {
   source                               = "./security/bastion"
+  count                                = var.is_sandbox_mode_enabled ? 0 : 1
   vcn_id                               = module.vcn-core.vcn_id
   tag_geo_location                     = var.tag_geo_location
   tag_cost_center                      = var.tag_cost_center

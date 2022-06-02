@@ -16,5 +16,5 @@ vcn_dns_label="vcn"
 vcn_cidr_block="10.0.0.0/16"
 shared_service_subnet_cidr_block="10.0.4.0/24"
 
-# BASTION
-bastion_subnet_cidr_block="10.0.7.0/24"
+# Advanced Logging
+advanced_logging_option="NONE"
