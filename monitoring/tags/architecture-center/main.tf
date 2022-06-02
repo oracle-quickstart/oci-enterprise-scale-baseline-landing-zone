@@ -14,12 +14,14 @@ resource "random_id" "tag" {
 resource "oci_identity_tag_namespace" "ArchitectureCenterTagNamespace" {
   compartment_id = var.tenancy_ocid
   description    = "ArchitectureCenterTagNamespace"
-  name           = "ArchitectureCenter\\oci-enterprise-scale-baseline-landing-zone-${random_id.tag.hex}"
+  name           = "${var.namespace_name}-${random_id.tag.hex}"
 
   provisioner "local-exec" {
     command = "sleep 10"
   }
-
+}
+output "tag" {
+  value = oci_identity_tag_namespace.ArchitectureCenterTagNamespace.name
 }
 
 resource "oci_identity_tag" "ArchitectureCenterTag" {

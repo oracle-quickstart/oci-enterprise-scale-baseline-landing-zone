@@ -13,3 +13,8 @@ variable "release_tag_default_value" {
   description = "value of the release tag default value"
   default     = "1.0.0"
 }
+
+variable "namespace_name" {
+  type    = string
+  default = "ArchitectureCenter\\oci-enterprise-scale-baseline-landing-zone"
+}
