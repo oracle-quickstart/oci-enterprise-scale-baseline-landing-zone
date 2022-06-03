@@ -14,6 +14,8 @@ Sandbox Mode limits the number of inputs by adding safe defaults. This includes:
 - Enabling the Vulnerability Scanning Service
 - Disabling the IPSEC Tunnel
 - Disabling the FastConnect Virtual Circuit
+- Disabling the Bastion Service
+- Setting the default of Advanced Logging Option (including Flow Logging and Audit Logging) to NONE. Users can enable either or both by changing the variable option.
 
 ## Requirements
 - [Terraform](https://www.terraform.io/) >= 1.0.6
