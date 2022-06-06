@@ -4,7 +4,7 @@
 resource "oci_core_vcn" "primary_vcn" {
   cidr_block     = var.vcn_cidr_block
   compartment_id = var.compartment_ocid
-  display_name   = "Primary VCN"
+  display_name   = "Primary-VCN"
   dns_label      = var.vcn_dns_label
   freeform_tags = {
     "Description" = "Primary VCN"
@@ -63,7 +63,7 @@ resource "oci_core_service_gateway" "service_gateway" {
 # -----------------------------------------------------------------------------
 resource "oci_core_route_table" "service_gateway_route_table" {
   compartment_id = var.compartment_ocid
-  display_name   = "ServiceGatewayRouteTable"
+  display_name   = "SGW-RouteTable"
   vcn_id         = oci_core_vcn.primary_vcn.id
   freeform_tags = {
     "Description" = "Primary VCN - Service gateway route table"

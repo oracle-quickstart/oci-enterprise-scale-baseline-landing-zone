@@ -82,13 +82,13 @@ variable "key_id" {
 variable "service_connector_policy_name" {
   type        = string
   description = "Policy Name for the service connector to access object storage bucket"
-  default     = "OCI-LZ-ConnectorPolicy-objectStorage"
+  default     = "OCI-LZ-ConnectorPolicy-ObjectStorage"
 }
 
 variable "service_connector_display_name" {
   type        = string
   description = "The display name of Service connector"
-  default     = "audit_log_service_connector"
+  default     = "Audit_Log_Service_Connector"
 }
 
 variable "service_connector_source_kind" {

@@ -49,7 +49,7 @@ variable "network_admin_group_name" {
 variable "lb_users_group_name" {
   type        = string
   description = "The name for the load balancer users group name"
-  default     = "LBUsers"
+  default     = "LB-Users"
   validation {
     condition     = can(regex("^([\\w\\.-]){1,100}$", var.lb_users_group_name))
     error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
@@ -59,7 +59,7 @@ variable "lb_users_group_name" {
 variable "security_admins_group_name" {
   type        = string
   description = "The name of the security admin group"
-  default     = "SecurityAdmins"
+  default     = "Security-Admins"
   validation {
     condition     = can(regex("^([\\w\\.-]){1,100}$", var.security_admins_group_name))
     error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
