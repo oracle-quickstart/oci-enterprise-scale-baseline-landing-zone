@@ -36,7 +36,7 @@ resource "oci_identity_policy" "network_admin_policies" {
 #   for_each       = toset(var.workload_compartment_name_list)
 #   compartment_id = var.network_compartment_id
 #   description    = "OCI Landing Zone Load Balancer User Policy"
-#   name           = "OCI-LZ-${each.value}-LBUserPolicy"
+#   name           = "OCI-LZ-${each.value}-LB-User-Policy"
 
 #   freeform_tags = {
 #     "Description" = "Policy for access to all components in Load-balancing and use network family in Network compartment",
