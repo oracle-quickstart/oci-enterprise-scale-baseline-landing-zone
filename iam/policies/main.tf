@@ -7,6 +7,25 @@ terraform {
   }
 }
 
+locals {
+  security_admins_policy_list = concat(
+    var.key_id != "PLACEHOLDER" ? [
+      # Ability to associate an Object Storage bucket, Block Volume volume, File Storage file system, Kubernetes cluster, or Streaming stream pool with a specific key
+      "Allow group ${var.security_admins_group_name} to use key-delegate in compartment ${var.security_compartment_name} where target.key.id = '${var.key_id}'",
+    ] : [],
+    var.vault_id != "PLACEHOLDER" ? [
+      # Ability to do all things with secrets in a specific vault
+      "Allow group ${var.security_admins_group_name} to read vaults in compartment ${var.security_compartment_name} where target.vault.id='${var.vault_id}'",
+      "Allow group ${var.security_admins_group_name} to manage secret-family in compartment ${var.security_compartment_name} where target.vault.id='${var.vault_id}'"
+    ] : [],
+    [
+      # Ability to list, view, and perform cryptographic operations with all keys in compartment
+      "Allow group ${var.security_admins_group_name} to use keys in compartment ${var.security_compartment_name}",
+      "Allow service blockstorage, objectstorage-${var.region}, FssOc1Prod, oke, streaming to use keys in compartment ${var.security_compartment_name}",
+    ]
+  )
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # IAM Policy Network Admins
 # ---------------------------------------------------------------------------------------------------------------------
@@ -64,17 +83,7 @@ resource "oci_identity_policy" "security_admins_policy" {
     "GeoLocation" = var.tag_geo_location
   }
 
-  statements = [
-    # Ability to associate an Object Storage bucket, Block Volume volume, File Storage file system, Kubernetes cluster, or Streaming stream pool with a specific key
-    "Allow group ${var.security_admins_group_name} to use key-delegate in compartment ${var.security_compartment_name} where target.key.id = '${var.key_id}'",
-    # Ability to list, view, and perform cryptographic operations with all keys in compartment
-    "Allow group ${var.security_admins_group_name} to use keys in compartment ${var.security_compartment_name}",
-    "Allow service blockstorage, objectstorage-${var.region}, FssOc1Prod, oke, streaming to use keys in compartment ${var.security_compartment_name}",
-    # Ability to do all things with secrets in a specific vault
-    "Allow group ${var.security_admins_group_name} to read vaults in compartment ${var.security_compartment_name} where target.vault.id='${var.vault_id}'",
-    "Allow group ${var.security_admins_group_name} to manage secret-family in compartment ${var.security_compartment_name} where target.vault.id='${var.vault_id}'"
-
-  ]
+  statements = local.security_admins_policy_list
 }
 
 resource "oci_identity_policy" "security_admins_policy_network" {
