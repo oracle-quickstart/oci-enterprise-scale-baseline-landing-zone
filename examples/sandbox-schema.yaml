@@ -16,7 +16,6 @@ variableGroups:
     visible: true
     variables:
       - advanced_logging_option
-      - bastion_client_cidr_block_allow_list
   - title: Tagging
     visible: false
     variables:
