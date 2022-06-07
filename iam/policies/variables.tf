@@ -64,31 +64,31 @@ variable "security_compartment_name" {
 # -----------------------------------------------------------------------------
 variable "network_admin_policy_name" {
   type        = string
-  default     = "OCI-LZ-VCNAdminPolicy"
+  default     = "OCI-LZ-VCN-Admin-Policy"
   description = "Policy name for Network Administrators"
 }
 
 variable "security_admins_policy_name" {
   type        = string
   description = "The name of the security admin group"
-  default     = "OCI-LZ-SecurityAdmins"
+  default     = "OCI-LZ-Security-Admins"
 }
 
 variable "cloud_guard_analysts_policy_name" {
   type        = string
   description = "The name of the Cloud Guard Analyst group"
-  default     = "OCI-LZ-CGOps"
+  default     = "OCI-LZ-CG-Ops"
 }
 
 variable "cloud_guard_operators_policy_name" {
   type        = string
-  default     = "OCI-LZ-CGUsers"
+  default     = "OCI-LZ-CG-Users"
   description = "Policy name for Cloud Guard Operator"
 }
 
 variable "cloud_guard_architects_policy_name" {
   type        = string
-  default     = "OCI-LZ-CGAdmins"
+  default     = "OCI-LZ-CG-Admins"
   description = "Policy name for Cloud Guard Operator"
 }
 
