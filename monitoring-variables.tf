@@ -4,19 +4,19 @@
 variable "security_topic_name" {
   type        = string
   description = "The name of security topic"
-  default     = "security-topic"
+  default     = "Security-Topic"
 }
 
 variable "network_topic_name" {
   type        = string
   description = "The name of network topic"
-  default     = "network-topic"
+  default     = "Network-Topic"
 }
 
 variable "budget_topic_name" {
   type        = string
   description = "The name of budget topic"
-  default     = "budget-topic"
+  default     = "Budget-Topic"
 }
 
 # -----------------------------------------------------------------------------
@@ -82,13 +82,13 @@ variable "enable_iam_notification_action" {
 variable "iam_notification_display_name" {
   type        = string
   description = "the display name of iam notification rule"
-  default     = "iam-change-notification"
+  default     = "Iam-Change-Notification"
 }
 
 variable "network_notification_display_name" {
   type        = string
   description = "the display name of network notification rule"
-  default     = "network-change-notification"
+  default     = "Network-Change-Notification"
 }
 
 variable "enable_network_notification_action" {
@@ -130,7 +130,7 @@ variable "enable_budget_notification_action" {
 variable "budget_notification_display_name" {
   type        = string
   description = "the display name of budget notification rule"
-  default     = "budget-change-notification"
+  default     = "Budget-Change-Notification"
 }
 
 variable "enable_budget_notification_rule" {
