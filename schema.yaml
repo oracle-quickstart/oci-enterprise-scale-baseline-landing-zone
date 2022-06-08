@@ -1,0 +1,723 @@
+title: Landing Zone
+description: Landing Zone developed by OCI RSA
+schemaVersion: 1.1.0
+version: "0.1"
+locale: en
+variableGroups:
+  - title: Provider Variables
+    visible: false
+    variables:
+      - api_fingerprint
+      - api_private_key_path
+      - region
+      - tenancy_ocid
+      - current_user_ocid
+  - title: Tagging
+    variables:
+      - tag_cost_center
+      - tag_geo_location
+  - title: Compartment
+    variables:
+      - parent_compartment_name
+      - show_extra_compartment_names
+      - network_compartment_name
+      - security_compartment_name
+      - common_infra_compartment_name
+      - applications_compartment_name
+  - title: Global Resources Control
+    variables:
+      - deploy_global_resources
+  - title: IAM
+    variables:
+      - break_glass_user_email_list
+      - show_extra_iam_vars
+      - key_id
+      - vault_id
+      - show_extra_group_names
+      - network_admin_group_name
+      - lb_users_group_name
+      - security_admins_group_name
+      - cloud_guard_operators_group_name
+      - cloud_guard_analysts_group_name
+      - cloud_guard_architects_group_name
+  - title: VCN
+    variables:
+      - vcn_cidr_block
+      - vcn_dns_label
+      - is_shared_services_subnet_enabled
+      - shared_service_subnet_cidr_block
+      - shared_service_subnet_dns_label
+  - title: Budget
+    variables:
+      - budget_alerting
+      - budget_amount
+      - budget_alert_rule_threshold
+      - budget_alert_rule_recipients
+      - budget_alert_rule_message
+  - title: Security
+    variables:
+      - advanced_logging_option
+      - external_subnet_ocids
+      - retention_rule_duration_time_amount
+      - is_cloud_guard_enabled
+      - host_scan_recipe_agent_settings_scan_level
+      - host_scan_recipe_port_settings_scan_level
+      - agent_cis_benchmark_settings_scan_level
+      - vss_scan_schedule
+  - title: Bastion
+    variables:
+      - bastion_client_cidr_block_allow_list
+      - bastion_subnet_cidr_block
+  - title: DRG (Dynamic Routing Gateways)
+    variables:
+      - use_ipsec_drg
+      - cpe_ip_address
+      - ip_sec_connection_static_routes
+      - use_fastconnect_drg
+      - fastconnect_provider
+      - fastconnect_routing_policy
+      - virtual_circuit_bandwidth_shape
+      - virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip
+      - virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip
+      - virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip
+      - virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip
+      - provider_service_key_name
+      - virtual_circuit_customer_asn
+  - title: Monitoring Invisible
+    visible: false
+    variables:
+      - security_topic_name
+      - network_topic_name
+      - budget_topic_name
+      - subscription_protocol
+      - notification_action_type
+      - notification_action_description
+      - enable_iam_notification_action
+      - iam_notification_display_name
+      - network_notification_display_name
+      - enable_network_notification_action
+      - enable_iam_notification_rule
+      - iam_notification_description
+      - enable_network_notification_rule
+      - network_notification_description
+      - enable_budget_notification_action
+      - budget_notification_display_name
+      - enable_budget_notification_rule
+      - budget_notification_description
+  - title: Monitoring
+    variables:
+      - security_admin_email_endpoints
+      - budget_admin_email_endpoints
+      - network_admin_email_endpoints
+  - title: Sandbox Mode
+    variables:
+      - is_sandbox_mode_enabled
+
+variables:
+  #Provider Variables
+  api_fingerprint:
+    type: string
+    description: The fingerprint of API
+    default: "Value not required in Oracle Resource Manager."
+    title: Api Fingerprint
+  api_private_key_path:
+    type: string
+    description: The local path to the API private key
+    default: "Value not required in Oracle Resource Manager."
+    title: Api Private Key Path
+  region:
+    type: string
+    description: the OCI region
+    title: Region
+  tenancy_ocid:
+    type: string
+    description: The OCID of tenancy
+    title: Tenancy OCID
+  current_user_ocid:
+    type: string
+    description: OCID of the current user
+    title: Current User OCID
+
+  # Tagging
+  tag_cost_center:
+    type: string
+    description: CostCenter tag value. Allows printable ASCII, excluding periods (.) and spaces and max 100 characters.
+    required: true
+    title: Tag Cost Center
+    pattern: ^((?!\.| )[ -~]){1,100}$
+  tag_geo_location:
+    type: string
+    description: GeoLocation tag value. Allows printable ASCII, excluding periods (.) and spaces and max 100 characters.
+    required: true
+    title: Tag Geo Location
+    pattern: ^((?!\.| )[ -~]){1,100}$
+
+  # Compartments
+  show_extra_compartment_names:
+    type: boolean
+    default: false
+    required: false
+    title: Override default compartment names
+    pattern: ^([\w\.-]){1,100}$
+  parent_compartment_name:
+    type: string
+    description: Name of the top level / parent compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment.
+    required: true
+    title: Parent Compartment Name
+    pattern: ^([\w\.-]){1,100}$
+  network_compartment_name:
+    type: string
+    visible: show_extra_compartment_names
+    description: Name of the top level network compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment.
+    required: true
+    title: Network Compartment Name
+    pattern: ^([\w\.-]){1,100}$
+  security_compartment_name:
+    type: string
+    visible: show_extra_compartment_names
+    description: Name of the top level security compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment.
+    required: true
+    title: Security Compartment Name
+    pattern: ^([\w\.-]){1,100}$
+  common_infra_compartment_name:
+    type: string
+    visible: show_extra_compartment_names
+    description: Name of the top level common infrastructure compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment.
+    required: true
+    title: Common Infra Compartment Name
+    pattern: ^([\w\.-]){1,100}$
+  applications_compartment_name:
+    type: string
+    visible: show_extra_compartment_names
+    description: Name of the top level application compartment. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique within its parent compartment.
+    required: true
+    title: Applications Compartment Name
+    pattern: ^([\w\.-]){1,100}$
+
+  # Global Resources Control
+  deploy_global_resources:
+    type: boolean
+    description: Whether to deploy global resources, including tenancy level IAM service and Security service (Cloud Guard, VSS, Flow Log). Choose false if extend your Landing Zone to another region.
+    required: true
+    defaul: true
+    title: Deploy Global Resources
+
+  # IAM
+  break_glass_user_email_list:
+    type: array
+    items:
+      type: string
+      pattern: ^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$
+    description:
+      Unique list of break glass user email addresses that do not exist. These users are added to the Administrator group.
+      in the tenancy
+    required: true
+    title: Break Glass User Email List
+  show_extra_iam_vars:
+    type: boolean
+    description: Show security policy variables. If you already have a vault and encryption key provisioned.
+    required: false
+    title: Show Security Policy Variables
+  key_id:
+    type: string
+    description: Master encryption key OCID for security admin policy and audit bucket
+    required: false
+    title: Key Id
+    visible: show_extra_iam_vars
+  vault_id:
+    type: string
+    description: Vault OCID for security admin policy
+    required: false
+    title: Vault Id
+    visible: show_extra_iam_vars
+  show_extra_group_names:
+    type: boolean
+    default: false
+    required: false
+    title: Override default group names
+  administrator_group_name:
+    type: string
+    visible: false
+  cloud_guard_analysts_group_name:
+    type: string
+    description: The name of the Cloud Guard Analyst group. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups.
+    required: true
+    title: Cloud Guard Analyst Group Name
+    visible: show_extra_group_names
+    pattern: ^([\w\.-]){1,100}$
+  cloud_guard_architects_group_name:
+    type: string
+    description: The name for the Cloud Guard Architect group name. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups.
+    required: true
+    title: Cloud Guard Architects Group Name
+    visible: show_extra_group_names
+    pattern: ^([\w\.-]){1,100}$
+  cloud_guard_operators_group_name:
+    type: string
+    description: The name for the Cloud Guard Operator group name. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups.
+    required: true
+    title: Cloud Guard Operators Group Name
+    visible: show_extra_group_names
+    pattern: ^([\w\.-]){1,100}$
+  lb_users_group_name:
+    type: string
+    description: The name for the load balancer users group name. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups.
+    required: true
+    title: Load Balancer User Group Name
+    visible: show_extra_group_names
+    pattern: ^([\w\.-]){1,100}$
+  network_admin_group_name:
+    type: string
+    description: The name for the network administrator group name. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups.
+    required: true
+    title: Network Admins Group Name
+    visible: show_extra_group_names
+    pattern: ^([\w\.-]){1,100}$
+  security_admins_group_name:
+    type: string
+    description: The name of the security admin group. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups.
+    required: true
+    title: Security Admins Group Name
+    visible: show_extra_group_names
+    pattern: ^([\w\.-]){1,100}$
+
+
+  # VCN
+  vcn_cidr_block:
+    type: string
+    description: Primary VCN CIDR Block
+    required: false
+    title: VCN CIDR Block
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+  vcn_dns_label:
+    type: string
+    description: VCN DNS Label. Allowed maximum 15 alphanumeric characters and must start with a letter.
+    pattern: ^[a-zA-Z][a-zA-Z0-9]{1,14}$
+    required: true
+    title: VCN DNS Label
+  is_shared_services_subnet_enabled:
+    type: boolean
+    required: true
+    title: Provision a shared services subnet?
+    description: Used for shared services e.g. File Storage Service
+  shared_service_subnet_cidr_block:
+    type: string
+    description: Shared Service Subnet CIDR Block
+    required: true
+    title: Shared Service Subnet CIDR Block
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    visible: is_shared_services_subnet_enabled
+  shared_service_subnet_dns_label:
+    type: string
+    description: Shared Service Subnet DNS Label. Allowed maximum 15 alphanumeric characters and must start with a letter.
+    pattern: ^[a-zA-Z][a-zA-Z0-9]{1,14}$
+    required: true
+    title: Shared Service Subnet DNS Label
+    visible: is_shared_services_subnet_enabled
+
+  # Budget
+  budget_alerting:
+    type: boolean
+    description: Set to true to enable budget alerting
+    required: true
+    title: Budget Alerting
+  budget_alert_rule_message:
+    type: string
+    visible: budget_alerting
+    description:
+      "(Optional if using budget alerts): The alert message for budget
+      alerts."
+    required: true
+    title: Budget Alert Rule Message
+  budget_alert_rule_recipients:
+    type: string
+    visible: budget_alerting
+    description:
+      "(Required if using budget alerts): Target email address for budget
+      alerts"
+    required: true
+    title: Budget Alert Rule Recipients
+    pattern: ^([^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,})?$
+  budget_alert_rule_threshold:
+    type: string
+    visible: budget_alerting
+    description:
+      "(Required if using budget alerts): The target spending threshold
+      for the budget"
+    required: true
+    title: Budget Alert Rule Threshold
+  budget_amount:
+    type: string
+    visible: budget_alerting
+    description:
+      "(Required if using budget alerts): The amount of the budget expressed
+      as a number in the currency of the customer's rate card."
+    required: true
+    title: Budget Amount
+
+  # Security
+  advanced_logging_option:
+    type: enum
+    description: "Enable or Disable Advanced Logging (VCN flow logs and/or Audit logs). Set default to BOTH to meet the CIS OCI Foundations Benchmark but may accrue charges."
+    enum:
+      - "AUDIT_LOGS"
+      - "FLOW_LOGS"
+      - "BOTH"
+      - "NONE"
+    required: true
+    default: "BOTH"
+    title: Enable Advanced Logging?
+  external_subnet_ocids:
+    type: array
+    items:
+      type: string
+    description:
+      OCIDs of subnets created outside of this stack to be tracked in the VCN Flow Log service
+    required: false
+    visible:
+      or:
+        - eq:
+            - ${advanced_logging_option}
+            - BOTH
+        - eq:
+            - ${advanced_logging_option}
+            - FLOW_LOGS
+    title: External Subnet OCID List
+  retention_rule_duration_time_amount:
+    type: string
+    description:
+      Please note this feature is irreversible after 14 days.
+      Please review (and/or) unlock the retention rule before it is locked permanently.
+      By enabling this feature, logs will be archived in an immutable storage with locked retention rule avoiding object modification and deletion.
+      After the rule is locked, only increase in the retention is allowed
+    required: false
+    title: Audit Log Retention Rule Duration Time Amount
+    visible:
+      or:
+      - eq:
+        - advanced_logging_option
+        - "AUDIT_LOGS"
+      - eq:
+        - advanced_logging_option
+        - "BOTH"
+  is_cloud_guard_enabled:
+    type: boolean
+    description: the status of the Cloud Guard tenant (ENABLED if true or DISABLED if false)
+    required: true
+    title: Enable Cloud Guard?
+  agent_cis_benchmark_settings_scan_level:
+    type: enum
+    enum:
+      - "NONE"
+      - "LIGHTWEIGHT"
+      - "MEDIUM"
+      - "STRICT"
+    description: Agent bechamrking settings scan level
+    required: true
+    title: Agent Cis Benchmark Settings Scan Level
+    visible: is_cloud_guard_enabled
+  host_scan_recipe_agent_settings_scan_level:
+    type: enum
+    enum:
+      - "NONE"
+      - "STANDARD"
+    description: Vulnerability scanning service agent scan level
+    required: true
+    title: Host Scan Recipe Agent Settings Scan Level
+    visible: is_cloud_guard_enabled
+  host_scan_recipe_port_settings_scan_level:
+    type: enum
+    enum:
+      - "NONE"
+      - "LIGHT"
+      - "STANDARD"
+    description: Vulnerability scanning service port scan level
+    required: true
+    title: Host Scan Recipe Port Settings Scan Level
+    visible: is_cloud_guard_enabled
+  vss_scan_schedule:
+    type: enum
+    enum:
+      - "DAILY"
+      - "WEEKLY"
+    description: Vulnerability scanning service scan schedule
+    required: true
+    title: Vss Scan Schedule
+    visible: is_cloud_guard_enabled
+
+  # Bastion
+  bastion_client_cidr_block_allow_list:
+    type: array
+    items:
+      type: string
+      pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    description:
+      A list of address ranges in CIDR notation that bastion is allowed
+      to connect
+    required: true
+    title: Bastion Client CIDR Block Allow List
+  bastion_subnet_cidr_block:
+    type: string
+    description: CIDR Block for bastion subnet
+    required: true
+    title: Bastion Subnet CIDR Block
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+
+  # DRG Values
+  use_ipsec_drg:
+    type: boolean
+    description: Choose whether or not to use an IPsec based DRG.
+    required: true
+    title: Use IPsec DRG?
+  cpe_ip_address:
+    type: string
+    description: Customer Premises Equipment IP address
+    visible: use_ipsec_drg
+    required: true
+    title: CPE IP Address
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$
+  ip_sec_connection_static_routes:
+    visible: use_ipsec_drg
+    type: array
+    description: IPSec connection static routes
+    items:
+      type: string
+      pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    required: true
+    title: IPsec Connection Static Routes
+  use_fastconnect_drg:
+    type: boolean
+    description: Choose whether or not to use FastConnect
+    required: true
+    title: Use FastConnect?
+  fastconnect_provider:
+    type: enum
+    description: "Available FastConnect providers: AT&T, Microsoft Azure, Megaport, QTS, CEintro, Cologix, CoreSite, Digitial Realty, EdgeConneX, Epsilon, Equinix, InterCloud, Lumen, Neutrona, OMCS, OracleL2ItegDeployment, OracleL3ItegDeployment, Orange, Verizon, Zayo"
+    enum:
+      - AT&T
+      - Microsoft Azure
+      - Megaport
+      - QTS
+      - CEintro
+      - Cologix
+      - CoreSite
+      - Digitial Realty
+      - EdgeConneX
+      - Epsilon
+      - Equinix
+      - InterCloud
+      - Lumen
+      - Neutrona
+      - OMCS
+      - OracleL2ItegDeployment
+      - OracleL3ItegDeployment
+      - Orange
+      - Verizon
+      - Zayo
+    default: AT&T
+    visible: use_fastconnect_drg
+    required: true
+    title: FastConnect Provider
+  virtual_circuit_bandwidth_shape:
+    type: enum
+    description: The provisioned data rate of the connection. Choose between 1 or 10 for FastConnect partner. Or choose between 1, 10 or 100 for FastConnect Direct.
+    enum:
+      - 1
+      - 10
+      - 100
+    visible: use_fastconnect_drg
+    required: true
+    title: Virtual Circuit Bandwidth Shape
+  virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip:
+    type: string
+    description: This is the BGP IPv4 address of the customer's router. Enter Placeholder value for Non-ASN Virtual Circuits.
+    visible: use_fastconnect_drg
+    required: true
+    title: Virtual Circuit Cross Connect Mappings - Customer BGP peering IP
+  virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip:
+    type: string
+    description: IPv4 address for Oracle's end of the BGP session. Enter Placeholder value for Non-ASN Virtual Circuits.
+    visible: use_fastconnect_drg
+    required: true
+    title: Virtual Circuit Cross Connect Mappings - Oracle BPG Peering IP
+  fastconnect_routing_policy:
+    type: array
+    description: "Available FastConnect routing policies: ORACLE_SERVICE_NETWORK, REGIONAL, MARKET_LEVEL, GLOBAL"
+    visible: use_fastconnect_drg
+    items:
+      type: string
+      pattern: \b(?:ORACLE_SERVICE_NETWORK|REGIONAL|MARKET_LEVEL|GLOBAL)\b
+    required: true
+    uniqueItems: true
+    title: FastConnect Routing Policy
+  provider_service_key_name:
+    type: string
+    description: The provider service key that the provider gives you when you set up a virtual circuit connection from the provider to OCI
+    visible:
+      and:
+        - use_fastconnect_drg
+        - eq:
+            - ${fastconnect_provider}
+            - Microsoft Azure
+    required: true
+    title: Provider Service Key Name
+  virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip:
+    type: string
+    description: This is the secondary BGP IPv4 address of the customer's router
+    visible:
+      and:
+        - use_fastconnect_drg
+        - eq:
+            - ${fastconnect_provider}
+            - Microsoft Azure
+    required: true
+    title: Virtual Circuit Cross Connect Mappings - Customer Secondary BGP Peering IP
+  virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip:
+    type: string
+    description: Secondary IPv4 address for Oracle's end of the BGP session
+    visible:
+      and:
+        - use_fastconnect_drg
+        - eq:
+            - ${fastconnect_provider}
+            - Microsoft Azure
+    required: true
+    title: Virtual Circuit Cross Connect Mappings - Oracle Secondary BGP Peering IP
+  virtual_circuit_customer_asn:
+    type: number
+    description: The BGP ASN of the network at the other end of the BGP session from Oracle. Enter Placeholder value for Non-ASN Virtual Circuits.
+    visible:
+      and:
+        - use_fastconnect_drg
+        - not:
+            - eq:
+                - ${fastconnect_provider}
+                - Microsoft Azure
+    required: true
+    title: Virtual Circuit Customer ASN
+  # Monitoring
+  security_admin_email_endpoints:
+    type: array
+    items:
+      type: string
+      pattern: ^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$
+    required: true
+    title: Security Admin Email Endpoints
+    description: List of email addresses for all security related notifications.
+  budget_admin_email_endpoints:
+    type: array
+    items:
+      type: string
+      pattern: ^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$
+    required: true
+    title: Budget Admin Email Endpoints
+    description: List of email addresses for all budget related notifications.
+  network_admin_email_endpoints:
+    type: array
+    items:
+      type: string
+      pattern: ^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$
+    required: true
+    title: Network Admin Email Endpoints
+    description: List of email addresses for all network related notifications.
+  security_topic_name:
+    type: string
+    description: The name of security topic
+    default: security-topic
+    required: false
+  network_topic_name:
+    type: string
+    description: The name of network topic
+    default: network-topic
+    required: false
+  budget_topic_name:
+    type: string
+    description: The name of budget topic
+    default: budget-topic
+    required: false
+  subscription_protocol:
+    type: string
+    description: The protocol used for the subscription
+    default: EMAIL
+    required: false
+  notification_action_type:
+    type: string
+    description: "The action to perform if the condition in the rule matches an event. Available options: ONS, OSS, FAAS"
+    default: ONS
+    required: false
+  notification_action_description:
+    type: string
+    description: The details of the action
+    default: Sends notification via ONS
+    required: false
+  enable_iam_notification_action:
+    type: boolean
+    description: Whether or not the iam notification action is currently enabled
+    default: true
+    required: false
+  iam_notification_display_name:
+    type: string
+    description: The display name of iam notification rule
+    default: iam-change-notification
+    required: false
+  network_notification_display_name:
+    type: string
+    description: The display name of network notification rule
+    default: network-change-notification
+    required: false
+  enable_network_notification_action:
+    type: boolean
+    description: Whether or not the network notification action is currently enabled
+    default: true
+    required: false
+  enable_iam_notification_rule:
+    type: boolean
+    description: Whether or not the iam rule is currently enabled
+    default: true
+    required: false
+  iam_notification_description:
+    type: string
+    description: Details of the iam notification rule
+    default: "Events rule to detect when IAM resources are created, updated or deleted"
+    required: false
+  enable_network_notification_rule:
+    type: boolean
+    description: Whether or not the network rule is currently enabled
+    default: true
+    required: false
+  network_notification_description:
+    type: string
+    description: Details of the network notification rule
+    default: "Events rule to detect when network resources are created, updated or deleted"
+    required: false
+  enable_budget_notification_action:
+    type: boolean
+    description: Whether or not the budget notification action is currently enabled
+    default: true
+    required: false
+  budget_notification_display_name:
+    type: string
+    description: the display name of budget notification rule
+    default: budget-change-notification
+    required: false
+  enable_budget_notification_rule:
+    type: boolean
+    description: Whether or not the budget rule is currently enabled
+    default: true
+    required: false
+  budget_notification_description:
+    type: string
+    description: Details of the budget notification rule
+    default: "Events rule to detect when budget resources are created, updated or deleted"
+    required: false
+  # Sandbox Mode
+  is_sandbox_mode_enabled:
+    type: boolean
+    title: Enable Sandbox Mode?
+    description: Enable the sandbox mode if using the stack for development or demonstrations. Adds a unique suffix for all the tenancy level resources.
+
+outputs:
+  more_info_url:
+    type: link
+    displayText: For more information, please see the Cloud Adoption Framework - Technical Implementation
+primaryOutputButton: more_info_url

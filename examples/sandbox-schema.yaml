@@ -1,0 +1,167 @@
+title: Landing Zone Sandbox
+description: Landing Zone Sandbox developed by OCI RSA
+schemaVersion: 1.1.0
+version: "0.1"
+locale: en
+variableGroups:
+  - title: Provider Variables
+    visible: false
+    variables:
+      - api_fingerprint
+      - api_private_key_path
+      - region
+      - tenancy_ocid
+      - current_user_ocid
+  - title: Required Inputs
+    visible: true
+    variables:
+      - advanced_logging_option
+  - title: Tagging
+    visible: false
+    variables:
+      - tag_cost_center
+      - tag_geo_location
+  - title: Compartment
+    visible: false
+    variables:
+      - parent_compartment_name
+      - network_compartment_name
+      - security_compartment_name
+      - common_infra_compartment_name
+      - applications_compartment_name
+  - title: Global Resource Control
+    visible: false
+    variables:
+      - deploy_global_resources
+  - title: IAM
+    visible: false
+    variables:
+      - break_glass_user_email_list
+      - key_id
+      - vault_id
+      - network_admin_group_name
+      - lb_users_group_name
+      - security_admins_group_name
+      - cloud_guard_operators_group_name
+      - cloud_guard_analysts_group_name
+      - cloud_guard_architects_group_name
+      - administrator_group_name
+  - title: VCN
+    visible: false
+    variables:
+      - vcn_cidr_block
+      - vcn_dns_label
+      - is_shared_services_subnet_enabled
+      - shared_service_subnet_cidr_block
+      - shared_service_subnet_dns_label
+  - title: Budget
+    visible: false
+    variables:
+      - budget_alerting
+      - budget_amount
+      - budget_alert_rule_threshold
+      - budget_alert_rule_recipients
+      - budget_alert_rule_message
+  - title: Security
+    visible: false
+    variables:
+      - external_subnet_ocids
+      - retention_rule_duration_time_amount
+      - is_cloud_guard_enabled
+      - host_scan_recipe_agent_settings_scan_level
+      - host_scan_recipe_port_settings_scan_level
+      - agent_cis_benchmark_settings_scan_level
+      - vss_scan_schedule
+  - title: Bastion
+    visible: false
+    variables:
+      - bastion_subnet_cidr_block
+  - title: DRG (Dynamic Routing Gateways)
+    visible: false
+    variables:
+      - use_ipsec_drg
+      - cpe_ip_address
+      - ip_sec_connection_static_routes
+      - use_fastconnect_drg
+      - fastconnect_provider
+      - fastconnect_routing_policy
+      - virtual_circuit_bandwidth_shape
+      - virtual_circuit_cross_connect_mappings_customer_bgp_peering_ip
+      - virtual_circuit_cross_connect_mappings_oracle_bgp_peering_ip
+      - virtual_circuit_cross_connect_mappings_customer_secondary_bgp_peering_ip
+      - virtual_circuit_cross_connect_mappings_oracle_secondary_bgp_peering_ip
+      - provider_service_key_name
+      - virtual_circuit_customer_asn
+  - title: Monitoring
+    visible: false
+    variables:
+      - security_topic_name
+      - network_topic_name
+      - budget_topic_name
+      - subscription_protocol
+      - notification_action_type
+      - notification_action_description
+      - enable_iam_notification_action
+      - iam_notification_display_name
+      - network_notification_display_name
+      - enable_network_notification_action
+      - enable_iam_notification_rule
+      - iam_notification_description
+      - enable_network_notification_rule
+      - network_notification_description
+      - enable_budget_notification_action
+      - budget_notification_display_name
+      - enable_budget_notification_rule
+      - budget_notification_description
+      - security_admin_email_endpoints
+      - budget_admin_email_endpoints
+      - network_admin_email_endpoints
+  - title: Sandbox Mode
+    visible: false
+    variables:
+      - is_sandbox_mode_enabled
+
+
+variables:
+  #Provider Variables
+  api_fingerprint:
+    type: string
+    description: The fingerprint of API
+    default: "Value not required in Oracle Resource Manager."
+    title: Api Fingerprint
+  api_private_key_path:
+    type: string
+    description: The local path to the API private key
+    default: "Value not required in Oracle Resource Manager."
+    title: Api Private Key Path
+  region:
+    type: string
+    description: the OCI region
+    title: Region
+  tenancy_ocid:
+    type: string
+    description: The OCID of tenancy
+    title: Tenancy OCID
+  current_user_ocid:
+    type: string
+    description: OCID of the current user
+    title: Current User OCID
+
+  #Logging
+  advanced_logging_option:
+    type: enum
+    description: "Enable or Disable Advanced Logging (VCN flow logs and/or Audit logs)."
+    enum:
+      - "AUDIT_LOGS"
+      - "FLOW_LOGS"
+      - "BOTH"
+      - "NONE"
+    required: true
+    default: "NONE"
+    title: Enable Advanced Logging?
+
+outputs:
+  more_info_url:
+    type: link
+    displayText: For more information, please see the Cloud Adoption Framework - Technical Implementation
+primaryOutputButton: more_info_url
