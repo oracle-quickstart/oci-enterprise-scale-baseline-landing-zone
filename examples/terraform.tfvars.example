@@ -5,31 +5,34 @@ current_user_ocid    = "ocid1.user.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 api_fingerprint      = "a1:b2:c3:4d:5e:6f:7g:8h:99:10:aa:bb:11:12:13:cc"
 api_private_key_path = "~/path_to_example_api_key.pem"
 
+# SANDBOX MODE
+is_sandbox_mode_enabled=false
+
 # COMPARTMENT
-parent_compartment_name       = "landing_zone_parent"
-applications_compartment_name = "applications"
-common_infra_compartment_name = "common-infra"
-security_compartment_name     = "security"
-network_compartment_name      = "network"
+parent_compartment_name       = "Landing_Zone_Parent"
+applications_compartment_name = "Applications"
+common_infra_compartment_name = "Common-Infra"
+security_compartment_name     = "Security"
+network_compartment_name      = "Network"
 
 # TAGGING
 tag_cost_center  = "example_tag_cost_center"
 tag_geo_location = "example_tag_geo_location"
 
 # Global Resources Control
-deploy_global_resources = true
+deploy_global_resources = false
 
 # IAM
 administrator_group_name           = "Administrators"
-break_glass_user_email_list        = ["example@test.com", "example2@test.com"]
+break_glass_user_email_list        = ["example@test.com"]
 vault_id                           = "ocid1.tenancy.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 key_id                             = "ocid1.tenancy.oc1..aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 cloud_guard_analysts_group_name    = "CloudGuard-Analyst"
 cloud_guard_architects_group_name  = "CloudGuard-Architect"
 cloud_guard_operators_group_name   = "CloudGuard-Operator"
-lb_users_group_name                = "LBUsers"
+lb_users_group_name                = "LB-Users"
 network_admin_group_name           = "Virtual-Network-Admins"
-security_admins_group_name         = "SecurityAdmins"
+security_admins_group_name         = "Security-Admins"
 
 # VCN
 shared_service_subnet_dns_label  = "shared"
