@@ -3,6 +3,7 @@
 # -----------------------------------------------------------------------------
 module "cloud-guard" {
   source                                     = "./security/cloud-guard"
+  count                                      = var.deploy_global_resources ? 1 : 0
   region                                     = local.home_region[0]
   is_cloud_guard_enabled                     = var.is_cloud_guard_enabled
   parent_compartment_ocid                    = module.parent-compartment.parent_compartment_id
@@ -25,6 +26,7 @@ module "cloud-guard" {
 
 module "vss" {
   source                                     = "./security/vss"
+  count                                      = var.deploy_global_resources ? 1 : 0
   host_scan_recipe_agent_settings_scan_level = var.host_scan_recipe_agent_settings_scan_level
   host_scan_recipe_port_settings_scan_level  = var.host_scan_recipe_port_settings_scan_level
   agent_cis_benchmark_settings_scan_level    = var.agent_cis_benchmark_settings_scan_level
@@ -71,7 +73,7 @@ module "bastion" {
 # -----------------------------------------------------------------------------
 module "audit" {
   source                              = "./security/audit"
-  count                               = var.advanced_logging_option == "AUDIT_LOGS" || var.advanced_logging_option == "BOTH"  ? 1 : 0
+  count                               = var.deploy_global_resources && (var.advanced_logging_option == "AUDIT_LOGS" || var.advanced_logging_option == "BOTH")  ? 1 : 0
   tenancy_ocid                        = var.tenancy_ocid
   parent_compartment_name             = module.parent-compartment.parent_compartment_name
   parent_compartment_ocid             = module.parent-compartment.parent_compartment_id
@@ -81,7 +83,8 @@ module "audit" {
   tag_geo_location                    = var.tag_geo_location
   tag_cost_center                     = var.tag_cost_center
   suffix                              = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
-
+  key_id                              = var.key_id
+  is_sandbox_mode_enabled             = var.is_sandbox_mode_enabled
   providers = {
     oci             = oci
     oci.home_region = oci.home_region
@@ -97,7 +100,7 @@ module "audit" {
 # -----------------------------------------------------------------------------
 module "flow-logs" {
   source                    = "./security/flow-logs"
-  count                     = var.advanced_logging_option == "FLOW_LOGS" || var.advanced_logging_option == "BOTH"  ? 1 : 0
+  count                     = var.deploy_global_resources && (var.advanced_logging_option == "FLOW_LOGS" || var.advanced_logging_option == "BOTH")  ? 1 : 0
   tenancy_ocid              = var.tenancy_ocid
   security_compartment_ocid = module.security-compartment.security_compartment_id
   security_compartment_name = var.security_compartment_name

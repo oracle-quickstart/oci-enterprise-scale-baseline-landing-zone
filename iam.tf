@@ -3,6 +3,7 @@
 # ---------------------------------------------------------------------------------------------------------------------
 module "groups" {
   source                             = "./iam/groups"
+  count                              = var.deploy_global_resources ? 1 : 0
   tenancy_ocid                       = var.tenancy_ocid
   workload_compartment_name_list     = var.workload_compartment_names
   tag_cost_center                    = var.tag_cost_center
@@ -31,6 +32,7 @@ module "groups" {
 # ---------------------------------------------------------------------------------------------------------------------
 module "policies" {
   source                              = "./iam/policies"
+  count                               = var.deploy_global_resources ? 1 : 0
   tenancy_ocid                        = var.tenancy_ocid
   parent_compartment_id               = module.parent-compartment.parent_compartment_id
   parent_compartment_name             = module.parent-compartment.parent_compartment_name
@@ -40,16 +42,16 @@ module "policies" {
   security_compartment_name           = var.security_compartment_name
   workload_compartment_name_list      = var.workload_compartment_names
   workload_compartment_ocids          = module.workload-compartment
-  network_admin_group_name            = module.groups.network_admin_group_name
-  lb_users_group_name                 = module.groups.lb_users_group_name
-  workload_storage_admins_group_names = module.groups.workload_storage_admins_group_names
-  workload_storage_users_group_names  = module.groups.workload_storage_users_group_names
-  workload_admins_group_names         = module.groups.workload_admins_group_names
-  workload_users_group_names          = module.groups.workload_users_group_names
-  security_admins_group_name          = module.groups.security_admins_group_name
-  cloud_guard_operators_group_name    = module.groups.cloud_guard_operators_group_name
-  cloud_guard_analysts_group_name     = module.groups.cloud_guard_analysts_group_name
-  cloud_guard_architects_group_name   = module.groups.cloud_guard_architects_group_name
+  network_admin_group_name            = var.network_admin_group_name
+  lb_users_group_name                 = var.lb_users_group_name
+  workload_storage_admins_group_names = module.groups[0].workload_storage_admins_group_names
+  workload_storage_users_group_names  = module.groups[0].workload_storage_users_group_names
+  workload_admins_group_names         = module.groups[0].workload_admins_group_names
+  workload_users_group_names          = module.groups[0].workload_users_group_names
+  security_admins_group_name          = var.security_admins_group_name
+  cloud_guard_operators_group_name    = var.cloud_guard_operators_group_name
+  cloud_guard_analysts_group_name     = var.cloud_guard_analysts_group_name
+  cloud_guard_architects_group_name   = var.cloud_guard_architects_group_name
   region                              = var.region
   key_id                              = var.key_id
   vault_id                            = var.vault_id

@@ -14,13 +14,17 @@ resource "oci_core_subnet" "bastion_subnet" {
   }
 }
 
+resource "random_id" "bastion" {
+  byte_length = 4
+}
+
 resource "oci_bastion_bastion" "bastion" {
   bastion_type                 = var.bastion_type
   compartment_id               = var.network_compartment_id
   target_subnet_id             = oci_core_subnet.bastion_subnet.id
   client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
   max_session_ttl_in_seconds   = var.bastion_max_session_ttl_in_seconds
-  name                         = "LZBastion${var.suffix}"
+  name                         = "LZBastion${random_id.bastion.hex}"
 
   freeform_tags = {
     "Description" = "Bastion Service"

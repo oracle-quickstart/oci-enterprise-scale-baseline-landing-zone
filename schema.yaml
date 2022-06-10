@@ -25,6 +25,9 @@ variableGroups:
       - security_compartment_name
       - common_infra_compartment_name
       - applications_compartment_name
+  - title: Global Resources Control
+    variables:
+      - deploy_global_resources
   - title: IAM
     variables:
       - break_glass_user_email_list
@@ -212,6 +215,14 @@ variables:
     title: Applications Compartment Name
     pattern: ^([\w\.-]){1,100}$
 
+  # Global Resources Control
+  deploy_global_resources:
+    type: boolean
+    description: Whether to deploy global resources, including tenancy level IAM service and Security service (Cloud Guard, VSS, Flow Log). Choose false if extend your Landing Zone to another region.
+    required: true
+    defaul: true
+    title: Deploy Global Resources
+
   # IAM
   break_glass_user_email_list:
     type: array
@@ -230,7 +241,7 @@ variables:
     title: Show Security Policy Variables
   key_id:
     type: string
-    description: Master encryption key OCID for security admin policy
+    description: Master encryption key OCID for security admin policy and audit bucket
     required: false
     title: Key Id
     visible: show_extra_iam_vars
@@ -476,13 +487,14 @@ variables:
   # Security
   advanced_logging_option:
     type: enum
-    description: "Enable or Disable Advanced Logging (VCN flow logs and/or Audit logs)"
+    description: "Enable or Disable Advanced Logging (VCN flow logs and/or Audit logs). Set default to BOTH to meet the CIS OCI Foundations Benchmark but may accrue charges."
     enum:
       - "AUDIT_LOGS"
       - "FLOW_LOGS"
       - "BOTH"
       - "NONE"
     required: true
+    default: "BOTH"
     title: Enable Advanced Logging?
   retention_rule_duration_time_amount:
     type: string

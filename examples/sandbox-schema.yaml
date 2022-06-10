@@ -31,6 +31,10 @@ variableGroups:
       - security_compartment_name
       - common_infra_compartment_name
       - applications_compartment_name
+  - title: Global Resource Control
+    visible: false
+    variables:
+      - deploy_global_resources
   - title: IAM
     visible: false
     variables:
@@ -160,13 +164,14 @@ variables:
   #Logging
   advanced_logging_option:
     type: enum
-    description: "Enable or Disable Advanced Logging (VCN flow logs and/or Audit logs)"
+    description: "Enable or Disable Advanced Logging (VCN flow logs and/or Audit logs). Set default to BOTH to meet the CIS OCI Foundations Benchmark but may accrue charges."
     enum:
       - "AUDIT_LOGS"
       - "FLOW_LOGS"
       - "BOTH"
       - "NONE"
     required: true
+    default: "BOTH"
     title: Enable Advanced Logging?
 
   # Bastion CIDR block allow list

@@ -2,6 +2,7 @@ locals {
   subnet_list = concat(
     var.is_public_subnet_enabled == true ? [module.public-subnet[0].public_subnet] : [],
     var.is_shared_services_subnet_enabled == true ? [module.fss-subnet[0].fss_subnet] : [],
+    module.bastion.bastion_subnet.*,
     module.vcn-core.database_subnet.*,
     module.vcn-core.private_subnet.*
   )
