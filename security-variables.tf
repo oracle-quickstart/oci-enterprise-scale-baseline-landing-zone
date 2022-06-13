@@ -7,6 +7,12 @@ variable "is_cloud_guard_enabled" {
   default     = true
 }
 
+variable "is_vulnerability_scanning_service_enabled" {
+  type        = bool
+  description = "the status of the vulnerability scanning service"
+  default     = true
+}
+
 variable "host_scan_recipe_agent_settings_scan_level" {
   type        = string
   description = "Vulnerability scanning service agent scan level"
