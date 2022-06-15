@@ -31,7 +31,7 @@ variable "security_admins_group_name" {
 
 variable "cloud_guard_operators_group_name" {
   type        = string
-  description = "The name for the Cloud Guard Operator group name"
+  description = "The name for the Cloud Guard Operator group"
 }
 
 variable "cloud_guard_analysts_group_name" {
@@ -41,8 +41,19 @@ variable "cloud_guard_analysts_group_name" {
 
 variable "cloud_guard_architects_group_name" {
   type        = string
-  description = "The name for the Cloud Guard Architect group name"
+  description = "The name for the Cloud Guard Architect group"
 }
+
+variable "iam_admin_group_name" {
+  type        = string
+  description = "The name for the IAM Admin group"
+}
+
+variable "platform_admin_group_name" {
+  type        = string
+  description = "The name for the Platform Admin group"
+}
+
 # -----------------------------------------------------------------------------
 # Tag Variables
 # -----------------------------------------------------------------------------

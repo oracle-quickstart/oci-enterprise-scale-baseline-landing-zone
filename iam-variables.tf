@@ -95,3 +95,23 @@ variable "cloud_guard_architects_group_name" {
     error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
   }
 }
+
+variable "iam_admin_group_name" {
+  type        = string
+  description = "The name for the IAM Admin group"
+  default     = "IAM-Admins"
+  validation {
+    condition     = can(regex("^([\\w\\.-]){1,100}$", var.iam_admin_group_name))
+    error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
+  }
+}
+
+variable "platform_admin_group_name" {
+  type        = string
+  description = "The name for the Platform Admin group"
+  default     = "Platform-Admins"
+  validation {
+    condition     = can(regex("^([\\w\\.-]){1,100}$", var.platform_admin_group_name))
+    error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
+  }
+}

@@ -33,10 +33,23 @@ output "cloud_guard_analysts_group_name" {
   value = oci_identity_group.cloud_guard_analysts_group.name
 }
 
-
 # ---------------------------------------------------------------------------------------------------------------------
 # Output for Cloud Guard Architect (Group Name)
 # ---------------------------------------------------------------------------------------------------------------------
 output "cloud_guard_architects_group_name" {
   value = oci_identity_group.cloud_guard_architects_group.name
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Output for IAM Admins
+# ---------------------------------------------------------------------------------------------------------------------
+output "iam_group_name" {
+  value = oci_identity_group.iam_admin_group.name
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Output for Platform Admins
+# ---------------------------------------------------------------------------------------------------------------------
+output "platfrom_admin_group_name" {
+  value = oci_identity_group.platform_admin_group.name
 }

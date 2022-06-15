@@ -96,3 +96,33 @@ resource "oci_identity_group" "cloud_guard_architects_group" {
     "GeoLocation" = var.tag_geo_location
   }
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# IAM Group for IAM Admin 
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_identity_group" "iam_admin_group" {
+  compartment_id = var.tenancy_ocid
+  description    = "OCI Landing Zone IAM Group"
+  name           = "${var.iam_admin_group_name}${var.suffix}"
+
+  freeform_tags = {
+    "Description" = "Group for IAM Admin",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# IAM group for Platform admin 
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_identity_group" "platform_admin_group" {
+  compartment_id = var.tenancy_ocid
+  description    = "OCI Landing Zone Platform Admin Group"
+  name           = "${var.platform_admin_group_name}${var.suffix}"
+
+  freeform_tags = {
+    "Description" = "Group for Platform Admin",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
+}
