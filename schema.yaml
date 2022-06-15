@@ -40,6 +40,9 @@ variableGroups:
       - cloud_guard_operators_group_name
       - cloud_guard_analysts_group_name
       - cloud_guard_architects_group_name
+      - iam_admin_group_name
+      - ops_admin_group_name
+      - platform_admin_group_name
   - title: VCN
     variables:
       - vcn_cidr_block
@@ -280,7 +283,27 @@ variables:
     title: Security Admins Group Name
     visible: show_extra_group_names
     pattern: ^([\w\.-]){1,100}$
-
+  iam_admin_group_name:
+    type: string
+    description: The name of the iam admin group. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups.
+    required: true
+    title: IAM Admins Group Name
+    visible: show_extra_group_names
+    pattern: ^([\w\.-]){1,100}$
+  ops_admin_group_name:
+    type: string
+    description: The name of the ops admin group. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups.
+    required: true
+    title: Security Admins Group Name
+    visible: show_extra_group_names
+    pattern: ^([\w\.-]){1,100}$
+  platform_admin_group_name:
+    type: string
+    description: The name of the platform admin group. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups.
+    required: true
+    title: Platform Admins Group Name
+    visible: show_extra_group_names
+    pattern: ^([\w\.-]){1,100}$
 
   # VCN
   vcn_cidr_block:
