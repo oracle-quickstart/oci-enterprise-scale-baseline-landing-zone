@@ -126,3 +126,18 @@ resource "oci_identity_group" "platform_admin_group" {
     "GeoLocation" = var.tag_geo_location
   }
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# IAM group for Ops admin 
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_identity_group" "ops_admin_group" {
+  compartment_id = var.tenancy_ocid
+  description    = "OCI Landing Zone Ops Admin Group"
+  name           = "${var.ops_admin_group_name}${var.suffix}"
+
+  freeform_tags = {
+    "Description" = "Group for Ops Admin",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
+}

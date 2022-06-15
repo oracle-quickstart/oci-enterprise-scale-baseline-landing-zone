@@ -54,6 +54,11 @@ variable "platform_admin_group_name" {
   description = "The name for the Platform Admin group"
 }
 
+variable "ops_admin_group_name" {
+  type        = string
+  description = "The name for the Ops Admin group"
+}
+
 # -----------------------------------------------------------------------------
 # Tag Variables
 # -----------------------------------------------------------------------------

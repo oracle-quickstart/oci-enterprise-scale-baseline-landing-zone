@@ -104,6 +104,12 @@ variable "iam_admin_policy_name" {
   description = "Policy name for IAM Admin"
 }
 
+variable "ops_admin_policy_name" {
+  type        = string
+  default     = "OCI-LZ-Ops-Admins"
+  description = "Policy name for Ops Admin"
+}
+
 # -----------------------------------------------------------------------------
 # IAM Group Variables
 # -----------------------------------------------------------------------------
@@ -140,6 +146,11 @@ variable "iam_admin_group_name" {
 variable "platform_admin_group_name" {
   type        = string
   description = "The name for the Platform Admin group"
+}
+
+variable "ops_admin_group_name" {
+  type        = string
+  description = "The name for the Ops Admin group"
 }
 
 # -----------------------------------------------------------------------------

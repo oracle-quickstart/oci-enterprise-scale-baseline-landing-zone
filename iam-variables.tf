@@ -115,3 +115,13 @@ variable "platform_admin_group_name" {
     error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
   }
 }
+
+variable "ops_admin_group_name" {
+  type        = string
+  description = "The name for the Ops Admin group"
+  default     = "Ops-Admins"
+  validation {
+    condition     = can(regex("^([\\w\\.-]){1,100}$", var.ops_admin_group_name))
+    error_message = "Allowed maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups."
+  }
+}

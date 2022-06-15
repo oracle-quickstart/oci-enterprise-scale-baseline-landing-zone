@@ -102,6 +102,33 @@ resource "oci_identity_policy" "iam_admin_policies" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
+# Ops Admin Policy
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_identity_policy" "ops_admin_policies" {
+  compartment_id = var.tenancy_ocid
+  description    = "OCI Landing Zone Ops Admin Policy"
+  name           = "${var.ops_admin_policy_name}${var.suffix}"
+
+  freeform_tags = {
+    "Description" = "Policy for Ops Admin",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
+
+  statements = [
+    # Ability to view and retrieve monitoring metrics
+    "Allow group ${var.ops_admin_group_name} to read metrics in tenancy",
+    # Ability to view and create alarms (with new or existing topics)
+    "Allow group ${var.ops_admin_group_name} to manage alarms in tenancy",
+    "Allow group ${var.ops_admin_group_name} to manage ons-topics in tenancy",
+    # Ability to list, create, update, and delete subscriptions  for topics in the tenancy
+    "Allow group ${var.ops_admin_group_name} to manage ons-subscriptions in tenancy",
+    # Ability to read announcements in tenancy
+    "Allow group ${var.ops_admin_group_name} to read announcements in tenancy",
+  ]
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
 # IAM Policies LB Users
 # ---------------------------------------------------------------------------------------------------------------------
 # resource "oci_identity_policy" "lb_users_policies" {

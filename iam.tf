@@ -2,11 +2,12 @@
 # Create IAM groups
 # ---------------------------------------------------------------------------------------------------------------------
 module "groups" {
-  source                            = "./iam/groups"
-  count                             = var.deploy_global_resources ? 1 : 0
-  tenancy_ocid                      = var.tenancy_ocid
-  tag_cost_center                   = var.tag_cost_center
-  tag_geo_location                  = var.tag_geo_location
+  source           = "./iam/groups"
+  count            = var.deploy_global_resources ? 1 : 0
+  tenancy_ocid     = var.tenancy_ocid
+  tag_cost_center  = var.tag_cost_center
+  tag_geo_location = var.tag_geo_location
+
   network_admin_group_name          = var.network_admin_group_name
   lb_users_group_name               = var.lb_users_group_name
   security_admins_group_name        = var.security_admins_group_name
@@ -15,7 +16,10 @@ module "groups" {
   cloud_guard_architects_group_name = var.cloud_guard_architects_group_name
   iam_admin_group_name              = var.iam_admin_group_name
   platform_admin_group_name         = var.platform_admin_group_name
-  suffix                            = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
+  ops_admin_group_name              = var.ops_admin_group_name
+
+  suffix = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
+
   providers = {
     oci = oci.home_region
   }
@@ -28,15 +32,17 @@ module "groups" {
 # Create IAM policies
 # ---------------------------------------------------------------------------------------------------------------------
 module "policies" {
-  source                            = "./iam/policies"
-  count                             = var.deploy_global_resources ? 1 : 0
-  tenancy_ocid                      = var.tenancy_ocid
-  parent_compartment_id             = module.parent-compartment.parent_compartment_id
-  parent_compartment_name           = module.parent-compartment.parent_compartment_name
-  network_compartment_id            = module.network-compartment.network_compartment_id
-  network_compartment_name          = var.network_compartment_name
-  security_compartment_id           = module.security-compartment.security_compartment_id
-  security_compartment_name         = var.security_compartment_name
+  source       = "./iam/policies"
+  count        = var.deploy_global_resources ? 1 : 0
+  tenancy_ocid = var.tenancy_ocid
+
+  parent_compartment_id     = module.parent-compartment.parent_compartment_id
+  parent_compartment_name   = module.parent-compartment.parent_compartment_name
+  network_compartment_id    = module.network-compartment.network_compartment_id
+  network_compartment_name  = var.network_compartment_name
+  security_compartment_id   = module.security-compartment.security_compartment_id
+  security_compartment_name = var.security_compartment_name
+
   network_admin_group_name          = var.network_admin_group_name
   security_admins_group_name        = var.security_admins_group_name
   cloud_guard_operators_group_name  = var.cloud_guard_operators_group_name
@@ -44,12 +50,16 @@ module "policies" {
   cloud_guard_architects_group_name = var.cloud_guard_architects_group_name
   iam_admin_group_name              = var.iam_admin_group_name
   platform_admin_group_name         = var.platform_admin_group_name
-  region                            = var.region
-  key_id                            = var.key_id
-  vault_id                          = var.vault_id
-  tag_cost_center                   = var.tag_cost_center
-  tag_geo_location                  = var.tag_geo_location
-  suffix                            = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
+  ops_admin_group_name              = var.ops_admin_group_name
+
+  region   = var.region
+  key_id   = var.key_id
+  vault_id = var.vault_id
+
+  tag_cost_center  = var.tag_cost_center
+  tag_geo_location = var.tag_geo_location
+  suffix           = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
+
   providers = {
     oci = oci.home_region
   }
@@ -68,6 +78,7 @@ module "users" {
   tag_cost_center        = var.tag_cost_center
   tag_geo_location       = var.tag_geo_location
   suffix                 = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
+
   providers = {
     oci = oci.home_region
   }
@@ -83,6 +94,7 @@ module "membership" {
   tenancy_ocid             = var.tenancy_ocid
   administrator_group_name = var.administrator_group_name
   user_id                  = each.value.break_glass_user_list.id
+
   providers = {
     oci = oci.home_region
   }
