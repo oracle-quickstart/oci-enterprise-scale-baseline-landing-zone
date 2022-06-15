@@ -7,24 +7,26 @@ terraform {
   }
 }
 
-locals {
-  security_admins_policy_list = concat(
-    var.key_id != "PLACEHOLDER" ? [
-      # Ability to associate an Object Storage bucket, Block Volume volume, File Storage file system, Kubernetes cluster, or Streaming stream pool with a specific key
-      "Allow group ${var.security_admins_group_name} to use key-delegate in compartment ${var.security_compartment_name} where target.key.id = '${var.key_id}'",
-    ] : [],
-    var.vault_id != "PLACEHOLDER" ? [
-      # Ability to do all things with secrets in a specific vault
-      "Allow group ${var.security_admins_group_name} to read vaults in compartment ${var.security_compartment_name} where target.vault.id='${var.vault_id}'",
-      "Allow group ${var.security_admins_group_name} to manage secret-family in compartment ${var.security_compartment_name} where target.vault.id='${var.vault_id}'"
-    ] : [],
-    [
-      # Ability to list, view, and perform cryptographic operations with all keys in compartment
-      "Allow group ${var.security_admins_group_name} to use keys in compartment ${var.security_compartment_name}",
-      "Allow service blockstorage, objectstorage-${var.region}, FssOc1Prod, oke, streaming to use keys in compartment ${var.security_compartment_name}",
-    ]
-  )
-}
+# locals {
+#     [
+
+#       # Users should be manage users and groups permissions via IDP
+#       "allow group ${local.iam_admin_group_name} to inspect groups in tenancy",
+#       "allow group ${local.iam_admin_group_name} to read policies in tenancy",
+#       "allow group ${local.iam_admin_group_name} to manage groups in tenancy where all {target.group.name != 'Administrators', target.group.name != '${local.cred_admin_group_name}'}",
+#       "allow group ${local.iam_admin_group_name} to inspect identity-providers in tenancy",
+#       "allow group ${local.iam_admin_group_name} to manage identity-providers in tenancy where any {request.operation = 'AddIdpGroupMapping', request.operation = 'DeleteIdpGroupMapping'}",
+#       "allow group ${local.iam_admin_group_name} to manage dynamic-groups in tenancy",
+#       "allow group ${local.iam_admin_group_name} to manage authentication-policies in tenancy",
+#       "allow group ${local.iam_admin_group_name} to manage network-sources in tenancy",
+#       "allow group ${local.iam_admin_group_name} to manage quota in tenancy",
+#       "allow group ${local.iam_admin_group_name} to read audit-events in tenancy",
+#       "allow group ${local.iam_admin_group_name} to use cloud-shell in tenancy",
+#       "allow group ${local.iam_admin_group_name} to manage tag-defaults in tenancy",
+#       "allow group ${local.iam_admin_group_name} to manage tag-namespaces in tenancy",
+#     ]
+#   )
+# }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # IAM Policy Network Admins
@@ -83,7 +85,16 @@ resource "oci_identity_policy" "security_admins_policy" {
     "GeoLocation" = var.tag_geo_location
   }
 
-  statements = local.security_admins_policy_list
+  statements = [
+      # Ability to associate an Object Storage bucket, Block Volume volume, File Storage file system, Kubernetes cluster, or Streaming stream pool with a specific key
+      "Allow group ${var.security_admins_group_name} to use key-delegate in compartment ${var.security_compartment_name}",
+      # Ability to do all things with secrets in a specific vault
+      "Allow group ${var.security_admins_group_name} to manage vaults in compartment ${var.security_compartment_name}",
+      "Allow group ${var.security_admins_group_name} to manage secret-family in compartment ${var.security_compartment_name}",
+      # Ability to list, view, and perform cryptographic operations with all keys in compartment
+      "Allow group ${var.security_admins_group_name} to manage keys in compartment ${var.security_compartment_name}",
+      "Allow service blockstorage, objectstorage-${var.region}, FssOc1Prod, oke, streaming to use keys in compartment ${var.security_compartment_name}",
+  ]
 }
 
 resource "oci_identity_policy" "security_admins_policy_network" {
