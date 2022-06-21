@@ -60,6 +60,7 @@ variableGroups:
       - external_subnet_ocids
       - retention_rule_duration_time_amount
       - is_cloud_guard_enabled
+      - is_is_vulnerability_scanning_service_enabled
       - host_scan_recipe_agent_settings_scan_level
       - host_scan_recipe_port_settings_scan_level
       - agent_cis_benchmark_settings_scan_level
@@ -405,6 +406,11 @@ variables:
     description: the status of the Cloud Guard tenant (ENABLED if true or DISABLED if false)
     required: true
     title: Enable Cloud Guard?
+  is_vulnerability_scanning_service_enabled:
+    type: boolean
+    description: the status of the vulnerability scanning service (ENABLED if true or DISABLED if false)
+    required: true
+    title: Enable Vulnerability Scanning Service
   agent_cis_benchmark_settings_scan_level:
     type: enum
     enum:
@@ -415,7 +421,7 @@ variables:
     description: Agent bechamrking settings scan level
     required: true
     title: Agent Cis Benchmark Settings Scan Level
-    visible: is_cloud_guard_enabled
+    visible: is_vulnerability_scanning_service_enabled
   host_scan_recipe_agent_settings_scan_level:
     type: enum
     enum:
@@ -424,7 +430,7 @@ variables:
     description: Vulnerability scanning service agent scan level
     required: true
     title: Host Scan Recipe Agent Settings Scan Level
-    visible: is_cloud_guard_enabled
+    visible: is_vulnerability_scanning_service_enabled
   host_scan_recipe_port_settings_scan_level:
     type: enum
     enum:
@@ -434,7 +440,7 @@ variables:
     description: Vulnerability scanning service port scan level
     required: true
     title: Host Scan Recipe Port Settings Scan Level
-    visible: is_cloud_guard_enabled
+    visible: is_vulnerability_scanning_service_enabled
   vss_scan_schedule:
     type: enum
     enum:
@@ -443,7 +449,7 @@ variables:
     description: Vulnerability scanning service scan schedule
     required: true
     title: Vss Scan Schedule
-    visible: is_cloud_guard_enabled
+    visible: is_vulnerability_scanning_service_enabled
 
   # Bastion
   bastion_client_cidr_block_allow_list:

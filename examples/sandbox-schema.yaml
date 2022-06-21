@@ -68,6 +68,7 @@ variableGroups:
       - external_subnet_ocids
       - retention_rule_duration_time_amount
       - is_cloud_guard_enabled
+      - is_vulnerability_scanning_service_enabled
       - host_scan_recipe_agent_settings_scan_level
       - host_scan_recipe_port_settings_scan_level
       - agent_cis_benchmark_settings_scan_level
