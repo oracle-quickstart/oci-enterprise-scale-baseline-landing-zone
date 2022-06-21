@@ -92,6 +92,24 @@ variable "cloud_guard_architects_policy_name" {
   description = "Policy name for Cloud Guard Operator"
 }
 
+variable "platform_admin_policy_name" {
+  type        = string
+  default     = "OCI-LZ-Platform-Admins"
+  description = "Policy name for Platform Admin"
+}
+
+variable "iam_admin_policy_name" {
+  type        = string
+  default     = "OCI-LZ-IAM-Admins"
+  description = "Policy name for IAM Admin"
+}
+
+variable "ops_admin_policy_name" {
+  type        = string
+  default     = "OCI-LZ-Ops-Admins"
+  description = "Policy name for Ops Admin"
+}
+
 # -----------------------------------------------------------------------------
 # IAM Group Variables
 # -----------------------------------------------------------------------------
@@ -118,6 +136,21 @@ variable "cloud_guard_operators_group_name" {
 variable "cloud_guard_architects_group_name" {
   type        = string
   description = "The name for the Cloud Guard Architect group name"
+}
+
+variable "iam_admin_group_name" {
+  type        = string
+  description = "The name for the IAM Admin group"
+}
+
+variable "platform_admin_group_name" {
+  type        = string
+  description = "The name for the Platform Admin group"
+}
+
+variable "ops_admin_group_name" {
+  type        = string
+  description = "The name for the Ops Admin group"
 }
 
 # -----------------------------------------------------------------------------

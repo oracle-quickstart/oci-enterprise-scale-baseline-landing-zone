@@ -1,9 +1,14 @@
 # -----------------------------------------------------------------------------
 # Output VCN and Subnets
 # -----------------------------------------------------------------------------
-output "vcn_ocid" {
+output "vcn_id" {
   description = "VCN ocid"
   value       = module.vcn-core.vcn_id
+}
+
+output "nat_gateway_id" {
+  description = "NAT Gateway ocid"
+  value       = module.vcn-core.nat_gateway_id
 }
 
 output "compartments_map" {
