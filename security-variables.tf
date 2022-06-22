@@ -27,7 +27,7 @@ variable "host_scan_recipe_port_settings_scan_level" {
 
 variable "agent_cis_benchmark_settings_scan_level" {
   type        = string
-  description = "Agent bechamrking settings scan level"
+  description = "Agent benchmarking settings scan level"
   default     = "STRICT"
 }
 

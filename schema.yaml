@@ -37,9 +37,6 @@ variableGroups:
       - network_admin_group_name
       - lb_users_group_name
       - security_admins_group_name
-      - cloud_guard_operators_group_name
-      - cloud_guard_analysts_group_name
-      - cloud_guard_architects_group_name
       - iam_admin_group_name
       - ops_admin_group_name
       - platform_admin_group_name
@@ -242,27 +239,6 @@ variables:
   administrator_group_name:
     type: string
     visible: false
-  cloud_guard_analysts_group_name:
-    type: string
-    description: The name of the Cloud Guard Analyst group. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups.
-    required: true
-    title: Cloud Guard Analyst Group Name
-    visible: show_extra_group_names
-    pattern: ^([\w\.-]){1,100}$
-  cloud_guard_architects_group_name:
-    type: string
-    description: The name for the Cloud Guard Architect group name. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups.
-    required: true
-    title: Cloud Guard Architects Group Name
-    visible: show_extra_group_names
-    pattern: ^([\w\.-]){1,100}$
-  cloud_guard_operators_group_name:
-    type: string
-    description: The name for the Cloud Guard Operator group name. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups.
-    required: true
-    title: Cloud Guard Operators Group Name
-    visible: show_extra_group_names
-    pattern: ^([\w\.-]){1,100}$
   lb_users_group_name:
     type: string
     description: The name for the load balancer users group name. Maximum 100 characters, including letters, numbers, periods, hyphens, underscores, and is unique across all groups.
@@ -441,7 +417,7 @@ variables:
       - "LIGHTWEIGHT"
       - "MEDIUM"
       - "STRICT"
-    description: Agent bechamrking settings scan level
+    description: Agent benchmarking settings scan level
     required: true
     title: Agent Cis Benchmark Settings Scan Level
     visible: is_vulnerability_scanning_service_enabled
