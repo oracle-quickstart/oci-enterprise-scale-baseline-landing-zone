@@ -478,7 +478,7 @@ variables:
   # Bastion
   enable_bastion:
     type: boolean
-    description: Choose whether or not to use bastion
+    description: Choose whether or not to use bastion. If you are deploying with FastConnect and/or VPN, the Bastion is an additional and optional layer of access to your environment. If you are not, we recommend using the bastion.
     required: true
     title: Enable Bastion service?
   bastion_client_cidr_block_allow_list:
