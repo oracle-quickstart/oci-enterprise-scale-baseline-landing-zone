@@ -40,6 +40,12 @@ variable "vss_scan_schedule" {
 # -----------------------------------------------------------------------------
 # Bastion Related Variables
 # -----------------------------------------------------------------------------
+variable "enable_bastion" {
+  type        = bool
+  description = "Do you want to enable bastion service (true/false). Choose whether or not to use bastion. If you are deploying with FastConnect and/or VPN, the Bastion is an additional and optional layer of access to your environment. If you are not, we recommend using the bastion."
+  default     = true
+}
+
 variable "bastion_subnet_cidr_block" {
   type        = string
   description = "CIDR Block for bastion subnet"
