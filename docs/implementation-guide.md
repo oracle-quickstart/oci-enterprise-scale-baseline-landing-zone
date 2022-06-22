@@ -57,58 +57,219 @@ To add users to the other created groups:
 
 Alternatively, user membership to groups can be managed through the API or terraform.
 
-The Landing Zone stack provisions the following groups and policies. The group names listed are the default names but can be overridden by updating the Terraform variables upon stack creation. You may have a need to rename groups to fit your organizational structure or to map with a federated service.
+The Landing Zone stack provisions the following groups and policies. The group names listed are the default names but can be overridden by updating the Terraform variables upon stack creation. 
 
-## Virtual-Network-Admins
-Policy: OCI-LZ-VCNAdminPolicy
+You may have a need to rename groups to fit your organizational structure or to map with a federated service.
 
-Network Administrators has rights to manage all network resources in the Network Compartment.
 
-### LBUsers
-Policy: OCI-LZ-[WorkloadName]-LBUserPolicy
+<table>
+  <thead>
+    <tr>
+      <th>Policy Name </th>
+      <th>OCI-LZ-[OCI-Region-Key]-VCNAdminPolicy </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> Access Details </td>
+      <td> Manage All Network Resources </td>
+    </tr>
+    <tr>
+      <td> Access Level </td>
+      <td> Compartment – Network </td>
+    </tr>
+    <tr>
+      <td> Access Description </td>
+      <td> 
+        Network Administrators with rights to manage all network resources in the Network Compartment. 
+        The user can also create and modify load balancers in each of
+        these workload compartments
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-Each workload has its own policy to grant management access to the Load Balancer User. There is only one Load Balancer User for all the workloads with access to only the created workload Load Balancers. The user can create and modify load balancers in each of these workload compartments
+<table>
+  <thead>
+    <tr>
+      <th> Policy Name </th>
+      <th> OCI-LZ-[WorkloadName]-WorkloadAdminPolicy </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Access Details</td>
+      <td>
+        Ability to do everything with custom images and compute instances.
+        <br>Ability to do everything with
+        Instance Configurations, Instance Pools, and Cluster Network
+        <br>Ability to create, update and delete
+        autoscaling configurations.
+        <br>Ability to create and list subscriptions to images in the partner Image
+        catalog.
+        <br>Ability to manage Instance Console Creation.
+        <br>Ability to create, Update and delete dedicated Virtual Machine Hosts.
+      </td>
+    </tr>
+    <tr>
+      <td>Access Level</td>
+      <td> Compartment – Workload (Respective)</td>
+    </tr>
+    <tr>
+      <td>Access Description</td>
+      <td>
+        Compute Administrators will be able to manage all resources required for management of the
+        workloads. This includes the ability to manage all things related to launching instances on the network
+        VCNs, using any of the autoscaling clusters or instance pools, and images in the catalog.
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-### Workload-Admins
-Policy: OCI-LZ-[WorkloadName]-WorkloadAdminPolicy
 
-Compute Administrators will be able to manage all resources required for management of the 
-workloads. This includes the ability to manage all things related to launching instances on the network VCNs, using any of the autoscaling clusters or instance pools, and images in the catalog. 
+<table>
+  <thead>
+    <tr>
+      <th>Policy Name </th>
+      <th>OCI-LZ-[ WorkloadName]-WorkloadUserPolicy </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> Access Details </td>
+      <td>
+        Ability to do everything with instances launched into the cloud
+        network and subnets in compartment.
+        <br>Ability to launch instances into the
+        cloud network and subnets in compartment.
+        <br>Ability to list and create subscriptions to images in partner image catalog.
+        <br>Ability to create instance console creation.
+        <br>Ability to launch instances on dedicated virtual
+        machine hosts.
+      </td>
+    </tr>
+    <tr>
+      <td> Access Level </td>
+      <td> Compartment – Workload (Respective) </td>
+    </tr>
+    <tr>
+      <td> Access Description </td>
+      <td>
+        Compute Users will be able to use all compute resources for the workloads. Unlike the workload admin,
+        this user can only launch instances and dedicated VMs, not clusters, pools, or instance images.
+        Similarly, it can create console connections and view images in the partner image catalog.
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-### Workload-Users
-Policy: OCI-LZ-[WorkloadName]-WorkloadUserPolicy
 
-Compute Users will be able to use all compute resources for the workloads. Unlike the workload admin, this user can only launch instances and dedicated VMs, not clusters, pools, or instance images. Similarly, it can create console connections and view images in the partner image catalog.
+<table>
+  <thead>
+    <tr>
+      <th>Policy Name </th>
+      <th>OCI-LZ-[WorkloadName]-StorageAdminPolicy </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> Access details </td>
+      <td>
+        Ability to do all things with block storage volumes, volume
+        backups, and volume groups in all compartments
+        <br>Ability to do all things with volume backups
+        <br>Ability to do all things with boot volume backups
+        <br>Ability to create a volume group from a set of volumes.
+        <br>Ability to clone a volume group from an existing volume group.
+        <br>Ability to create Volume Group backup.
+        <br>Ability to create volume groups by restoring volume group backups.
+        <br>Ability to create, manage and delete filesystems.
+        <br>Ability to do all things with Object Storage Buckets and objects.
+      </td>
+    </tr>
+    <tr>
+      <td> Access Level </td>
+      <td> Compartment – Workload (Respective) </td>
+    </tr>
+    <tr>
+      <td> Access Description </td>
+      <td>
+        Storage Admins can manage all types of storage requirements for the workload.
+        This includes managing both buckets and objects, and block storage volumes and backups.
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-### Workload-Storage-Admins
-Policy: OCI-LZ-[WorkloadName]-StorageAdminPolicy
 
-Storage Admins can manage all types of storage requirements for the workload. This includes managing both buckets and objects, and block storage volumes and backups.
+<table>
+  <thead>
+    <tr>
+      <th>Policy Name </th>
+      <th>OCI-LZ-[WorkloadName]-StorageUserPolicy </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> Access Details </td>
+      <td>
+        Ability to write objects to any Object Storage bucket in compartment.
+        <br>Ability to download objects from and Object Storage bucket in compartment.
+      </td>
+    </tr>
+    <tr>
+      <td> Access Level </td>
+      <td> Compartment – Workload (Respective) </td>
+    </tr>
+    <tr>
+      <td> Access Description </td>
+      <td>
+        Storage Users can write and read from the object storage in the
+        compartment.
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-### Workload-Storage-Users
-Policy: OCI-LZ-[WorkloadName]-StorageUserPolicy
 
-Storage Users can write and read from any object storage bucket in the associated workload compartment.
+<table>
+  <thead>
+    <tr>
+      <th>Policy Name </th>
+      <th>OCI-LZ-[OCI-Region-Key]-SecurityAdmins </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> Access Details </td>
+      <td>
+        Ability to associate an Object Storage bucket, Block Volume volume,
+        File Storage file system, Kubernetes cluster, or Streaming stream pool
+        with a specific key authorized for use in a specific compartment.
+        <br>Ability to list, view, and perform cryptographic operations with all
+        keys in compartment
+        <br>Ability to do all things with secrets in a specific vault in compartment.
+        <br>Ability to Manage all resources in Bastion Services in all compartments
+        <br>For Baseline and Vault – Important note. –
+      </td>
+    </tr>
+    <tr>
+      <td> Access Level </td>
+      <td> Compartment – Security </td>
+    </tr>
+    <tr>
+      <td> Access Description </td>
+      <td>
+        The security admin has scope of only the security compartment.
+        This user can manage and use encryption keys to encrypt resources.
+        The user can also view the vault service which manages user keys and secrets.
+        Finally, the user manages the bastion resources which allow the user to
+        connect to hosts and subnets in the VCN.
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-### Security-Admins
-Policy: OCI-LZ-SecurityAdmins
-
-The security admin has scope of only the security compartment. This user can manage and use encryption keys to encrypt resources. The user can also view the vault service which manages user keys and secrets. Finally, the user manages the bastion resources which allow the user to connect to hosts and subnets in the VCN.
-
-### CloudGuard-Operator
-Policy: OCI-LZ-CGUsers
-
-This policy allows ability to access cloud guard problems and detector recipes. The user has read only access to issues and problems detected by Cloud Guard but does not have permission to take corrective action on the security issues nor can the user nor manage targets
-
-### CloudGuard-Analyst
-Policy: OCI-LZ-CGOps
-
-This policy allows ability to use the Cloud Guard resources and workflow. The user can review problems and recommendations, execute responder, and add new targets with existing recipes and responder.
-
-### CloudGuard-Architect
-Policy: OCI-LZ-CGAdmins
-
-Cloud Guard Admins can manage Cloud Guard resources in general, including all resources in the Cloud Guard resource family. This includes announcements, scores, problems, detector recipes, responders, and targets.
 
 ## Cloud Guard Strategy
 ---
@@ -219,10 +380,8 @@ Once the bastion has been provisioned, sessions can be created via API or in the
 ![Bastion](images/bastion.png)
 
 For more on the bastion service, read the official documentation:
-
-https://www.oracle.com/security/cloud-security/bastion/
-
-https://docs.oracle.com/en-us/iaas/Content/Bastion/home.htm
+* https://www.oracle.com/security/cloud-security/bastion/
+* https://docs.oracle.com/en-us/iaas/Content/Bastion/home.htm
 
 ## Budgets
 ---
@@ -235,258 +394,7 @@ The Baseline Landing Zone includes an optional Budget module. To enable this fea
 | Budget Alert Rule Recipient | budget_alert_rule_recipients | Email address to receive budget alerts |
 
 The budget that is created applies to the parent compartment, which is provisioned during the initial run of the Baseline Landing Zone. For more on OCI budgets, please refer to the documentation:
-https://docs.oracle.com/en-us/iaas/Content/Billing/Concepts/budgetsoverview.htm
-
-## IAM Policies
----
-The following tables detail some of the IAM policies that are created as a part of this solution. Pseudo variables are used where resource names may be dynamic.
- <table>
-  <thead>
-    <tr>
-      <th>Policy Name </th>
-      <th>OCI-LZ-[OCI-Region-Key]-VCNAdminPolicy </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td> Access Type </td>
-      <td> Manage All Network Resources </td>
-    </tr>
-    <tr>
-      <td> Access Level </td>
-      <td> Compartment – Network </td>
-    </tr>
-    <tr>
-      <td> Access Description </td>
-      <td> Network Administrators with rights to manage all network
-        resources in the Network Compartment. </td>
-    </tr>
-  </tbody>
-</table>
-
-
-<table>
-  <thead>
-    <tr>
-      <th>Policy Name </th>
-      <th>OCI-LZ-[OCI-Region-Key]-LBUserPolicy </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td> Access Details </td>
-      <td> 
-        Manage load balancer in compartment 
-        <br>Use virtual-network-family in compartment </td>
-    </tr>
-    <tr>
-      <td> Access Level </td>
-      <td> Compartment – Network </td>
-    </tr>
-    <tr>
-      <td> Access Description </td>
-      <td> Network Administrators with rights to manage all network
-        resources in the Network Compartment. </td>
-    </tr>
-  </tbody>
-</table>
-
-<table>
-  <thead>
-    <tr>
-      <th> Policy Name </th>
-      <th> OCI-LZ-[WorkloadName]-WorkloadAdminPolicy </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Access Details</td>
-      <td>
-        Ability to do everything with custom images and compute instances.
-        <br>Ability to do everything with
-        Instance Configurations, Instance Pools, and Cluster Network
-        <br>Ability to create, update and delete
-        autoscaling configurations.
-        <br>Ability to create and list subscriptions to images in the partner Image
-        catalog.
-        <br>Ability to manage Instance Console Creation. <br>Ability to create, Update and delete dedicated Virtual Machine Hosts. </td>
-    </tr>
-    <tr>
-      <td>Access Level</td>
-      <td> Compartment – Workload (Respective)</td>
-    </tr>
-    <tr>
-      <td>Access Description</td>
-      <td>Compute Administrators will be able to manage all resources required for management of the workloads.
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-
-<table>
-  <thead>
-    <tr>
-      <th>Policy Name </th>
-      <th>OCI-LZ-[ WorkloadName]-WorkloadUserPolicy </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td> Access Details </td>
-      <td> 
-        Ability to do everything with instances launched into the cloud
-        network and subnets in compartment.
-        <br>Ability to launch instances into the
-        cloud network and subnets in compartment.
-        <br>Ability to list and create subscriptions to images in partner image catalog.
-        <br>Ability to create instance console creation.<br>Ability to launch instances on dedicated virtual machine hosts. </td>
-    </tr>
-    <tr>
-      <td> Access Level </td>
-      <td> Compartment – Workload (Respective) </td>
-    </tr>
-    <tr>
-      <td> Access Description </td>
-      <td> Compute Users will be able to use all resources for the
-        workloads </td>
-    </tr>
-  </tbody>
-</table>
-
-
-<table>
-  <thead>
-    <tr>
-      <th>Policy Name </th>
-      <th>OCI-LZ-[WorkloadName]-StorageAdminPolicy </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td> Access details </td>
-      <td> Ability to do all things with block storage volumes, volume
-        backups, and volume groups in all compartments<br>Ability to do all things with
-        volume backups<br>Ability to do all things with boot
-        volume backups<br>Ability to create a volume group from a
-        set of volumes.<br>Ability to clone a volume group from
-        an existing volume group.<br>Ability to create Volume Group
-        backup.<br>Ability to create volume groups by restoring volume
-        group backups.<br>Ability to create, manage and
-        delete filesystems.<br>Ability to do all things with
-        Object Storage Buckets and objects </td>
-    </tr>
-    <tr>
-      <td> Access Level </td>
-      <td> Compartment – Workload (Respective) </td>
-    </tr>
-    <tr>
-      <td> Access Description </td>
-      <td> Storage Admins can manage all types of storage requirements for
-        the workload. </td>
-    </tr>
-  </tbody>
-</table>
-
-
-<table>
-  <thead>
-    <tr>
-      <th>Policy Name </th>
-      <th>OCI-LZ-[WorkloadName]-StorageUserPolicy </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td> Access Details </td>
-      <td> Ability to write objects to any Object Storage bucket in
-        compartment.<br>Ability to download objects from any
-        Object Storage bucket in compartment. </td>
-    </tr>
-    <tr>
-      <td> Access Level </td>
-      <td> Compartment – Workload (Respective) </td>
-    </tr>
-    <tr>
-      <td> Access Description </td>
-      <td> Storage Users can write and read from the object storage in the
-        compartment. </td>
-    </tr>
-  </tbody>
-</table>
-
-
-<table>
-  <thead>
-    <tr>
-      <th>Policy Name </th>
-      <th>OCI-LZ-[OCI-Region-Key]-SecurityAdmins </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td> Access Details </td>
-      <td>  <br>Ability to associate an Object
-        Storage bucket, Block Volume volume, File Storage file system, Kubernetes cluster,
-        or Streaming stream pool with a specific key authorized for use in a
-        specific compartment. <br>Ability to list, view, and
-        perform cryptographic operations with all keys in
-        compartment<br>Ability to do all things with secrets in
-        a specific vault in compartment <br>Ability to Manage all
-        resources in Bastion Services in all compartments<br>
-        <br>For Baseline and Vault – Important note. –  
-      </td>
-    </tr>
-    <tr>
-      <td> Access Level </td>
-      <td> Compartment – Security </td>
-    </tr>
-    <tr>
-      <td> Access Description </td>
-      <td> Security Admins to have access to vault, secrets and other
-        required access to OS, Blockstorage, K8 Clusters, Stream pools based on
-        compartments </td>
-    </tr>
-  </tbody>
-</table>
-
-
-<table>
-  <thead>
-    <tr>
-      <th>Policy Name </th>
-      <th>OCI-LZ-[OCI-Region-Key]-CloudGuardUsers </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td> Access Details </td>
-      <td> Basic access to CG<br> - read
-        cloud-guard-config<br> - read announcements<br>
-        <br>Read access to Risk and Security Scores<br> - Inspect
-        cloud-guard-risk-scores<br> -
-        Inspect cloud-guard-security-scores<br>
-        <br>Read-only access to Cloud Guard problems<br>read
-        cloud-guard-family<br> - inspect cloud-guard-detectors<br> -
-        inspect cloud-guard-targets<br> - inspect cloud-guard-resource-types
-        <br> - read compartments<br>
-        <br>Read-only access to Cloud Guard
-        detector recipes<br> - read
-        cloud-guard-detector-recipes<br>  
-      </td>
-    </tr>
-    <tr>
-      <td> Access Level </td>
-      <td> Tenancy </td>
-    </tr>
-    <tr>
-      <td> Access Description </td>
-      <td> This policy allows ability to access cloud guard problems and
-        detector recipes</td>
-    </tr>
-  </tbody>
-</table>
-
+* https://docs.oracle.com/en-us/iaas/Content/Billing/Concepts/budgetsoverview.htm
 
 ## Global Resources Control
 ---
