@@ -70,6 +70,7 @@ variableGroups:
       - vss_scan_schedule
   - title: Bastion
     variables:
+      - enable_bastion
       - bastion_client_cidr_block_allow_list
       - bastion_subnet_cidr_block
   - title: DRG (Dynamic Routing Gateways)
@@ -475,6 +476,11 @@ variables:
     visible: is_vulnerability_scanning_service_enabled
 
   # Bastion
+  enable_bastion:
+    type: boolean
+    description: Choose whether or not to use bastion
+    required: true
+    title: Enable Bastion service?
   bastion_client_cidr_block_allow_list:
     type: array
     items:
@@ -484,11 +490,13 @@ variables:
       A list of address ranges in CIDR notation that bastion is allowed
       to connect
     required: true
+    visible: enable_bastion
     title: Bastion Client CIDR Block Allow List
   bastion_subnet_cidr_block:
     type: string
     description: CIDR Block for bastion subnet
     required: true
+    visible: enable_bastion
     title: Bastion Subnet CIDR Block
     pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
 

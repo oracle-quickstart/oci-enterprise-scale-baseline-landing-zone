@@ -59,6 +59,7 @@ host_scan_recipe_port_settings_scan_level  = "STANDARD"
 external_subnet_ocids                      = ["ocid1.subnet.oc1.phx.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
 
 # BASTION
+enable_bastion = true
 bastion_client_cidr_block_allow_list = ["10.0.0.0/16", "10.0.0.0/24"]
 bastion_subnet_cidr_block            = "10.0.7.0/24"
 
