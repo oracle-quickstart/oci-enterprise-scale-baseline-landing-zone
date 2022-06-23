@@ -84,7 +84,7 @@ module "audit" {
   tag_geo_location                    = var.tag_geo_location
   tag_cost_center                     = var.tag_cost_center
   suffix                              = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
-  key_id                              = var.key_id
+  key_id                              = module.key.key_id
   is_sandbox_mode_enabled             = var.is_sandbox_mode_enabled
   providers = {
     oci             = oci
@@ -92,7 +92,7 @@ module "audit" {
   }
 
   depends_on = [
-    module.parent-compartment, module.security-compartment
+    module.parent-compartment, module.security-compartment, module.key
   ]
 }
 
@@ -118,5 +118,32 @@ module "flow-logs" {
 
   depends_on = [
     module.parent-compartment, module.security-compartment, module.network-compartment
+  ]
+}
+
+
+# -----------------------------------------------------------------------------
+# Vault and Key
+# -----------------------------------------------------------------------------
+module "vault" {
+  source                    = "./security/vault"
+  security_compartment_ocid = module.security-compartment.security_compartment_id
+  tag_cost_center           = var.tag_cost_center
+  tag_geo_location          = var.tag_geo_location
+
+  depends_on = [
+    module.security-compartment
+  ]
+}
+
+module "key" {
+  source                    = "./security/key"
+  security_compartment_ocid = module.security-compartment.security_compartment_id
+  tag_cost_center           = var.tag_cost_center
+  tag_geo_location          = var.tag_geo_location
+  key_management_endpoint   = module.vault.key_management_endpoint
+
+  depends_on = [
+    module.security-compartment, module.vault
   ]
 }
