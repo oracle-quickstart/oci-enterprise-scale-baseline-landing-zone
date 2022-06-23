@@ -172,24 +172,6 @@ resource "oci_identity_policy" "security_admins_policy_network" {
   ]
 }
 
-resource "oci_identity_policy" "security_admins_policy_compute" {
-  compartment_id = var.tenancy_ocid
-  description    = "OCI Landing Zone Security Admin Compute Policy"
-  name           = "${var.security_admins_policy_name}-Compute${var.suffix}"
-
-  freeform_tags = {
-    "Description" = "Compute Policy for Security Admin Users",
-    "CostCenter"  = var.tag_cost_center,
-    "GeoLocation" = var.tag_geo_location
-  }
-
-  statements = [
-    "Allow group ${var.security_admins_group_name} to read instance-family in tenancy",
-    "Allow group ${var.security_admins_group_name} to read instance-agent-plugins in tenancy",
-    "Allow group ${var.security_admins_group_name} to inspect work-requests in tenancy"
-  ]
-}
-
 resource "oci_identity_policy" "security_admins_policy_root" {
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Security Admin Root Policy"
@@ -202,6 +184,9 @@ resource "oci_identity_policy" "security_admins_policy_root" {
   }
 
   statements = [
+    "Allow group ${var.security_admins_group_name} to read instance-family in tenancy",
+    "Allow group ${var.security_admins_group_name} to read instance-agent-plugins in tenancy",
+    "Allow group ${var.security_admins_group_name} to inspect work-requests in tenancy",
     # Admin access to VSS
     "Allow group ${var.security_admins_group_name} to manage vss-family in tenancy",
     # Admin access to Cloud Guard
