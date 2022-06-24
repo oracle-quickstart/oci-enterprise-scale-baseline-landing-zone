@@ -1,7 +1,7 @@
 locals {
   subnet_list = concat(
     var.is_shared_services_subnet_enabled == true ? [module.fss-subnet[0].fss_subnet] : [],
-    var.enable_bastion == true ? module.bastion[0].bastion_subnet.* : [],
+    var.enable_bastion && !var.is_sandbox_mode_enabled ? module.bastion[0].bastion_subnet.* : [],
     [for subnet in data.oci_core_subnet.external_subnets : subnet if subnet.id != null]
   )
 
