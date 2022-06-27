@@ -31,8 +31,6 @@ variableGroups:
     variables:
       - break_glass_user_email_list
       - show_extra_iam_vars
-      - key_id
-      - vault_id
       - show_extra_group_names
       - network_admin_group_name
       - lb_users_group_name
@@ -220,18 +218,6 @@ variables:
     description: Show security policy variables. If you already have a vault and encryption key provisioned.
     required: false
     title: Show Security Policy Variables
-  key_id:
-    type: string
-    description: Master encryption key OCID for security admin policy and audit bucket
-    required: false
-    title: Key Id
-    visible: show_extra_iam_vars
-  vault_id:
-    type: string
-    description: Vault OCID for security admin policy
-    required: false
-    title: Vault Id
-    visible: show_extra_iam_vars
   show_extra_group_names:
     type: boolean
     default: false

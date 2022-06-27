@@ -46,8 +46,8 @@ module "policies" {
   ops_admin_group_name       = var.ops_admin_group_name
 
   region   = var.region
-  key_id   = var.key_id
-  vault_id = var.vault_id
+  key_id   = module.key.key_id
+  vault_id = module.vault.vault_id
 
   tag_cost_center  = var.tag_cost_center
   tag_geo_location = var.tag_geo_location
@@ -77,7 +77,7 @@ module "users" {
   providers = {
     oci = oci.home_region
   }
-  depends_on = [module.groups]
+  depends_on = [module.groups, module.key, module.vault]
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
