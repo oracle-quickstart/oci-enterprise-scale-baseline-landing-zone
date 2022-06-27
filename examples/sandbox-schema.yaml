@@ -76,6 +76,7 @@ variableGroups:
     visible: false
     variables:
       - bastion_subnet_cidr_block
+      - bastion_client_cidr_block_allow_list
   - title: DRG (Dynamic Routing Gateways)
     visible: false
     variables:
