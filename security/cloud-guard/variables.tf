@@ -102,3 +102,15 @@ variable "activity_detector_recipe_display_name" {
   description = "display name for activity detector recipe"
   default     = "OCI Activity Detector Recipe"
 }
+
+variable "threat_detector_recipe_display_name" {
+  type        = string
+  description = "display name for activity detector recipe"
+  default     = "OCI Threat Detector Recipe"
+}
+
+variable "responder_recipe_display_name" {
+  type        = string
+  description = "display name for responder recipe"
+  default     = "OCI Responder Recipe"
+}
