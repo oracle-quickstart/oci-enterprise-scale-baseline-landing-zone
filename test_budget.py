@@ -7,11 +7,11 @@ import tftest
 #validate creation of budget resources
 #validate proper resources are created in the correct parent compartment when budgets are enabled
 
-@terraform("../budget", scope="session", name="tf")
-def test_oci_budget_amount(tf):
+@terraform("budget", scope="session")
+def test_oci_budget_amount(budget):
     print("test invoked budget amount")
-    print(tf["budget_amount"])
-    assert "budget_amount" in tf["budget_amount"]
+    print(budget["budget_amount"])
+    assert "budget_amount" in budget["budget_amount"]
 
 @terraform("../budget", scope="session")
 def test_oci_budget_alert_rule_threshold(budget):
