@@ -144,3 +144,12 @@ variable "budget_notification_description" {
   description = "Details of the budget notification rule"
   default     = "Events rule to detect when budget resources are created, updated or deleted"
 }
+
+# -----------------------------------------------------------------------------
+# Alarms Variables
+# -----------------------------------------------------------------------------
+variable "enable_alarms" {
+  type        = bool
+  default     = true
+  description = "Enable alarm service when set to true, disable it when set to false"
+}

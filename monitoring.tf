@@ -133,3 +133,39 @@ module "tagging" {
   providers             = { oci = oci.home_region }
   depends_on            = [module.parent-compartment]
 }
+
+# -----------------------------------------------------------------------------
+# Create Alarms
+# -----------------------------------------------------------------------------
+locals {
+  network_fast_connect_status_alarm   = {key:"fast-connect-status-alarm",    name:"fast-connect-status-alarm"}
+
+  network_alarms = merge(
+    {for i in [1] : (local.network_fast_connect_status_alarm.key) => {
+      compartment_id = module.network-compartment.network_compartment_id
+      destinations = [ module.network-topics.network_topic_id ]
+      display_name = local.network_fast_connect_status_alarm.name
+      freeform_tags = local.alarms_freeform_tags
+      is_enabled = var.enable_alarms
+      metric_compartment_id = module.network-compartment.network_compartment_id
+      namespace = "oci_fastconnect"
+      query = "ConnectionState[1m].mean() == 0"
+      severity = "CRITICAL"
+      metric_compartment_id_in_subtree = true
+      message_format = "PRETTY_JSON"
+      pending_duration = "PT5M"
+    } if length(var.network_admin_email_endpoints) > 0}
+  )
+
+  alarms_freeform_tags = {
+    "Description" = "Landing Zone Network Alarm",
+    "CostCenter"  = var.tag_cost_center,
+    "GeoLocation" = var.tag_geo_location
+  }
+}
+
+module "network-alarms" {
+  source    = "./monitoring/alarms"
+  depends_on = [ module.network-subscription ]
+  alarms = local.network_alarms
+}
