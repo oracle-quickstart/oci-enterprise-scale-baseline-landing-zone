@@ -55,10 +55,11 @@ variableGroups:
   - title: Security
     variables:
       - advanced_logging_option
+      - using_third_party_siem
       - external_subnet_ocids
       - retention_rule_duration_time_amount
       - is_cloud_guard_enabled
-      - is_is_vulnerability_scanning_service_enabled
+      - is_vulnerability_scanning_service_enabled
       - host_scan_recipe_agent_settings_scan_level
       - host_scan_recipe_port_settings_scan_level
       - agent_cis_benchmark_settings_scan_level
@@ -354,6 +355,19 @@ variables:
     required: true
     default: "BOTH"
     title: Enable Advanced Logging?
+  using_third_party_siem:
+    type: boolean
+    description: "If 3rd party SIEM is being used, creates stream pool and stream endpoint for SIEM ingestion"
+    required: false
+    title: Create stream endpoint for SIEM ingestion?
+    visible:
+      or:
+        - eq:
+            - ${advanced_logging_option}
+            - BOTH
+        - eq:
+            - ${advanced_logging_option}
+            - FLOW_LOGS
   external_subnet_ocids:
     type: array
     items:

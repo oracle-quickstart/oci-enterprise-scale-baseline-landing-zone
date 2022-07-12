@@ -49,13 +49,13 @@ variable "enable_bastion" {
 variable "bastion_subnet_cidr_block" {
   type        = string
   description = "CIDR Block for bastion subnet"
-  default = ""
+  default     = ""
 }
 
 variable "bastion_client_cidr_block_allow_list" {
   type        = list(string)
   description = "A list of address ranges in CIDR notation that bastion is allowed to connect"
-  default = []
+  default     = []
 }
 
 # -----------------------------------------------------------------------------
@@ -88,4 +88,10 @@ variable "advanced_logging_option" {
     error_message = "Select an option between NONE, AUDIT_LOGS, FLOW_LOGS or BOTH."
   }
   default = "BOTH"
+}
+
+variable "using_third_party_siem" {
+  type        = bool
+  description = "If 3rd party siem is being used, creates stream pool and stream endpoint for siem ingestion"
+  default     = false
 }

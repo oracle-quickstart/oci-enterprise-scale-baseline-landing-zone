@@ -2,17 +2,17 @@
 # Create Cloud Guard resources
 # -----------------------------------------------------------------------------
 module "cloud-guard" {
-  source                                     = "./security/cloud-guard"
-  count                                      = var.deploy_global_resources ? 1 : 0
-  region                                     = local.home_region[0]
-  is_cloud_guard_enabled                     = var.is_cloud_guard_enabled
-  parent_compartment_ocid                    = module.parent-compartment.parent_compartment_id
-  security_compartment_ocid                  = module.security-compartment.security_compartment_id
-  tenancy_ocid                               = var.tenancy_ocid
-  tag_geo_location                           = var.tag_geo_location
-  tag_cost_center                            = var.tag_cost_center
-  parent_compartment_name                    = module.parent-compartment.parent_compartment_name
-  suffix                                     = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
+  source                    = "./security/cloud-guard"
+  count                     = var.deploy_global_resources ? 1 : 0
+  region                    = local.home_region[0]
+  is_cloud_guard_enabled    = var.is_cloud_guard_enabled
+  parent_compartment_ocid   = module.parent-compartment.parent_compartment_id
+  security_compartment_ocid = module.security-compartment.security_compartment_id
+  tenancy_ocid              = var.tenancy_ocid
+  tag_geo_location          = var.tag_geo_location
+  tag_cost_center           = var.tag_cost_center
+  parent_compartment_name   = module.parent-compartment.parent_compartment_name
+  suffix                    = var.is_sandbox_mode_enabled == true ? "-${random_id.suffix.hex}" : ""
 
   providers = {
     oci             = oci
@@ -74,7 +74,7 @@ module "bastion" {
 # -----------------------------------------------------------------------------
 module "audit" {
   source                              = "./security/audit"
-  count                               = var.deploy_global_resources && (var.advanced_logging_option == "AUDIT_LOGS" || var.advanced_logging_option == "BOTH")  ? 1 : 0
+  count                               = var.deploy_global_resources && (var.advanced_logging_option == "AUDIT_LOGS" || var.advanced_logging_option == "BOTH") ? 1 : 0
   tenancy_ocid                        = var.tenancy_ocid
   parent_compartment_name             = module.parent-compartment.parent_compartment_name
   parent_compartment_ocid             = module.parent-compartment.parent_compartment_id
@@ -101,7 +101,8 @@ module "audit" {
 # -----------------------------------------------------------------------------
 module "flow-logs" {
   source                    = "./security/flow-logs"
-  count                     = var.deploy_global_resources && (var.advanced_logging_option == "FLOW_LOGS" || var.advanced_logging_option == "BOTH")  ? 1 : 0
+  count                     = var.deploy_global_resources && (var.advanced_logging_option == "FLOW_LOGS" || var.advanced_logging_option == "BOTH") && length(local.subnet_map) > 0 ? 1 : 0
+  using_third_party_siem    = var.using_third_party_siem
   tenancy_ocid              = var.tenancy_ocid
   security_compartment_ocid = module.security-compartment.security_compartment_id
   security_compartment_name = var.security_compartment_name
@@ -120,7 +121,6 @@ module "flow-logs" {
     module.parent-compartment, module.security-compartment, module.network-compartment
   ]
 }
-
 
 # -----------------------------------------------------------------------------
 # Vault and Key
