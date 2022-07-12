@@ -1,4 +1,4 @@
-resource "oci_monitoring_alarm" "these" {
+resource "oci_monitoring_alarm" "monitoring_alarm" {
   #Required
   for_each = var.alarms
   compartment_id        = each.value.compartment_id
