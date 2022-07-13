@@ -1,0 +1,46 @@
+{
+    "pytest-terraform": 1,
+    "outputs": {
+        "network_compartment_id": {
+            "value": "ocid1.compartment.oc1..aaaaaaaauyx2omjqxi5hgjbow3h57d6jck3j3wmc5atddekiigzn3gmfyb6a",
+            "type": "string"
+        },
+        "network_compartment_name": {
+            "value": "Network_Compartment_test_sandbox",
+            "type": "string"
+        }
+    },
+    "resources": {
+        "oci_identity_compartment": {
+            "network_compartment": {
+                "compartment_id": "ocid1.tenancy.oc1..aaaaaaaaxbchsnzhdxyoewmoqiqzvltba2ri7gijhbd2z5ybpgorv7yhxeeq",
+                "defined_tags": {
+                    "Oracle-Tags.CreatedBy": "default/tierra.b.buissereth@oracle.com",
+                    "Oracle-Tags.CreatedOn": "2022-07-13T19:48:24.714Z"
+                },
+                "description": "Network Compartment",
+                "enable_delete": true,
+                "freeform_tags": {
+                    "CostCenter": "example_tag_cost_center",
+                    "Description": "Network Compartment",
+                    "GeoLocation": "example_tag_geo_location"
+                },
+                "id": "ocid1.compartment.oc1..aaaaaaaauyx2omjqxi5hgjbow3h57d6jck3j3wmc5atddekiigzn3gmfyb6a",
+                "inactive_state": null,
+                "is_accessible": true,
+                "name": "Network_Compartment_test_sandbox",
+                "state": "ACTIVE",
+                "time_created": "2022-07-13 19:48:24.786 +0000 UTC",
+                "timeouts": null
+            }
+        },
+        "time_sleep": {
+            "wait_90_seconds": {
+                "create_duration": "90s",
+                "destroy_duration": null,
+                "id": "2022-07-13T19:49:58Z",
+                "triggers": null
+            }
+        }
+    }
+}
