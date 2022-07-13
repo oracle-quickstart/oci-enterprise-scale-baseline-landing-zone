@@ -175,7 +175,7 @@ resource "oci_identity_policy" "security_admins_policy_network" {
 resource "oci_identity_policy" "security_admins_policy_root" {
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Security Admin Root Policy"
-  name           = "${var.security_admins_policy_name}-Root"
+  name           = "${var.security_admins_policy_name}-Root-Test"
 
   freeform_tags = {
     "Description" = "Root Policy for Security Admin Users",
