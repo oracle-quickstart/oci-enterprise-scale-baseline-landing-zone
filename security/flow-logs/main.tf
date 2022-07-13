@@ -22,6 +22,7 @@ resource "oci_logging_log_group" "central_log_group" {
 }
 
 resource "oci_log_analytics_log_analytics_log_group" "log_analytics_log_group" {
+  count          = var.using_third_party_siem ? 0 : 1
   compartment_id = var.security_compartment_ocid
   display_name   = "${var.log_analytics_log_group_display_name}${var.suffix}"
   namespace      = data.oci_log_analytics_namespaces.logging_analytics_namespaces.namespace_collection[0].items[0].namespace
@@ -62,11 +63,11 @@ resource "oci_logging_log" "vcn_flow_log" {
   }
 }
 
-
 # ---------------------------------------------------------------------------------------------------------------------
 # Service Connector policies
 # ---------------------------------------------------------------------------------------------------------------------
 resource "oci_identity_policy" "log_analytics_policy" {
+  count = var.using_third_party_siem ? 0 : 1
   provider       = oci.home_region
   compartment_id = var.security_compartment_ocid
   description    = "OCI Landing Zone Log Analytics Policy"
@@ -79,13 +80,29 @@ resource "oci_identity_policy" "log_analytics_policy" {
   }
 
   statements = [
-    "allow any-user to {LOG_ANALYTICS_LOG_GROUP_UPLOAD_LOGS} in compartment ${var.security_compartment_name} where all {request.principal.type='serviceconnector', target.loganalytics-log-group.id='${oci_log_analytics_log_analytics_log_group.log_analytics_log_group.id}', request.principal.compartment.id='${var.security_compartment_ocid}'}",
+    "allow any-user to {LOG_ANALYTICS_LOG_GROUP_UPLOAD_LOGS} in compartment ${var.security_compartment_name} where all {request.principal.type='serviceconnector', target.loganalytics-log-group.id='${oci_log_analytics_log_analytics_log_group.log_analytics_log_group[0].id}', request.principal.compartment.id='${var.security_compartment_ocid}'}",
     "allow service loganalytics to { LOG_ANALYTICS_LIFECYCLE_INSPECT, LOG_ANALYTICS_LIFECYCLE_READ } in compartment ${var.security_compartment_name}",
     "allow service loganalytics to MANAGE cloudevents-rules in compartment ${var.security_compartment_name}",
     "allow service loganalytics to INSPECT compartments in compartment ${var.security_compartment_name}",
     "allow service loganalytics to USE tag-namespaces in compartment ${var.security_compartment_name}",
     "allow service loganalytics to READ loganalytics-features-family in compartment ${var.security_compartment_name}"
   ]
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Create Stream pool and stream
+# ---------------------------------------------------------------------------------------------------------------------
+resource "oci_streaming_stream_pool" "splunk_vcn_flow_logs_stream_pool" {
+  count          = var.using_third_party_siem ? 1 : 0
+  compartment_id = var.security_compartment_ocid
+  name           = "splunk_stream_pool"
+}
+
+resource "oci_streaming_stream" "splunk_vcn_flow_logs_stream" {
+  count          = var.using_third_party_siem ? 1 : 0
+  name           = "splunk_vcn_flow_logs_stream"
+  partitions     = 1
+  stream_pool_id = oci_streaming_stream_pool.splunk_vcn_flow_logs_stream_pool[0].id
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -116,9 +133,8 @@ resource "oci_sch_service_connector" "vcn_flow_log_service_connector" {
   }
 
   target {
-    kind                       = var.service_connector_target_kind
-    log_group_id               = oci_log_analytics_log_analytics_log_group.log_analytics_log_group.id
-    batch_rollover_size_in_mbs = var.service_connector_target_batch_rollover_size_in_mbs
-    batch_rollover_time_in_ms  = var.service_connector_target_batch_rollover_time_in_ms
+    kind         = var.using_third_party_siem ? var.service_connector_target_kind_streaming : var.service_connector_target_kind_logging_analytics
+    log_group_id = !var.using_third_party_siem ? oci_log_analytics_log_analytics_log_group.log_analytics_log_group[0].id : null
+    stream_id = var.using_third_party_siem ? oci_streaming_stream.splunk_vcn_flow_logs_stream[0].id : null
   }
 }

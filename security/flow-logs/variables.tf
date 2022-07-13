@@ -119,10 +119,16 @@ variable "service_connector_source_kind" {
   default     = "logging"
 }
 
-variable "service_connector_target_kind" {
+variable "service_connector_target_kind_logging_analytics" {
   type        = string
   description = "Service connector target kind"
   default     = "loggingAnalytics"
+}
+
+variable "service_connector_target_kind_streaming" {
+  type        = string
+  description = "Service connector target kind"
+  default     = "streaming"
 }
 
 variable "service_connector_target_batch_rollover_size_in_mbs" {
@@ -135,4 +141,9 @@ variable "service_connector_target_batch_rollover_time_in_ms" {
   type        = string
   description = "Service connector target batch rollover time in ms"
   default     = 420000
+}
+
+variable "using_third_party_siem" {
+  type        = string
+  description = "If 3rd party siem being used, creates stream pool and stream endpoint for siem ingestion"
 }

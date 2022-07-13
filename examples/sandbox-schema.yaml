@@ -64,6 +64,7 @@ variableGroups:
   - title: Security
     visible: false
     variables:
+      - using_third_party_siem
       - external_subnet_ocids
       - retention_rule_duration_time_amount
       - is_cloud_guard_enabled
