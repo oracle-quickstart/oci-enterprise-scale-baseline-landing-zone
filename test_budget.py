@@ -9,23 +9,22 @@ import tftest
 
 @terraform("budget", scope="session")
 def test_oci_budget_amount(budget):
-    print("test invoked budget amount")
-    print(budget["budget_amount"])
-    assert "budget_amount" in budget["budget_amount"]
+    actual_budget_amount = budget.outputs["budget_amount"]
+    expected_budget_amount = {"value": 10000, "type": "number"}
+    assert "budget_amount" in budget.outputs
+    assert actual_budget_amount == expected_budget_amount
 
-@terraform("../budget", scope="session")
+@terraform("budget", scope="session")
 def test_oci_budget_alert_rule_threshold(budget):
-    print(budget.outputs["budget_alert_rule_threshold"])
-    assert "budget_alert_rule_threshold" in budget.outputs["budget_alert_rule_threshold"]
+    actual_budget_alert_rule_threshold = budget.outputs["budget_alert_rule_threshold"]
+    expected_budget_alert_rule_threshold = {"value": 100, "type": "number"}
+    assert "budget_alert_rule_threshold" in budget.outputs
+    assert actual_budget_alert_rule_threshold == expected_budget_alert_rule_threshold
 
 @terraform("budget", scope="session")
 def test_oci_budget_alert_rule_recipients(budget):
-    print(budget.outputs["budget_alert_rule_recipients"])
-    assert "budget_alert_rule_recipients" in budget.outputs["budget_alert_rule_recipients"]
+    actual_budget_alert_rule_recipients = budget.outputs["budget_alert_rule_recipients"]
+    expected_budget_alert_rule_recipients = {"value": "example3@test.com", "type": "string"}
+    assert "budget_alert_rule_recipients" in budget.outputs
+    assert actual_budget_alert_rule_recipients == expected_budget_alert_rule_recipients
 
-#validate resources are not created when budgets are disabled
-@terraform("budget", scope="session")
-def test_budget_resources_disabled(budget):
-    assert "budget_amount" in budget["budget_amount"] is None
-    assert "budget_alert_rule_threshold" in budget["budget_alert_rule_threshold"] is None
-    assert "budget_alert_rule_recipients" in budget["budget_alert_rule_recipients"] is None
