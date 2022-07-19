@@ -1,6 +1,8 @@
 from boto3 import Session
 from pytest_terraform import terraform
 
+import pytest
+
 #unit tests for budget module
 
 @pytest.mark.unit
