@@ -1,0 +1,70 @@
+
+.testing_pipeline:
+    before_script:
+        - export http_proxy=http://www-proxy-hqdc.us.oracle.com:80
+        - export https_proxy=$http_proxy
+        - curl https://releases.hashicorp.com/terraform/1.2.2/terraform_1.2.2_linux_amd64.zip > terraform.zip
+        - unzip terraform.zip -d /bin
+        - terraform --version
+        - pip install pytest
+        - pip install boto3
+        - pip install pytest_terraform
+        - apt-get update && apt-get install -y gettext
+        - echo "$tfKey" > "budget/tfKey"
+        - echo "$tfKey" > "compartments/tfKey"
+        - echo "$tfKey" > "iam/tfKey"
+        - echo "$tfKey" > "monitoring/tfKey"
+        - echo "$tfKey" > "security/tfKey"
+        - echo "$tfKey" > "vcn/tfKey"
+        - envsubst < testing/tfvars.example > budget/terraform.tfvars
+        - envsubst < testing/tfvars.example > compartments/terraform.tfvars
+        - envsubst < testing/tfvars.example > iam/terraform.tfvars
+        - envsubst < testing/tfvars.example > monitoring/terraform.tfvars
+        - envsubst < testing/tfvars.example > security/terraform.tfvars
+        - envsubst < testing/tfvars.example > vcn/terraform.tfvars
+        - cp testing/providers.tf budget/providers.tf
+        - cp testing/providers.tf compartments/providers.tf
+        - cp testing/providers.tf iam/providers.tf
+        - cp testing/providers.tf monitoring/providers.tf
+        - cp testing/providers.tf security/providers.tf
+        - cp testing/providers.tf vcn/providers.tf
+    stage: test
+    tags: [LZ]
+    image: lab-runner
+
+unit_tests:
+    extends: .testing_pipeline
+    script:
+        - pytest -m unit
+    only:
+        refs:
+            - merge_requests
+        variables:
+            - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "development"
+    
+
+integration_test:
+    extends: .testing_pipeline
+    script:
+        - pytest -m integration
+    only:
+        refs:
+            - merge_requests
+        variables:
+            - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "prod"
+
+release:
+    stage: deploy
+    tags: [LZ]
+    image: node:17
+    before_script:
+        - npm config set strict-ssl false
+        - npm config set registry https://artifacthub-iad.oci.oraclecorp.com/api/npm/npmjs-registry
+        - npm install @semantic-release/gitlab
+        - npm install @semantic-release/git
+    script:
+        - npx semantic-release -b $CI_COMMIT_REF_NAME
+    rules:
+         - if: '$CI_COMMIT_BRANCH == "production"'
+
+
