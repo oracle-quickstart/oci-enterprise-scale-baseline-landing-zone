@@ -28,7 +28,7 @@
         - cp testing/providers.tf monitoring/providers.tf
         - cp testing/providers.tf security/providers.tf
         - cp testing/providers.tf vcn/providers.tf
-        - cat budget/providers.tf
+        - rm providers.tf
     stage: test
     tags: [LZ]
     image: lab-runner
