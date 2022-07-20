@@ -28,8 +28,6 @@
         - cp testing/providers.tf monitoring/providers.tf
         - cp testing/providers.tf security/providers.tf
         - cp testing/providers.tf vcn/providers.tf
-        - rm *.tf
-        - ls
     stage: test
     tags: [LZ]
     image: lab-runner
