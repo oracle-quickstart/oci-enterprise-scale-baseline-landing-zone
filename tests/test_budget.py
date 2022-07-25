@@ -16,8 +16,6 @@ data = {
     "tag_geo_location": "example_tag_geo_location",
 }
 
-test_vars_helper.create_var_files(data)
-
 #unit tests for budget module
 @pytest.mark.unit
 @terraform("budget", scope="session")
