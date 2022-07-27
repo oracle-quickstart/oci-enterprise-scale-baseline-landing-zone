@@ -2,7 +2,6 @@
 # Required variables
 # -----------------------------------------------------------------------------
 
-tenancy_ocid = "ocid1.tenancy.oc1..aaaaaaaaxbchsnzhdxyoewmoqiqzvltba2ri7gijhbd2z5ybpgorv7yhxeeq"
 budget_amount = "100000"
 budget_target_name = "budget-test-target-name"
 budget_target = "ocid1.tenancy.oc1..aaaaaaaaxbchsnzhdxyoewmoqiqzvltba2ri7gijhbd2z5ybpgorv7yhxeeq"
