@@ -1,7 +1,0 @@
-# PROVIDER
-region               = "$region"
-tenancy_ocid         = "$tenancy_ocid"
-current_user_ocid    = "$user_ocid"
-api_fingerprint      = "$fingerprint"
-api_private_key_path = "tfKey"
-

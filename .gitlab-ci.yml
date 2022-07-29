@@ -1,5 +1,6 @@
-
 .testing_pipeline:
+    variables:
+        module_folders: "budget compartments iam monitoring security vcn"
     before_script:
         - export http_proxy=http://www-proxy-hqdc.us.oracle.com:80
         - export https_proxy=$http_proxy
@@ -9,25 +10,19 @@
         - pip install pytest
         - pip install boto3
         - pip install pytest_terraform
-        - apt-get update && apt-get install -y gettext
-        - echo "$tfKey" > "budget/tfKey"
-        - echo "$tfKey" > "compartments/tfKey"
-        - echo "$tfKey" > "iam/tfKey"
-        - echo "$tfKey" > "monitoring/tfKey"
-        - echo "$tfKey" > "security/tfKey"
-        - echo "$tfKey" > "vcn/tfKey"
-        - envsubst < testing/tfvars.example > budget/terraform.tfvars
-        - envsubst < testing/tfvars.example > compartments/terraform.tfvars
-        - envsubst < testing/tfvars.example > iam/terraform.tfvars
-        - envsubst < testing/tfvars.example > monitoring/terraform.tfvars
-        - envsubst < testing/tfvars.example > security/terraform.tfvars
-        - envsubst < testing/tfvars.example > vcn/terraform.tfvars
-        - cp testing/providers.tf budget/providers.tf
-        - cp testing/providers.tf compartments/providers.tf
-        - cp testing/providers.tf iam/providers.tf
-        - cp testing/providers.tf monitoring/providers.tf
-        - cp testing/providers.tf security/providers.tf
-        - cp testing/providers.tf vcn/providers.tf
+        - |+
+          for folder in $module_folders 
+          do
+            echo "$tfKey" > "$folder/tfKey"
+            cp testing/providers.tf "$folder/providers.tf"
+            for dir in $folder/*; 
+            do
+                if [ -d "$dir" ]; then
+                    echo "$tfKey" > "$dir/tfKey"
+                    cp testing/providers.tf "$dir/providers.tf"
+                fi
+            done 
+          done
     stage: test
     tags: [LZ]
     image: lab-runner
@@ -35,7 +30,8 @@
 unit_tests:
     extends: .testing_pipeline
     script:
-        - pytest -m unit
+        - pytest -k terraform --tf-mod-dir=budget tests/test_budget.py
+        - pytest -k terraform --tf-mod-dir=compartments tests/test_compartments.py
     only:
         refs:
             - merge_requests
@@ -51,7 +47,7 @@ integration_test:
         refs:
             - merge_requests
         variables:
-            - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "prod"
+            - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "production"
 
 release:
     stage: deploy
@@ -66,5 +62,3 @@ release:
         - npx semantic-release -b $CI_COMMIT_REF_NAME
     rules:
          - if: '$CI_COMMIT_BRANCH == "production"'
-
-

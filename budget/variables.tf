@@ -1,11 +1,6 @@
 # -----------------------------------------------------------------------------
 # Required inputs
 # -----------------------------------------------------------------------------
-variable "tenancy_ocid" {
-  description = "The OCID of tenancy"
-  type        = string
-}
-
 variable "budget_amount" {
   description = "The amount of the budget expressed as a whole number in the currency of the customer's rate card."
   default     = null
