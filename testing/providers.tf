@@ -3,6 +3,11 @@ variable "region" {
   description = "the OCI region"
 }
 
+variable "tenancy_ocid" {
+  description = "The OCID of tenancy"
+  type        = string
+}
+
 variable "current_user_ocid" {
   type        = string
   description = "OCID of the current user"
