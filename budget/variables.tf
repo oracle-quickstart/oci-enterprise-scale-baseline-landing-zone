@@ -1,6 +1,11 @@
 # -----------------------------------------------------------------------------
 # Required inputs
 # -----------------------------------------------------------------------------
+variable "tenancy_ocid" {
+  type        = string
+  description = "the ocid of tenancy"
+}
+
 variable "budget_amount" {
   description = "The amount of the budget expressed as a whole number in the currency of the customer's rate card."
   default     = null

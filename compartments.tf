@@ -12,7 +12,7 @@ locals {
 # Create Parent compartment, for top level organization
 # -----------------------------------------------------------------------------
 module "parent-compartment" {
-  source                     = "./compartments/parent-compartment"
+  source                     = "./compartments/parent_compartment"
   compartment_delete_enabled = var.is_sandbox_mode_enabled
   tenancy_ocid               = var.tenancy_ocid
   compartment_name           = var.parent_compartment_name
@@ -29,7 +29,7 @@ module "parent-compartment" {
 # Create compartment for common infrastructure compartments
 # -----------------------------------------------------------------------------
 module "common-infra-compartment" {
-  source                     = "./compartments/common-infra-compartment"
+  source                     = "./compartments/common_infra_compartment"
   compartment_delete_enabled = var.is_sandbox_mode_enabled
   parent_compartment_ocid    = module.parent-compartment.parent_compartment_id
   compartment_name           = var.common_infra_compartment_name
@@ -46,7 +46,7 @@ module "common-infra-compartment" {
 # Create compartment for application compartments
 # -----------------------------------------------------------------------------
 module "applications-compartment" {
-  source                     = "./compartments/applications-compartment"
+  source                     = "./compartments/applications_compartment"
   compartment_delete_enabled = var.is_sandbox_mode_enabled
   parent_compartment_ocid    = module.parent-compartment.parent_compartment_id
   compartment_name           = var.applications_compartment_name
@@ -63,7 +63,7 @@ module "applications-compartment" {
 # Create compartment for network components
 # -----------------------------------------------------------------------------
 module "network-compartment" {
-  source                        = "./compartments/network-compartment"
+  source                        = "./compartments/network_compartment"
   compartment_delete_enabled    = var.is_sandbox_mode_enabled
   common_infra_compartment_ocid = module.common-infra-compartment.common_infra_compartment_id
   compartment_name              = var.network_compartment_name
@@ -80,7 +80,7 @@ module "network-compartment" {
 # Create compartment for security components
 # -----------------------------------------------------------------------------
 module "security-compartment" {
-  source                        = "./compartments/security-compartment"
+  source                        = "./compartments/security_compartment"
   compartment_delete_enabled    = var.is_sandbox_mode_enabled
   common_infra_compartment_ocid = module.common-infra-compartment.common_infra_compartment_id
   compartment_name              = var.security_compartment_name

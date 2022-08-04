@@ -1,6 +1,11 @@
 # -----------------------------------------------------------------------------
 # Required inputs
 # -----------------------------------------------------------------------------
+variable "tenancy_ocid" {
+  type        = string
+  description = "root-level / tenancy OCID"
+}
+
 variable "compartment_name" {
   type        = string
   description = "Name of the compartment to create"
