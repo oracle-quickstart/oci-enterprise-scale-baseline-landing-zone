@@ -21,10 +21,14 @@ resource "oci_logging_log_group" "central_log_group" {
   }
 }
 
+resource "random_id" "log" {
+  byte_length = 4
+}
+
 resource "oci_log_analytics_log_analytics_log_group" "log_analytics_log_group" {
   count          = var.using_third_party_siem ? 0 : 1
   compartment_id = var.security_compartment_ocid
-  display_name   = "${var.log_analytics_log_group_display_name}${var.suffix}"
+  display_name   = "${var.log_analytics_log_group_display_name}${var.suffix}${random_id.log.hex}"
   namespace      = data.oci_log_analytics_namespaces.logging_analytics_namespaces.namespace_collection[0].items[0].namespace
 
   freeform_tags = {

@@ -17,11 +17,15 @@ resource "oci_cloud_guard_cloud_guard_configuration" "tenancy_cloud_guard_config
 # ---------------------------------------------------------------------------------------------------------------------
 # Cloud Guard policies
 # ---------------------------------------------------------------------------------------------------------------------
+resource "random_id" "cloudguard" {
+  byte_length = 4
+}
+
 resource "oci_identity_policy" "cloud_guard_policy" {
   provider       = oci.home_region
   compartment_id = var.tenancy_ocid
   description    = "OCI Landing Zone Cloud Guard Policy"
-  name           = "${var.cloud_guard_policy_name}${var.suffix}"
+  name           = "${var.cloud_guard_policy_name}${var.suffix}${random_id.cloudguard.hex}"
 
   freeform_tags = {
     "Description" = "Cloud guard policy"

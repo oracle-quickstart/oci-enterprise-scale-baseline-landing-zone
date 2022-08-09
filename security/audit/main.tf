@@ -34,10 +34,14 @@ resource "time_offset" "bucket_creation_timestamp" {
   offset_days = 15
 }
 
+resource "random_id" "bucket" {
+  byte_length = 4
+}
+
 resource "oci_objectstorage_bucket" "audit_log_bucket" {
   compartment_id = var.security_compartment_ocid
   namespace      = data.oci_objectstorage_namespace.ns.namespace
-  name           = "${var.audit_log_bucket_name}${var.suffix}"
+  name           = "${var.audit_log_bucket_name}${var.suffix}${random_id.bucket.hex}"
   access_type    = "NoPublicAccess"
   kms_key_id     = var.key_id
   storage_tier   = "Archive"
