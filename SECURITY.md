@@ -32,6 +32,7 @@ for secure use, or any known security issues in our documentation. Please note
 that labs and sample code are intended to demonstrate a concept and may not be
 sufficiently hardened for production use.
 
+
 [1]: mailto:secalert_us@oracle.com
 [2]: https://www.oracle.com/corporate/security-practices/assurance/vulnerability/reporting.html
 [3]: https://www.oracle.com/security-alerts/encryptionkey.html
