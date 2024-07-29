@@ -21,7 +21,7 @@ Before you launch the enterprise scale baseline landing zone, prepare the follow
 
 Install the enterprise scale baseline landing zone using the Console, Resource Manager, or the Oracle Cloud Infrastructure Terraform provider.
 
-The Terraform template is available on GitHub: [https://github.com/oracle-quickstart/oci-enterprise-scale-baseline-landing-zone](https://github.com/oracle-quickstart/oci-enterprise-scale-baseline-landing-zone)
+The Terraform template is available on GitHub: [https://github.com/oci-landing-zones/oci-enterprise-scale-baseline-landing-zone](https://github.com/oci-landing-zones/oci-enterprise-scale-baseline-landing-zone)
 
 ### Terraform Modules {#terraform-modules .section .vl-include-in-page-toc}
 

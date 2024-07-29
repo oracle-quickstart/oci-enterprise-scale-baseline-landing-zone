@@ -20,7 +20,7 @@ Before you launch the workload expansion, prepare the following information.
 ## How to Deploy {#how-to-deploy .vl-include-in-page-toc}
 Install the enterprise scale baseline landing zone first using the Console, Resource Manager, or the Oracle Cloud Infrastructure Terraform provider. The Workload Expansion can be deployed after as it builds on top of the Enterprise Scale Landing Zone and is not intended to be deployed as a standalone.
 
-The Terraform template is available on GitHub: [https://github.com/oracle-quickstart/oci-esblz-workload-expansion](https://github.com/oracle-quickstart/oci-esblz-workload-expansion)
+The Terraform template is available on GitHub: [https://github.com/oci-landing-zones/oci-esblz-workload-expansion](https://github.com/oci-landing-zones/oci-esblz-workload-expansion)
 
 If deploying locally, create a terraform.tfvars file and populate with the required variables or override existing variables. 
 
