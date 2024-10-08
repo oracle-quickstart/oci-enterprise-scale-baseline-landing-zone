@@ -1,4 +1,10 @@
-# oci-enterprise-scale-baseline-landing-zone
+# Landing Zones
+ 
+Welcome to the [OCI Landing Zones (OLZ) Community](https://github.com/oci-landing-zones)! OCI Landing Zones simplify onboarding and running on OCI by providing design guidance, best practices, and pre-configured Terraform deployment templates for various architectures and use cases. These enable customers to easily provision a secure tenancy foundation in the cloud along with all required services, and reliably scale as workloads expand.
+ 
+### This repository is archived in favor of the current release available from the OCI Landing Zones GitHub Organization. Please use [Oracle Enterprise Landing Zone Version 2](https://github.com/oci-landing-zones/oracle-enterprise-landingzone).
+
+## oci-enterprise-scale-baseline-landing-zone
 This Terraform stack deploys a baseline landing zone.
 
 ## Requirements
