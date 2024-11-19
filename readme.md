@@ -2,7 +2,7 @@
  
 Welcome to the [OCI Landing Zones (OLZ) Community](https://github.com/oci-landing-zones)! OCI Landing Zones simplify onboarding and running on OCI by providing design guidance, best practices, and pre-configured Terraform deployment templates for various architectures and use cases. These enable customers to easily provision a secure tenancy foundation in the cloud along with all required services, and reliably scale as workloads expand.
  
-### This repository is archived in favor of the current release available from the OCI Landing Zones GitHub Organization. Please use [Oracle Enterprise Landing Zone Version 2](https://github.com/oci-landing-zones/oracle-enterprise-landingzone).
+### This repository is archived in favor of the current release available from the OCI Landing Zones GitHub Organization. Please use [OCI Core Landing Zone](https://github.com/oci-landing-zones/terraform-oci-core-landingzone).
 
 ## oci-enterprise-scale-baseline-landing-zone
 This Terraform stack deploys a baseline landing zone.
@@ -21,7 +21,7 @@ category a particular variable belongs to. Not all the variables in this file ar
 ## Deploy Using Oracle Resource Manager
 1. Click to deploy the stack
    
-[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/oci-enterprise-scale-baseline-landing-zone/releases/download/latest/oci-enterprise-scale-baseline-landing-zone.zip)
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oci-landing-zones/terraform-oci-core-landingzone/archive/refs/heads/main.zip)
 
     If you aren't already signed in, when prompted, enter the tenancy and user credentials. Review and accept the terms and conditions.
 
